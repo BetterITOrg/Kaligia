@@ -10,10 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 @SpringBootApplication
 public class KaligiaApplication implements CommandLineRunner {
-	
-    @Autowired
-    JdbcTemplate jdbcTemplate;
-    
+	    
 	public static void main(String[] args) {
 		SpringApplication.run(KaligiaApplication.class, args);
 	}
@@ -22,8 +19,10 @@ public class KaligiaApplication implements CommandLineRunner {
     @Override
     public void run(String... strings) throws Exception {
     	
+    	/*
     	TestRun tr = new TestRun("Sample", "Test Run", "Test", 15, 1, 1, 1, 0, 1, 0, jdbcTemplate);
     	tr.doTestRun();
+    	*/
     
     };
     

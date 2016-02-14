@@ -67,9 +67,10 @@ public class TestRun {
 					Integer nonLinear,
 					Integer boxcarWidth,
 					Integer spectrometerIndex,
+					Integer run_no,
 					JdbcTemplate jdbc) {
 		this.ts = new Date();
-		this.name = name + "_" + ts.toString();
+		this.name = name + "_" + ts.toString() + "_" + run_no;
 		this.description = description;
 		this.type = type;
 		this.integrationTime = integrationTime;
@@ -86,7 +87,7 @@ public class TestRun {
 		this.specimen_id = 1;
 		this.user_id = 1;
 		this.site_id = 1;
-		this.run_no = 1;
+		this.run_no = run_no;
 		this.status = "New";
 	}
 	
@@ -134,12 +135,12 @@ public class TestRun {
 		singleMeasurement.getSpectra();
 		spectraM = singleMeasurement.returnSpectra();
 		wavelengthM = singleMeasurement.returnWavelength();
-		
 		*/
 		
+		
 		// Hard Coded for testing
-		double[] wavelengthM = new double[10];
-		double[] spectraM = new double[10];		
+		wavelengthM = new double[10];
+		spectraM = new double[10];		
 		for (int j = 0; j < 10; j++) {
 			wavelengthM[j]=j+1;
 			spectraM[j]=j+1;

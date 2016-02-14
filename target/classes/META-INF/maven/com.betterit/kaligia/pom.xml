@@ -6,7 +6,6 @@
 	<groupId>com.betterit</groupId>
 	<artifactId>kaligia</artifactId>
 	<version>1.0</version>
-	<packaging>jar</packaging>
 
 	<name>Kaligia</name>
 	<description>Kaligia Application</description>
@@ -44,12 +43,41 @@
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>9.4-1206-jdbc42</version>
-		</dependency>
+			</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.oceanoptics</groupId>
+			<artifactId>omnidriver</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.oceanoptics</groupId>
+			<artifactId>uniusb</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.oceanoptics</groupId>
+			<artifactId>OOIUtils</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.oceanoptics</groupId>
+			<artifactId>spam</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.oceanoptics</groupId>
+			<artifactId>unirs232</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 	</dependencies>
 	
@@ -59,7 +87,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-		</plugins>
+    	</plugins>
 	</build>
 	
 
