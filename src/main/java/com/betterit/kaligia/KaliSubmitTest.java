@@ -5,87 +5,95 @@ public class KaliSubmitTest {
    
    private String Name;
    private String Description;
-   private Integer IntegTime1 ;
-   private Integer Scan2Avg1;
-   private Integer BoxCarWid1;
-   private Integer ElectricDark1;
-   private Integer NLCorrect1;
-   private Integer Delay1;
-   private Integer Voltage1;
-   private String Status1;
+   private Integer IntegTime1=0 ;
+   private Integer Scan2Avg1=1;
+   private Integer BoxCarWid1=6;
+   private Integer ElectricDark1=1;
+   private Integer NLCorrect1=0;
+   private Integer Delay1=1;
+   private Integer Voltage1=1;
+   private String Status1="Not Run";
    
-   private Integer IntegTime2 ;
-   private Integer Scan2Avg2;
-   private Integer BoxCarWid2;
-   private Integer ElectricDark2;
-   private Integer NLCorrect2;
-   private Integer Delay2;
-   private Integer Voltage2;
-   private String Status2;
+   private Integer IntegTime2=0 ;
+   private Integer Scan2Avg2=1;
+   private Integer BoxCarWid2=6;
+   private Integer ElectricDark2=1;
+   private Integer NLCorrect2=0;
+   private Integer Delay2=1;
+   private Integer Voltage2=1;
+   private String Status2="Not Run";
    
-   private Integer IntegTime3 ;
-   private Integer Scan2Avg3;
-   private Integer BoxCarWid3;
-   private Integer ElectricDark3;
-   private Integer NLCorrect3;
-   private Integer Delay3;
-   private Integer Voltage3;
+   private Integer IntegTime3=0 ;
+   private Integer Scan2Avg3=1;
+   private Integer BoxCarWid3=6;
+   private Integer ElectricDark3=1;
+   private Integer NLCorrect3=0;
+   private Integer Delay3=1;
+   private Integer Voltage3=1;
+   private String Status3="Not Run";
    
-   private Integer IntegTime4 ;
-   private Integer Scan2Avg4;
-   private Integer BoxCarWid4;
-   private Integer ElectricDark4;
-   private Integer NLCorrect4;
-   private Integer Delay4;
-   private Integer Voltage4;
+   private Integer IntegTime4=0 ;
+   private Integer Scan2Avg4=1;
+   private Integer BoxCarWid4=6;
+   private Integer ElectricDark4=1;
+   private Integer NLCorrect4=0;
+   private Integer Delay4=1;
+   private Integer Voltage4=1;
+   private String Status4="Not Run";
    
-   private Integer IntegTime5 ;
-   private Integer Scan2Avg5;
-   private Integer BoxCarWid5;
-   private Integer ElectricDark5;
-   private Integer NLCorrect5;
-   private Integer Delay5;
-   private Integer Voltage5;
+   private Integer IntegTime5=0 ;
+   private Integer Scan2Avg5=1;
+   private Integer BoxCarWid5=6;
+   private Integer ElectricDark5=1;
+   private Integer NLCorrect5=0;
+   private Integer Delay5=1;
+   private Integer Voltage5=1;
+   private String Status5="Not Run";
    
-   private Integer IntegTime6 ;
-   private Integer Scan2Avg6;
-   private Integer BoxCarWid6;
-   private Integer ElectricDark6;
-   private Integer NLCorrect6;
-   private Integer Delay6;
-   private Integer Voltage6;
+   private Integer IntegTime6=0 ;
+   private Integer Scan2Avg6=1;
+   private Integer BoxCarWid6=6;
+   private Integer ElectricDark6=1;
+   private Integer NLCorrect6=0;
+   private Integer Delay6=1;
+   private Integer Voltage6=1;
+   private String Status6="Not Run";
    
-   private Integer IntegTime7 ;
-   private Integer Scan2Avg7;
-   private Integer BoxCarWid7;
-   private Integer ElectricDark7;
-   private Integer NLCorrect7;
-   private Integer Delay7;
-   private Integer Voltage7;
+   private Integer IntegTime7=0 ;
+   private Integer Scan2Avg7=1;
+   private Integer BoxCarWid7=6;
+   private Integer ElectricDark7=1;
+   private Integer NLCorrect7=0;
+   private Integer Delay7=1;
+   private Integer Voltage7=1;
+   private String Status7="Not Run";
    
-   private Integer IntegTime8 ;
-   private Integer Scan2Avg8;
-   private Integer BoxCarWid8;
-   private Integer ElectricDark8;
-   private Integer NLCorrect8;
-   private Integer Delay8;
-   private Integer Voltage8;
+   private Integer IntegTime8=0 ;
+   private Integer Scan2Avg8=1;
+   private Integer BoxCarWid8=6;
+   private Integer ElectricDark8=1;
+   private Integer NLCorrect8=0;
+   private Integer Delay8=1;
+   private Integer Voltage8=1;
+   private String Status8="Not Run";
 
-   private Integer IntegTime9 ;
-   private Integer Scan2Avg9;
-   private Integer BoxCarWid9;
-   private Integer ElectricDark9;
-   private Integer NLCorrect9;
-   private Integer Delay9;
-   private Integer Voltage9;
+   private Integer IntegTime9=0 ;
+   private Integer Scan2Avg9=1;
+   private Integer BoxCarWid9=6;
+   private Integer ElectricDark9=1;
+   private Integer NLCorrect9=0;
+   private Integer Delay9=1;
+   private Integer Voltage9=1;
+   private String Status9="Not Run";
    
-   private Integer IntegTime10 ;
-   private Integer Scan2Avg10;
-   private Integer BoxCarWid10;
-   private Integer ElectricDark10;
-   private Integer NLCorrect10;
-   private Integer Delay10;
-   private Integer Voltage10;
+   private Integer IntegTime10=0 ;
+   private Integer Scan2Avg10=1;
+   private Integer BoxCarWid10=6;
+   private Integer ElectricDark10=1;
+   private Integer NLCorrect10=0;
+   private Integer Delay10=1;
+   private Integer Voltage10=1;
+   private String Status10="Not Run";
    
    
 public String getName() {
@@ -543,6 +551,102 @@ public String getStatus2() {
  */
 public void setStatus2(String status2) {
 	Status2 = status2;
+}
+/**
+ * @return the status3
+ */
+public String getStatus3() {
+	return Status3;
+}
+/**
+ * @param status3 the status3 to set
+ */
+public void setStatus3(String status3) {
+	Status3 = status3;
+}
+/**
+ * @return the status4
+ */
+public String getStatus4() {
+	return Status4;
+}
+/**
+ * @param status4 the status4 to set
+ */
+public void setStatus4(String status4) {
+	Status4 = status4;
+}
+/**
+ * @return the status5
+ */
+public String getStatus5() {
+	return Status5;
+}
+/**
+ * @param status5 the status5 to set
+ */
+public void setStatus5(String status5) {
+	Status5 = status5;
+}
+/**
+ * @return the status6
+ */
+public String getStatus6() {
+	return Status6;
+}
+/**
+ * @param status6 the status6 to set
+ */
+public void setStatus6(String status6) {
+	Status6 = status6;
+}
+/**
+ * @return the status7
+ */
+public String getStatus7() {
+	return Status7;
+}
+/**
+ * @param status7 the status7 to set
+ */
+public void setStatus7(String status7) {
+	Status7 = status7;
+}
+/**
+ * @return the status8
+ */
+public String getStatus8() {
+	return Status8;
+}
+/**
+ * @param status8 the status8 to set
+ */
+public void setStatus8(String status8) {
+	Status8 = status8;
+}
+/**
+ * @return the status9
+ */
+public String getStatus9() {
+	return Status9;
+}
+/**
+ * @param status9 the status9 to set
+ */
+public void setStatus9(String status9) {
+	Status9 = status9;
+}
+/**
+ * @return the status10
+ */
+public String getStatus10() {
+	return Status10;
+}
+/**
+ * @param status10 the status10 to set
+ */
+public void setStatus10(String status10) {
+	Status10 = status10;
 }
    
    

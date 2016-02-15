@@ -1,0 +1,145 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Spectra Test Input</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+<form action="#" th:action="@{KaliSubmitTest}" th:object="${KaliSubmitTest}" method="POST">
+<img src="/images/kaligia-logo.png" height="150" width="400" />
+
+<HR/>
+    <p> SUBJECT/PATIENT Name: <input type="text" th:field="*{Name}" size="20" maxlength="15" /> </p>
+    <p> Description: <input type="text" th:field="*{Description}" size="80" maxlength="80" /> </p> 
+
+<HR/>
+TEST PARAMETERS
+
+Only valid Integration times will be run. PLease edit integration time to run.
+
+  
+
+    <TABLE width="900" border="1">
+        <TR> <TD width="120"> </TD> 
+             <TD> IntegrationTime </TD>   
+             <TD> Scan2Avg </TD> 
+             <TD> BoxCarWidth </TD> 
+             <TD> ElectricDark </TD> 
+             <TD> NonLinearCorrect </TD> 
+             <TD> Delay </TD> 
+             <TD> Voltage </TD>
+        </TR>
+        <TR> <TD width="140"> READING 1:</TD>  
+            <TD width="80"> <input type="text" th:field="*{IntegTime1}" size="6" maxlength="6" /> </TD>   
+            <TD width="80"> <input type="text" th:field="*{Scan2Avg1}" size="3" maxlength="3" value="1"  /> </TD>
+            <TD width="80"> <input type="text" th:field="*{BoxCarWid1}" size="3" maxlength="3" value="1" /> </TD>
+            <TD width="80"> <input type="text" th:field="*{ElectricDark1}" size="3" maxlength="1" value="1" /> </TD>
+            <TD width="80"> <input type="text" th:field="*{NLCorrect1}" size="3" maxlength="3" value="0" /> </TD>
+            <TD width="80"> <input type="text" th:field="*{Delay1}" size="3" maxlength="3" value="1" /> </TD>
+            <TD width="80"> <input type="text" th:field="*{Voltage1}" size="4" maxlength="4" value="0.5" /> </TD>
+        </TR>
+
+        <TR> <TD width="140"> READING 2:</TD>  
+            <TD width="80"> <input type="text" th:field="*{IntegTime2}" size="6" maxlength="6" /> </TD>   
+            <TD width="80"> <input type="text" th:field="*{Scan2Avg2}" size="3" maxlength="3" value="1" /> </TD>
+            <TD width="80"> <input type="text" th:field="*{BoxCarWid2}" size="3" maxlength="3" value="1" /> </TD>
+            <TD width="80"> <input type="text" th:field="*{ElectricDark2}" size="3" maxlength="1" value="1" /> </TD>
+            <TD width="80"> <input type="text" th:field="*{NLCorrect2}" size="3" maxlength="3" value="0" /> </TD>
+            <TD width="80"> <input type="text" th:field="*{Delay2}" size="3" maxlength="3" value="1" /> </TD>
+            <TD width="80"> <input type="text" th:field="*{Voltage2}" size="4" maxlength="4" value="0.5" /> </TD>
+        </TR>
+
+<!--
+        <TR>
+            <TD width="140"> READING 3:</TD>
+            <TD width="80"> <input type="text" name="IntegTime3" id="IntegTime3" size="6" maxlength="6" /> </TD>
+            <TD width="80"> <input type="text" name="Scan2Avg3" id="Scan2Avg3" size="3" maxlength="3" value="1" /> </TD>
+            <TD width="80"> <input type="text" name="BoxCarWid3" id="BoxCarWid3" size="3" maxlength="3" value="1" /> </TD>
+            <TD width="80"> <input type="text" name="ElectricDark3" id="ElectricDark3" size="3" maxlength="1" value="1" /> </TD>
+            <TD width="80"> <input type="text" name="NLCorrect3" id="NLCorrect3" size="3" maxlength="3" value="0" /> </TD>
+            <TD width="80"> <input type="text" name="Delay3" id="Delay3" size="3" maxlength="3" value="1" /> </TD>
+            <TD width="80"> <input type="text" name="Voltage3" id="Voltage3" size="4" maxlength="4" value="0.5" /> </TD>
+        </TR>
+        <TR>
+            <TD width="140"> READING 4:</TD>
+            <TD width="80"> <input type="text" name="IntegTime4" id="IntegTime4" size="6" maxlength="6" /> </TD>
+            <TD width="80"> <input type="text" name="Scan2Avg4" id="Scan2Avg4" size="3" maxlength="3" value="1" /> </TD>
+            <TD width="80"> <input type="text" name="BoxCarWid4" id="BoxCarWid4" size="3" maxlength="3" value="1" /> </TD>
+            <TD width="80"> <input type="text" name="ElectricDark4" id="ElectricDark4" size="3" maxlength="1" value="1" /> </TD>
+            <TD width="80"> <input type="text" name="NLCorrect4" id="NLCorrect4" size="3" maxlength="3" value="0" /> </TD>
+            <TD width="80"> <input type="text" name="Delay4" id="Delay4" size="3" maxlength="3" value="1" /> </TD>
+            <TD width="80"> <input type="text" name="Voltage4" id="Voltage4" size="4" maxlength="4" value="0.5" /> </TD>
+        </TR>
+        <TR>
+            <TD width="140"> READING 5:</TD>
+            <TD width="80"> <input type="text" name="IntegTime5" id="IntegTime5" size="6" maxlength="6" /> </TD>
+            <TD width="80"> <input type="text" name="Scan2Avg5" id="Scan2Avg5" size="3" maxlength="3" value="1" /> </TD>
+            <TD width="80"> <input type="text" name="BoxCarWid5" id="BoxCarWid5" size="3" maxlength="3" value="1" /> </TD>
+            <TD width="80"> <input type="text" name="ElectricDark5" id="ElectricDark5" size="3" maxlength="1" value="1" /> </TD>
+            <TD width="80"> <input type="text" name="NLCorrect5" id="NLCorrect5" size="3" maxlength="3" value="0" /> </TD>
+            <TD width="80"> <input type="text" name="Delay5" id="Delay5" size="3" maxlength="3" value="1" /> </TD>
+            <TD width="80"> <input type="text" name="Voltage5" id="Voltage5" size="4" maxlength="4" value="0.5" /> </TD>
+        </TR>
+        <TR>
+            <TD width="140"> READING 6:</TD>
+            <TD width="80"> <input type="text" name="IntegTime6" id="IntegTime6" size="6" maxlength="6" /> </TD>
+            <TD width="80"> <input type="text" name="Scan2Avg6" id="Scan2Avg6" size="3" maxlength="3" value="1" /> </TD>
+            <TD width="80"> <input type="text" name="BoxCarWid6" id="BoxCarWid6" size="3" maxlength="3" value="1" /> </TD>
+            <TD width="80"> <input type="text" name="ElectricDark6" id="ElectricDark6" size="3" maxlength="1" value="1" /> </TD>
+            <TD width="80"> <input type="text" name="NLCorrect6" id="NLCorrect6" size="3" maxlength="3" value="0" /> </TD>
+            <TD width="80"> <input type="text" name="Delay6" id="Delay6" size="3" maxlength="3" value="1" /> </TD>
+            <TD width="80"> <input type="text" name="Voltage6" id="Voltage6" size="4" maxlength="4" value="0.5" /> </TD>
+        </TR>
+        <TR>
+            <TD width="140"> READING 7:</TD>
+            <TD width="80"> <input type="text" name="IntegTime7" id="IntegTime7" size="6" maxlength="6" /> </TD>
+            <TD width="80"> <input type="text" name="Scan2Avg7" id="Scan2Avg7" size="3" maxlength="3" value="1" /> </TD>
+            <TD width="80"> <input type="text" name="BoxCarWid7" id="BoxCarWid7" size="3" maxlength="3" value="1" /> </TD>
+            <TD width="80"> <input type="text" name="ElectricDark7" id="ElectricDark7" size="3" maxlength="1" value="1" /> </TD>
+            <TD width="80"> <input type="text" name="NLCorrect7" id="NLCorrect7" size="3" maxlength="3" value="0" /> </TD>
+            <TD width="80"> <input type="text" name="Delay7" id="Delay7" size="3" maxlength="3" value="1" /> </TD>
+            <TD width="80"> <input type="text" name="Voltage7" id="Voltage7" size="4" maxlength="4" value="0.5" /> </TD>
+        </TR>
+        <TR>
+            <TD width="140"> READING 8:</TD>
+            <TD width="80"> <input type="text" name="IntegTime8" id="IntegTime8" size="6" maxlength="6" /> </TD>
+            <TD width="80"> <input type="text" name="Scan2Avg8" id="Scan2Avg8" size="3" maxlength="3" value="1" /> </TD>
+            <TD width="80"> <input type="text" name="BoxCarWid8" id="BoxCarWid8" size="3" maxlength="3" value="1" /> </TD>
+            <TD width="80"> <input type="text" name="ElectricDark8" id="ElectricDark8" size="3" maxlength="1" value="1" /> </TD>
+            <TD width="80"> <input type="text" name="NLCorrect8" id="NLCorrect8" size="3" maxlength="3" value="0" /> </TD>
+            <TD width="80"> <input type="text" name="Delay8" id="Delay8" size="3" maxlength="3" value="1" /> </TD>
+            <TD width="80"> <input type="text" name="Voltage8" id="Voltage8" size="4" maxlength="4" value="0.5" /> </TD>
+        </TR>
+        <TR>
+            <TD width="140"> READING 9:</TD>
+            <TD width="80"> <input type="text" name="IntegTime9" id="IntegTime9" size="6" maxlength="6" /> </TD>
+            <TD width="80"> <input type="text" name="Scan2Avg9" id="Scan2Avg9" size="3" maxlength="3" value="1" /> </TD>
+            <TD width="80"> <input type="text" name="BoxCarWid9" id="BoxCarWid9" size="3" maxlength="3" value="1" /> </TD>
+            <TD width="80"> <input type="text" name="ElectricDark9" id="ElectricDark9" size="3" maxlength="1" value="1" /> </TD>
+            <TD width="80"> <input type="text" name="NLCorrect9" id="NLCorrect9" size="3" maxlength="3" value="0" /> </TD>
+            <TD width="80"> <input type="text" name="Delay9" id="Delay9" size="3" maxlength="3" value="1" /> </TD>
+            <TD width="80"> <input type="text" name="Voltage9" id="Voltage9" size="4" maxlength="4" value="0.5" /> </TD>
+        </TR>
+        <TR>
+            <TD width="140"> READING 10:</TD>
+            <TD width="80"> <input type="text" name="IntegTime10" id="IntegTime10" size="6" maxlength="6" /> </TD>
+            <TD width="80"> <input type="text" name="Scan2Avg10" id="Scan2Avg10" size="3" maxlength="3" value="1" /> </TD>
+            <TD width="80"> <input type="text" name="BoxCarWid10" id="BoxCarWid10" size="3" maxlength="3" value="1" /> </TD>
+            <TD width="80"> <input type="text" name="ElectricDark10" id="ElectricDark10" size="3" maxlength="1" value="1" /> </TD>
+            <TD width="80"> <input type="text" name="NLCorrect10" id="NLCorrect10" size="3" maxlength="3" value="0" /> </TD>
+            <TD width="80"> <input type="text" name="Delay10" id="Delay10" size="3" maxlength="3" value="1" /> </TD>
+            <TD width="80"> <input type="text" name="Voltage10" id="Voltage10" size="4" maxlength="4" value="0.5" /> </TD>
+        </TR>
+-->
+    </TABLE>
+
+
+    <TABLE>
+        <TR> <TD width="800">  </TD> <TD> <input type="submit" name="Run" value="Submit" style="background-color:#888; color:#fff; height=30; width=30;" /> </TD> </TR>
+    </TABLE>	
+
+
+    </form>
+</body>
+</html>

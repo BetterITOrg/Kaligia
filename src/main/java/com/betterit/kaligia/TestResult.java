@@ -110,9 +110,9 @@ public class TestResult {
 	            public void setValues(PreparedStatement ps, int i) throws SQLException {
 	            	ps.setInt(1, run_id);
 	            	ps.setInt(2, run_on);
-	            	ps.setInt(3, (int)wavenumber[i]);
+	            	ps.setDouble(3, wavenumber[i]);
 	            	ps.setDouble(4, photon_count[i]);	
-	            	log.info("Run: " + run_id + " Run No: " + run_on + " W: " + (int)wavenumber[i] +  " P: " + photon_count[i]);
+	            	log.info("Run: " + run_id + " Run No: " + run_on + " W: " + wavenumber[i] +  " P: " + photon_count[i]);
 	            }
 	            
 	            @Override
