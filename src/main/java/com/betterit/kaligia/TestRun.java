@@ -18,9 +18,11 @@ import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
+import com.labjack.LJUD;
 import com.oceanoptics.omnidriver.api.wrapper.Wrapper;
 import com.oceanoptics.omnidriver.features.buffer.DataBuffer;
 import com.oceanoptics.omnidriver.features.thermoelectric.ThermoElectricWrapper;
+import com.sun.jna.ptr.IntByReference;
 
 /**
  * @author Kaide Johar
@@ -52,6 +54,18 @@ public class TestRun {
 	private int site_id;
 	private int run_no;
 	private String status;
+	
+	private String spectrometerType = "MAYA";			//QEPro or MAYA
+
+	// laser output power
+	private double laserPowV = 0.8; // must be in [0 1.2]V
+
+	// lab jack parameters
+	private int intHandle = 0;
+	private int portNumber = 16;
+	private int portNumberLaser = 18;
+	int acquisitionM = 4;
+	
 	private JdbcTemplate jdbc;
 
 	
@@ -109,34 +123,80 @@ public class TestRun {
 		//Initialize Device
 		
 		Wrapper wrapper_t;
-		DataBuffer bufferCtrl_t;
+		DataBuffer bufferCtrl_t = null;
+		LaserControl lsControl;
+		TTLControl ctrlTTL;
 		
 		try {
 
+		//initialize spectrometer	
 		wrapper_t = new Wrapper();
 		wrapper_t.openAllSpectrometers();
-		bufferCtrl_t = wrapper_t.getFeatureControllerDataBuffer(spectrometerIndex);
+		//bufferCtrl_t = wrapper_t.getFeatureControllerDataBuffer(spectrometerIndex);
 		
-		ThermoElectricWrapper tecController = wrapper_t.getFeatureControllerThermoElectric(spectrometerIndex);
-			double detTemp = tecController.getDetectorTemperatureCelsius();
-			log.info("Detector temperature: " + detTemp + " deg C");
+		// initialize lab jack
+		
+		IntByReference refHandle = new IntByReference(0);
+		LJUD.openLabJack(LJUD.Constants.dtU3, LJUD.Constants.ctUSB, "1", 1, refHandle);
+		int intHandle = refHandle.getValue();
+		LJUD.ePut(intHandle, LJUD.Constants.ioPIN_CONFIGURATION_RESET, 0, 0, 0);
+		// start TTL control thread
+		ctrlTTL = new TTLControl("set high TTL", intHandle, portNumber);
+		Thread newTTLc = new Thread(ctrlTTL);
+		newTTLc.start();
+		// set laser power
+		lsControl = new LaserControl(intHandle, portNumberLaser);
+		lsControl.setTTLSwitchLow();
+		// lsControl.setLaserPower(laserPowV); //works on new OEM laser unit
+	
 		} catch (Exception e) {
+			
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			log.info("Spectrometer Initialization Failed");
 			return 100;
 		}
 
-		// Set Parameters
-		SpectraAcquisition singleMeasurement = new SpectraAcquisition(integrationTime, restTime, scanToAverage, darkCurrentCorrectFlag, nonlinearityCorrectFlag, boxcarWidth, spectrometerIndex, wrapper_t, bufferCtrl_t);
-		singleMeasurement.setParameters();
-		singleMeasurement.setBuffer();
+		switch (spectrometerType) {
+		// QEPro
+		case "QEPro":
+			// Set Parameters		
+			SpectraAcquisitionQEPro singleMeasurement = new SpectraAcquisitionQEPro(acquisitionM, integrationTime, restTime, scanToAverage, darkCurrentCorrectFlag, nonlinearityCorrectFlag, boxcarWidth, spectrometerIndex, wrapper_t, bufferCtrl_t);
+			
+			singleMeasurement.setParameters();
+			singleMeasurement.setBuffer();
+			lsControl.setTTLSwitchHigh();
+			
+			singleMeasurement.getSpectra();
+			
+			spectraM = singleMeasurement.returnSpectra();
+			wavelengthM = singleMeasurement.returnWavelength();
+			
+			lsControl.setTTLSwitchLow();
+			
+		case "MAYA":
+			// MAYA
+			// test run, and make sure the acquisition mode is properly set
+			
+			SpectraAcquisitionMaya singleMeasurementMaya_t = new SpectraAcquisitionMaya(acquisitionM, 0.01, restTime, scanToAverage, darkCurrentCorrectFlag, nonlinearityCorrectFlag, boxcarWidth, spectrometerIndex, wrapper_t);
+			singleMeasurementMaya_t.setParameters();
+			singleMeasurementMaya_t.getSpectra();
+			
+			SpectraAcquisitionMaya singleMeasurementMaya = new SpectraAcquisitionMaya(acquisitionM, integrationTime, restTime, scanToAverage, darkCurrentCorrectFlag, nonlinearityCorrectFlag, boxcarWidth, spectrometerIndex, wrapper_t);
+			singleMeasurementMaya.setParameters();
+			lsControl.setTTLSwitchHigh();
+
+			singleMeasurementMaya.getSpectra();
+
+			spectraM = singleMeasurementMaya.returnSpectra();
+			wavelengthM = singleMeasurementMaya.returnWavelength();
+			lsControl.setTTLSwitchLow();
+			
+		}
 		
-		//Run Test
-		singleMeasurement.getSpectra();
-		spectraM = singleMeasurement.returnSpectra();
-		wavelengthM = singleMeasurement.returnWavelength();
-		
+		ctrlTTL.mystop();
+		wrapper_t.closeAllSpectrometers();
+	
 		
 		/*
 		// Hard Coded for testing
