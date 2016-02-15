@@ -7,92 +7,102 @@ public class KaliSubmitTest {
    private String Description;
    private Integer IntegTime1=0 ;
    private Integer Scan2Avg1=1;
-   private Integer BoxCarWid1=6;
+   private Integer BoxCarWid1=1;
    private Integer ElectricDark1=1;
    private Integer NLCorrect1=0;
    private Integer Delay1=1;
    private Integer Voltage1=1;
+   private Integer Repeat1=1;
    private String Status1="Not Run";
    
    private Integer IntegTime2=0 ;
    private Integer Scan2Avg2=1;
-   private Integer BoxCarWid2=6;
+   private Integer BoxCarWid2=1;
    private Integer ElectricDark2=1;
    private Integer NLCorrect2=0;
    private Integer Delay2=1;
    private Integer Voltage2=1;
+   private Integer Repeat2=1;
    private String Status2="Not Run";
    
    private Integer IntegTime3=0 ;
    private Integer Scan2Avg3=1;
-   private Integer BoxCarWid3=6;
+   private Integer BoxCarWid3=1;
    private Integer ElectricDark3=1;
    private Integer NLCorrect3=0;
    private Integer Delay3=1;
    private Integer Voltage3=1;
+   private Integer Repeat3=1;
    private String Status3="Not Run";
    
    private Integer IntegTime4=0 ;
    private Integer Scan2Avg4=1;
-   private Integer BoxCarWid4=6;
+   private Integer BoxCarWid4=1;
    private Integer ElectricDark4=1;
    private Integer NLCorrect4=0;
    private Integer Delay4=1;
    private Integer Voltage4=1;
+   private Integer Repeat4=1;
    private String Status4="Not Run";
    
    private Integer IntegTime5=0 ;
    private Integer Scan2Avg5=1;
-   private Integer BoxCarWid5=6;
+   private Integer BoxCarWid5=1;
    private Integer ElectricDark5=1;
    private Integer NLCorrect5=0;
    private Integer Delay5=1;
    private Integer Voltage5=1;
+   private Integer Repeat5=1;
    private String Status5="Not Run";
    
    private Integer IntegTime6=0 ;
    private Integer Scan2Avg6=1;
-   private Integer BoxCarWid6=6;
+   private Integer BoxCarWid6=1;
    private Integer ElectricDark6=1;
    private Integer NLCorrect6=0;
    private Integer Delay6=1;
    private Integer Voltage6=1;
+   private Integer Repeat6=1;
    private String Status6="Not Run";
    
    private Integer IntegTime7=0 ;
    private Integer Scan2Avg7=1;
-   private Integer BoxCarWid7=6;
+   private Integer BoxCarWid7=1;
    private Integer ElectricDark7=1;
    private Integer NLCorrect7=0;
    private Integer Delay7=1;
    private Integer Voltage7=1;
+   private Integer Repeat7=1;
    private String Status7="Not Run";
    
    private Integer IntegTime8=0 ;
    private Integer Scan2Avg8=1;
-   private Integer BoxCarWid8=6;
+   private Integer BoxCarWid8=1;
    private Integer ElectricDark8=1;
    private Integer NLCorrect8=0;
    private Integer Delay8=1;
    private Integer Voltage8=1;
+   private Integer Repeat8=1;
    private String Status8="Not Run";
 
    private Integer IntegTime9=0 ;
    private Integer Scan2Avg9=1;
-   private Integer BoxCarWid9=6;
+   private Integer BoxCarWid9=1;
    private Integer ElectricDark9=1;
    private Integer NLCorrect9=0;
    private Integer Delay9=1;
    private Integer Voltage9=1;
+   private Integer Repeat9=1;
    private String Status9="Not Run";
    
    private Integer IntegTime10=0 ;
    private Integer Scan2Avg10=1;
-   private Integer BoxCarWid10=6;
+   private Integer BoxCarWid10=1;
    private Integer ElectricDark10=1;
    private Integer NLCorrect10=0;
    private Integer Delay10=1;
    private Integer Voltage10=1;
+   private Integer Repeat10=1;
    private String Status10="Not Run";
    
    
@@ -647,6 +657,66 @@ public String getStatus10() {
  */
 public void setStatus10(String status10) {
 	Status10 = status10;
+}
+public Integer getRepeat1() {
+	return Repeat1;
+}
+public void setRepeat1(Integer repeat1) {
+	Repeat1 = repeat1;
+}
+public Integer getRepeat2() {
+	return Repeat2;
+}
+public void setRepeat2(Integer repeat2) {
+	Repeat2 = repeat2;
+}
+public Integer getRepeat3() {
+	return Repeat3;
+}
+public void setRepeat3(Integer repeat3) {
+	Repeat3 = repeat3;
+}
+public Integer getRepeat4() {
+	return Repeat4;
+}
+public void setRepeat4(Integer repeat4) {
+	Repeat4 = repeat4;
+}
+public Integer getRepeat5() {
+	return Repeat5;
+}
+public void setRepeat5(Integer repeat5) {
+	Repeat5 = repeat5;
+}
+public Integer getRepeat6() {
+	return Repeat6;
+}
+public void setRepeat6(Integer repeat6) {
+	Repeat6 = repeat6;
+}
+public Integer getRepeat7() {
+	return Repeat7;
+}
+public void setRepeat7(Integer repeat7) {
+	Repeat7 = repeat7;
+}
+public Integer getRepeat8() {
+	return Repeat8;
+}
+public void setRepeat8(Integer repeat8) {
+	Repeat8 = repeat8;
+}
+public Integer getRepeat9() {
+	return Repeat9;
+}
+public void setRepeat9(Integer repeat9) {
+	Repeat9 = repeat9;
+}
+public Integer getRepeat10() {
+	return Repeat10;
+}
+public void setRepeat10(Integer repeat10) {
+	Repeat10 = repeat10;
 }
    
    
