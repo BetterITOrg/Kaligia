@@ -2,7 +2,7 @@ package com.betterit.kaligia;
 
 public class KaliSubmitTest {
 
-   
+
    private String Name;
    private String Description;
    private Integer IntegTime1=0 ;
