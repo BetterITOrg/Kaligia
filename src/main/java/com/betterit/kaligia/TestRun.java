@@ -3,21 +3,18 @@
  */
 package com.betterit.kaligia;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
-import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
@@ -49,6 +46,7 @@ public class TestRun {
 	private String created_by;
 	private int testcase_id;
 	private int run_id;
+	private int subject_id;
 	private int specimen_id;
 	private int user_id;
 	private int site_id;
@@ -70,7 +68,7 @@ public class TestRun {
 					Integer run_no,
 					JdbcTemplate jdbc) {
 		this.ts = new Date();
-		this.name = name + "_" + ts.toString() + "_" + run_no;
+		this.name = name;
 		this.description = description;
 		this.type = type;
 		this.integrationTime = integrationTime;
@@ -84,8 +82,9 @@ public class TestRun {
 		this.created_by="Kaide Johar";
 		this.testcase_id = 0;
 		this.run_id = 0;
+		this.subject_id=1;
 		this.specimen_id = 1;
-		this.user_id = 1;
+		this.user_id = 2;
 		this.site_id = 1;
 		this.run_no = run_no;
 		this.status = "New";
@@ -104,22 +103,24 @@ public class TestRun {
 		log.info("nonlinearityCorrectFlag:" + nonlinearityCorrectFlag);
 		log.info("boxcarWidth:" + boxcarWidth);
 		log.info("spectrometerIndex:" + spectrometerIndex);
-		
+		log.info("Created By:" + created_by);
 
-		//TO DO
-		int rr = insertTestRun();
 		
 		//Initialize Device
-		/*
-		Wrapper wrapper_t = new Wrapper();
+		
+		Wrapper wrapper_t;
+		DataBuffer bufferCtrl_t;
+		
+		try {
+
+		wrapper_t = new Wrapper();
 		wrapper_t.openAllSpectrometers();
-		DataBuffer bufferCtrl_t = wrapper_t.getFeatureControllerDataBuffer(spectrometerIndex);
+		bufferCtrl_t = wrapper_t.getFeatureControllerDataBuffer(spectrometerIndex);
 		
 		ThermoElectricWrapper tecController = wrapper_t.getFeatureControllerThermoElectric(spectrometerIndex);
-		try {
 			double detTemp = tecController.getDetectorTemperatureCelsius();
 			log.info("Detector temperature: " + detTemp + " deg C");
-		} catch (IOException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			log.info("Spectrometer Initialization Failed");
@@ -135,9 +136,9 @@ public class TestRun {
 		singleMeasurement.getSpectra();
 		spectraM = singleMeasurement.returnSpectra();
 		wavelengthM = singleMeasurement.returnWavelength();
-		*/
 		
 		
+		/*
 		// Hard Coded for testing
 		wavelengthM = new double[10];
 		spectraM = new double[10];		
@@ -145,6 +146,7 @@ public class TestRun {
 			wavelengthM[j]=j+1;
 			spectraM[j]=j+1;
 		}
+		*/
 		
 		//Print Result
 		for (int j = 0; j < spectraM.length; j++) {
@@ -153,6 +155,13 @@ public class TestRun {
 		}
 					
 		//Store Results
+		//TO DO
+		int rr = insertTestRun();
+		if (rr > 0) {
+			log.info("Test Case insert failed");
+			return 100;
+		}
+		
 		TestResult tr = new TestResult(run_id,run_no, wavelengthM, spectraM, jdbc);
 		tr.insertResults();
 		
@@ -172,7 +181,7 @@ public class TestRun {
 					new PreparedStatementCreator() {
 						public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
 			    	            PreparedStatement ps = connection.prepareStatement(inTC, new String[]{"testcase_id"});
-			    	            ps.setString(1, name);
+			    	            ps.setString(1, name + "_" + ts.toString() + "_" + run_no);
 			    	            ps.setString(2, description);
 			    	            ps.setString(3, type);
 			    	            ps.setTimestamp(4, new Timestamp(ts.getTime()));
@@ -202,7 +211,7 @@ public class TestRun {
 		insertTestCaseSpec(0, "Delay", restTime.toString(), "s");
 		insertTestCaseSpec(0, "Repeat", "1", "");
 		
-
+		insertSubSpec();
 		
 		final String inRun = "insert into kaligia.testrun (name, testcase_id, specimen_id, status, start_time, end_time, creation_date, run_by, validity, notes, site_id)" 
 				+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
@@ -212,7 +221,7 @@ public class TestRun {
 				new PreparedStatementCreator() {
 					public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
 				            PreparedStatement ps = connection.prepareStatement(inRun, new String[]{"run_id"});
-				            ps.setString(1, name);
+				            ps.setString(1, name + "_" + ts.toString() + "_" + run_no);
 				            ps.setInt(2, testcase_id);
 				            ps.setInt(3, specimen_id);
 							ps.setString(4, status);
@@ -305,6 +314,116 @@ public class TestRun {
 		}
 		
 		log.info("Inserted " + rr + " row in testdevice");
+		return 0;
+	}
+	
+	public int insertSubSpec() {
+		
+		final String qryS = "select subject_id from kaligia.subject where name = '" + name + "';";
+		log.debug(qryS);
+		int rr = 0;
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+
+		try {
+			
+			subject_id = jdbc.queryForObject(qryS, Integer.class);
+			
+		} catch (EmptyResultDataAccessException emp) {
+			
+			//Insert subject
+			final String inSub = "insert into kaligia.subject (name, age, gender) values (?, ?, ?);";
+			try {
+				rr = jdbc.update(
+						new PreparedStatementCreator() {
+							public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+				    	            PreparedStatement ps = connection.prepareStatement(inSub, new String[]{"subject_id"});
+				    	            ps.setString(1, name);
+				    	            ps.setInt(2, 0);
+				    	            ps.setString(3, "M/F");
+				    	           return ps;
+							}
+						},
+						keyHolder);
+			} catch (DataAccessException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				log.info("Insert into Subject failed.");
+				return 100;
+			}
+			
+			log.info("Inserted " + rr + " row in subject" + " ID: " + keyHolder.getKey().intValue());
+			subject_id = keyHolder.getKey().intValue();
+			
+			//Insert Specimen
+			final String inSpec = "insert into kaligia.specimen (name, type, subject_id, creation_date, created_by) values (?, ?, ?, ?, ?);";
+			try {
+				rr = jdbc.update(
+						new PreparedStatementCreator() {
+							public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+				    	            PreparedStatement ps = connection.prepareStatement(inSpec, new String[]{"specimen_id"});
+				    	            ps.setString(1, name);
+				    	            ps.setString(2, "Skin");
+				    	            ps.setInt(3,  subject_id);
+				    	            ps.setTimestamp(4, new Timestamp(ts.getTime()));
+				    	            ps.setInt(5,  user_id);
+				    	           return ps;
+							}
+						},
+						keyHolder);
+			} catch (DataAccessException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				log.info("Insert into Specimen failed.");
+				return 100;
+			}
+			
+			log.info("Inserted " + rr + " row in specimen" + " ID: " + keyHolder.getKey().intValue());
+			specimen_id = keyHolder.getKey().intValue();
+			return 0;
+
+		} catch (DataAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			log.info("Failed to get subject");
+			return 100;
+		}
+		
+		//Get specimen
+		final String qrySP = "select specimen_id from kaligia.specimen where subject_id = " + subject_id + ";";
+		try {
+			specimen_id = jdbc.queryForObject(qrySP, Integer.class);
+		} catch(EmptyResultDataAccessException emp) {
+			//Insert Specimen
+			final String inSpec = "insert into kaligia.specimen (name, type, subject_id, creation_date, created_by) values (?, ?, ?, ?, ?);";
+			try {
+				rr = jdbc.update(
+						new PreparedStatementCreator() {
+							public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+				    	            PreparedStatement ps = connection.prepareStatement(inSpec, new String[]{"specimen_id"});
+				    	            ps.setString(1, name);
+				    	            ps.setString(2, "Skin");
+				    	            ps.setInt(3,  subject_id);
+				    	            ps.setTimestamp(4, new Timestamp(ts.getTime()));
+				    	            ps.setInt(5,  user_id);
+				    	           return ps;
+							}
+						},
+						keyHolder);
+			} catch (DataAccessException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				log.info("Insert into Specimen failed.");
+				return 100;
+			}
+
+		} catch (DataAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			log.info("Failed to get subject");
+			return 100;
+		}
+		
+		log.info("Subject ID: " + subject_id + " Specimen ID: " + specimen_id);
 		return 0;
 	}
 }
