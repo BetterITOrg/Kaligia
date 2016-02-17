@@ -128,7 +128,7 @@ public class TestRun {
 		TTLControl ctrlTTL;
 		
 		try {
-
+	
 		//initialize spectrometer	
 		wrapper_t = new Wrapper();
 		wrapper_t.openAllSpectrometers();
@@ -204,15 +204,16 @@ public class TestRun {
 		spectraM = new double[10];		
 		for (int j = 0; j < 10; j++) {
 			wavelengthM[j]=j+1;
-			spectraM[j]=j+1;
+			spectraM[j]=j+run_no;
 		}
-		*/
+		
 		
 		//Print Result
 		for (int j = 0; j < spectraM.length; j++) {
 			if (Double.toString(spectraM[j]) != null)
 				System.out.println(wavelengthM[j] + "\t" + spectraM[j]);
 		}
+		*/
 					
 		//Store Results
 		//TO DO
@@ -261,7 +262,10 @@ public class TestRun {
 		testcase_id = keyHolder.getKey().intValue();
 		
 		insertTestDevices("Laser 830");
-		insertTestDevices("Spectrometer QE Pro");
+		switch(spectrometerType) {
+			case "QEPro" : insertTestDevices("Spectrometer QE Pro");
+			case "MAYA" : insertTestDevices("Spectrometer Maya 2000Pro");
+		}
 		
 		insertTestCaseSpec(2, "IntegrationTime", integrationTime.toString(), "s");
 		insertTestCaseSpec(2, "ScansToAverage",  scanToAverage.toString(), "");
@@ -485,5 +489,33 @@ public class TestRun {
 		
 		log.info("Subject ID: " + subject_id + " Specimen ID: " + specimen_id);
 		return 0;
+	}
+
+	/**
+	 * @return the spectraM
+	 */
+	public double[] getSpectraM() {
+		return spectraM;
+	}
+
+	/**
+	 * @param spectraM the spectraM to set
+	 */
+	public void setSpectraM(double[] spectraM) {
+		this.spectraM = spectraM;
+	}
+
+	/**
+	 * @return the wavelengthM
+	 */
+	public double[] getWavelengthM() {
+		return wavelengthM;
+	}
+
+	/**
+	 * @param wavelengthM the wavelengthM to set
+	 */
+	public void setWavelengthM(double[] wavelengthM) {
+		this.wavelengthM = wavelengthM;
 	}
 }

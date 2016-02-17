@@ -60,6 +60,8 @@ public class KaliSubmitTestController {
 			   {
 				   log.info("SUCCESS: 1st Reading with  " + kaliSubmitTestObject.getIntegTime1() + " s");
 				   kaliSubmitTestObject.setStatus1("SUCCESS: 1st Reading with  " + kaliSubmitTestObject.getIntegTime1() + " s");
+				   kaliSubmitTestObject.setWavelength(tr1.getWavelengthM(), 1);
+				   kaliSubmitTestObject.setSpectra(tr1.getSpectraM(), 1);
 			   }
 			   else   {
 				   log.info("FAILURE: 1st Reading with  ");
@@ -90,6 +92,8 @@ public class KaliSubmitTestController {
 			   {
 				   log.info("SUCCESS: 2nd Reading with  " + kaliSubmitTestObject.getIntegTime2() + " s");
 				   kaliSubmitTestObject.setStatus2("SUCCESS: 2nd Reading with  " + kaliSubmitTestObject.getIntegTime2() + " s");
+				   kaliSubmitTestObject.setWavelength(tr2.getWavelengthM(), 2);
+				   kaliSubmitTestObject.setSpectra(tr2.getSpectraM(), 2);
 			   } else  {
 				   log.info("FAILURE: 2nd Reading with  ");
 				   kaliSubmitTestObject.setStatus2("FAILURE: 2nd Reading with  ");
@@ -120,6 +124,9 @@ public class KaliSubmitTestController {
 			   {
 				   log.info("SUCCESS: 3rd Reading with  " + kaliSubmitTestObject.getIntegTime3() + " s");
 				   kaliSubmitTestObject.setStatus3("SUCCESS: 3rd Reading with  " + kaliSubmitTestObject.getIntegTime3() + " s");
+				   kaliSubmitTestObject.setWavelength(tr3.getWavelengthM(), 3);
+				   kaliSubmitTestObject.setSpectra(tr3.getSpectraM(), 3);
+			  
 			   } else  {
 				   log.info("FAILURE: 3rd Reading with  ");
 				   kaliSubmitTestObject.setStatus3("FAILURE: 3rd Reading with  ");
@@ -149,6 +156,8 @@ public class KaliSubmitTestController {
 			   {
 				   log.info("SUCCESS: 4th Reading with  " + kaliSubmitTestObject.getIntegTime4() + " s");
 				   kaliSubmitTestObject.setStatus4("SUCCESS: 4th Reading with  " + kaliSubmitTestObject.getIntegTime4() + " s");
+				   kaliSubmitTestObject.setWavelength(tr4.getWavelengthM(), 4);
+				   kaliSubmitTestObject.setSpectra(tr4.getSpectraM(), 4);
 			   } else  {
 				   log.info("FAILURE: 4th Reading with  ");
 				   kaliSubmitTestObject.setStatus4("FAILURE: 4th Reading with  ");
@@ -178,6 +187,8 @@ public class KaliSubmitTestController {
 			   {
 				   log.info("SUCCESS: 5th Reading with  " + kaliSubmitTestObject.getIntegTime5() + " s");
 				   kaliSubmitTestObject.setStatus4("SUCCESS: 5th Reading with  " + kaliSubmitTestObject.getIntegTime5() + " s");
+				   kaliSubmitTestObject.setWavelength(tr5.getWavelengthM(), 5);
+				   kaliSubmitTestObject.setSpectra(tr5.getSpectraM(), 5);
 			   } else  {
 				   log.info("FAILURE: 5th Reading with  " + kaliSubmitTestObject.getIntegTime5() + " s");
 				   kaliSubmitTestObject.setStatus1("FAILURE: 5th Reading with  " + kaliSubmitTestObject.getIntegTime5() + " s");
@@ -207,6 +218,8 @@ public class KaliSubmitTestController {
 			   {
 				   log.info("SUCCESS: 6th Reading with  " + kaliSubmitTestObject.getIntegTime6() + " s");
 				   kaliSubmitTestObject.setStatus6("SUCCESS: 6th Reading with  " + kaliSubmitTestObject.getIntegTime6() + " s");
+				   kaliSubmitTestObject.setWavelength(tr6.getWavelengthM(), 6);
+				   kaliSubmitTestObject.setSpectra(tr6.getSpectraM(), 6);
 			   } else  {
 				   log.info("FAILURE: 6th Reading with  " + kaliSubmitTestObject.getIntegTime6() + " s");
 				   kaliSubmitTestObject.setStatus6("FAILURE: 6th Reading with  " + kaliSubmitTestObject.getIntegTime6() + " s");
@@ -236,6 +249,8 @@ public class KaliSubmitTestController {
 			   {
 				   log.info("SUCCESS: 7th Reading with  " + kaliSubmitTestObject.getIntegTime7() + " s");
 				   kaliSubmitTestObject.setStatus7("SUCCESS: 7th Reading with  " + kaliSubmitTestObject.getIntegTime7() + " s");
+				   kaliSubmitTestObject.setWavelength(tr7.getWavelengthM(), 7);
+				   kaliSubmitTestObject.setSpectra(tr7.getSpectraM(), 7);
 			   } else  {
 				   log.info("FAILURE: 7th Reading with  " + kaliSubmitTestObject.getIntegTime7() + " s");
 				   kaliSubmitTestObject.setStatus7("FAILURE: 7th Reading with  " + kaliSubmitTestObject.getIntegTime7() + " s");
@@ -266,6 +281,8 @@ public class KaliSubmitTestController {
 			   {
 				   log.info("SUCCESS: 8th Reading with  " + kaliSubmitTestObject.getIntegTime8() + " s");
 				   kaliSubmitTestObject.setStatus8("SUCCESS: 8th Reading with  " + kaliSubmitTestObject.getIntegTime8() + " s");
+				   kaliSubmitTestObject.setWavelength(tr8.getWavelengthM(), 8);
+				   kaliSubmitTestObject.setSpectra(tr8.getSpectraM(), 8);
 			   } else  {
 				   log.info("FAILURE: 8th Reading with  " + kaliSubmitTestObject.getIntegTime8() + " s");
 				   kaliSubmitTestObject.setStatus8("FAILURE: 8th Reading with  " + kaliSubmitTestObject.getIntegTime8() + " s");
@@ -296,6 +313,8 @@ public class KaliSubmitTestController {
 			   {
 				   log.info("SUCCESS: 9th Reading with  " + kaliSubmitTestObject.getIntegTime9() + " s");
 				   kaliSubmitTestObject.setStatus9("SUCCESS: 9th Reading with  " + kaliSubmitTestObject.getIntegTime9() + " s");
+				   kaliSubmitTestObject.setWavelength(tr9.getWavelengthM(), 9);
+				   kaliSubmitTestObject.setSpectra(tr9.getSpectraM(), 9);
 			   } else  {
 				   log.info("FAILURE: 9th Reading with  " + kaliSubmitTestObject.getIntegTime9() + " s");
 				   kaliSubmitTestObject.setStatus9("FAILURE: 9th Reading with  " + kaliSubmitTestObject.getIntegTime9() + " s");
@@ -325,6 +344,8 @@ public class KaliSubmitTestController {
 			   {
 				   log.info("SUCCESS: 10th Reading with  " + kaliSubmitTestObject.getIntegTime10() + " s");
 				   kaliSubmitTestObject.setStatus10("SUCCESS: 10th Reading with  " + kaliSubmitTestObject.getIntegTime10() + " s");
+				   kaliSubmitTestObject.setWavelength(tr10.getWavelengthM(), 10);
+				   kaliSubmitTestObject.setSpectra(tr10.getSpectraM(), 10);
 			   } else  {
 				   log.info("FAILURE: 10th Reading with  " + kaliSubmitTestObject.getIntegTime10() + " s");
 				   kaliSubmitTestObject.setStatus10("FAILURE: 10th Reading with  " + kaliSubmitTestObject.getIntegTime10() + " s");

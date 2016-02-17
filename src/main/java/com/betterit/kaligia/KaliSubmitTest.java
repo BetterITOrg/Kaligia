@@ -105,6 +105,8 @@ public class KaliSubmitTest {
    private Integer Repeat10=1;
    private String Status10="Not Run";
    
+   public double wavelength[][] = new double[10][];
+   public double spectra[][] = new double[10][];   
    
 public String getName() {
 	return Name;
@@ -718,6 +720,57 @@ public Integer getRepeat10() {
 public void setRepeat10(Integer repeat10) {
 	Repeat10 = repeat10;
 }
-   
-   
+
+/**
+ * @return the wavelength
+ */
+public double[][] getWavelength() {
+	return wavelength;
+}
+/**
+ * @param wavelength the wavelength to set
+ */
+public void setWavelength(double[][] wavelength) {
+	this.wavelength = wavelength;
+}
+/**
+ * @return the spectra
+ */
+public double[][] getSpectra() {
+	return spectra;
+}
+/**
+ * @param spectra the spectra to set
+ */
+public void setSpectra(double[][] spectra) {
+	this.spectra = spectra;
+}
+
+/**
+ * @return the wavelength
+ */
+public double[] getWavelength(int i) {
+	return wavelength[i-1];
+}
+/**
+ * @param wavelength the wavelength to set
+ */
+public void setWavelength(double[] wavelength, int i) {
+	this.wavelength[i-1] = wavelength; 
+	for(int j=0; j<wavelength.length; j++) {
+		this.wavelength[i-1][j] = (int)(12048 - (10000000.0/wavelength[j]));
+	}
+}
+/**
+ * @return the spectra
+ */
+public double[] getSpectra(int i) {
+	return spectra[i];
+}
+/**
+ * @param spectra the spectra to set
+ */
+public void setSpectra(double[] spectra, int i) {
+	this.spectra[i-1] = spectra;
+}
 }

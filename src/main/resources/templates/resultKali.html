@@ -1,23 +1,86 @@
 ﻿<!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head> 
-    <title>Getting Started: Handling Form Submission</title>
+    <title>Kaligia Biosciences: Results</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script th:src="@{/js/ChartNew.js}"></script>
 </head>
 <body>
 	<img src="/images/kaligia-logo.png" height="150" width="400" />
-	<h1>ResultKali</h1>
+	<h1>Run Status:</h1>
+	<p></p>
     <p th:text="'Name: ' + ${KaliSubmitTest.Name}" />
     <p th:text="'Description ' + ${KaliSubmitTest.Description}" />
-    <p th:text="'Status Reading 1 ' + ${KaliSubmitTest.Status1}" />
-    <p th:text="'Status Reading 2 ' + ${KaliSubmitTest.Status2}" />
-    <p th:text="'Status Reading 3 ' + ${KaliSubmitTest.Status3}" />
-    <p th:text="'Status Reading 4 ' + ${KaliSubmitTest.Status4}" />
-    <p th:text="'Status Reading 5 ' + ${KaliSubmitTest.Status5}" />
-    <p th:text="'Status Reading 6 ' + ${KaliSubmitTest.Status6}" />
-    <p th:text="'Status Reading 7 ' + ${KaliSubmitTest.Status7}" />
-    <p th:text="'Status Reading 8 ' + ${KaliSubmitTest.Status8}" />
-    <p th:text="'Status Reading 9 ' + ${KaliSubmitTest.Status9}" />
-    <p th:text="'Status Reading 10 ' + ${KaliSubmitTest.Status10}" />    
+    <p></p>
+    <p></p>
+    <h1>Graph:</h1>	
+   	<p></p>
+   	<div style="width:50%">
+		<div>
+			<canvas id="canvas" height="600" width="800"></canvas>
+		</div>
+	</div>
+
+	<script type="text/javascript" th:inline="javascript">
+	/*<![CDATA[*/
+		
+	    var datasetValue = [];
+		var dd = [[${KaliSubmitTest.spectra}]];
+		var clr = ["#FF6600", "#003366", "#FF9900", "#00FF00", "#FF0000", "#000000", "#663399", "#663300", "#FF0080", "#5F021F"];
+		
+		for(i=0; i<10; i++) {
+			
+			var j = i +1;
+			var tt = "Reading " + j;
+			var ddi =  dd[i];
+			var clri = clr[i];
+			
+			if (ddi != null) {
+				datasetValue[i] = {
+						title: tt,
+						fillColor : "rgba(220,220,220,0.2)",
+						strokeColor : clri,
+						pointColor : clri,
+						pointStrokeColor : clri,
+						pointHighlightFill : clri,
+						pointHighlightStroke : clri,
+						data : ddi
+					}
+				}
+		}
+		
+		var lineChartData = {
+			labels : /*[[${KaliSubmitTest.wavelength[0]}]]*/,
+			datasets : datasetValue
+		}
+		
+		var startWithDataset =1;
+		var startWithData =1;
+
+		var opt1 = {
+		      animationStartWithDataset : startWithDataset,
+		      animationStartWithData : startWithData,
+		      animationSteps : 200,
+		      canvasBorders : true,
+		      canvasBordersWidth : 3,
+		      canvasBordersColor : "black",
+		      graphTitle : "Wavenumber vs Photon Count",
+		      legend : true,
+		      inGraphDataShow : true,
+		      annotateDisplay : true,
+		      graphTitleFontSize: 18,
+		      yAxisMinimumInterval: 1,
+		      yAxisLabel: "Photon Counts",
+		      xAxisLabel: "Wave Number"
+
+		}
+	
+		window.onload = function(){
+			var ctx = document.getElementById("canvas").getContext("2d");
+			window.myLine = new Chart(ctx).Line(lineChartData, opt1);
+		}
+	/*]]>*/	
+	</script>
+    
 </body>
 </html>
