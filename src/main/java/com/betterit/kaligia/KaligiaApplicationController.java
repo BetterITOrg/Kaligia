@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.betterit.kaligia.service.TestProcedureService;
 import com.betterit.kaligia.service.UsersService;
 
 //port com.betterit.kaligia.TestRun;
@@ -21,11 +22,8 @@ public class KaligiaApplicationController {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-	@Autowired
-	private UsersService userService;
-	
-	
-	private static final Logger log = LoggerFactory.getLogger(KaligiaApplicationController.class);
+
+		private static final Logger log = LoggerFactory.getLogger(KaligiaApplicationController.class);
 	
 	   @RequestMapping(value = "/KaliSubmitTest", method = RequestMethod.GET)
 	   public String KaliSubmitTest(Model model) {
@@ -58,8 +56,7 @@ public class KaligiaApplicationController {
 					   kaliSubmitTestObject.getBoxCarWid1(),
 					   0,
 					   1,
-					   jdbcTemplate,
-					   userService
+					   jdbcTemplate
 					   );
 			   
 			   if ( tr1.doTestRun() == 0 ) 
@@ -91,8 +88,7 @@ public class KaligiaApplicationController {
 					   kaliSubmitTestObject.getBoxCarWid2(),
 					   0,
 					   2,
-					   jdbcTemplate,
-					   userService
+					   jdbcTemplate
 					   );
 			   
 			   if ( tr2.doTestRun() == 0 ) 
@@ -124,8 +120,7 @@ public class KaligiaApplicationController {
 					   kaliSubmitTestObject.getBoxCarWid3(),
 					   0,
 					   3,
-					   jdbcTemplate,
-					   userService
+					   jdbcTemplate
 					   );
 			   
 			   if ( tr3.doTestRun() == 0 ) 
@@ -157,8 +152,7 @@ public class KaligiaApplicationController {
 					   kaliSubmitTestObject.getBoxCarWid4(),
 					   0,
 					   4,
-					   jdbcTemplate,
-					   userService
+					   jdbcTemplate
 					   );
 			   
 			   if ( tr4.doTestRun() == 0 ) 
@@ -189,8 +183,7 @@ public class KaligiaApplicationController {
 					   kaliSubmitTestObject.getBoxCarWid5(),
 					   0,
 					   5,
-					   jdbcTemplate,
-					   userService
+					   jdbcTemplate
 					   );
 			   
 			   if ( tr5.doTestRun() == 0 ) 
@@ -221,8 +214,7 @@ public class KaligiaApplicationController {
 					   kaliSubmitTestObject.getBoxCarWid6(),
 					   0,
 					   6,
-					   jdbcTemplate,
-					   userService
+					   jdbcTemplate
 					   );
 			   
 			   if ( tr6.doTestRun() == 0 ) 
@@ -253,8 +245,7 @@ public class KaligiaApplicationController {
 					   kaliSubmitTestObject.getBoxCarWid7(),
 					   0,
 					   7,
-					   jdbcTemplate,
-					   userService
+					   jdbcTemplate
 					   );
 			   
 			   if ( tr7.doTestRun() == 0 ) 
@@ -286,8 +277,7 @@ public class KaligiaApplicationController {
 					   kaliSubmitTestObject.getBoxCarWid8(),
 					   0,
 					   8,
-					   jdbcTemplate,
-					   userService
+					   jdbcTemplate
 					   );
 			   
 			   if ( tr8.doTestRun() == 0 ) 
@@ -319,8 +309,7 @@ public class KaligiaApplicationController {
 					   kaliSubmitTestObject.getBoxCarWid9(),
 					   0,
 					   9,
-					   jdbcTemplate,
-					   userService
+					   jdbcTemplate
 					   );
 			   
 			   if ( tr9.doTestRun() == 0 ) 
@@ -351,8 +340,7 @@ public class KaligiaApplicationController {
 					   kaliSubmitTestObject.getBoxCarWid10(),
 					   0,
 					   10,
-					   jdbcTemplate,
-					   userService
+					   jdbcTemplate
 					   );
 			   
 			   if ( tr10.doTestRun() == 0 ) 

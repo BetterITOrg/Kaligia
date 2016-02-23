@@ -1,6 +1,12 @@
 ﻿set search_path = kaligia;
 
-insert into site values (
+insert into users values (DEFAULT, 'Kaide Johar', 'Admin');
+insert into users values (DEFAULT, 'Olesia Gololobova', 'Admin');
+
+INSERT INTO kaligia.site(
+            site_id, name, type, address, city, state, country, zip, phone, 
+            creation_date, created_by)
+    VALUES (
 DEFAULT,
 'Kaligia Biosciences',
 'OFFICE',
@@ -9,22 +15,29 @@ DEFAULT,
 'FL',
 'USA',
 '33773',
-'727-471-0850'
+'727-471-0850',
+now(),
+(select user_id from users where name='Kaide Johar')
 );
 
-insert into users values (DEFAULT, 'Kaide Johar', 'Admin');
-insert into users values (DEFAULT, 'Olesia Gololobova', 'Admin');
 
-insert into subject values (DEFAULT, 'Kaide Johar', 40, 'Male');
 
-insert into specimen values (
+INSERT INTO kaligia.subject(
+            subject_id, name, dob, gender, ethnicity, creation_date, created_by)
+    VALUES  (DEFAULT, 'Kaide Johar', '02-11-1972', 'Male', 'Asian', now(), (select user_id from users where name='Kaide Johar'));
+
+
+INSERT INTO kaligia.specimen(
+            specimen_id, subject_id, name, type, creation_date, created_by)
+    VALUES (
 DEFAULT, 
+(select subject_id from subject where name='Kaide Johar'),
 'Kaide Skin', 
 'Skin', 
-(select subject_id from subject where name='Kaide Johar'), 
 now(), 
 (select user_id from users where name='Kaide Johar')
 );
+
 
 insert into specimenspec values (
 (select specimen_id from specimen where name='Kaide Skin'),
@@ -33,13 +46,18 @@ insert into specimenspec values (
 ''
 );
 
-insert into device values (
+
+INSERT INTO kaligia.device(
+            device_id, name, type, manufacturer, model, serial_no, status, 
+            creation_date, created_by, site_id)
+    VALUES (
 DEFAULT,
 'Laser 830',
 'Laser',
 'Innovative Photonics Solution',
 'I0830MM0350MF',
 '',
+'Active',
 now(),
 (select user_id from users where name='Kaide Johar'),
 (select site_id from site where name='Kaligia Biosciences')
@@ -52,6 +70,7 @@ DEFAULT,
 'Ocean Optics',
 'QE Pro',
 'QEP00691',
+'Active',
 now(),
 (select user_id from users where name='Kaide Johar'),
 (select site_id from site where name='Kaligia Biosciences')
@@ -64,6 +83,7 @@ DEFAULT,
 'Ocean Optics',
 'Maya 2000Pro',
 'MAYA112352',
+'Active',
 now(),
 (select user_id from users where name='Kaide Johar'),
 (select site_id from site where name='Kaligia Biosciences')
@@ -76,6 +96,7 @@ DEFAULT,
 'InPhotonics',
 'RPB Laboratory Raman Probe',
 'TT236477',
+'Active',
 now(),
 (select user_id from users where name='Kaide Johar'),
 (select site_id from site where name='Kaligia Biosciences')
@@ -88,6 +109,7 @@ DEFAULT,
 'InPhotonics',
 'RPB Laboratory Raman Probe',
 'TT236643',
+'Active',
 now(),
 (select user_id from users where name='Kaide Johar'),
 (select site_id from site where name='Kaligia Biosciences')
@@ -100,6 +122,7 @@ DEFAULT,
 'Thorlabs',
 'Step-Index Multimode Fiber Optic Patch Cables',
 'TP01095713',
+'Active',
 now(),
 (select user_id from users where name='Kaide Johar'),
 (select site_id from site where name='Kaligia Biosciences')
@@ -112,6 +135,7 @@ DEFAULT,
 'Thorlabs',
 'Multimode Fiber',
 'TP01081322',
+'Active',
 now(),
 (select user_id from users where name='Kaide Johar'),
 (select site_id from site where name='Kaligia Biosciences')
@@ -124,6 +148,7 @@ DEFAULT,
 'Ocean Optics',
 'Multimode Fiber',
 'EoS-A661006',
+'Active',
 now(),
 (select user_id from users where name='Kaide Johar'),
 (select site_id from site where name='Kaligia Biosciences')
@@ -370,73 +395,78 @@ null,
 'N'
 );
 
-insert into testcase values (
+
+INSERT INTO kaligia.testprocedure(
+            procedure_id, name, description, type, no_of_segments, status, 
+            creation_date, created_by)
+    VALUES  (
 DEFAULT,
 'IN VIVO BLOOD LASER SPECTRA',
 'IN VIVO BLOOD LASER SPECTRA INDEX FINGER SKIN',
-'IN VIVO BLOOD',
+'IN-VIVO',
+1,
+'New',
 now(),
 (select user_id from users where name='Kaide Johar')
 );
 
+
 insert into testdevices values (
-(select testcase_id from testcase where name='IN VIVO BLOOD LASER SPECTRA'),
-(select device_id from device where name='Laser 830')
+(select device_id from device where name='Laser 830'),
+(select procedure_id from testprocedure where name='IN VIVO BLOOD LASER SPECTRA')
 );
 insert into testdevices values (
-(select testcase_id from testcase where name='IN VIVO BLOOD LASER SPECTRA'),
-(select device_id from device where name='Spectrometer QE Pro')
+(select device_id from device where name='Spectrometer QE Pro'),
+(select procedure_id from testprocedure where name='IN VIVO BLOOD LASER SPECTRA')
 );
 insert into testdevices values (
-(select testcase_id from testcase where name='IN VIVO BLOOD LASER SPECTRA'),
-(select device_id from device where name='Probe 1')
+(select device_id from device where name='Probe 1'),
+(select procedure_id from testprocedure where name='IN VIVO BLOOD LASER SPECTRA')
 );
 insert into testdevices values (
-(select testcase_id from testcase where name='IN VIVO BLOOD LASER SPECTRA'),
-(select device_id from device where name='Fiber Excitement')
+(select device_id from device where name='Fiber Excitement'),
+(select procedure_id from testprocedure where name='IN VIVO BLOOD LASER SPECTRA')
 );
 insert into testdevices values (
-(select testcase_id from testcase where name='IN VIVO BLOOD LASER SPECTRA'),
-(select device_id from device where name='Fiber Collection 1')
+(select device_id from device where name='Fiber Collection 1'),
+(select procedure_id from testprocedure where name='IN VIVO BLOOD LASER SPECTRA')
 );
 
-insert into testcasespec values (
-(select testcase_id from testcase where name='IN VIVO BLOOD LASER SPECTRA'),
+INSERT INTO kaligia.testsegment(
+            segment_id, name, description, created_by, creation_date)
+    VALUES (DEFAULT, 'Segment 1', 'Segment 1', (select user_id from users where name='Kaide Johar'), now());
+
+INSERT INTO kaligia.testsegmentspec(
+            segment_id, device_id, name, value, unit)
+    VALUES (
+1,
 null,
 'Delay',
 '2',
 's'
 );
 
-insert into testcasespec values (
-(select testcase_id from testcase where name='IN VIVO BLOOD LASER SPECTRA'),
+INSERT INTO kaligia.testsegmentspec(
+            segment_id, device_id, name, value, unit)
+    VALUES (
+1,
 null,
 'Repeat',
 '3',
 ''
 );
 
-insert into testcasespec values (
-(select testcase_id from testcase where name='IN VIVO BLOOD LASER SPECTRA'),
+
+INSERT INTO kaligia.testsegmentspec(
+            segment_id, device_id, name, value, unit)
+    VALUES (
+1,
 (select device_id from device where name='Spectrometer QE Pro'),
 'IntegrationTime',
 '25',
 's'
 );
 
-insert into testrun values (
-DEFAULT,
-'IN VIVO BLOOD SPECTRA For Kaide',
-(select testcase_id from testcase where name='IN VIVO BLOOD LASER SPECTRA'),
-(select specimen_id from specimen where subject_id=(select subject_id from subject where name='Kaide Johar') and type='Skin'),
-'Complete',
-now(),
-now(),
-now(),
-(select user_id from users where name='Kaide Johar'),
-'Valid',
-'Sample Data',
-(select site_id from site where name='Kaligia Biosciences')
-);
-
-COPY testresult FROM 'C:\program files\PostgreSQL\9.5\data\2015-12-23_sample_25s_x2_sub3_S1-R1.txt' (DELIMITER('|'));
+INSERT INTO kaligia.procsegment(
+            segment_id, procedure_id, segment_no)
+    VALUES (1, 1, 1);

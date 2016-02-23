@@ -11,6 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.betterit.kaligia.dao.model.kaligia.TestProcedure;
+import com.betterit.kaligia.service.TestProcedureService;
+
 
 /**
  * @author nayar
@@ -30,7 +33,7 @@ public class KaligiaMainController {
     public String mainForm(Model model) {
 		
 		/** TO-DO get all procedures from database */
-		List<TestProcedure> procedureList = procedureServiceObject.getAll();
+		List<TestProcedure> procedureList = procedureServiceObject.findAll();
 		
 		model.addAttribute("ProcedureList", procedureList);
 		

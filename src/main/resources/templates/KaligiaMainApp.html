@@ -7,15 +7,16 @@
 <body>
 
 <form action= "#" th:action="@{KaligiaMainApp}" th:object="${ProcedureList}" method="post">
-<img src="/images/kaligia-logo.png" height="150" width="400">
+<img src="/images/kaligia-logo.png" height="150" width="400" />
 
-<hr><br>
+<HR/>
+<br/>
   <table style="text-align: left; width: 890px; height: 391px;" border="0" cellpadding="0" cellspacing="0">
     <tbody>
       <tr>
-        <td style="vertical-align: top;"><br>
+        <td style="vertical-align: top;"><br></br>
         </td>
-        <td style="vertical-align: top;"><br>
+        <td style="vertical-align: top;"><br></br>
         </td>
       </tr>
       <tr>
@@ -32,7 +33,7 @@
                 </tr>
                 <tr th:each="procedur : ${ProcedureList}">
                     <td th:text="${procedur.name}"></td>
-                    <td th:text="${procedur.procedure_id}"></td>
+                    <td th:text="${procedur.procedureId}"></td>
                 </tr>
             </table>
 
@@ -42,7 +43,7 @@
         <table style="text-align: left; height: 52px; width: 349px;" border="0" cellpadding="0" cellspacing="0">
           <tbody>
             <tr>
-              <td style="vertical-align: top; width: 339px;"><br>
+              <td style="vertical-align: top; width: 339px;"><br></br>
               </td>
             </tr>
             <tr>
@@ -54,14 +55,14 @@
               <td style="vertical-align: top; width: 339px;"><a href="http://localhost:8090/KaligiaRunOrder.html" target="_self">Run a New Test</a></td>
             </tr>
             <tr>
-              <td style="vertical-align: top;"><br>
+              <td style="vertical-align: top;"><br></br>
               </td>
             </tr>
             <tr>
               <td style="vertical-align: top;">List All Run Results for a Procedure</td>
             </tr>
             <tr>
-              <td style="vertical-align: top;"><br>
+              <td style="vertical-align: top;"><br></br>
               </td>
             </tr>
             <tr>
@@ -69,12 +70,12 @@
             </tr>
           </tbody>
         </table>
-        <br>
+        <br></br>
         </td>
       </tr>
     </tbody>
   </table>
-  <br>
+  <br></br>
 </form>
 
 </body></html>
