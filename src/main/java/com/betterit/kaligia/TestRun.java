@@ -8,9 +8,14 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.PostConstruct;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -18,6 +23,9 @@ import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
+import com.betterit.kaligia.dao.model.kaligia.Users;
+import com.betterit.kaligia.dao.repository.kaligia.UsersMapper;
+import com.betterit.kaligia.service.UsersService;
 import com.labjack.LJUD;
 import com.oceanoptics.omnidriver.api.wrapper.Wrapper;
 import com.oceanoptics.omnidriver.features.buffer.DataBuffer;
@@ -67,7 +75,7 @@ public class TestRun {
 	int acquisitionM = 4;
 	
 	private JdbcTemplate jdbc;
-
+	private UsersService userService;
 	
 	public TestRun (String name, 
 					String description, 
@@ -80,7 +88,8 @@ public class TestRun {
 					Integer boxcarWidth,
 					Integer spectrometerIndex,
 					Integer run_no,
-					JdbcTemplate jdbc) {
+					JdbcTemplate jdbc,
+					UsersService userService) {
 		this.ts = new Date();
 		this.name = name;
 		this.description = description;
@@ -102,8 +111,10 @@ public class TestRun {
 		this.site_id = 1;
 		this.run_no = run_no;
 		this.status = "New";
+		this.userService = userService;
 	}
 	
+
 	public Integer doTestRun() {
 		
 		//Create testrun in DB
@@ -121,7 +132,7 @@ public class TestRun {
 
 		
 		//Initialize Device
-		
+		/*
 		Wrapper wrapper_t;
 		DataBuffer bufferCtrl_t = null;
 		LaserControl lsControl;
@@ -135,15 +146,16 @@ public class TestRun {
 		//bufferCtrl_t = wrapper_t.getFeatureControllerDataBuffer(spectrometerIndex);
 		
 		// initialize lab jack
-		
 		IntByReference refHandle = new IntByReference(0);
 		LJUD.openLabJack(LJUD.Constants.dtU3, LJUD.Constants.ctUSB, "1", 1, refHandle);
 		int intHandle = refHandle.getValue();
 		LJUD.ePut(intHandle, LJUD.Constants.ioPIN_CONFIGURATION_RESET, 0, 0, 0);
+		
 		// start TTL control thread
 		ctrlTTL = new TTLControl("set high TTL", intHandle, portNumber);
 		Thread newTTLc = new Thread(ctrlTTL);
 		newTTLc.start();
+		
 		// set laser power
 		lsControl = new LaserControl(intHandle, portNumberLaser);
 		lsControl.setTTLSwitchLow();
@@ -196,19 +208,17 @@ public class TestRun {
 		
 		ctrlTTL.mystop();
 		wrapper_t.closeAllSpectrometers();
-	
+		*/
+		
+		
+		// Hard Coded for testing
+		// Read data from table run_id from description field
+		String[] splitStr = description.trim().split("\\s+");
+			readDataFromDB(Integer.parseInt(splitStr[run_no-1]));
 		
 		/*
-		// Hard Coded for testing
-		wavelengthM = new double[10];
-		spectraM = new double[10];		
-		for (int j = 0; j < 10; j++) {
-			wavelengthM[j]=j+1;
-			spectraM[j]=j+run_no;
-		}
-		
-		
 		//Print Result
+		
 		for (int j = 0; j < spectraM.length; j++) {
 			if (Double.toString(spectraM[j]) != null)
 				System.out.println(wavelengthM[j] + "\t" + spectraM[j]);
@@ -217,6 +227,7 @@ public class TestRun {
 					
 		//Store Results
 		//TO DO
+		/*
 		int rr = insertTestRun();
 		if (rr > 0) {
 			log.info("Test Case insert failed");
@@ -224,8 +235,21 @@ public class TestRun {
 		}
 		
 		TestResult tr = new TestResult(run_id,run_no, wavelengthM, spectraM, jdbc);
-		tr.insertResults();
-		
+		rr = tr.insertResults();
+		if (rr > 0) {
+			log.info("Test Result insert failed");
+			return 100;
+		}
+		*/
+
+		Users kj = new Users();
+		kj.setName("John Doe Jr");
+		kj.setRole("Operator");
+		int usid = userService.insertUser(kj);
+		if (usid == 0)
+			log.info("User : " + kj.getName() + " Role : " + kj.getRole() + " ID : " + kj.getUserId());
+		else
+			log.info("User : " + kj.getName() + " Role : " + kj.getRole() + " Failed");
 		return 0;
 	}
 	
@@ -517,5 +541,20 @@ public class TestRun {
 	 */
 	public void setWavelengthM(double[] wavelengthM) {
 		this.wavelengthM = wavelengthM;
+	}
+	
+	public int readDataFromDB(int runID) {
+		final String rwqry = "select wavenumber, photon_count from kaligia.tmp_testresult where run_id=" + runID + " order by wavenumber asc";
+		
+		List<Map<String, Object>> rows = jdbc.queryForList(rwqry);
+		int idx=0;
+		wavelengthM = new double[rows.size()];
+		spectraM = new double[rows.size()];
+		for(Map<String, Object> row : rows) {
+			wavelengthM[idx]=(float)row.get("wavenumber");
+			spectraM[idx]=(float)row.get("photon_count");
+			idx++;
+		}
+		return 0;
 	}
 }
