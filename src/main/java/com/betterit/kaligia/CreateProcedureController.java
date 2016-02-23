@@ -11,6 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.betterit.kaligia.dao.model.kaligia.Device;
+import com.betterit.kaligia.service.DeviceService;
+
 /**
  * @author nayar
  *

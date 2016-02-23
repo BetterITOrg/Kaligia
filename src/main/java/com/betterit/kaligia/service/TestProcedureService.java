@@ -3,6 +3,7 @@
  */
 package com.betterit.kaligia.service;
 
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,10 +16,13 @@ import com.betterit.kaligia.dao.model.kaligia.TestProcedure;
 import com.betterit.kaligia.dao.model.kaligia.TestProcedureExample;
 import com.betterit.kaligia.dao.model.kaligia.TestSegment;
 import com.betterit.kaligia.dao.model.kaligia.TestSegmentSpec;
+import com.betterit.kaligia.dao.model.kaligia.Users;
+import com.betterit.kaligia.dao.model.kaligia.UsersExample;
 import com.betterit.kaligia.dao.repository.kaligia.ProcSegmentMapper;
 import com.betterit.kaligia.dao.repository.kaligia.TestProcedureMapper;
 import com.betterit.kaligia.dao.repository.kaligia.TestSegmentMapper;
 import com.betterit.kaligia.dao.repository.kaligia.TestSegmentSpecMapper;
+import com.betterit.kaligia.dao.repository.kaligia.UsersMapper;
 
 /**
  * @author V135012
@@ -38,6 +42,9 @@ public class TestProcedureService {
 	
 	@Autowired
 	private TestSegmentSpecMapper tssm;
+	
+	@Autowired
+	private UsersMapper um;
 	
 	public List<TestProcedure> findAll() {
 		
@@ -75,5 +82,25 @@ public class TestProcedureService {
 		return tsl;
 	}
 	
+	public int createTestProcedure(
+			String name,
+			String description,
+			String status,
+			int noOfSegments
+			) {
+		
+		UsersExample ue = new UsersExample();
+		ue.createCriteria().andNameEqualTo("Olesia Gololobova");
+		List<Users> user=um.selectByExample(ue);
+		
+		TestProcedure tp = new TestProcedure();
+		tp.setName(name);
+		tp.setDescription(description);
+		tp.setStatus(status);
+		tp.setNoOfSegments(noOfSegments);
+		tp.setCreationDate(new Date());
+		tp.setCreatedBy(user.get(0).getUserId());
+		return 0;
+	}
 
 }
