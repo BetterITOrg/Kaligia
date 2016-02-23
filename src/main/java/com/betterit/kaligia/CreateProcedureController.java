@@ -31,7 +31,7 @@ public class CreateProcedureController {
 		List<Device> deviceList = deviceServiceObject.findAll();
 		
 		model.addAttribute("DeviceList", deviceList);
-		
+		model.addAttribute("Procedur", new CreateProcedure());
 		return ("CreateProcedure");
 	}
 
