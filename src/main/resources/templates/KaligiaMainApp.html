@@ -1,12 +1,12 @@
-<!DOCTYPE HTML>
-<html><head><title>Spectra Test Input</title>
+﻿<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Kaligia Main</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
 
-
-
-    
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body>
-
-<form action="KaliSubmitTest" method="post">
+<form action= "#" th:action="@{KaligiaMainApp}" th:object="${ProcedureList}" method="post">
 <img src="/images/kaligia-logo.png" height="150" width="400">
 
 <hr><br>
@@ -23,7 +23,21 @@
         <td style="vertical-align: top;">Select an Action</td>
       </tr>
       <tr>
-        <td style="vertical-align: top;"><textarea readonly="readonly" cols="20" rows="20" name="ProcedureListDisplay">Procedures Display here:</textarea></td>
+        <td style="vertical-align: top;">
+            
+            <table>
+                <tr>
+                    <th>Procedure Name</th>
+                    <th>ProcedureId</th>
+                </tr>
+                <tr th:each="procedur : ${ProcedureList}">
+                    <td th:text="${procedur.name}"></td>
+                    <td th:text="${procedur.procedure_id}"></td>
+                </tr>
+            </table>
+
+
+        </td>
         <td style="vertical-align: top;">
         <table style="text-align: left; height: 52px; width: 349px;" border="0" cellpadding="0" cellspacing="0">
           <tbody>
@@ -32,14 +46,12 @@
               </td>
             </tr>
             <tr>
-              <td style="vertical-align: top; width: 339px;"><a href="http://localhost:8090/KaligiaCreateProcedure.html" target="_self">Create a New Procedure</a></td>
+              <td style="vertical-align: top; width: 339px;"><a href="http://localhost:8090/CreateProcedure.html" target="_self">Create a New Procedure</a></td>
             </tr>
             <tr>
-              <td style="vertical-align: top; width: 339px;"><a href="http://localhost:8090/KaligiaRunTest.html" target="_self"><br>
-              </a></td>
             </tr>
             <tr>
-              <td style="vertical-align: top; width: 339px;"><a href="http://localhost:8090/KaligiaRunTest.html" target="_self">Run a New Test</a></td>
+              <td style="vertical-align: top; width: 339px;"><a href="http://localhost:8090/KaligiaRunOrder.html" target="_self">Run a New Test</a></td>
             </tr>
             <tr>
               <td style="vertical-align: top;"><br>
