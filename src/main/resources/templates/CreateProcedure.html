@@ -8,7 +8,7 @@
 <body BGCOLOR="#EEEEEE">
 
 	<form action="#" th:action="@{CreateProcedure}"
-		th:object="${procedure}" method="POST">
+		th:object="${Procedur}" method="POST">
 		<img src="/images/kaligia-logo.png" height="150" width="400" />
 
 		<HR />
@@ -80,19 +80,19 @@
 				<TR>
 
 					<TD><input type="text" required="required"
-						th:field="*{IntegTime1}" size="6" maxlength="6" /></TD>
+						name="IntegTime1"  /></TD>
 					<TD><input type="text" required="required"
-						th:field="*{Scan2Avg1}" size="3" maxlength="3" /></TD>
+						name="Scan2Avg1" /></TD>
 					<TD><input type="text" required="required"
-						th:field="*{BoxCarWid1}" size="3" maxlength="3" /></TD>
+						name="BoxCarWid1"  /></TD>
 					<TD><input type="text" required="required"
-						th:field="*{ElectricDark1}" size="3" maxlength="1" /></TD>
+						name="ElectricDark1" /></TD>
 					<TD><input type="text" required="required"
-						th:field="*{NLCorrect1}" size="3" maxlength="3" /></TD>
+						name="NLCorrect1"  /></TD>
 					<TD><input type="text" required="required"
-						th:field="*{Delay1}" size="3" maxlength="3" /></TD>
+						name="Delay1"  /></TD>
 					<TD><input type="text" required="required"
-						th:field="*{Voltage1}" size="4" maxlength="4" /></TD>
+						name="Voltage1" /></TD>
 				</TR>
 <!-- 
 				<TR>
