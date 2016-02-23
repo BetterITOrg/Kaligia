@@ -1,0 +1,261 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Spectra Procedure Create</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css" href="form2.css" />
+</head>
+<body BGCOLOR="#EEEEEE">
+
+	<form action="#" th:action="@{CreateProcedure}"
+		th:object="${procedure}" method="POST">
+		<img src="/images/kaligia-logo.png" height="150" width="400" />
+
+		<HR />
+		<fieldset>
+			<legend> Procedure Name</legend>
+		Procedure Name: <input type="text" required="required" 
+			th:field="*{Name}" /> 
+			Status <select class="status_dropdown"
+			name="selectStatus"<b>th:field="*{status}" >
+				<option th:each="sopt:${status}" th:value="?" th:text="?">
+					Select Status</option></select> <br> Description:
+		<textarea id="msg"></textarea>
+		</fieldset>
+		<fieldset>
+			<legend> Device Selection</legend>
+			<table>
+				<tr>
+					<td>Laser</td>
+					<td><select class="laser_dropdown" name="selectLaser"<b>th:field="*{laser}"
+								>
+								<option th:each="sopt:${lasers}" th:value="?" th:text="?">
+									Select Lasers</option></select></td>
+					<td></td>
+					<td>Spectrometer</td>
+					<td><select class="spectrometer_dropdown"
+						name="selectSpectrometer"<b>th:field="*{spectrometer}"
+								>
+								<option th:each="sopt:${spectrometers}" th:value="?" th:text="?">
+									Select Spectrometer</option></select></td>
+
+				</tr>
+				<tr>
+					<td>Probe</td>
+					<td><select class="probe_dropdown" name="selectProbe"<b>th:field="*{probe}"
+								>
+								<option th:each="sopt:${probes}" th:value="?" th:text="?">
+									Select Probes</option></select></td>
+					<td></td>
+<!--					<td>Body Part</td>
+					<td><select class="bodypart_dropdown" name="selectBodyPart"<b>th:field="*{bodypart}"
+								>
+								<option th:each="sopt:${bodypart}" th:value="?" th:text="?">
+									Select Body Part</option></select></td>
+
+  					<td>Sample</td>
+					<td><select class="sample_dropdown" name="selectSample"<b>th:field="*{sample}"
+								>
+								<option th:each="sopt:${samples}" th:value="?" th:text="?">
+									Select Samples</option></select></td>
+-->
+				</tr>
+			</table>
+		</fieldset>
+
+
+		<fieldset>
+			<legend> Set Segment Parameters </legend>
+
+			<TABLE>
+				<TR>
+
+					<th>IntegrationTime</th>
+					<th>Scan2Avg</th>
+					<th>BoxCarWidth</th>
+					<th>ElectricDark</th>
+					<th>NonLinearCorrect</th>
+					<th>Delay</th>
+					<th>Voltage</th>
+				</TR>
+				<TR>
+
+					<TD><input type="text" required="required"
+						th:field="*{IntegTime1}" size="6" maxlength="6" /></TD>
+					<TD><input type="text" required="required"
+						th:field="*{Scan2Avg1}" size="3" maxlength="3" /></TD>
+					<TD><input type="text" required="required"
+						th:field="*{BoxCarWid1}" size="3" maxlength="3" /></TD>
+					<TD><input type="text" required="required"
+						th:field="*{ElectricDark1}" size="3" maxlength="1" /></TD>
+					<TD><input type="text" required="required"
+						th:field="*{NLCorrect1}" size="3" maxlength="3" /></TD>
+					<TD><input type="text" required="required"
+						th:field="*{Delay1}" size="3" maxlength="3" /></TD>
+					<TD><input type="text" required="required"
+						th:field="*{Voltage1}" size="4" maxlength="4" /></TD>
+				</TR>
+<!-- 
+				<TR>
+
+					<TD><input type="text" required="required"
+						th:field="*{IntegTime2}" size="6" maxlength="6" /></TD>
+					<TD><input type="text" required="required"
+						th:field="*{Scan2Avg2}" size="3" maxlength="3" /></TD>
+					<TD><input type="text" required="required"
+						th:field="*{BoxCarWid2}" size="3" maxlength="3" /></TD>
+					<TD><input type="text" required="required"
+						th:field="*{ElectricDark2}" size="3" maxlength="1" /></TD>
+					<TD><input type="text" required="required"
+						th:field="*{NLCorrect2}" size="3" maxlength="3" /></TD>
+					<TD><input type="text" required="required"
+						th:field="*{Delay2}" size="3" maxlength="3" /></TD>
+					<TD><input type="text" required="required"
+						th:field="*{Voltage2}" size="4" maxlength="4" /></TD>
+				</TR>
+				<TR>
+
+					<TD><input type="text" required="required"
+						th:field="*{IntegTime3}" size="6" maxlength="6" /></TD>
+					<TD><input type="text" required="required"
+						th:field="*{Scan2Avg3}" size="3" maxlength="3" /></TD>
+					<TD><input type="text" required="required"
+						th:field="*{BoxCarWid3}" size="3" maxlength="3" /></TD>
+					<TD><input type="text" required="required"
+						th:field="*{ElectricDark3}" size="3" maxlength="1" /></TD>
+					<TD><input type="text" required="required"
+						th:field="*{NLCorrect3}" size="3" maxlength="3" /></TD>
+					<TD><input type="text" required="required"
+						th:field="*{Delay3}" size="3" maxlength="3" /></TD>
+					<TD><input type="text" required="required"
+						th:field="*{Voltage3}" size="4" maxlength="4" /></TD>
+				</TR>
+				
+			<TR>
+				<TD width="140">READING 4:</TD>
+				<TD width="80"><input type="text" required="required"
+					th:field="*{IntegTime4}" size="6" maxlength="6" /></TD>
+				<TD width="80"><input type="text" required="required"
+					th:field="*{Scan2Avg4}" size="3" maxlength="3" /></TD>
+				<TD width="80"><input type="text" required="required"
+					th:field="*{BoxCarWid4}" size="3" maxlength="3" /></TD>
+				<TD width="80"><input type="text" required="required"
+					th:field="*{ElectricDark4}" size="3" maxlength="1" /></TD>
+				<TD width="80"><input type="text" required="required"
+					th:field="*{NLCorrect4}" size="3" maxlength="3" /></TD>
+				<TD width="80"><input type="text" required="required"
+					th:field="*{Delay4}" size="3" maxlength="3" /></TD>
+				<TD width="80"><input type="text" required="required"
+					th:field="*{Voltage4}" size="4" maxlength="4" /></TD>
+			</TR>
+			<TR>
+				<TD width="140">READING 5:</TD>
+				<TD width="80"><input type="text" required="required"
+					th:field="*{IntegTime5}" size="6" maxlength="6" /></TD>
+				<TD width="80"><input type="text" required="required"
+					th:field="*{Scan2Avg5}" size="3" maxlength="3" /></TD>
+				<TD width="80"><input type="text" required="required"
+					th:field="*{BoxCarWid5}" size="3" maxlength="3" /></TD>
+				<TD width="80"><input type="text" required="required"
+					th:field="*{ElectricDark5}" size="3" maxlength="1" /></TD>
+				<TD width="80"><input type="text" required="required"
+					th:field="*{NLCorrect5}" size="3" maxlength="3" /></TD>
+				<TD width="80"><input type="text" required="required"
+					th:field="*{Delay5}" size="3" maxlength="3" /></TD>
+				<TD width="80"><input type="text" required="required"
+					th:field="*{Voltage5}" size="4" maxlength="4" /></TD>
+			</TR>
+			<TR>
+				<TD width="140">READING 6:</TD>
+				<TD width="80"><input type="text" required="required"
+					th:field="*{IntegTime6}" size="6" maxlength="6" /></TD>
+				<TD width="80"><input type="text" required="required"
+					th:field="*{Scan2Avg6}" size="3" maxlength="3" /></TD>
+				<TD width="80"><input type="text" required="required"
+					th:field="*{BoxCarWid6}" size="3" maxlength="3" /></TD>
+				<TD width="80"><input type="text" required="required"
+					th:field="*{ElectricDark6}" size="3" maxlength="1" /></TD>
+				<TD width="80"><input type="text" required="required"
+					th:field="*{NLCorrect6}" size="3" maxlength="3" /></TD>
+				<TD width="80"><input type="text" required="required"
+					th:field="*{Delay6}" size="3" maxlength="3" /></TD>
+				<TD width="80"><input type="text" required="required"
+					th:field="*{Voltage6}" size="4" maxlength="4" /></TD>
+			</TR>
+			<TR>
+				<TD width="140">READING 7:</TD>
+				<TD width="80"><input type="text" required="required"
+					th:field="*{IntegTime7}" size="6" maxlength="6" /></TD>
+				<TD width="80"><input type="text" required="required"
+					th:field="*{Scan2Avg7}" size="3" maxlength="3" /></TD>
+				<TD width="80"><input type="text" required="required"
+					th:field="*{BoxCarWid7}" size="3" maxlength="3" /></TD>
+				<TD width="80"><input type="text" required="required"
+					th:field="*{ElectricDark7}" size="3" maxlength="1" /></TD>
+				<TD width="80"><input type="text" required="required"
+					th:field="*{NLCorrect7}" size="3" maxlength="3" /></TD>
+				<TD width="80"><input type="text" required="required"
+					th:field="*{Delay7}" size="3" maxlength="3" /></TD>
+				<TD width="80"><input type="text" required="required"
+					th:field="*{Voltage7}" size="4" maxlength="4" /></TD>
+			</TR>
+			<TR>
+				<TD width="140">READING 8:</TD>
+				<TD width="80"><input type="text" required="required"
+					th:field="*{IntegTime8}" size="6" maxlength="6" /></TD>
+				<TD width="80"><input type="text" required="required"
+					th:field="*{Scan2Avg8}" size="3" maxlength="3" /></TD>
+				<TD width="80"><input type="text" required="required"
+					th:field="*{BoxCarWid8}" size="3" maxlength="3" /></TD>
+				<TD width="80"><input type="text" required="required"
+					th:field="*{ElectricDark8}" size="3" maxlength="1" /></TD>
+				<TD width="80"><input type="text" required="required"
+					th:field="*{NLCorrect8}" size="3" maxlength="3" /></TD>
+				<TD width="80"><input type="text" required="required"
+					th:field="*{Delay8}" size="3" maxlength="3" /></TD>
+				<TD width="80"><input type="text" required="required"
+					th:field="*{Voltage8}" size="4" maxlength="4" /></TD>
+			</TR>
+			<TR>
+				<TD width="140">READING 9:</TD>
+				<TD width="80"><input type="text" required="required"
+					th:field="*{IntegTime9}" size="6" maxlength="6" /></TD>
+				<TD width="80"><input type="text" required="required"
+					th:field="*{Scan2Avg9}" size="3" maxlength="3" /></TD>
+				<TD width="80"><input type="text" required="required"
+					th:field="*{BoxCarWid9}" size="3" maxlength="3" /></TD>
+				<TD width="80"><input type="text" required="required"
+					th:field="*{ElectricDark9}" size="3" maxlength="1" /></TD>
+				<TD width="80"><input type="text" required="required"
+					th:field="*{NLCorrect9}" size="3" maxlength="3" /></TD>
+				<TD width="80"><input type="text" required="required"
+					th:field="*{Delay9}" size="3" maxlength="3" /></TD>
+				<TD width="80"><input type="text" required="required"
+					th:field="*{Voltage9}" size="4" maxlength="4" /></TD>
+			</TR>
+			<!--
+                    <TR>
+                        <TD width="140"> READING 10:</TD>
+                        <TD width="80"> <input type="text" name="IntegTime10" id="IntegTime10" size="6" maxlength="6" /> </TD>
+                        <TD width="80"> <input type="text" name="Scan2Avg10" id="Scan2Avg10" size="3" maxlength="3" value="1" /> </TD>
+                        <TD width="80"> <input type="text" name="BoxCarWid10" id="BoxCarWid10" size="3" maxlength="3" value="1" /> </TD>
+                        <TD width="80"> <input type="text" name="ElectricDark10" id="ElectricDark10" size="3" maxlength="1" value="1" /> </TD>
+                        <TD width="80"> <input type="text" name="NLCorrect10" id="NLCorrect10" size="3" maxlength="3" value="0" /> </TD>
+                        <TD width="80"> <input type="text" name="Delay10" id="Delay10" size="3" maxlength="3" value="1" /> </TD>
+                        <TD width="80"> <input type="text" name="Voltage10" id="Voltage10" size="4" maxlength="4" value="0.5" /> </TD>
+                    </TR>
+            -->
+
+			</TABLE>
+		</fieldset>
+		<TABLE>
+			<TR>
+				<TD width="800"></TD>
+				<TD><input type="submit" name="Run" value="Create"
+					style="background-color: #888; color: #fff;" /></TD>
+			</TR>
+		</TABLE>
+
+	</form>
+</body>
+</html>

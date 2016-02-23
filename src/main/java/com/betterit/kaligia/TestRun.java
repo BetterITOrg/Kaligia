@@ -23,8 +23,10 @@ import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
+import com.betterit.kaligia.dao.model.kaligia.TestProcedure;
 import com.betterit.kaligia.dao.model.kaligia.Users;
 import com.betterit.kaligia.dao.repository.kaligia.UsersMapper;
+import com.betterit.kaligia.service.TestProcedureService;
 import com.betterit.kaligia.service.UsersService;
 import com.labjack.LJUD;
 import com.oceanoptics.omnidriver.api.wrapper.Wrapper;
@@ -75,7 +77,7 @@ public class TestRun {
 	int acquisitionM = 4;
 	
 	private JdbcTemplate jdbc;
-	private UsersService userService;
+	private TestProcedureService tps;
 	
 	public TestRun (String name, 
 					String description, 
@@ -88,8 +90,7 @@ public class TestRun {
 					Integer boxcarWidth,
 					Integer spectrometerIndex,
 					Integer run_no,
-					JdbcTemplate jdbc,
-					UsersService userService) {
+					JdbcTemplate jdbc) {
 		this.ts = new Date();
 		this.name = name;
 		this.description = description;
@@ -111,7 +112,7 @@ public class TestRun {
 		this.site_id = 1;
 		this.run_no = run_no;
 		this.status = "New";
-		this.userService = userService;
+
 	}
 	
 
@@ -240,16 +241,13 @@ public class TestRun {
 			log.info("Test Result insert failed");
 			return 100;
 		}
-		*/
+		
 
-		Users kj = new Users();
-		kj.setName("John Doe Jr");
-		kj.setRole("Operator");
-		int usid = userService.insertUser(kj);
-		if (usid == 0)
-			log.info("User : " + kj.getName() + " Role : " + kj.getRole() + " ID : " + kj.getUserId());
-		else
-			log.info("User : " + kj.getName() + " Role : " + kj.getRole() + " Failed");
+		List<TestProcedure> tpl = tps.findAll();
+		for(int ii=0; ii<tpl.size(); ii++) {
+			log.info("Procedure : " + tpl.get(ii).getName());
+		}
+		*/
 		return 0;
 	}
 	
