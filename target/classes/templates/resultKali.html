@@ -15,9 +15,9 @@
     <p></p>
     <h1>Graph:</h1>	
    	<p></p>
-   	<div style="width:50%">
+   	<div style="width:100%">
 		<div>
-			<canvas id="canvas" height="600" width="800"></canvas>
+			<canvas id="canvas" height="1000" width="3000"></canvas>
 		</div>
 	</div>
 
@@ -40,10 +40,6 @@
 						title: tt,
 						fillColor : "rgba(220,220,220,0.2)",
 						strokeColor : clri,
-						pointColor : clri,
-						pointStrokeColor : clri,
-						pointHighlightFill : clri,
-						pointHighlightStroke : clri,
 						data : ddi
 					}
 				}
@@ -54,25 +50,25 @@
 			datasets : datasetValue
 		}
 		
-		var startWithDataset =1;
-		var startWithData =1;
-
+		
 		var opt1 = {
-		      animationStartWithDataset : startWithDataset,
-		      animationStartWithData : startWithData,
-		      animationSteps : 200,
+		      animation : false,
 		      canvasBorders : true,
 		      canvasBordersWidth : 3,
 		      canvasBordersColor : "black",
-		      graphTitle : "Wavenumber vs Photon Count",
+		      graphTitle : "Raman Shift(cm^-1) vs Photon Count (x10000)",
 		      legend : true,
-		      inGraphDataShow : true,
-		      annotateDisplay : true,
+		      inGraphDataShow : false,
+		      annotateDisplay : false,
 		      graphTitleFontSize: 18,
-		      yAxisMinimumInterval: 1,
-		      yAxisLabel: "Photon Counts",
-		      xAxisLabel: "Wave Number"
-
+		      yAxisLabel : "Photon Counts",
+		      xAxisLabel : "Raman Shift",
+		      responsive : false,
+		      highLight : false,
+		      yAxisMinimumInterval: 0.5,
+		      showXLabels: 30,
+		      bezierCurve : true,
+		      pointDot : false
 		}
 	
 		window.onload = function(){

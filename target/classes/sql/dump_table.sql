@@ -1,0 +1,13 @@
+﻿set search_path=kaligia;
+copy site to 'C:\Users\v135012\Documents\VentureE\Kaligia\1.csv' WITH DELIMITER ',' CSV HEADER;
+copy users to 'C:\Users\v135012\Documents\VentureE\Kaligia\2.csv' WITH DELIMITER ',' CSV HEADER;
+copy subject to 'C:\Users\v135012\Documents\VentureE\Kaligia\3.csv' WITH DELIMITER ',' CSV HEADER;
+copy specimen to 'C:\Users\v135012\Documents\VentureE\Kaligia\4.csv' WITH DELIMITER ',' CSV HEADER;
+copy specimenspec to 'C:\Users\v135012\Documents\VentureE\Kaligia\5.csv' WITH DELIMITER ',' CSV HEADER;
+copy device to 'C:\Users\v135012\Documents\VentureE\Kaligia\6.csv' WITH DELIMITER ',' CSV HEADER;
+copy devicespec to 'C:\Users\v135012\Documents\VentureE\Kaligia\7.csv' WITH DELIMITER ',' CSV HEADER;
+copy testcase to 'C:\Users\v135012\Documents\VentureE\Kaligia\8.csv' WITH DELIMITER ',' CSV HEADER;
+copy testdevices to 'C:\Users\v135012\Documents\VentureE\Kaligia\9.csv' WITH DELIMITER ',' CSV HEADER;
+copy testcasespec to 'C:\Users\v135012\Documents\VentureE\Kaligia\10.csv' WITH DELIMITER ',' CSV HEADER;
+copy testrun to 'C:\Users\v135012\Documents\VentureE\Kaligia\11.csv' WITH DELIMITER ',' CSV HEADER;
+copy testresult to 'C:\Users\v135012\Documents\VentureE\Kaligia\12.csv' WITH DELIMITER ',' CSV HEADER;
