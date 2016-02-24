@@ -9,13 +9,14 @@ package com.betterit.kaligia;
  */
 public class segmentParams {
 
-	private String integrationTime;
-	private String scan2Average;
-	private String boxCarWidth;
-	private String electricDark;
-	private String nonLinearCorrect;
-	private String delay;
-	private String power;
+	private String integrationTime="0";
+	private String scan2Average="2";
+	private String boxCarWidth="1";
+	private String electricDark="1";
+	private String nonLinearCorrect="0";
+	private String delay="1";
+	private String power="1";
+	
 	public String getIntegrationTime() {
 		return integrationTime;
 	}

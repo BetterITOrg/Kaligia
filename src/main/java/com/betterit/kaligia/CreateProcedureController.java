@@ -4,6 +4,7 @@
 package com.betterit.kaligia;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,8 +60,27 @@ public class CreateProcedureController {
 		log.info("In CreateProcedure POST");
 		log.info("received values" + createProcedureObject.toString());
 		
-		//Call the createTestProcedure service
+		//Clean up the empty segment lines
+		//for ( int i = 1; i <=createProcedureObject.getSegmentList().size(); i++){
+		//	if ( createProcedureObject.getSegmentList()[i].getIntegrationTime )
+		//}
 		
+		Iterator<segmentParams> segmentIterator = createProcedureObject.getSegmentList().iterator();
+		while (segmentIterator.hasNext()) {
+			segmentParams paramObject= segmentIterator.next();
+			if ( Integer.valueOf(paramObject.getIntegrationTime()) < 1)
+			{
+				log.info(" deleting object ");
+				segmentIterator.remove();
+			}
+			
+		}
+		
+		createProcedureObject.setNoOfSegments( createProcedureObject.getSegmentList().size());
+		
+		log.info("AFTER CLEANUP VALUES ARE " + createProcedureObject.toString());
+		//Call the createTestProcedure service
+	
 		int rc = tps.createTestProcedure(
 				createProcedureObject.getName(), 
 				createProcedureObject.getDescription(), 
@@ -73,7 +93,13 @@ public class CreateProcedureController {
 				createProcedureObject.getSegmentList()
 				);
 		
-		return "results";
+		if (rc != 0)		
+		{
+			log.info("failed insert");
+			return "CreateProcedure";
+		}	
+		
+		return "KaligiaMainApp";
 			
 	}
 
