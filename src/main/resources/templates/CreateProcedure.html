@@ -17,7 +17,7 @@
 		Procedure Name: <input type="text" required="required" 
 			th:field="*{Name}" /> 
 			Status <select class="status_dropdown"
-			name="selectStatus">
+			th:field="*{Status}">
 				<option value="ACTIVE">ACTIVE</option>
                 <option value="INACTIVE">INACTIVE</option>
             </select> 
@@ -30,19 +30,19 @@
 			<table>
 				<tr>
 					<td>Laser</td>
-					<td><select class="laser_dropdown" name="selectLaser">
+					<td><select class="laser_dropdown" th:field="*{Laser}">
 								<option th:each="devic:${DeviceList}" th:value="${devic.deviceId}" th:text="${devic.name}">
 									Select Lasers</option></select></td>
 					<td></td>
 					<td>Spectrometer</td>
-					<td><select class="spectrometer_dropdown" name="selectSpectrometer">
+					<td><select class="spectrometer_dropdown" th:field="*{Spectrometer}">
                                 <option th:each="devic:${DeviceList}" th:value="${devic.deviceId}" th:text="${devic.name}">
                                 Select Spectrometer</option></select></td>
 
 				</tr>
 				<tr>
 					<td>Probe</td>
-					<td><select class="probe_dropdown" name="selectProbe" > 
+					<td><select class="probe_dropdown" th:field="*{Probe}" > 
                             <option th:each="devic:${DeviceList}" th:value="${devic.deviceId}" th:text="${devic.name}">
 									Select Probes</option></select></td>
 					<td></td>
@@ -77,6 +77,18 @@
 					<th>Delay</th>
 					<th>Voltage</th>
 				</TR>
+				
+				
+				<tr th:each="segment, rowStat : *{segmentList}">
+                        <td></td>
+                        <td><input type="text" th:field="*{segmentList[__${rowStat.index}__].integrationTime}"/></td>
+                        <td><input type="text" th:field="*{segmentList[__${rowStat.index}__].scan2Average}"></td>
+                        <td><input type="text" th:field="*{segmentList[__${rowStat.index}__].boxCarWidth}"></td>
+                        <td><input type="text" th:field="*{segmentList[__${rowStat.index}__].electricDark}"></td>
+                        <td><input type="text" th:field="*{segmentList[__${rowStat.index}__].nonLinearCorrect}"></td>
+                        <td><input type="text" th:field="*{segmentList[__${rowStat.index}__].delay}"></td>
+                        <td><input type="text" th:field="*{segmentList[__${rowStat.index}__].power}"></td>
+                                          
 				<TR>
 
 					<TD><input type="text" required="required"
