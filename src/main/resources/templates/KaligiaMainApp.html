@@ -3,6 +3,7 @@
 <head>
     <title>Kaligia Main</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" href="/images/form1.css" />
 </head>
 <body>
 
@@ -11,71 +12,39 @@
 
 <HR/>
 <br/>
-  <table style="text-align: left; width: 890px; height: 391px;" border="0" cellpadding="0" cellspacing="0">
-    <tbody>
-      <tr>
-        <td style="vertical-align: top;"><br></br>
-        </td>
-        <td style="vertical-align: top;"><br></br>
-        </td>
-      </tr>
-      <tr>
-        <td style="vertical-align: top;">Saved Procedures</td>
-        <td style="vertical-align: top;">Select an Action</td>
-      </tr>
-      <tr>
-        <td style="vertical-align: top;">
+  
             
             <table>
                 <tr>
                     <th>Procedure Name</th>
                     <th>ProcedureId</th>
+                    <th>Description</th>
                 </tr>
                 <tr th:each="procedur : ${ProcedureList}">
                     <td th:text="${procedur.name}"></td>
                     <td th:text="${procedur.procedureId}"></td>
+                    <td th:text="${procedur.description}"></td>
                 </tr>
             </table>
 
 
-        </td>
-        <td style="vertical-align: top;">
-        <table style="text-align: left; height: 52px; width: 349px;" border="0" cellpadding="0" cellspacing="0">
-          <tbody>
+        
+        <br/>
+        <table >
             <tr>
-              <td style="vertical-align: top; width: 339px;"><br></br>
-              </td>
+              <td ><a href="http://localhost:8090/CreateProcedure.html" target="_self">Create a New Procedure</a></td>
+            
+              <td ><a href="http://localhost:8090/KaligiaRunOrder.html" target="_self">Run a New Test</a></td>
             </tr>
             <tr>
-              <td style="vertical-align: top; width: 339px;"><a href="http://localhost:8090/CreateProcedure.html" target="_self">Create a New Procedure</a></td>
+              <td >List All Run Results for a Procedure</td>
+            
+              <td >List Procedure Details</td>
             </tr>
-            <tr>
-            </tr>
-            <tr>
-              <td style="vertical-align: top; width: 339px;"><a href="http://localhost:8090/KaligiaRunOrder.html" target="_self">Run a New Test</a></td>
-            </tr>
-            <tr>
-              <td style="vertical-align: top;"><br></br>
-              </td>
-            </tr>
-            <tr>
-              <td style="vertical-align: top;">List All Run Results for a Procedure</td>
-            </tr>
-            <tr>
-              <td style="vertical-align: top;"><br></br>
-              </td>
-            </tr>
-            <tr>
-              <td style="vertical-align: top;">List Procedure Details</td>
-            </tr>
-          </tbody>
+          
         </table>
-        <br></br>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <br></br>
+        
+      
 </form>
 
 </body></html>

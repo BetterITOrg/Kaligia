@@ -5,7 +5,7 @@ form {
 
   /* To see the limits of the form */
   padding: 1em;
-  border: 1px solid #777;
+  border: 2px solid #777;
   border-radius: 1em;
   background-color: #e0e0e0;
 
@@ -60,7 +60,7 @@ textarea {
 
 .button {
   /* To position the buttons to the same position of the text fields */
-  padding-left: 90px; /* same size as the label elements */
+  padding-left: 100px; /* same size as the label elements */
 }
 
 button {
@@ -71,7 +71,7 @@ button {
 
 
 table, input {
-	font-size: 13px;	
+	font-size: 15px;	
 }
 
 select {
