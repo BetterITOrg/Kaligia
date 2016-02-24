@@ -3,6 +3,7 @@
  */
 package com.betterit.kaligia;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,9 +38,18 @@ public class CreateProcedureController {
 
 	/** TO-DO get all devices from database. populate the drop downs on the form */
 		List<Device> deviceList = deviceServiceObject.findAll();
+		List<segmentParams> segList = new ArrayList<segmentParams>();
+		CreateProcedure createProcObj = new CreateProcedure();
+		
+		for(int i=1; i<11; i++){
+			segmentParams segmentObj= new segmentParams();
+			segList.add(segmentObj);
+		}
+		createProcObj.setSegmentList(segList);
 		
 		model.addAttribute("DeviceList", deviceList);
-		model.addAttribute("Procedur", new CreateProcedure());
+		model.addAttribute("Procedur", createProcObj);
+				
 		return ("CreateProcedure");
 	}
 
