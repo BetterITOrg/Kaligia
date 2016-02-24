@@ -21,6 +21,7 @@ C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\dao\
 C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\dao\model\kaligia\OrderDetails.java
 C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\KaliSubmitTest.java
 C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\dao\repository\kaligia\ProcSegmentMapper.java
+C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\OldTestResult.java
 C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\dao\model\kaligia\SpecimenExample.java
 C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\dao\model\kaligia\RunSegmentExample.java
 C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\dao\model\kaligia\Device.java
@@ -28,6 +29,7 @@ C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\dao\
 C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\service\TestProcedureService.java
 C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\SpectraAcquisitionMaya.java
 C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\dao\repository\kaligia\SpecimenSpecMapper.java
+C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\OldTestRun.java
 C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\dao\model\kaligia\SpecimenSpecExample.java
 C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\dao\model\kaligia\TestProcedureExample.java
 C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\dao\repository\kaligia\RunOrderMapper.java
@@ -37,6 +39,7 @@ C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\Spec
 C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\dao\model\kaligia\RunSegmentLog.java
 C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\LaserControl.java
 C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\dao\repository\kaligia\TestProcedureMapper.java
+C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\service\TestOrderService.java
 C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\dao\model\kaligia\RunSegment.java
 C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\service\DeviceService.java
 C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\dao\model\kaligia\DeviceSpecExample.java

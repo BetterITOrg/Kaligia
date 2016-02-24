@@ -45,7 +45,7 @@ public class KaligiaApplicationController {
 		    	TestRun tr = new TestRun("Sample", "Test Run", "Test", 15, 1, 1, 1, 0, 1, 0, jdbcTemplate);
 		    	tr.doTestRun();
 		    	*/
-			   TestRun tr1 = new TestRun( kaliSubmitTestObject.getName(),
+			   OldTestRun tr1 = new OldTestRun( kaliSubmitTestObject.getName(),
 					   kaliSubmitTestObject.getDescription(),
 					   "Test Run",
 					   kaliSubmitTestObject.getIntegTime1(),
@@ -77,7 +77,7 @@ public class KaligiaApplicationController {
 		   {
 			   log.info("Running 2nd Reading with  " + kaliSubmitTestObject.getIntegTime2() + " s");
 			   
-			   TestRun tr2 = new TestRun( kaliSubmitTestObject.getName(),
+			   OldTestRun tr2 = new OldTestRun( kaliSubmitTestObject.getName(),
 					   kaliSubmitTestObject.getDescription(),
 					   "Test Run",
 					   kaliSubmitTestObject.getIntegTime2(),
@@ -109,7 +109,7 @@ public class KaligiaApplicationController {
 		   {
 			   log.info("Running 3nd Reading with  " + kaliSubmitTestObject.getIntegTime3() + " s");
 			   
-			   TestRun tr3 = new TestRun( kaliSubmitTestObject.getName(),
+			   OldTestRun tr3 = new OldTestRun( kaliSubmitTestObject.getName(),
 					   kaliSubmitTestObject.getDescription(),
 					   "Test Run",
 					   kaliSubmitTestObject.getIntegTime3(),
@@ -141,7 +141,7 @@ public class KaligiaApplicationController {
 		   {
 			   log.info("Running 4th Reading with  " + kaliSubmitTestObject.getIntegTime4() + " s");
 			   
-			   TestRun tr4 = new TestRun( kaliSubmitTestObject.getName(),
+			   OldTestRun tr4 = new OldTestRun( kaliSubmitTestObject.getName(),
 					   kaliSubmitTestObject.getDescription(),
 					   "Test Run",
 					   kaliSubmitTestObject.getIntegTime4(),
@@ -172,7 +172,7 @@ public class KaligiaApplicationController {
 		   {
 			   log.info("Running 5th Reading with  " + kaliSubmitTestObject.getIntegTime5() + " s");
 			   
-			   TestRun tr5 = new TestRun( kaliSubmitTestObject.getName(),
+			   OldTestRun tr5 = new OldTestRun( kaliSubmitTestObject.getName(),
 					   kaliSubmitTestObject.getDescription(),
 					   "Test Run",
 					   kaliSubmitTestObject.getIntegTime5(),
@@ -203,7 +203,7 @@ public class KaligiaApplicationController {
 		   {
 			   log.info("Running 6th Reading with  " + kaliSubmitTestObject.getIntegTime6() + " s");
 			   
-			   TestRun tr6 = new TestRun( kaliSubmitTestObject.getName(),
+			   OldTestRun tr6 = new OldTestRun( kaliSubmitTestObject.getName(),
 					   kaliSubmitTestObject.getDescription(),
 					   "Test Run",
 					   kaliSubmitTestObject.getIntegTime6(),
@@ -234,7 +234,7 @@ public class KaligiaApplicationController {
 		   {
 			   log.info("Running 7th Reading with  " + kaliSubmitTestObject.getIntegTime7() + " s");
 			   
-			   TestRun tr7 = new TestRun( kaliSubmitTestObject.getName(),
+			   OldTestRun tr7 = new OldTestRun( kaliSubmitTestObject.getName(),
 					   kaliSubmitTestObject.getDescription(),
 					   "Test Run",
 					   kaliSubmitTestObject.getIntegTime7(),
@@ -266,7 +266,7 @@ public class KaligiaApplicationController {
 		   {
 			   log.info("Running 8th Reading with  " + kaliSubmitTestObject.getIntegTime8() + " s");
 			   
-			   TestRun tr8 = new TestRun( kaliSubmitTestObject.getName(),
+			   OldTestRun tr8 = new OldTestRun( kaliSubmitTestObject.getName(),
 					   kaliSubmitTestObject.getDescription(),
 					   "Test Run",
 					   kaliSubmitTestObject.getIntegTime8(),
@@ -298,7 +298,7 @@ public class KaligiaApplicationController {
 		   {
 			   log.info("Running 9th Reading with  " + kaliSubmitTestObject.getIntegTime9() + " s");
 			   
-			   TestRun tr9 = new TestRun( kaliSubmitTestObject.getName(),
+			   OldTestRun tr9 = new OldTestRun( kaliSubmitTestObject.getName(),
 					   kaliSubmitTestObject.getDescription(),
 					   "Test Run",
 					   kaliSubmitTestObject.getIntegTime9(),
@@ -329,7 +329,7 @@ public class KaligiaApplicationController {
 		   {
 			   log.info("Running 10th Reading with  " + kaliSubmitTestObject.getIntegTime10() + " s");
 			   
-			   TestRun tr10 = new TestRun( kaliSubmitTestObject.getName(),
+			   OldTestRun tr10 = new OldTestRun( kaliSubmitTestObject.getName(),
 					   kaliSubmitTestObject.getDescription(),
 					   "Test Run",
 					   kaliSubmitTestObject.getIntegTime10(),
