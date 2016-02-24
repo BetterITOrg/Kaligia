@@ -81,17 +81,26 @@ public class CreateProcedureController {
 		log.info("AFTER CLEANUP VALUES ARE " + createProcedureObject.toString());
 		//Call the createTestProcedure service
 	
-		int rc = tps.createTestProcedure(
-				createProcedureObject.getName(), 
-				createProcedureObject.getDescription(), 
-				"IN-VIVO",  // ToDo: Hard Coded
-				createProcedureObject.getStatus(), 
-				createProcedureObject.getNoOfSegments(), 
-				Integer.valueOf(createProcedureObject.getSpectrometer()), 
-				Integer.valueOf(createProcedureObject.getLaser()),
-				Integer.valueOf(createProcedureObject.getProbe()), 
-				createProcedureObject.getSegmentList()
-				);
+		int rc = 0;
+		try {
+			rc = tps.createTestProcedure(
+					createProcedureObject.getName(), 
+					createProcedureObject.getDescription(), 
+					"IN-VIVO",  // ToDo: Hard Coded
+					createProcedureObject.getStatus(), 
+					createProcedureObject.getNoOfSegments(), 
+					Integer.valueOf(createProcedureObject.getSpectrometer()), 
+					Integer.valueOf(createProcedureObject.getLaser()),
+					Integer.valueOf(createProcedureObject.getProbe()), 
+					createProcedureObject.getSegmentList()
+					);
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		if (rc != 0)		
 		{

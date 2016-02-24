@@ -217,10 +217,10 @@ public class TestProcedureService {
 			trsl.add(result);
 		}
 		
+		RunSegmentLog rslo = new RunSegmentLog();
 		for(int i=0; i<trsl.size(); i++) {
 			// Create ResultLog
 			int size = trsl.get(i).getWavelength().length;
-			RunSegmentLog rslo = new RunSegmentLog();
 			rslo.setRunSegmentId(trsl.get(i).getSeg_run_id());
 			
 			for(int j=0; j<size; j++) {
