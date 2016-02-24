@@ -82,13 +82,14 @@
 				<tr th:each="segment, rowStat : *{segmentList}">
                         <td></td>
                         <td><input type="text" th:field="*{segmentList[__${rowStat.index}__].integrationTime}"/></td>
-                        <td><input type="text" th:field="*{segmentList[__${rowStat.index}__].scan2Average}"></td>
-                        <td><input type="text" th:field="*{segmentList[__${rowStat.index}__].boxCarWidth}"></td>
-                        <td><input type="text" th:field="*{segmentList[__${rowStat.index}__].electricDark}"></td>
-                        <td><input type="text" th:field="*{segmentList[__${rowStat.index}__].nonLinearCorrect}"></td>
-                        <td><input type="text" th:field="*{segmentList[__${rowStat.index}__].delay}"></td>
-                        <td><input type="text" th:field="*{segmentList[__${rowStat.index}__].power}"></td>
-                                          
+                        <td><input type="text" th:field="*{segmentList[__${rowStat.index}__].scan2Average}" /></td>
+                        <td><input type="text" th:field="*{segmentList[__${rowStat.index}__].boxCarWidth}" /></td>
+                        <td><input type="text" th:field="*{segmentList[__${rowStat.index}__].electricDark}" /></td>
+                        <td><input type="text" th:field="*{segmentList[__${rowStat.index}__].nonLinearCorrect}" /></td>
+                        <td><input type="text" th:field="*{segmentList[__${rowStat.index}__].delay}" /></td>
+                        <td><input type="text" th:field="*{segmentList[__${rowStat.index}__].power}" /></td>
+                </tr>                          
+<!-- 
 				<TR>
 
 					<TD><input type="text" required="required"
@@ -106,7 +107,6 @@
 					<TD><input type="text" required="required"
 						name="Voltage1" /></TD>
 				</TR>
-<!-- 
 				<TR>
 
 					<TD><input type="text" required="required"

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.betterit.kaligia.dao.model.kaligia.Device;
 import com.betterit.kaligia.service.DeviceService;
+import com.betterit.kaligia.service.TestProcedureService;
 
 /**
  * @author nayar
@@ -27,6 +28,9 @@ public class CreateProcedureController {
 
 	@Autowired
 	private DeviceService deviceServiceObject;
+	
+	@Autowired
+	private TestProcedureService tps;
 
 	@RequestMapping(value="/CreateProcedure", method=RequestMethod.GET)
     public String createProcedureForm(Model model) {
@@ -45,11 +49,22 @@ public class CreateProcedureController {
 		log.info("In CreateProcedure POST");
 		log.info("received values" + createProcedureObject.toString());
 		
-		// TODO call the createTestProcedure service
+		//Call the createTestProcedure service
+		
+		int rc = tps.createTestProcedure(
+				createProcedureObject.getName(), 
+				createProcedureObject.getDescription(), 
+				"IN-VIVO",  // ToDo: Hard Coded
+				createProcedureObject.getStatus(), 
+				createProcedureObject.getNoOfSegments(), 
+				Integer.valueOf(createProcedureObject.getSpectrometer()), 
+				Integer.valueOf(createProcedureObject.getLaser()),
+				Integer.valueOf(createProcedureObject.getProbe()), 
+				createProcedureObject.getSegmentList()
+				);
 		
 		return "results";
-		
-		
+			
 	}
 
 }

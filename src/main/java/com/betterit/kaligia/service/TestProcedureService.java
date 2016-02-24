@@ -70,7 +70,30 @@ public class TestProcedureService {
 		
 	}
 
-	public int runTestProcedure(TestProcedure tp) {
+	public int runTestProcedure(Integer procedureID) {
+		
+		int rc = 0;
+		
+		// Get Test Procedure
+		TestProcedure tp = tpm.selectByPrimaryKey(procedureID);
+		
+		//Get Segments and Params
+		List<TestSegmentSpec> tssl = new ArrayList<TestSegmentSpec>();
+		
+		ProcSegmentExample pse = new ProcSegmentExample();
+		pse.createCriteria().andProcedureIdEqualTo(procedureID);
+		List<ProcSegment> psl = psm.selectByExample(pse);
+		
+		for(int i=0; i<psl.size(); i++) {
+			// Get Segment Parameters
+			TestSegmentSpecExample tsse = new TestSegmentSpecExample();
+			tsse.createCriteria().andSegmentIdEqualTo(psl.get(i).getSegmentId());
+			tssl = tssm.selectByExample(tsse);
+		}
+		
+		
+		
+		
 		
 		return 0;
 	}
@@ -107,6 +130,13 @@ public class TestProcedureService {
 		UsersExample ue = new UsersExample();
 		ue.createCriteria().andNameEqualTo("Olesia Gololobova");
 		List<Users> user=um.selectByExample(ue);
+		if(user.size()==0) {
+			//create user
+			Users olesia = new Users();
+			olesia.setName("Olesia Gololobova");
+			olesia.setRole("Admin");
+			rc = um.insert(olesia);
+		}
 		
 		// Test Procedure
 		TestProcedure tp = new TestProcedure();
@@ -141,6 +171,7 @@ public class TestProcedureService {
 			List<TestSegmentSpec> tss1 = tssm.selectByExample(tsse);
 			tsse.clear();
 			if (tss1.size() ==  0) {
+				// No segment found create new
 				rc = createSegmentParam(tp, spectrometerID, laserID, segParams.get(jj), jj);
 				continue;
 			};
@@ -154,6 +185,7 @@ public class TestProcedureService {
 			List<TestSegmentSpec> tss2 = tssm.selectByExample(tsse);
 			tsse.clear();
 			if (tss2.size() == 0) {
+				// No segment found create new
 				rc = createSegmentParam(tp, spectrometerID, laserID, segParams.get(jj), jj);
 				continue;
 			};
@@ -167,6 +199,7 @@ public class TestProcedureService {
 			List<TestSegmentSpec> tss3 = tssm.selectByExample(tsse);
 			tsse.clear();
 			if (tss3.size() == 0) {
+				// No segment found create new
 				rc = createSegmentParam(tp, spectrometerID, laserID, segParams.get(jj), jj);
 				continue;
 			};
@@ -180,6 +213,7 @@ public class TestProcedureService {
 			List<TestSegmentSpec> tss4 = tssm.selectByExample(tsse);
 			tsse.clear();
 			if (tss4.size() == 0) {
+				// No segment found create new
 				rc = createSegmentParam(tp, spectrometerID, laserID, segParams.get(jj), jj);
 				continue;
 			};
@@ -193,6 +227,7 @@ public class TestProcedureService {
 			List<TestSegmentSpec> tss5 = tssm.selectByExample(tsse);
 			tsse.clear();
 			if (tss5.size() == 0) {
+				// No segment found create new
 				rc = createSegmentParam(tp, spectrometerID, laserID, segParams.get(jj), jj);
 				continue;
 			};
@@ -206,6 +241,7 @@ public class TestProcedureService {
 			List<TestSegmentSpec> tss6 = tssm.selectByExample(tsse);
 			tsse.clear();
 			if (tss6.size() == 0) {
+				// No segment found create new
 				rc = createSegmentParam(tp, spectrometerID, laserID, segParams.get(jj), jj);
 				continue;
 			};
@@ -219,11 +255,13 @@ public class TestProcedureService {
 			List<TestSegmentSpec> tss7 = tssm.selectByExample(tsse);
 			tsse.clear();
 			if (tss7.size() == 0) {
+				// No segment found create new
 				rc = createSegmentParam(tp, spectrometerID, laserID, segParams.get(jj), jj);
 				continue;
 			};
 			
 			//Create ProcSegment
+			// Segment found, Map to Procedure
 			ProcSegment ps = new ProcSegment();
 			ps.setProcedureId(tp.getProcedureId());
 			ps.setSegmentId(tss7.get(0).getSegmentId());
@@ -234,13 +272,13 @@ public class TestProcedureService {
 		return 0;
 	}
 
-	public int createSegmentParam(TestProcedure tp, Integer spectrometerID, Integer laserID, segmentParams segParam, int jj) {
+	public int createSegmentParam(TestProcedure tp, Integer spectrometerID, Integer laserID, segmentParams segParam, int segNo) {
 		
 		int rc = 0;
 		
 		//Create Segment
 		TestSegment ts = new TestSegment();
-		ts.setName(tp.getName() + " Segment" + jj);
+		ts.setName(tp.getName() + " Segment" + segNo);
 		ts.setDescription(tp.getDescription());
 		ts.setCreatedBy(tp.getCreatedBy());
 		ts.setCreationDate(tp.getCreationDate());
@@ -296,7 +334,7 @@ public class TestProcedureService {
 		ProcSegment ps = new ProcSegment();
 		ps.setProcedureId(tp.getProcedureId());
 		ps.setSegmentId(ts.getSegmentId());
-		ps.setSegmentNo(jj);
+		ps.setSegmentNo(segNo);
 		rc = psm.insert(ps);
 		
 		return 0;
