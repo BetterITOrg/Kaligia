@@ -23,7 +23,7 @@
             </select> 
             <br/> 
             Description:
-		<textarea id="msg"></textarea>
+		<textarea id="msg" required="required" th:field="*{Description}"></textarea>
 		</fieldset>
 		<fieldset>
 			<legend> Device Selection</legend>
@@ -80,14 +80,14 @@
 				
 				
 				<tr th:each="segment, rowStat : *{segmentList}">
-                        <td></td>
-                        <td><input type="text" th:field="*{segmentList[__${rowStat.index}__].integrationTime}"/></td>
-                        <td><input type="text" th:field="*{segmentList[__${rowStat.index}__].scan2Average}" /></td>
-                        <td><input type="text" th:field="*{segmentList[__${rowStat.index}__].boxCarWidth}" /></td>
-                        <td><input type="text" th:field="*{segmentList[__${rowStat.index}__].electricDark}" /></td>
-                        <td><input type="text" th:field="*{segmentList[__${rowStat.index}__].nonLinearCorrect}" /></td>
-                        <td><input type="text" th:field="*{segmentList[__${rowStat.index}__].delay}" /></td>
-                        <td><input type="text" th:field="*{segmentList[__${rowStat.index}__].power}" /></td>
+                       
+                        <td><input type="text" required="required" th:field="*{segmentList[__${rowStat.index}__].integrationTime}"/></td>
+                        <td><input type="text" required="required" th:field="*{segmentList[__${rowStat.index}__].scan2Average}" /></td>
+                        <td><input type="text" required="required" th:field="*{segmentList[__${rowStat.index}__].boxCarWidth}" /></td>
+                        <td><input type="text" required="required" th:field="*{segmentList[__${rowStat.index}__].electricDark}" /></td>
+                        <td><input type="text" required="required" th:field="*{segmentList[__${rowStat.index}__].nonLinearCorrect}" /></td>
+                        <td><input type="text" required="required" th:field="*{segmentList[__${rowStat.index}__].delay}" /></td>
+                        <td><input type="text" required="required" th:field="*{segmentList[__${rowStat.index}__].power}" /></td>
                 </tr>                          
 <!-- 
 				<TR>
