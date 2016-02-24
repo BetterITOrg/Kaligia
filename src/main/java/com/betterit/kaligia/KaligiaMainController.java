@@ -29,7 +29,7 @@ public class KaligiaMainController {
 	@Autowired
 	private TestProcedureService procedureServiceObject;
 	
-	@RequestMapping(value="/", method=RequestMethod.GET)
+	@RequestMapping(value="/KaligiaMainApp", method=RequestMethod.GET)
     public String mainForm(Model model) {
 		
 		/** TO-DO get all procedures from database */
