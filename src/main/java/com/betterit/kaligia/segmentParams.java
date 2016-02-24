@@ -58,6 +58,15 @@ public class segmentParams {
 	public void setPower(String power) {
 		this.power = power;
 	}
+	@Override
+	public String toString() {
+		return "segmentParams [" + (integrationTime != null ? "integrationTime=" + integrationTime + ", " : "")
+				+ (scan2Average != null ? "scan2Average=" + scan2Average + ", " : "")
+				+ (boxCarWidth != null ? "boxCarWidth=" + boxCarWidth + ", " : "")
+				+ (electricDark != null ? "electricDark=" + electricDark + ", " : "")
+				+ (nonLinearCorrect != null ? "nonLinearCorrect=" + nonLinearCorrect + ", " : "")
+				+ (delay != null ? "delay=" + delay + ", " : "") + (power != null ? "power=" + power : "") + "]";
+	}
 	
 	
 }

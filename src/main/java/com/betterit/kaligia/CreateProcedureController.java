@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -38,6 +39,17 @@ public class CreateProcedureController {
 		return ("CreateProcedure");
 	}
 
-
+	@RequestMapping(value="/CreateProcedure", method=RequestMethod.POST)
+    public String handleProcedureForm(@ModelAttribute CreateProcedure createProcedureObject, Model model) {
+		
+		log.info("In CreateProcedure POST");
+		log.info("received values" + createProcedureObject.toString());
+		
+		// TODO call the createTestProcedure service
+		
+		return "results";
+		
+		
+	}
 
 }

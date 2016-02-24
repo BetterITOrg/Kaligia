@@ -3,6 +3,8 @@
  */
 package com.betterit.kaligia;
 
+import java.util.List;
+
 /**
  * @author nayar
  *
@@ -14,6 +16,10 @@ public class CreateProcedure {
 	private String Laser;
 	private String Spectrometer;
 	private String Probe;
+	private int NoOfSegments;
+	
+	private List<segmentParams> segmentList;
+	
 	public String getName() {
 		return Name;
 	}
@@ -50,7 +56,27 @@ public class CreateProcedure {
 	public void setProbe(String probe) {
 		Probe = probe;
 	}
-	
+	public int getNoOfSegments() {
+		return NoOfSegments;
+	}
+	public void setNoOfSegments(int noOfSegments) {
+		NoOfSegments = noOfSegments;
+	}
+	public List<segmentParams> getSegmentList() {
+		return segmentList;
+	}
+	public void setSegmentList(List<segmentParams> segmentList) {
+		this.segmentList = segmentList;
+	}
+	@Override
+	public String toString() {
+		return "CreateProcedure [" + (Name != null ? "Name=" + Name + ", " : "")
+				+ (Description != null ? "Description=" + Description + ", " : "")
+				+ (Status != null ? "Status=" + Status + ", " : "") + (Laser != null ? "Laser=" + Laser + ", " : "")
+				+ (Spectrometer != null ? "Spectrometer=" + Spectrometer + ", " : "")
+				+ (Probe != null ? "Probe=" + Probe + ", " : "") + "NoOfSegments=" + NoOfSegments + ", "
+				+ (segmentList != null ? "segmentList=" + segmentList : "") + "]";
+	}
 	
 
 }
