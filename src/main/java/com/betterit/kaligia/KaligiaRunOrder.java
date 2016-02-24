@@ -16,6 +16,7 @@ public class KaligiaRunOrder {
 	private String type;
 	private String testProcedure;
 	private String specimen;
+	private String subject;
 	private int testProcedureId=0;
 	
 	public String getOrderNo() {
@@ -55,6 +56,12 @@ public class KaligiaRunOrder {
 		this.testProcedureId = testProcedureId;
 	}
 	
+	public String getSubject() {
+		return subject;
+	}
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
 	@Override
 	public String toString() {
 		return "KaligiaRunOrder [" + (orderNo != null ? "orderNo=" + orderNo + ", " : "")

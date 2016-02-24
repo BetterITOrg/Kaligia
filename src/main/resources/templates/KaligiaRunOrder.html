@@ -22,8 +22,8 @@
 
             <br/>Procedure type
             <select th:field="*{type}">
+                <option value="IN-VIVO">IN-VIVO</option>
                 <option value="EX-VIVO">EX-VIVO</option>
-                <option value="IN-VIVO" selected="selected">IN-VIVO</option>
             </select>
             <br/>Procedure 
             <input type="text" required="required"
@@ -31,6 +31,9 @@
             <br/>Specimen
             <input type="text" required="required"
                    th:field="*{specimen}" />
+            <br/>Subject :
+            <input type="text" required="required"
+                   th:field="*{subject}" />       
             </fieldset>
             
             <TABLE>
