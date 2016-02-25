@@ -29,6 +29,7 @@ C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\dao\
 C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\service\TestProcedureService.java
 C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\SpectraAcquisitionMaya.java
 C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\dao\repository\kaligia\SpecimenSpecMapper.java
+C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\KaligiaRunOrder.java
 C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\OldTestRun.java
 C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\dao\model\kaligia\SpecimenSpecExample.java
 C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\dao\model\kaligia\TestProcedureExample.java
@@ -40,19 +41,21 @@ C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\dao\
 C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\LaserControl.java
 C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\dao\repository\kaligia\TestProcedureMapper.java
 C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\service\TestOrderService.java
+C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\dao\model\kaligia\TmpTestResultExample.java
 C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\dao\model\kaligia\RunSegment.java
 C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\service\DeviceService.java
 C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\dao\model\kaligia\DeviceSpecExample.java
 C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\dao\model\kaligia\TestDevicesExample.java
 C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\CreateProcedure.java
 C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\dao\model\kaligia\TestSegmentExample.java
+C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\KaligiaRunOrderController.java
 C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\KaligiaMainController.java
 C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\dao\repository\kaligia\SubjectMapper.java
 C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\dao\repository\kaligia\OrderDetailsMapper.java
 C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\dao\model\kaligia\UsersExample.java
 C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\dao\model\kaligia\LabLogExample.java
+C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\dao\repository\kaligia\TmpTestResultMapper.java
 C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\dao\model\kaligia\SubjectExample.java
-C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\TestResult.java
 C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\dao\repository\kaligia\TestOrderMapper.java
 C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\dao\model\kaligia\SiteExample.java
 C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\TestRun.java
@@ -74,4 +77,5 @@ C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\dao\
 C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\dao\model\kaligia\SubjectLog.java
 C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\dao\repository\kaligia\DeviceSpecMapper.java
 C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\dao\repository\kaligia\SpecimenMapper.java
+C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\dao\model\kaligia\TmpTestResult.java
 C:\Users\v135012\Desktop\gitrepo\Kaligia\src\main\java\com\betterit\kaligia\dao\repository\kaligia\UsersMapper.java

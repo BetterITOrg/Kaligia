@@ -19,6 +19,10 @@ public class KaligiaRunOrder {
 	private String subject;
 	private int testProcedureId=0;
 	
+	private List<String> testStatus;
+	private int wavenumber[][];
+	private float photon[][];
+	
 	public String getOrderNo() {
 		return orderNo;
 	}
@@ -70,7 +74,61 @@ public class KaligiaRunOrder {
 				+ (testProcedure != null ? "testProcedure=" + testProcedure + ", " : "")
 				+ (specimen != null ? "specimen=" + specimen + ", " : "") + "testProcedureId=" + testProcedureId + "]";
 	}
-	
+	/**
+	 * @return the testStatus
+	 */
+	public List<String> getTestStatus() {
+		return testStatus;
+	}
+	/**
+	 * @param testStatus the testStatus to set
+	 */
+	public void setTestStatus(List<String> testStatus) {
+		this.testStatus = testStatus;
+	}
+	/**
+	 * @param testStatus the testStatus to set
+	 */
+	public void setTestStatus(String testStatus, int i) {
+		this.testStatus.add(i, testStatus);
+	}
+
+	/**
+	 * @return the wavenumber
+	 */
+	public int[][] getWavenumber() {
+		return wavenumber;
+	}
+	/**
+	 * @param wavenumber the wavenumber to set
+	 */
+	public void setWavenumber(int[][] wavenumber) {
+		this.wavenumber = wavenumber;
+	}
+	/**
+	 * @return the photon
+	 */
+	public float[][] getPhoton() {
+		return photon;
+	}
+	/**
+	 * @param photon the photon to set
+	 */
+	public void setPhoton(float[][] photon) {
+		this.photon = photon;
+	}
+	/**
+	 * @param photon the photon to set
+	 */
+	public void setPhoton(float[] photon, int i) {
+		this.photon[i] = photon;
+	}
+	/**
+	 * @param wavenumber the wavenumber to set
+	 */
+	public void setWavenumber(int[] wavenumber, int i) {
+		this.wavenumber[i] = wavenumber;
+	}
 	
 
 }

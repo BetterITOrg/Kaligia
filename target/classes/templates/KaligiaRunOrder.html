@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create Spectra Procedure</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" href="/images/form2.css" />
+</head>
+<body>
+    <form action="#" th:action="@{KaligiaRunOrder}" th:object="${RunOrder}" method="POST">
+        <img src="/images/kaligia-logo.png" height="150" width="400" />
+
+        <hr/>
+        <h2>ORDER RUN</h2>
+        <fieldset>
+            <legend>Run Criteria</legend>
+            Order No
+            <input type="text" required="required"
+                   th:field="*{orderNo}" />
+            <br/>
+            Description:
+            <textarea id="msg" required="required" th:field="*{Description}"></textarea>
+
+            <br/>Procedure type
+            <select th:field="*{type}">
+                <option value="IN-VIVO">IN-VIVO</option>
+                <option value="EX-VIVO">EX-VIVO</option>
+            </select>
+            <br/>Procedure 
+            <input type="text" required="required"
+                   th:field="*{testProcedure}" />
+            <br/>Specimen
+            <input type="text" required="required"
+                   th:field="*{specimen}" />
+            <br/>Subject :
+            <input type="text" required="required"
+                   th:field="*{subject}" />       
+            </fieldset>
+            
+            <TABLE>
+			<TR>
+				<TD width="800"></TD>
+				<TD><input type="submit" name="Run" value="RUNORDER"
+					style="background-color: #888; color: #fff;" /></TD>
+			</TR>
+		</TABLE>
+</form>
+</body>
+</html>
