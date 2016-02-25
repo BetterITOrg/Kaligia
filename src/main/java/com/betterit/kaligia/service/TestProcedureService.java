@@ -161,7 +161,7 @@ public class TestProcedureService {
 		Integer nonLinear;
 		Integer boxcarWidth;
 		Integer spectrometerIndex=0;
-		String spectrometerType="QEPro";
+		String spectrometerType = "QEPro";
 		
 		for(int i=0; i<rsl.size(); i++) {
 			
@@ -202,6 +202,14 @@ public class TestProcedureService {
 			tsse.createCriteria().andSegmentIdEqualTo(rsl.get(i).getSegmentId()).andNameEqualTo("BoxcarWidth");
 			tssl = tssm.selectByExample(tsse);
 			boxcarWidth = Integer.valueOf(tssl.get(0).getValue());
+			
+			/*
+			tsse.clear();
+			tssl.clear();
+			tsse.createCriteria().andSegmentIdEqualTo(rsl.get(i).getSegmentId()).andNameEqualTo("SpectrometerType");
+			tssl = tssm.selectByExample(tsse);
+			spectrometerType = tssl.get(0).getValue();
+			*/
 
 			// Instantiate TestRun
 			TestRun tr = new TestRun (
@@ -227,6 +235,7 @@ public class TestProcedureService {
 			TmpTestResultExample tmpe = new TmpTestResultExample();
 			tmpe.createCriteria().andRunIdEqualTo(346+i);
 			List<TmpTestResult> tmpTR = tmpRM.selectByExample(tmpe);
+			trl.get(i).initWaveSpectra(tmpTR.size());
 			for(int j=0; j<tmpTR.size(); j++) {
 				trl.get(i).setWavelength(tmpTR.get(j).getWavenumber(), j);
 				trl.get(i).setSpectra(tmpTR.get(j).getPhotonCount(), j);

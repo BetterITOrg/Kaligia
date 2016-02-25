@@ -87,7 +87,8 @@ public class KaligiaRunOrderController {
 			runOrderObject.setPhoton(photon, i);
 		}
 		
-		return "KaligiaMainApp";
+		model.addAttribute("RunOrderResult", runOrderObject);
+		return "KaligiaRunResult";
 			
 	}
 

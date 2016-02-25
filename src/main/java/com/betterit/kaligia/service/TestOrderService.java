@@ -39,7 +39,7 @@ public class TestOrderService {
 	private RunOrderMapper rom;
 	
 	@Autowired
-	private UsersService us;
+	private UsersService usm;
 	
 	@Autowired
 	private SubjectMapper sm;
@@ -59,7 +59,7 @@ public class TestOrderService {
 		tord.setOrderNo(orderNo);
 		tord.setDescription(description);
 		tord.setCreationDate(new Date());
-		tord.setCreatedBy(us.getUserByName("").getUserId());
+		tord.setCreatedBy(usm.getUserByName("").getUserId());
 		tord.setSiteId(1); // ToDo: Hard Coded to 1
 		tord.setSubjectId(getSubject(subject).getSubjectId());
 		int rc = tom.insert(tord);
@@ -75,7 +75,7 @@ public class TestOrderService {
 		if(sl.size() == 0) {
 			sub.setName(name);
 			sub.setCreationDate(new Date());
-			sub.setCreatedBy(us.getUserByName("").getUserId());
+			sub.setCreatedBy(usm.getUserByName("").getUserId());
 			int rc = sm.insert(sub);
 			log.info("Inserting Subject : " + name);
 			
@@ -98,7 +98,7 @@ public class TestOrderService {
 		if(sl.size() == 0) {
 			sub.setName(name);
 			sub.setCreationDate(new Date());
-			sub.setCreatedBy(us.getUserByName("").getUserId());
+			sub.setCreatedBy(usm.getUserByName("").getUserId());
 			sub.setSubjectId(subjectId);
 			sub.setType(type);
 			int rc = spm.insert(sub);
@@ -122,7 +122,7 @@ public class TestOrderService {
 		ro.setOrderId(orderId);
 		ro.setProcedureId(procedureId);
 		ro.setCreatedDate(new Date());
-		ro.setCreatedBy(us.getUserByName("").getUserId());
+		ro.setCreatedBy(usm.getUserByName("").getUserId());
 		ro.setStatus("New");
 		ro.setType(type);
 		ro.setSpecimenId(getSpecimen(specimen,"", subjectId).getSpecimenId());

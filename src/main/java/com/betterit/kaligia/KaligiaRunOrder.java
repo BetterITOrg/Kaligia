@@ -3,6 +3,7 @@
  */
 package com.betterit.kaligia;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,9 +20,9 @@ public class KaligiaRunOrder {
 	private String subject;
 	private int testProcedureId=0;
 	
-	private List<String> testStatus;
-	private int wavenumber[][];
-	private float photon[][];
+	private List<String> testStatus = new ArrayList<String>();
+	private int wavenumber[][] = new int[10][];
+	private float photon[][] = new float[10][];
 	
 	public String getOrderNo() {
 		return orderNo;
@@ -90,7 +91,7 @@ public class KaligiaRunOrder {
 	 * @param testStatus the testStatus to set
 	 */
 	public void setTestStatus(String testStatus, int i) {
-		this.testStatus.add(i, testStatus);
+		this.testStatus.add(testStatus);
 	}
 
 	/**

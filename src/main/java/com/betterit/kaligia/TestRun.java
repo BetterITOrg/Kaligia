@@ -231,4 +231,9 @@ public class TestRun {
 	public String getStatus() {
 		return status;
 	}
+	
+	public void initWaveSpectra(int size) {
+		this.wavelength = new double[size];
+		this.spectra = new double[size];
+	}
 }
