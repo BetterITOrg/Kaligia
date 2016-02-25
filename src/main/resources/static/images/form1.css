@@ -1,7 +1,7 @@
 form {
   /* Just to center the form on the page */
   margin: 0 auto;
-  width: 850px;
+  width: 800px;
 
   /* To see the limits of the form */
   padding: 1em;
@@ -53,7 +53,7 @@ textarea {
 
   /* To give enough room to type some text */
   height: 5em;
-  width: 300px;
+  width: 80%;
 
   /* To allow users to resize any textarea vertically
      It works only on Chrome, Firefox and Safari */
@@ -84,9 +84,8 @@ input{
 }
 
 select {
-	width: 140px;
+	width: 100%;
 }
-
 
 table {
     box-sizing: border-box;
@@ -96,6 +95,11 @@ table {
     margin: 0;
     padding: 5px;
 }
+
+.main-procedure table{
+	border: 1px solid black;
+}
+
  table tr {
     border: 0;
     margin: 0;
@@ -108,6 +112,6 @@ table td {
     padding: 5px 10px;
     text-align: left;
     padding: 5px;
-    text-align: center;
+    text-align: left;
 
 }
