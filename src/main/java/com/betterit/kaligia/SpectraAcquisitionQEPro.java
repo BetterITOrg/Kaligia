@@ -1,20 +1,11 @@
-/**
- * 
- */
 package com.betterit.kaligia;
-
-/**
- * @author V135012
- *
- */
 
 import com.oceanoptics.omnidriver.api.wrapper.Wrapper;
 import com.oceanoptics.omnidriver.features.buffer.DataBuffer;
-import java.io.*;
 import java.util.concurrent.TimeUnit;
+import java.io.*;
 
 public class SpectraAcquisitionQEPro {
-
 
 	// spectrometer parameter
 	double integrationTime; // in second
@@ -24,17 +15,15 @@ public class SpectraAcquisitionQEPro {
 	int boxcarWidth;
 	int spectrometerIndex;
 	int acquisitionMode;
-	int restTime;
 	Wrapper wrapper;
 	DataBuffer bufferCtrl;
 
 	double[] spectrum;
 	double[] wavelength;
 
-	SpectraAcquisitionQEPro(int i, double j, int t, int k, int l, int m, int n, int o, Wrapper p, DataBuffer q) {
+	SpectraAcquisitionQEPro(int i, double j, int k, int l, int m, int n, int o, Wrapper p, DataBuffer q) {
 		acquisitionMode = i;
 		integrationTime = j;
-		restTime = t;
 		scanToAverage = k;
 		darkCurrentCorrectFlag = l;
 		nonlinearityCorrectFlag = m;
@@ -64,8 +53,7 @@ public class SpectraAcquisitionQEPro {
 	}
 
 	public void getSpectra() {
-		spectrum = wrapper.getSpectrum(spectrometerIndex); // is it needed
-															// everytime?
+
 		try {
 			bufferCtrl.abortAcquisition();
 		} catch (IOException e) {
@@ -87,13 +75,7 @@ public class SpectraAcquisitionQEPro {
 
 		spectrum = wrapper.getSpectrum(spectrometerIndex);
 		wavelength = wrapper.getWavelengths(spectrometerIndex);
-		
-		try {
-			TimeUnit.SECONDS.sleep(restTime);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
 
 	}
 

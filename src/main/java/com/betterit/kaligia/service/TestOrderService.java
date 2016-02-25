@@ -57,7 +57,10 @@ public class TestOrderService {
 		TestOrder tord = new TestOrder();
 		
 		tord.setOrderNo(orderNo);
-		tord.setDescription(description);
+		if(description.length() > 64)
+			tord.setDescription(description.substring(0, 63));
+		else 
+			tord.setDescription(description);
 		tord.setCreationDate(new Date());
 		tord.setCreatedBy(usm.getUserByName("").getUserId());
 		tord.setSiteId(1); // ToDo: Hard Coded to 1
@@ -116,7 +119,8 @@ public class TestOrderService {
 			Integer procedureId,
 			String type,
 			Integer subjectId,
-			String specimen
+			String specimen,
+			String description
 			) {
 		RunOrder ro = new RunOrder();
 		ro.setOrderId(orderId);
@@ -127,6 +131,7 @@ public class TestOrderService {
 		ro.setType(type);
 		ro.setSpecimenId(getSpecimen(specimen,"", subjectId).getSpecimenId());
 		ro.setSiteId(1);
+		ro.setRunNotes(description);
 		int rc = rom.insert(ro);
 		return ro;
 	}

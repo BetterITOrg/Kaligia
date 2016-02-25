@@ -1,20 +1,10 @@
-/**
- * 
- */
 package com.betterit.kaligia;
-
-/**
- * @author V135012
- *
- */
 
 import java.util.concurrent.TimeUnit;
 import com.labjack.LJUD;
 import com.labjack.LJUDException;
 
-
-public class TTLControl  implements Runnable {
-	
+public class TTLControl implements Runnable {
 	String thrdName;
 	int intHandle;
 	int portNum;
@@ -87,5 +77,4 @@ public class TTLControl  implements Runnable {
 //		suspended = false;
 //		notify();
 //	}
-
 }

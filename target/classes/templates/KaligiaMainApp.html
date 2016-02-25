@@ -8,21 +8,19 @@
 <body>
 
 <form action= "#" th:action="@{KaligiaMainApp}" th:object="${ProcedureList}" method="post">
-<img src="/images/kaligia-logo.png" height="150" width="400" />
+<img src="/images/kaligia-logo.png" height="100" width="300" />
 
 <HR/>
 <br/>
   
             
-            <table>
+            <table class="main-procedure">
                 <tr>
                     <th>Procedure Name</th>
-                    <th>ProcedureId</th>
                     <th>Description</th>
                 </tr>
                 <tr th:each="procedur : ${ProcedureList}">
                     <td th:text="${procedur.name}"></td>
-                    <td th:text="${procedur.procedureId}"></td>
                     <td th:text="${procedur.description}"></td>
                 </tr>
             </table>
@@ -32,9 +30,9 @@
         <br/>
         <table >
             <tr>
-              <td ><a href="http://localhost:8090/CreateProcedure.html" target="_self">Create a New Procedure</a></td>
+              <td ><a href="http://localhost:8090/CreateProcedure.html" target="_self">Create New Procedure</a></td>
             
-              <td ><a href="http://localhost:8090/KaligiaRunOrder.html" target="_self">Run a New Test</a></td>
+              <td ><a href="http://localhost:8090/KaligiaRunOrder.html" target="_self">Run New Test</a></td>
             </tr>
             <tr>
               <td >List All Run Results for a Procedure</td>

@@ -1,18 +1,11 @@
-/**
- * 
- */
 package com.betterit.kaligia;
-
-/**
- * @author V135012
- *
- */
 
 import com.labjack.LJUD;
 import com.labjack.LJUDException;
+import com.sun.jna.ptr.*;
+import com.sun.jna.*;
 
 public class LaserControl {
-
 	int LJhandle;
 	int ptNumber;
 	
@@ -39,12 +32,12 @@ public class LaserControl {
 		LJUD.goOne(LJhandle);
 	}
 
-	public void setLaserPower(double vPower) {
+	public void setLaserPower(double vPower, int portNumLasInt) {
 
-		if (vPower >= 0 & vPower < 1.2)
-			LJUD.ePut(LJhandle, LJUD.Constants.ioPUT_DAC, 0, vPower, 0);
+		if (vPower >= 0 & vPower <= 0.8)
+			LJUD.ePut(LJhandle, LJUD.Constants.ioPUT_DAC, portNumLasInt, vPower, 0);
 		else
-			System.out.println("The voltage of laser power must be between 0 and 1.2V");
+			System.out.println("The voltage of laser power must be between 0 and 0.8V");
 	}
 
 }

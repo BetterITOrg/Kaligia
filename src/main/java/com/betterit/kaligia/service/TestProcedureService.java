@@ -18,6 +18,8 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import com.betterit.kaligia.TestRun;
 import com.betterit.kaligia.segmentParams;
+import com.betterit.kaligia.dao.model.kaligia.Device;
+import com.betterit.kaligia.dao.model.kaligia.DeviceExample;
 import com.betterit.kaligia.dao.model.kaligia.ProcSegment;
 import com.betterit.kaligia.dao.model.kaligia.ProcSegmentExample;
 import com.betterit.kaligia.dao.model.kaligia.RunOrder;
@@ -34,6 +36,7 @@ import com.betterit.kaligia.dao.model.kaligia.TmpTestResult;
 import com.betterit.kaligia.dao.model.kaligia.TmpTestResultExample;
 import com.betterit.kaligia.dao.model.kaligia.Users;
 import com.betterit.kaligia.dao.model.kaligia.UsersExample;
+import com.betterit.kaligia.dao.repository.kaligia.DeviceMapper;
 import com.betterit.kaligia.dao.repository.kaligia.ProcSegmentMapper;
 import com.betterit.kaligia.dao.repository.kaligia.RunSegmentLogMapper;
 import com.betterit.kaligia.dao.repository.kaligia.RunSegmentMapper;
@@ -81,6 +84,9 @@ public class TestProcedureService {
 	
 	@Autowired
 	private TmpTestResultMapper tmpRM;
+	
+	@Autowired
+	private DeviceMapper dm;
 	
 	public List<TestProcedure> findAll() {
 		
@@ -134,7 +140,7 @@ public class TestProcedureService {
 		TestOrder tord = tos.createTestOrder(orderNo, description, subject);
 		
 		// Create RunOrder
-		RunOrder rord = tos.createRunOrder(tord.getOrderId(), procedureID, type, tord.getSubjectId(), specimen);
+		RunOrder rord = tos.createRunOrder(tord.getOrderId(), procedureID, type, tord.getSubjectId(), specimen, description);
 		
 		// Create RunSegment
 		for(int i=0; i<psl.size(); i++) {
@@ -161,7 +167,7 @@ public class TestProcedureService {
 		Integer nonLinear;
 		Integer boxcarWidth;
 		Integer spectrometerIndex=0;
-		String spectrometerType = "QEPro";
+		String spectrometerType = "MAYA";
 		
 		for(int i=0; i<rsl.size(); i++) {
 			
@@ -203,13 +209,12 @@ public class TestProcedureService {
 			tssl = tssm.selectByExample(tsse);
 			boxcarWidth = Integer.valueOf(tssl.get(0).getValue());
 			
-			/*
 			tsse.clear();
 			tssl.clear();
 			tsse.createCriteria().andSegmentIdEqualTo(rsl.get(i).getSegmentId()).andNameEqualTo("SpectrometerType");
 			tssl = tssm.selectByExample(tsse);
 			spectrometerType = tssl.get(0).getValue();
-			*/
+			
 
 			// Instantiate TestRun
 			TestRun tr = new TestRun (
@@ -229,9 +234,10 @@ public class TestProcedureService {
 		// Do Run
 		for(int i=0; i<trl.size(); i++) {
 			// Run test
-			// int rc = trl.get(i).doTestRun();
+			rc = trl.get(i).doTestRun();
 			
 			// Generate dummy test result since equipment is not connected
+			/*
 			TmpTestResultExample tmpe = new TmpTestResultExample();
 			tmpe.createCriteria().andRunIdEqualTo(346+i);
 			List<TmpTestResult> tmpTR = tmpRM.selectByExample(tmpe);
@@ -240,6 +246,7 @@ public class TestProcedureService {
 				trl.get(i).setWavelength(tmpTR.get(j).getWavenumber(), j);
 				trl.get(i).setSpectra(tmpTR.get(j).getPhotonCount(), j);
 			}
+			*/
 		}
 		
 		// Store Results
@@ -312,6 +319,7 @@ public class TestProcedureService {
 			tdm.insert(td);
 			td.setDeviceId(probeID);
 			tdm.insert(td);
+			
 			
 			//Test Segment
 			//Find segment with same params
@@ -428,7 +436,8 @@ public class TestProcedureService {
 	public int createSegmentParam(TestProcedure tp, Integer spectrometerID, Integer laserID, segmentParams segParam, int segNo) {
 		
 		int rc = 0;
-		
+		String spectrometerType="MAYA";
+
 		//Create Segment
 		TestSegment ts = new TestSegment();
 		ts.setName(tp.getName() + " Segment" + segNo);
@@ -490,6 +499,19 @@ public class TestProcedureService {
 		ps.setSegmentNo(segNo);
 		rc = psm.insert(ps);
 		
+		//Get Spectrometer type
+		Device spectrometer = dm.selectByPrimaryKey(spectrometerID);
+		switch(spectrometer.getModel()) {
+			case "QE Pro" : spectrometerType = "QEPro";
+			case "Maya 2000Pro" : spectrometerType = "MAYA";		
+		}
+		
+		tss.setDeviceId(spectrometerID);
+		tss.setName("SpectrometerType");
+		tss.setValue(spectrometerType);
+		tss.setUnit("");
+		rc = tssm.insert(tss);
+
 		return 0;
 	};
 
