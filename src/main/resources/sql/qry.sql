@@ -7,8 +7,12 @@ select * from subject;
 select * from specimen;
 
 
-select * from testcase;
+select * from testprocedure;
 select * from testdevices;
+select * from procsegment;
+select * from testsegment;
+select * from testsegmentspec;
+
 select * from testcasespec;
 select * from testrun;
 select * from testresult;

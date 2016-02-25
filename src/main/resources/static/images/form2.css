@@ -7,7 +7,7 @@ form {
   padding: 1em;
   border: 2px solid #777;
   border-radius: 1em;
-  background-color: #e0e0e0;
+  background-color: lightcyan;
    
 }
 
@@ -74,7 +74,7 @@ table, input {
 }
 
 select {
-	width: 140px;
+	width: 100%;
 }
 
 input {
@@ -97,5 +97,5 @@ table td {
     border: 0;
     margin: 0;
     padding: 5px;
-    text-align: center;
+    text-align: left;
 }
