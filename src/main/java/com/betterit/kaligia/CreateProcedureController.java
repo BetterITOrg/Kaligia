@@ -59,6 +59,7 @@ public class CreateProcedureController {
 		
 		log.info("In CreateProcedure POST");
 		log.info("received values" + createProcedureObject.toString());
+		String statusMessage="";
 		
 		//Clean up the empty segment lines
 		//for ( int i = 1; i <=createProcedureObject.getSegmentList().size(); i++){
@@ -104,12 +105,18 @@ public class CreateProcedureController {
 		
 		if (rc != 0)		
 		{
-			log.info("failed insert");
-			return "CreateProcedure";
-		}	
-		
-		return "KaligiaMainApp";
 			
+			log.info("failed insert");
+			statusMessage = "ERROR!! Procedure Creation failed for Input:  " + createProcedureObject.toString();
+		}
+		else
+		{
+			statusMessage = "SUCCESS!! Procedure Creation success for Input  " + createProcedureObject.getName();
+		}
+		
+		model.addAttribute("Status", statusMessage);
+		return "ShowStatus";
+		//return "KaligiaMainApp";
 	}
 
 }
