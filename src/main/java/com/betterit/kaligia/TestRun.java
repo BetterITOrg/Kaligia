@@ -211,49 +211,7 @@ public class TestRun {
 		}
 		ctrlTTL.mystop();
 		wrapper_t.closeAllSpectrometers();
-		
-		/*
-		switch (spectrometerType) {
-		// QEPro
-		case "QEPro":
-			// Set Parameters		
-			SpectraAcquisitionQEPro singleMeasurement = new SpectraAcquisitionQEPro(acquisitionM, integrationTime, restTime, scanToAverage, darkCurrentCorrectFlag, nonlinearityCorrectFlag, boxcarWidth, spectrometerIndex, wrapper_t, bufferCtrl_t);
-			
-			singleMeasurement.setParameters();
-			singleMeasurement.setBuffer();
-			lsControl.setTTLSwitchHigh();
-			
-			singleMeasurement.getSpectra();
-			
-			spectra = singleMeasurement.returnSpectra();
-			wavelength = singleMeasurement.returnWavelength();
-			
-			lsControl.setTTLSwitchLow();
-			
-		case "MAYA":
-			// MAYA
-			// test run, and make sure the acquisition mode is properly set
-			
-			SpectraAcquisitionMaya singleMeasurementMaya_t = new SpectraAcquisitionMaya(acquisitionM, 0.01, restTime, scanToAverage, darkCurrentCorrectFlag, nonlinearityCorrectFlag, boxcarWidth, spectrometerIndex, wrapper_t);
-			singleMeasurementMaya_t.setParameters();
-			singleMeasurementMaya_t.getSpectra();
-			
-			SpectraAcquisitionMaya singleMeasurementMaya = new SpectraAcquisitionMaya(acquisitionM, integrationTime, restTime, scanToAverage, darkCurrentCorrectFlag, nonlinearityCorrectFlag, boxcarWidth, spectrometerIndex, wrapper_t);
-			singleMeasurementMaya.setParameters();
-			lsControl.setTTLSwitchHigh();
-
-			singleMeasurementMaya.getSpectra();
-
-			spectra = singleMeasurementMaya.returnSpectra();
-			wavelength = singleMeasurementMaya.returnWavelength();
-			lsControl.setTTLSwitchLow();
-			
-		}
-		
-		ctrlTTL.mystop();
-		wrapper_t.closeAllSpectrometers();
-		*/
-		
+				
 		status = "Segment Run Successful.";
 		return 0;
 	}

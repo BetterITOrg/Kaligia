@@ -19,7 +19,7 @@
                     <th>Procedure Name</th>
                     <th>Description</th>
                 </tr>
-                <tr th:each="procedur : ${ProcedureList}">
+                <tr th:each="procedur,iterStat : ${ProcedureList}" th:class="${iterStat.odd}? 'odd'">
                     <td th:text="${procedur.name}"></td>
                     <td th:text="${procedur.description}"></td>
                 </tr>
@@ -35,9 +35,8 @@
               <td ><a href="http://localhost:8090/KaligiaRunOrder.html" target="_self">Run New Test</a></td>
             </tr>
             <tr>
-              <td >List All Run Results for a Procedure</td>
-            
               <td >List Procedure Details</td>
+              <td >List All Runs for a Procedure</td>
             </tr>
           
         </table>

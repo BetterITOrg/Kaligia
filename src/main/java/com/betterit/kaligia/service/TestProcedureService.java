@@ -167,7 +167,7 @@ public class TestProcedureService {
 		Integer nonLinear;
 		Integer boxcarWidth;
 		Integer spectrometerIndex=0;
-		String spectrometerType = "MAYA";
+		String spectrometerType = "QEPro";
 		
 		for(int i=0; i<rsl.size(); i++) {
 			
@@ -436,7 +436,7 @@ public class TestProcedureService {
 	public int createSegmentParam(TestProcedure tp, Integer spectrometerID, Integer laserID, segmentParams segParam, int segNo) {
 		
 		int rc = 0;
-		String spectrometerType="MAYA";
+		String spectrometerType="QEPro";
 
 		//Create Segment
 		TestSegment ts = new TestSegment();
@@ -502,8 +502,8 @@ public class TestProcedureService {
 		//Get Spectrometer type
 		Device spectrometer = dm.selectByPrimaryKey(spectrometerID);
 		switch(spectrometer.getModel()) {
-			case "QE Pro" : spectrometerType = "QEPro";
-			case "Maya 2000Pro" : spectrometerType = "MAYA";		
+			case "QE Pro" : spectrometerType = "QEPro"; break;
+			case "Maya 2000Pro" : spectrometerType = "MAYA"; break;	
 		}
 		
 		tss.setDeviceId(spectrometerID);
