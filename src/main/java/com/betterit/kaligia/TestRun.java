@@ -30,9 +30,10 @@ public class TestRun {
 	private Integer nonlinearityCorrectFlag;
 	private Integer boxcarWidth;
 	private Integer spectrometerIndex;
-	private double[] spectraM;
-	private double[] wavelengthM;
+	private double[] spectra;
+	private double[] wavelength;
 	private String spectrometerType = "MAYA";			//QEPro or MAYA
+	private String status;
 	
 	// laser output power
 	private double laserPowV = 0.8; // must be in [0 1.2]V
@@ -67,7 +68,7 @@ public class TestRun {
 
 	
 	
-	public TestResult doTestRun() {
+	public int doTestRun() {
 		
 		log.info("integrationTime:" + integrationTime);
 		log.info("restTime:" + restTime);
@@ -113,7 +114,8 @@ public class TestRun {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			log.info("Spectrometer Initialization Failed");
-			return null;
+			status = "Device Initialization Failed.";
+			return 100;
 		}
 
 		switch (spectrometerType) {
@@ -128,8 +130,8 @@ public class TestRun {
 			
 			singleMeasurement.getSpectra();
 			
-			spectraM = singleMeasurement.returnSpectra();
-			wavelengthM = singleMeasurement.returnWavelength();
+			spectra = singleMeasurement.returnSpectra();
+			wavelength = singleMeasurement.returnWavelength();
 			
 			lsControl.setTTLSwitchLow();
 			
@@ -147,8 +149,8 @@ public class TestRun {
 
 			singleMeasurementMaya.getSpectra();
 
-			spectraM = singleMeasurementMaya.returnSpectra();
-			wavelengthM = singleMeasurementMaya.returnWavelength();
+			spectra = singleMeasurementMaya.returnSpectra();
+			wavelength = singleMeasurementMaya.returnWavelength();
 			lsControl.setTTLSwitchLow();
 			
 		}
@@ -156,7 +158,77 @@ public class TestRun {
 		ctrlTTL.mystop();
 		wrapper_t.closeAllSpectrometers();
 		
-		return new TestResult(seg_run_id, wavelengthM, spectraM);
+		status = "Segment Run Successful.";
+		return 0;
 	}
 
+
+
+	/**
+	 * @return the seg_run_id
+	 */
+	public Integer getSeg_run_id() {
+		return seg_run_id;
+	}
+
+
+
+	/**
+	 * @return the spectra
+	 */
+	public double[] getSpectra() {
+		return spectra;
+	}
+
+
+
+	/**
+	 * @return the wavelength
+	 */
+	public double[] getWavelength() {
+		return wavelength;
+	}
+
+
+
+	/**
+	 * @param spectra the spectra to set
+	 */
+	public void setSpectra(double[] spectra) {
+		this.spectra = spectra;
+	}
+
+
+
+	/**
+	 * @param wavelength the wavelength to set
+	 */
+	public void setWavelength(double[] wavelength) {
+		this.wavelength = wavelength;
+	}
+
+	/**
+	 * @param spectra the spectra to set
+	 */
+	public void setSpectra(double spectra, int i) {
+		this.spectra[i] = spectra;
+	}
+
+
+
+	/**
+	 * @param wavelength the wavelength to set
+	 */
+	public void setWavelength(double wavelength, int i) {
+		this.wavelength[i] = wavelength;
+	}
+
+
+
+	/**
+	 * @return the status
+	 */
+	public String getStatus() {
+		return status;
+	}
 }

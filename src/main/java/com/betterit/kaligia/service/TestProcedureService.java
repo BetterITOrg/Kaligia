@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionDefinition;
@@ -14,7 +16,6 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
-import com.betterit.kaligia.TestResult;
 import com.betterit.kaligia.TestRun;
 import com.betterit.kaligia.segmentParams;
 import com.betterit.kaligia.dao.model.kaligia.ProcSegment;
@@ -29,6 +30,8 @@ import com.betterit.kaligia.dao.model.kaligia.TestProcedureExample;
 import com.betterit.kaligia.dao.model.kaligia.TestSegment;
 import com.betterit.kaligia.dao.model.kaligia.TestSegmentSpec;
 import com.betterit.kaligia.dao.model.kaligia.TestSegmentSpecExample;
+import com.betterit.kaligia.dao.model.kaligia.TmpTestResult;
+import com.betterit.kaligia.dao.model.kaligia.TmpTestResultExample;
 import com.betterit.kaligia.dao.model.kaligia.Users;
 import com.betterit.kaligia.dao.model.kaligia.UsersExample;
 import com.betterit.kaligia.dao.repository.kaligia.ProcSegmentMapper;
@@ -38,6 +41,7 @@ import com.betterit.kaligia.dao.repository.kaligia.TestDevicesMapper;
 import com.betterit.kaligia.dao.repository.kaligia.TestProcedureMapper;
 import com.betterit.kaligia.dao.repository.kaligia.TestSegmentMapper;
 import com.betterit.kaligia.dao.repository.kaligia.TestSegmentSpecMapper;
+import com.betterit.kaligia.dao.repository.kaligia.TmpTestResultMapper;
 import com.betterit.kaligia.dao.repository.kaligia.UsersMapper;
 
 /**
@@ -46,6 +50,7 @@ import com.betterit.kaligia.dao.repository.kaligia.UsersMapper;
  */
 @Service
 public class TestProcedureService {
+	private static final Logger log = LoggerFactory.getLogger(TestProcedureService.class);
 	
 	@Autowired
 	private TestProcedureMapper tpm;
@@ -74,6 +79,9 @@ public class TestProcedureService {
 	@Autowired
 	private RunSegmentLogMapper rslm;
 	
+	@Autowired
+	private TmpTestResultMapper tmpRM;
+	
 	public List<TestProcedure> findAll() {
 		
 		List<TestProcedure> tpl = tpm.selectByExample(null);
@@ -101,7 +109,7 @@ public class TestProcedureService {
 	}
 
 	@Transactional(rollbackFor=Exception.class)
-	public int runTestProcedure(
+	public List<TestRun> runTestProcedure(
 			String orderNo,
 			String description,
 			String type,
@@ -141,11 +149,10 @@ public class TestProcedureService {
 		}
 
 		
-		// Do Run
+		// Create Test Run
 		TestSegmentSpecExample tsse = new TestSegmentSpecExample();
 		List<TestSegmentSpec> tssl = new ArrayList<TestSegmentSpec>();
 		List<TestRun> trl = new ArrayList<TestRun>();
-		List<TestResult> trsl = new ArrayList<TestResult>();
 		Integer seg_run_id;
 		Integer integrationTime; 
 		Integer restTime;
@@ -211,27 +218,37 @@ public class TestProcedureService {
 			trl.add(tr);
 		}
 
+		// Do Run
 		for(int i=0; i<trl.size(); i++) {
 			// Run test
-			TestResult result = trl.get(i).doTestRun();
-			trsl.add(result);
+			// int rc = trl.get(i).doTestRun();
+			
+			// Generate dummy test result since equipment is not connected
+			TmpTestResultExample tmpe = new TmpTestResultExample();
+			tmpe.createCriteria().andRunIdEqualTo(346+i);
+			List<TmpTestResult> tmpTR = tmpRM.selectByExample(tmpe);
+			for(int j=0; j<tmpTR.size(); j++) {
+				trl.get(i).setWavelength(tmpTR.get(j).getWavenumber(), j);
+				trl.get(i).setSpectra(tmpTR.get(j).getPhotonCount(), j);
+			}
 		}
 		
+		// Store Results
 		RunSegmentLog rslo = new RunSegmentLog();
-		for(int i=0; i<trsl.size(); i++) {
+		for(int i=0; i<trl.size(); i++) {
 			// Create ResultLog
-			int size = trsl.get(i).getWavelength().length;
-			rslo.setRunSegmentId(trsl.get(i).getSeg_run_id());
+			int size = trl.get(i).getWavelength().length;
+			rslo.setRunSegmentId(trl.get(i).getSeg_run_id());
 			
 			for(int j=0; j<size; j++) {
 				rslo.setrIndex(j+1);
-				rslo.setWavelength(trsl.get(i).getWavelength()[j]);
-				rslo.setPhotonCount(trsl.get(i).getPhoton_count()[j]);
+				rslo.setWavelength(trl.get(i).getWavelength()[j]);
+				rslo.setPhotonCount(trl.get(i).getSpectra()[j]);
 				rc = rslm.insert(rslo);
 			}	
 		}
 		
-		return 0;
+		return trl;
 	}
 	
 	public List<TestSegment> getSegmentForProc(TestProcedure tp) {

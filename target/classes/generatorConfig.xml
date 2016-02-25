@@ -13,7 +13,7 @@
 
 		<jdbcConnection driverClass="org.postgresql.Driver"
 			connectionURL="jdbc:postgresql://localhost:5432/kaligia"
-			userId="postgres" password="kjohar" />
+			userId="postgres" password="postgres" />
 
 		<javaModelGenerator targetPackage="com.betterit.kaligia.dao.model"
 			targetProject="Kaligia/src/main/java">
@@ -190,6 +190,14 @@
 			enableDeleteByExample="true" enableCountByExample="false"
 			enableUpdateByExample="true" modelType="flat">
 			<generatedKey column="user_id" sqlStatement="JDBC" identity="true" />
+		</table>
+		
+		<table schema="kaligia" tableName="tmp_testresult" domainObjectName="TmpTestResult" 
+			enableSelectByPrimaryKey="false" enableSelectByExample="true"
+			enableInsert="false"
+			enableUpdateByPrimaryKey="false" enableDeleteByPrimaryKey="false"
+			enableDeleteByExample="false" enableCountByExample="false"
+			enableUpdateByExample="false" modelType="flat">
 		</table>
 		
 	</context>

@@ -6,6 +6,8 @@ package com.betterit.kaligia.service;
 import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +29,8 @@ import com.betterit.kaligia.dao.repository.kaligia.TestOrderMapper;
 
 @Service
 public class TestOrderService {
+	
+	private static final Logger log = LoggerFactory.getLogger(TestOrderService.class);
 	
 	@Autowired
 	private TestOrderMapper tom;
@@ -72,8 +76,12 @@ public class TestOrderService {
 			sub.setName(name);
 			sub.setCreationDate(new Date());
 			sub.setCreatedBy(us.getUserByName("").getUserId());
+			int rc = sm.insert(sub);
+			log.info("Inserting Subject : " + name);
+			
 		} else {
 			sub = sl.get(0);
+			log.info("Found Subject : " + sl.get(0).getName());
 		}
 		return sub;
 	}
@@ -93,8 +101,11 @@ public class TestOrderService {
 			sub.setCreatedBy(us.getUserByName("").getUserId());
 			sub.setSubjectId(subjectId);
 			sub.setType(type);
+			int rc = spm.insert(sub);
+			log.info("Inserting Specimen : " + name);
 		} else {
 			sub = sl.get(0);
+			log.info("Found Specimen : " + sl.get(0).getName());
 		}
 		return sub;
 	}

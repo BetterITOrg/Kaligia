@@ -36,7 +36,6 @@ public class KaligiaRunOrderController {
 	@RequestMapping(value="/KaligiaRunOrder", method=RequestMethod.GET)
     public String runOrderForm(Model model) {
 
-	/** TO-DO get all devices from database. populate the drop downs on the form */
 		KaligiaRunOrder runOrderObj = new KaligiaRunOrder();
 		
 		model.addAttribute("RunOrder", runOrderObj);
@@ -60,31 +59,33 @@ public class KaligiaRunOrderController {
 		
 		runOrderObject.setTestProcedureId(testProcObj.getProcedureId());
 		
-		/*
+		List<TestRun> trl = new ArrayList<TestRun>();
+		try {
+			trl = tps.runTestProcedure(
+					runOrderObject.getOrderNo(), 
+					runOrderObject.getDescription(), 
+					runOrderObject.getType(), 
+					runOrderObject.getTestProcedureId(),
+					runOrderObject.getSubject(),
+					runOrderObject.getSpecimen() 
+					);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		createProcedureObject.setNoOfSegments( createProcedureObject.getSegmentList().size());
-		
-		log.info("AFTER CLEANUP VALUES ARE " + createProcedureObject.toString());
-		//Call the createTestProcedure service
-	
-		int rc = tps.createTestProcedure(
-				createProcedureObject.getName(), 
-				createProcedureObject.getDescription(), 
-				"IN-VIVO",  // ToDo: Hard Coded
-				createProcedureObject.getStatus(), 
-				createProcedureObject.getNoOfSegments(), 
-				Integer.valueOf(createProcedureObject.getSpectrometer()), 
-				Integer.valueOf(createProcedureObject.getLaser()),
-				Integer.valueOf(createProcedureObject.getProbe()), 
-				createProcedureObject.getSegmentList()
-				);
-		
-		if (rc != 0)		
-		{
-			log.info("failed insert");
-			return "CreateProcedure";
-		}	
-		*/
+		for(int i=0; i<trl.size(); i++) {
+			int wsize = trl.get(i).getWavelength().length;
+			int wave[] = new int[wsize];
+			float photon[] = new float[wsize];
+			for(int j=0; j<wsize; j++) {
+				wave[j] = (int)(12048 - (10000000.0/trl.get(i).getWavelength()[j]));
+				photon[j] = (float) (trl.get(i).getSpectra()[j]/10000.0);
+			}
+			runOrderObject.setTestStatus(trl.get(i).getStatus(), i);
+			runOrderObject.setWavenumber(wave, i);
+			runOrderObject.setPhoton(photon, i);
+		}
 		
 		return "KaligiaMainApp";
 			
