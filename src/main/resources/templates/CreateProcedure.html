@@ -5,25 +5,34 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" type="text/css" href="/images/form2.css" />
 </head>
-<body BGCOLOR="#EEEEEE">
+<body>
 
-	<form action="#" th:action="@{CreateProcedure}"
-		th:object="${Procedur}" method="POST">
-		<img src="/images/kaligia-logo.png" height="150" width="400" />
+	<form action="#" th:action="@{CreateProcedure}" th:object="${Procedur}"
+		method="POST">
+		<img src="/images/kaligia-logo.png" height="100" width="300" />
 
 		<HR />
 		<fieldset>
-			<legend> Procedure Name</legend>
-		Procedure Name: <input type="text" required="required" 
-			th:field="*{Name}" /> 
-			Status <select class="status_dropdown"
-			th:field="*{Status}">
-				<option value="ACTIVE">ACTIVE</option>
-                <option value="INACTIVE">INACTIVE</option>
-            </select> 
-            <br/> 
-            Description:
-		<textarea id="msg" required="required" th:field="*{Description}"></textarea>
+			<legend> Procedure</legend>
+			<table>
+				<tr>
+					<td>Procedure Name:</td>
+					<td><input type="text" required="required" th:field="*{Name}" />
+					</td>
+				</tr>
+				<tr>
+					<td>Status</td>
+					<td><select class="status_dropdown" th:field="*{Status}">
+							<option value="ACTIVE">ACTIVE</option>
+							<option value="INACTIVE">INACTIVE</option>
+					</select></td>
+				</tr>
+				<tr>
+					<td>Description:</td>
+					<td><textarea id="msg" required="required"
+							th:field="*{Description}"></textarea></td>
+				</tr>
+			</table>
 		</fieldset>
 		<fieldset>
 			<legend> Device Selection</legend>
@@ -31,22 +40,29 @@
 				<tr>
 					<td>Laser</td>
 					<td><select class="laser_dropdown" th:field="*{Laser}">
-								<option th:each="devic:${DeviceList}" th:value="${devic.deviceId}" th:text="${devic.name}">
-									Select Lasers</option></select></td>
+							<option th:each="devic:${DeviceList}"
+								th:value="${devic.deviceId}" th:text="${devic.name}">
+								Select Lasers</option>
+					</select></td>
 					<td></td>
 					<td>Spectrometer</td>
-					<td><select class="spectrometer_dropdown" th:field="*{Spectrometer}">
-                                <option th:each="devic:${DeviceList}" th:value="${devic.deviceId}" th:text="${devic.name}">
-                                Select Spectrometer</option></select></td>
+					<td><select class="spectrometer_dropdown"
+						th:field="*{Spectrometer}">
+							<option th:each="devic:${DeviceList}"
+								th:value="${devic.deviceId}" th:text="${devic.name}">
+								Select Spectrometer</option>
+					</select></td>
 
 				</tr>
 				<tr>
 					<td>Probe</td>
-					<td><select class="probe_dropdown" th:field="*{Probe}" > 
-                            <option th:each="devic:${DeviceList}" th:value="${devic.deviceId}" th:text="${devic.name}">
-									Select Probes</option></select></td>
+					<td><select class="probe_dropdown" th:field="*{Probe}">
+							<option th:each="devic:${DeviceList}"
+								th:value="${devic.deviceId}" th:text="${devic.name}">
+								Select Probes</option>
+					</select></td>
 					<td></td>
-<!--					<td>Body Part</td>
+					<!--					<td>Body Part</td>
 					<td><select class="bodypart_dropdown" name="selectBodyPart"<b>th:field="*{bodypart}"
 								>
 								<option th:each="sopt:${bodypart}" th:value="?" th:text="?">
@@ -77,19 +93,26 @@
 					<th>Delay</th>
 					<th>Voltage</th>
 				</TR>
-				
-				
+
+
 				<tr th:each="segment, rowStat : *{segmentList}">
-                       
-                        <td><input type="text" required="required" th:field="*{segmentList[__${rowStat.index}__].integrationTime}"/></td>
-                        <td><input type="text" required="required" th:field="*{segmentList[__${rowStat.index}__].scan2Average}" /></td>
-                        <td><input type="text" required="required" th:field="*{segmentList[__${rowStat.index}__].boxCarWidth}" /></td>
-                        <td><input type="text" required="required" th:field="*{segmentList[__${rowStat.index}__].electricDark}" /></td>
-                        <td><input type="text" required="required" th:field="*{segmentList[__${rowStat.index}__].nonLinearCorrect}" /></td>
-                        <td><input type="text" required="required" th:field="*{segmentList[__${rowStat.index}__].delay}" /></td>
-                        <td><input type="text" required="required" th:field="*{segmentList[__${rowStat.index}__].power}" /></td>
-                </tr>                          
-<!-- 
+
+					<td><input type="text" required="required"
+						th:field="*{segmentList[__${rowStat.index}__].integrationTime}" /></td>
+					<td><input type="text" required="required"
+						th:field="*{segmentList[__${rowStat.index}__].scan2Average}" /></td>
+					<td><input type="text" required="required"
+						th:field="*{segmentList[__${rowStat.index}__].boxCarWidth}" /></td>
+					<td><input type="text" required="required"
+						th:field="*{segmentList[__${rowStat.index}__].electricDark}" /></td>
+					<td><input type="text" required="required"
+						th:field="*{segmentList[__${rowStat.index}__].nonLinearCorrect}" /></td>
+					<td><input type="text" required="required"
+						th:field="*{segmentList[__${rowStat.index}__].delay}" /></td>
+					<td><input type="text" required="required"
+						th:field="*{segmentList[__${rowStat.index}__].power}" /></td>
+				</tr>
+				<!-- 
 				<TR>
 
 					<TD><input type="text" required="required"
@@ -114,7 +137,7 @@
 		</fieldset>
 		<TABLE>
 			<TR>
-				<TD width="800"></TD>
+				<TD width="600"></TD>
 				<TD><input type="submit" name="Run" value="Create"
 					style="background-color: #888; color: #fff;" /></TD>
 			</TR>

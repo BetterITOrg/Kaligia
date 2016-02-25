@@ -5,7 +5,9 @@ form {
 
   /* To see the limits of the form */
   padding: 1em;
+
   border: 2px solid #777;
+
   border-radius: 1em;
   background-color: #e0e0e0;
 
@@ -60,7 +62,9 @@ textarea {
 
 .button {
   /* To position the buttons to the same position of the text fields */
+
   padding-left: 100px; /* same size as the label elements */
+
 }
 
 button {
@@ -74,13 +78,16 @@ table, input {
 	font-size: 15px;	
 }
 
+
+input{
+	width : 100%;
+}
+
 select {
 	width: 140px;
 }
 
-input {
-	width: 80px;
-}
+
 table {
     box-sizing: border-box;
     border-collapse: collapse;
@@ -97,6 +104,10 @@ table {
 table td {
     border: 0;
     margin: 0;
+
+    padding: 5px 10px;
+    text-align: left;
     padding: 5px;
     text-align: center;
+
 }
