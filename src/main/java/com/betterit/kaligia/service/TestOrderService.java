@@ -135,4 +135,12 @@ public class TestOrderService {
 		int rc = rom.insert(ro);
 		return ro;
 	}
+	
+	public int createRunResultLog(Integer runID, String notes) {
+		
+		RunOrder rord = rom.selectByPrimaryKey(runID);
+		rord.setResultNotes(notes);
+		return rom.updateByPrimaryKey(rord);
+		
+	}
 }

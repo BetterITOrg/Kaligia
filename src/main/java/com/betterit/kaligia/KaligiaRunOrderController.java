@@ -74,6 +74,9 @@ public class KaligiaRunOrderController {
 			e.printStackTrace();
 		}
 		
+		runOrderObject.setRunID(trl.get(0).getRun_id());
+		runOrderObject.setResultNotes("");
+		
 		for(int i=0; i<trl.size(); i++) {
 			int wsize = trl.get(i).getWavelength().length;
 			int wave[] = new int[wsize];

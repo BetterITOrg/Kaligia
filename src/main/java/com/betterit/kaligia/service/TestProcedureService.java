@@ -221,6 +221,7 @@ public class TestProcedureService {
 
 			// Instantiate TestRun
 			TestRun tr = new TestRun (
+					rord.getRunId(),
 					seg_run_id,
 					integrationTime, 
 					restTime,
@@ -564,5 +565,6 @@ public class TestProcedureService {
 		
 		return 0;
 	};
+
 
 }

@@ -24,6 +24,9 @@ public class KaligiaRunOrder {
 	private int wavenumber[][] = new int[10][];
 	private float photon[][] = new float[10][];
 	
+	private Integer runID;
+	private String resultNotes;
+	
 	public String getOrderNo() {
 		return orderNo;
 	}
@@ -129,6 +132,30 @@ public class KaligiaRunOrder {
 	 */
 	public void setWavenumber(int[] wavenumber, int i) {
 		this.wavenumber[i] = wavenumber;
+	}
+	/**
+	 * @return the runID
+	 */
+	public Integer getRunID() {
+		return runID;
+	}
+	/**
+	 * @param runID the runID to set
+	 */
+	public void setRunID(Integer runID) {
+		this.runID = runID;
+	}
+	/**
+	 * @return the resultNotes
+	 */
+	public String getResultNotes() {
+		return resultNotes;
+	}
+	/**
+	 * @param resultNotes the resultNotes to set
+	 */
+	public void setResultNotes(String resultNotes) {
+		this.resultNotes = resultNotes;
 	}
 	
 

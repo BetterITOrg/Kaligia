@@ -23,6 +23,7 @@ public class TestRun {
 	
 	private static final Logger log = LoggerFactory.getLogger(TestRun.class);
 	
+	private Integer run_id;
 	private Integer seg_run_id;
 	private Integer integrationTime;
 	private Integer restTime;
@@ -48,6 +49,7 @@ public class TestRun {
 	private int portNumberLaserIntensity = 0; //DAC0
 	
 	public TestRun (
+			Integer run_id,
 			Integer seg_run_id,
 			Integer integrationTime, 
 			Integer restTime,
@@ -59,6 +61,7 @@ public class TestRun {
 			String spectrometerType,
 			String labjackType
 			) {
+		this.run_id = run_id;
 		this.seg_run_id = seg_run_id;
 		this.integrationTime = integrationTime;
 		this.restTime = restTime;
@@ -291,5 +294,14 @@ public class TestRun {
 	public void initWaveSpectra(int size) {
 		this.wavelength = new double[size];
 		this.spectra = new double[size];
+	}
+
+
+
+	/**
+	 * @return the run_id
+	 */
+	public Integer getRun_id() {
+		return run_id;
 	}
 }
