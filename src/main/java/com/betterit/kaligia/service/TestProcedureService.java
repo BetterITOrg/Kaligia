@@ -128,6 +128,7 @@ public class TestProcedureService {
 		
 		// Get Test Procedure
 		TestProcedure tp = tpm.selectByPrimaryKey(procedureID);
+		log.info("Found Procedure : " + tp.getName());
 		
 		//Get Segments and Params
 		List<RunSegment> rsl = new ArrayList<RunSegment>();
@@ -135,6 +136,9 @@ public class TestProcedureService {
 		ProcSegmentExample pse = new ProcSegmentExample();
 		pse.createCriteria().andProcedureIdEqualTo(procedureID);
 		List<ProcSegment> psl = psm.selectByExample(pse);
+		for(int i=0; i<psl.size(); i++) {
+			log.info("Found Proc Segment : " + psl.get(i).getSegmentId());
+		}
 				
 		// Create Order
 		TestOrder tord = tos.createTestOrder(orderNo, description, subject);
@@ -152,12 +156,12 @@ public class TestProcedureService {
 			rs.setSegmentId(psl.get(i).getSegmentId());
 			rc = rsm.insert(rs);
 			rsl.add(rs);
+			log.info("Added Run Segment : " + rsl.get(i).getRunSegmentId());
 		}
 
 		
 		// Create Test Run
 		TestSegmentSpecExample tsse = new TestSegmentSpecExample();
-		List<TestSegmentSpec> tssl = new ArrayList<TestSegmentSpec>();
 		List<TestRun> trl = new ArrayList<TestRun>();
 		Integer seg_run_id;
 		Integer integrationTime; 
@@ -172,48 +176,42 @@ public class TestProcedureService {
 		for(int i=0; i<rsl.size(); i++) {
 			
 			seg_run_id = rsl.get(i).getRunSegmentId();
+			log.info("Run Segment ID : " + seg_run_id + "Segment ID : " + rsl.get(i).getSegmentId());
 			
 			tsse.clear();
-			tssl.clear();
 			tsse.createCriteria().andSegmentIdEqualTo(rsl.get(i).getSegmentId()).andNameEqualTo("IntegrationTime");
-			tssl = tssm.selectByExample(tsse);
-			integrationTime = Integer.valueOf(tssl.get(0).getValue());
+			List<TestSegmentSpec> tssi = tssm.selectByExample(tsse);
+			integrationTime = Integer.valueOf(tssi.get(0).getValue());
 			
 			tsse.clear();
-			tssl.clear();
 			tsse.createCriteria().andSegmentIdEqualTo(rsl.get(i).getSegmentId()).andNameEqualTo("Delay");
-			tssl = tssm.selectByExample(tsse);
-			restTime = Integer.valueOf(tssl.get(0).getValue());
+			List<TestSegmentSpec> tssd = tssm.selectByExample(tsse);
+			restTime = Integer.valueOf(tssd.get(0).getValue());
 			
 			tsse.clear();
-			tssl.clear();
 			tsse.createCriteria().andSegmentIdEqualTo(rsl.get(i).getSegmentId()).andNameEqualTo("ScansToAverage");
-			tssl = tssm.selectByExample(tsse);
-			scanToAverage = Integer.valueOf(tssl.get(0).getValue());
+			List<TestSegmentSpec> tssa = tssm.selectByExample(tsse);
+			scanToAverage = Integer.valueOf(tssa.get(0).getValue());
 
 			tsse.clear();
-			tssl.clear();
 			tsse.createCriteria().andSegmentIdEqualTo(rsl.get(i).getSegmentId()).andNameEqualTo("ElectricDark");
-			tssl = tssm.selectByExample(tsse);
+			List<TestSegmentSpec> tssl = tssm.selectByExample(tsse);
 			darkCurrent = Integer.valueOf(tssl.get(0).getValue());
 
 			tsse.clear();
-			tssl.clear();
 			tsse.createCriteria().andSegmentIdEqualTo(rsl.get(i).getSegmentId()).andNameEqualTo("NonLinearityCorrection");
-			tssl = tssm.selectByExample(tsse);
-			nonLinear = Integer.valueOf(tssl.get(0).getValue());
+			List<TestSegmentSpec> tssn = tssm.selectByExample(tsse);
+			nonLinear = Integer.valueOf(tssn.get(0).getValue());
 
 			tsse.clear();
-			tssl.clear();
 			tsse.createCriteria().andSegmentIdEqualTo(rsl.get(i).getSegmentId()).andNameEqualTo("BoxcarWidth");
-			tssl = tssm.selectByExample(tsse);
-			boxcarWidth = Integer.valueOf(tssl.get(0).getValue());
+			List<TestSegmentSpec> tssb = tssm.selectByExample(tsse);
+			boxcarWidth = Integer.valueOf(tssb.get(0).getValue());
 			
 			tsse.clear();
-			tssl.clear();
 			tsse.createCriteria().andSegmentIdEqualTo(rsl.get(i).getSegmentId()).andNameEqualTo("SpectrometerType");
-			tssl = tssm.selectByExample(tsse);
-			spectrometerType = tssl.get(0).getValue();
+			List<TestSegmentSpec> tsst = tssm.selectByExample(tsse);
+			spectrometerType = tsst.get(0).getValue();
 			
 
 			// Instantiate TestRun
