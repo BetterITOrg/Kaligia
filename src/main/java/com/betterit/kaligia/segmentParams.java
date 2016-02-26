@@ -10,7 +10,7 @@ package com.betterit.kaligia;
 public class segmentParams {
 
 	private String integrationTime="0";
-	private String scan2Average="2";
+	private String scan2Average="1";
 	private String boxCarWidth="1";
 	private String electricDark="1";
 	private String nonLinearCorrect="0";
