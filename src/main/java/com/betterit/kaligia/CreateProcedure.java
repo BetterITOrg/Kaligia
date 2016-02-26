@@ -18,6 +18,8 @@ public class CreateProcedure {
 	private String Probe;
 	private String Labjack;
 	private int NoOfSegments;
+	private String Type;
+	
 	
 	private List<segmentParams> segmentList;
 	
@@ -69,6 +71,14 @@ public class CreateProcedure {
 	public void setSegmentList(List<segmentParams> segmentList) {
 		this.segmentList = segmentList;
 	}
+
+	public String getType() {
+		return Type;
+	}
+	public void setType(String type) {
+		Type = type;
+	}
+
 	/**
 	 * @return the labjack
 	 */
@@ -88,9 +98,8 @@ public class CreateProcedure {
 				+ (Description != null ? "Description=" + Description + ", " : "")
 				+ (Status != null ? "Status=" + Status + ", " : "") + (Laser != null ? "Laser=" + Laser + ", " : "")
 				+ (Spectrometer != null ? "Spectrometer=" + Spectrometer + ", " : "")
-				+ (Probe != null ? "Probe=" + Probe + ", " : "") 
-				+ (Labjack != null ? "Labjack=" + Labjack + ", " : "") 
-				+ "NoOfSegments=" + NoOfSegments + ", "
+				+ (Probe != null ? "Probe=" + Probe + ", " : "") + "NoOfSegments=" + NoOfSegments + ", "
+				+ (Type != null ? "Type=" + Type + ", " : "") + (Labjack != null ? "Labjack=" + Labjack + ", " : "")
 				+ (segmentList != null ? "segmentList=" + segmentList : "") + "]";
 	}
 

@@ -26,6 +26,11 @@
 							<option value="ACTIVE">ACTIVE</option>
 							<option value="INACTIVE">INACTIVE</option>
 					</select></td>
+					<td>Procedure Type</td>
+					<td><select class="type_dropdown" th:field="*{Type}">
+							<option value="IN-VIVO">IN-VEVO</option>
+							<option value="EX-VIVO">EX-VEVO</option>
+					</select></td>
 				</tr>
 				<tr>
 					<td>Description:</td>
@@ -61,7 +66,12 @@
 								th:value="${devic.deviceId}" th:text="${devic.name}">
 								Select Probes</option>
 					</select></td>
-					<td></td>
+					<td>Labjack</td>
+					<td><select class="labjack_dropdown" th:field="*{Labjack}">
+							<option th:each="devic:${DeviceList}"
+								th:value="${devic.deviceId}" th:text="${devic.name}">
+								Select Probes</option>
+					</select></td>
 					<!--					<td>Body Part</td>
 					<td><select class="bodypart_dropdown" name="selectBodyPart"<b>th:field="*{bodypart}"
 								>
