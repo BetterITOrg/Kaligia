@@ -172,6 +172,7 @@ public class TestProcedureService {
 		Integer boxcarWidth;
 		Integer spectrometerIndex=0;
 		String spectrometerType = "QEPro";
+		String labjackType = "U6";
 		
 		for(int i=0; i<rsl.size(); i++) {
 			
@@ -213,6 +214,10 @@ public class TestProcedureService {
 			List<TestSegmentSpec> tsst = tssm.selectByExample(tsse);
 			spectrometerType = tsst.get(0).getValue();
 			
+			tsse.clear();
+			tsse.createCriteria().andSegmentIdEqualTo(rsl.get(i).getSegmentId()).andNameEqualTo("LabJackType");
+			List<TestSegmentSpec> tssj = tssm.selectByExample(tsse);
+			labjackType = tssj.get(0).getValue();
 
 			// Instantiate TestRun
 			TestRun tr = new TestRun (
@@ -224,7 +229,8 @@ public class TestProcedureService {
 					nonLinear,
 					boxcarWidth,
 					spectrometerIndex,
-					spectrometerType);
+					spectrometerType,
+					labjackType);
 			
 			trl.add(tr);
 		}
@@ -267,12 +273,11 @@ public class TestProcedureService {
 	
 	public List<TestSegment> getSegmentForProc(TestProcedure tp) {
 		
-		List<ProcSegment> psl;
 		List<TestSegment> tsl = new ArrayList<TestSegment>();
 		
 		ProcSegmentExample pse = new ProcSegmentExample();
 		pse.createCriteria().andProcedureIdEqualTo(tp.getProcedureId());
-		psl = psm.selectByExample(pse);
+		List<ProcSegment> psl = psm.selectByExample(pse);
 		for(int i=0; i<psl.size(); i++) {
 			tsl.add(tsm.selectByPrimaryKey(psl.get(i).getSegmentId()));
 		}
@@ -289,6 +294,7 @@ public class TestProcedureService {
 			Integer spectrometerID,
 			Integer laserID,
 			Integer probeID,
+			Integer labjackID,
 			List<segmentParams> segParams
 			) throws Exception {
 		
@@ -317,7 +323,8 @@ public class TestProcedureService {
 			tdm.insert(td);
 			td.setDeviceId(probeID);
 			tdm.insert(td);
-			
+			td.setDeviceId(labjackID);
+			tdm.insert(td);
 			
 			//Test Segment
 			//Find segment with same params
@@ -331,7 +338,13 @@ public class TestProcedureService {
 				tsse.clear();
 				if (tss1.size() ==  0) {
 					// No segment found create new
-					rc = createSegmentParam(tp, spectrometerID, laserID, segParams.get(jj), jj+1);
+					rc = createSegmentParam(
+							tp, 
+							spectrometerID, 
+							laserID, 
+							labjackID, 
+							segParams.get(jj), 
+							jj+1);
 					continue;
 				};
 				
@@ -345,7 +358,13 @@ public class TestProcedureService {
 				tsse.clear();
 				if (tss2.size() == 0) {
 					// No segment found create new
-					rc = createSegmentParam(tp, spectrometerID, laserID, segParams.get(jj), jj+1);
+					rc = createSegmentParam(
+							tp, 
+							spectrometerID, 
+							laserID, 
+							labjackID, 
+							segParams.get(jj), 
+							jj+1);
 					continue;
 				};
 
@@ -359,7 +378,13 @@ public class TestProcedureService {
 				tsse.clear();
 				if (tss3.size() == 0) {
 					// No segment found create new
-					rc = createSegmentParam(tp, spectrometerID, laserID, segParams.get(jj), jj+1);
+					rc = createSegmentParam(
+							tp, 
+							spectrometerID, 
+							laserID, 
+							labjackID, 
+							segParams.get(jj), 
+							jj+1);
 					continue;
 				};
 
@@ -373,7 +398,13 @@ public class TestProcedureService {
 				tsse.clear();
 				if (tss4.size() == 0) {
 					// No segment found create new
-					rc = createSegmentParam(tp, spectrometerID, laserID, segParams.get(jj), jj+1);
+					rc = createSegmentParam(
+							tp, 
+							spectrometerID, 
+							laserID, 
+							labjackID, 
+							segParams.get(jj), 
+							jj+1);
 					continue;
 				};
 
@@ -387,7 +418,13 @@ public class TestProcedureService {
 				tsse.clear();
 				if (tss5.size() == 0) {
 					// No segment found create new
-					rc = createSegmentParam(tp, spectrometerID, laserID, segParams.get(jj), jj+1);
+					rc = createSegmentParam(
+							tp, 
+							spectrometerID, 
+							laserID, 
+							labjackID, 
+							segParams.get(jj), 
+							jj+1);
 					continue;
 				};
 
@@ -401,7 +438,7 @@ public class TestProcedureService {
 				tsse.clear();
 				if (tss6.size() == 0) {
 					// No segment found create new
-					rc = createSegmentParam(tp, spectrometerID, laserID, segParams.get(jj), jj+1);
+					rc = createSegmentParam(tp, spectrometerID, laserID, labjackID, segParams.get(jj), jj+1);
 					continue;
 				};
 
@@ -415,7 +452,7 @@ public class TestProcedureService {
 				tsse.clear();
 				if (tss7.size() == 0) {
 					// No segment found create new
-					rc = createSegmentParam(tp, spectrometerID, laserID, segParams.get(jj), jj+1);
+					rc = createSegmentParam(tp, spectrometerID, laserID, labjackID, segParams.get(jj), jj+1);
 					continue;
 				};
 				
@@ -431,7 +468,13 @@ public class TestProcedureService {
 		return 0;
 	}
 
-	public int createSegmentParam(TestProcedure tp, Integer spectrometerID, Integer laserID, segmentParams segParam, int segNo) {
+	public int createSegmentParam(
+			TestProcedure tp, 
+			Integer spectrometerID, 
+			Integer laserID, 
+			Integer labjackID, 
+			segmentParams segParam, 
+			int segNo) {
 		
 		int rc = 0;
 		String spectrometerType="QEPro";
@@ -490,13 +533,6 @@ public class TestProcedureService {
 		tss.setUnit("s");
 		rc = tssm.insert(tss);
 		
-		//Create ProcSegment
-		ProcSegment ps = new ProcSegment();
-		ps.setProcedureId(tp.getProcedureId());
-		ps.setSegmentId(ts.getSegmentId());
-		ps.setSegmentNo(segNo);
-		rc = psm.insert(ps);
-		
 		//Get Spectrometer type
 		Device spectrometer = dm.selectByPrimaryKey(spectrometerID);
 		switch(spectrometer.getModel()) {
@@ -510,6 +546,22 @@ public class TestProcedureService {
 		tss.setUnit("");
 		rc = tssm.insert(tss);
 
+		//Get labjack type
+		Device labjack = dm.selectByPrimaryKey(labjackID);
+		String labjackType = labjack.getModel();
+		tss.setDeviceId(labjackID);
+		tss.setName("LabJackType");
+		tss.setValue(labjackType);
+		tss.setUnit("");
+		rc = tssm.insert(tss);
+		
+		//Create ProcSegment
+		ProcSegment ps = new ProcSegment();
+		ps.setProcedureId(tp.getProcedureId());
+		ps.setSegmentId(ts.getSegmentId());
+		ps.setSegmentNo(segNo);
+		rc = psm.insert(ps);
+		
 		return 0;
 	};
 

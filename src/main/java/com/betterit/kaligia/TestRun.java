@@ -56,7 +56,8 @@ public class TestRun {
 			Integer nonLinear,
 			Integer boxcarWidth,
 			Integer spectrometerIndex,
-			String spectrometerType
+			String spectrometerType,
+			String labjackType
 			) {
 		this.seg_run_id = seg_run_id;
 		this.integrationTime = integrationTime;
@@ -67,6 +68,7 @@ public class TestRun {
 		this.boxcarWidth = boxcarWidth;
 		this.spectrometerIndex = spectrometerIndex;
 		this.spectrometerType = spectrometerType;
+		this.labjackType = labjackType;
 	}
 
 	

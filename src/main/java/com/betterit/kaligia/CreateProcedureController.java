@@ -93,6 +93,7 @@ public class CreateProcedureController {
 					Integer.valueOf(createProcedureObject.getSpectrometer()), 
 					Integer.valueOf(createProcedureObject.getLaser()),
 					Integer.valueOf(createProcedureObject.getProbe()), 
+					Integer.valueOf(createProcedureObject.getLabjack()), 
 					createProcedureObject.getSegmentList()
 					);
 		} catch (NumberFormatException e) {
