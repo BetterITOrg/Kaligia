@@ -13,6 +13,12 @@
     <p th:text="'Order No. : ' + ${RunOrderResult.orderNo}" />
     <p th:text="'Description : ' + ${RunOrderResult.Description}" />
     <p th:text="'Procedure : ' + ${RunOrderResult.testProcedure}" />
+    <table>
+    <tr th:each="stat,iterStat : ${RunOrderResult.testStatus}" >
+                    <td th:text="Segment Run Status :" ></td>
+                    <td th:text="${stat}"></td>
+                </tr>
+    </table>
     <p></p>
     <p></p>
     <h1>Graph:</h1>	

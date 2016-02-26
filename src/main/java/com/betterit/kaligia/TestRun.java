@@ -31,6 +31,7 @@ public class TestRun {
 	private Integer darkCurrentCorrectFlag;
 	private Integer nonlinearityCorrectFlag;
 	private Integer boxcarWidth;
+	private double laserPower; // // laser output power : must be in [0 1.2]V
 	private Integer spectrometerIndex;
 	private double[] spectra;
 	private double[] wavelength;
@@ -39,8 +40,6 @@ public class TestRun {
 	private String status;
 	private int acquisitionM = 0;
 	
-	// laser output power
-	private double laserPowV = 0.8; // must be in [0 1.2]V
 
 	// lab jack parameters
 	private int intHandle = 0;
@@ -57,6 +56,7 @@ public class TestRun {
 			Integer darkCurrent,
 			Integer nonLinear,
 			Integer boxcarWidth,
+			double laserPower,
 			Integer spectrometerIndex,
 			String spectrometerType,
 			String labjackType
@@ -69,6 +69,7 @@ public class TestRun {
 		this.darkCurrentCorrectFlag = darkCurrent;
 		this.nonlinearityCorrectFlag = nonLinear;
 		this.boxcarWidth = boxcarWidth;
+		this.laserPower = laserPower;
 		this.spectrometerIndex = spectrometerIndex;
 		this.spectrometerType = spectrometerType;
 		this.labjackType = labjackType;
@@ -121,7 +122,7 @@ public class TestRun {
 		// set laser power
 		lsControl = new LaserControl(intHandle, portNumberLaser);
 		lsControl.setTTLSwitchLow();
-		// lsControl.setLaserPower(laserPowV, portNumberLaserIntensity); //works on new OEM laser unit
+		// lsControl.setLaserPower(laserPower, portNumberLaserIntensity); //works on new OEM laser unit
 	
 		} catch (Exception e) {
 			
@@ -141,7 +142,7 @@ public class TestRun {
 			singleMeasurement.setParameters();
 			singleMeasurement.setBuffer();
 			
-			lsControl.setLaserPower(laserPowV, portNumberLaserIntensity);
+			lsControl.setLaserPower(laserPower, portNumberLaserIntensity);
 			lsControl.setTTLSwitchHigh();
 			
 			singleMeasurement.getSpectra();
@@ -184,7 +185,7 @@ public class TestRun {
 
 			singleMeasurementMaya.setParameters();
 			
-			lsControl.setLaserPower(laserPowV, portNumberLaserIntensity);
+			lsControl.setLaserPower(laserPower, portNumberLaserIntensity);
 			lsControl.setTTLSwitchHigh();
 			
 			singleMeasurementMaya.getSpectra();			

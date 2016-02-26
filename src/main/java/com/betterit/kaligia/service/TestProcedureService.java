@@ -170,6 +170,7 @@ public class TestProcedureService {
 		Integer darkCurrent;
 		Integer nonLinear;
 		Integer boxcarWidth;
+		double laserPower;
 		Integer spectrometerIndex=0;
 		String spectrometerType = "QEPro";
 		String labjackType = "U6";
@@ -210,6 +211,11 @@ public class TestProcedureService {
 			boxcarWidth = Integer.valueOf(tssb.get(0).getValue());
 			
 			tsse.clear();
+			tsse.createCriteria().andSegmentIdEqualTo(rsl.get(i).getSegmentId()).andNameEqualTo("Power");
+			List<TestSegmentSpec> tssp = tssm.selectByExample(tsse);
+			laserPower = Double.valueOf(tssp.get(0).getValue());
+			
+			tsse.clear();
 			tsse.createCriteria().andSegmentIdEqualTo(rsl.get(i).getSegmentId()).andNameEqualTo("SpectrometerType");
 			List<TestSegmentSpec> tsst = tssm.selectByExample(tsse);
 			spectrometerType = tsst.get(0).getValue();
@@ -229,6 +235,7 @@ public class TestProcedureService {
 					darkCurrent,
 					nonLinear,
 					boxcarWidth,
+					laserPower,
 					spectrometerIndex,
 					spectrometerType,
 					labjackType);
