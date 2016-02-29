@@ -80,6 +80,7 @@ public class KaligiaRunOrderController {
 		
 		runOrderObject.setRunID(trl.get(0).getRun_id());
 		runOrderObject.setResultNotes("");
+		log.info("setting Run ID: " + trl.get(0).getRun_id());
 		
 		for(int i=0; i<trl.size(); i++) {
 			int wsize = trl.get(i).getWavelength().length;
@@ -102,7 +103,11 @@ public class KaligiaRunOrderController {
 	@RequestMapping(value="/KaligiaRunResult", method=RequestMethod.POST)
     public String handleRunNotes(@ModelAttribute KaligiaRunOrder runOrderObject, Model model) {
 
+		log.info("Inside Handle Run Notes");
+		log.info("Object :[" + runOrderObject.toString() + "]");
+		
 		try{
+			
 			int rc= tos.createRunResultLog(runOrderObject.getRunID(), 
 					runOrderObject.getResultNotes());
 		}

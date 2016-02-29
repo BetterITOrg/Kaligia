@@ -15,7 +15,7 @@
 	<p th:text="'Procedure : ' + ${RunOrderResult.testProcedure}" />
 	<table>
 		<tr th:each="stat,iterStat : ${RunOrderResult.testStatus}">
-			<td th:text="Segment Run Status :"></td>
+			<td th:text="'Segment Run Status :'"></td>
 			<td th:text="${stat}"></td>
 		</tr>
 	</table>
@@ -85,14 +85,15 @@
 		}
 	/*]]>*/	
 	</script>
-	<form action="#" th:action="@{KaligiaRunResult}" th:object="${RunOrder}"
+	<form action="#" th:action="@{KaligiaRunResult}" th:object="${RunOrderResult}"
 		method="POST">
-	<table>
+		<table>
 		<tr>
 			<td>ResultNotes:</td>
 			<td><textarea id="msg" required="required"
 					th:field="*{resultNotes}"></textarea></td>
 			<td><input type="submit" name="Run" value="Save" /></td>
+			<td><input type="hidden" th:field="${RunOrderResult.runID}" /></td>
 		</tr>
 	</table>
 	</form>

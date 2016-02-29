@@ -4,6 +4,7 @@
 package com.betterit.kaligia;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -70,13 +71,16 @@ public class KaligiaRunOrder {
 	public void setSubject(String subject) {
 		this.subject = subject;
 	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
-		return "KaligiaRunOrder [" + (orderNo != null ? "orderNo=" + orderNo + ", " : "")
-				+ (Description != null ? "Description=" + Description + ", " : "")
-				+ (type != null ? "type=" + type + ", " : "")
-				+ (testProcedure != null ? "testProcedure=" + testProcedure + ", " : "")
-				+ (specimen != null ? "specimen=" + specimen + ", " : "") + "testProcedureId=" + testProcedureId + "]";
+		return "KaligiaRunOrder [orderNo=" + orderNo + ", Description=" + Description + ", type=" + type
+				+ ", testProcedure=" + testProcedure + ", specimen=" + specimen + ", subject=" + subject
+				+ ", testProcedureId=" + testProcedureId + ", testStatus=" + testStatus + ", wavenumber="
+				+ Arrays.toString(wavenumber) + ", photon=" + Arrays.toString(photon) + ", runID=" + runID
+				+ ", resultNotes=" + resultNotes + "]";
 	}
 	/**
 	 * @return the testStatus

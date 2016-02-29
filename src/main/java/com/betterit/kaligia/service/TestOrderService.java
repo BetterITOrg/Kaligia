@@ -138,6 +138,12 @@ public class TestOrderService {
 	
 	public int createRunResultLog(Integer runID, String notes) {
 		
+		if (notes != null ) {
+		log.info("Run ID: " + runID + " Notes : " + notes);
+		} else {
+			log.info("Notes is NULL");
+		}
+		
 		RunOrder rord = rom.selectByPrimaryKey(runID);
 		rord.setResultNotes(notes);
 		return rom.updateByPrimaryKey(rord);

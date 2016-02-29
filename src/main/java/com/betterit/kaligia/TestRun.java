@@ -73,6 +73,7 @@ public class TestRun {
 		this.spectrometerIndex = spectrometerIndex;
 		this.spectrometerType = spectrometerType;
 		this.labjackType = labjackType;
+		this.status = "Run Success";
 	}
 
 	

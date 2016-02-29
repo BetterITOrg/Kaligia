@@ -1,29 +1,29 @@
 ﻿<!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head> 
-    <title>Kaligia Biosciences: Results</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" type="text/css" href="/images/form2.css" />
-    <script th:src="@{/js/ChartNew.js}"></script>
+<head>
+<title>Kaligia Biosciences: Results</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css" href="/images/form2.css" />
+<script th:src="@{/js/ChartNew.js}"></script>
 </head>
 <body>
-	<img src="/images/kaligia-logo.png" height="150" width="400" />
+	<img src="/images/kaligia-logo.png" height="50" width="150" />
 	<h1>Run Status:</h1>
 	<p></p>
-    <p th:text="'Order No. : ' + ${RunOrderResult.orderNo}" />
-    <p th:text="'Description : ' + ${RunOrderResult.Description}" />
-    <p th:text="'Procedure : ' + ${RunOrderResult.testProcedure}" />
-    <table>
-    <tr th:each="stat,iterStat : ${RunOrderResult.testStatus}" >
-                    <td th:text="Segment Run Status :" ></td>
-                    <td th:text="${stat}"></td>
-                </tr>
-    </table>
-    <p></p>
-    <p></p>
-    <h1>Graph:</h1>	
-   	<p></p>
-   	<div style="width:100%">
+	<p th:text="'Order No. : ' + ${RunOrderResult.orderNo}" />
+	<p th:text="'Description : ' + ${RunOrderResult.Description}" />
+	<p th:text="'Procedure : ' + ${RunOrderResult.testProcedure}" />
+	<table>
+		<tr th:each="stat,iterStat : ${RunOrderResult.testStatus}">
+			<td th:text="'Segment Run Status :'"></td>
+			<td th:text="${stat}"></td>
+		</tr>
+	</table>
+	<p></p>
+	<p></p>
+	<h1>Graph:</h1>
+	<p></p>
+	<div style="width: 100%">
 		<div>
 			<canvas id="canvas" height="1000" width="3000"></canvas>
 		</div>
@@ -85,6 +85,18 @@
 		}
 	/*]]>*/	
 	</script>
-    <a href="http://localhost:8090/KaligiaMainApp.html" target="_self">Go To Home</a>
+	<form action="#" th:action="@{KaligiaRunResult}" th:object="${RunOrderResult}"
+		method="POST">
+		<table>
+		<tr>
+			<td>ResultNotes:</td>
+			<td><textarea id="msg" required="required"
+					th:field="*{resultNotes}"></textarea></td>
+			<td><input type="submit" name="Run" value="Save" /></td>
+			<td><input type="hidden" th:field="${RunOrderResult.runID}" /></td>
+		</tr>
+	</table>
+	</form>
+	<a href="http://localhost:8090/KaligiaMainApp.html" target="button">Go To Home</a>
 </body>
 </html>
