@@ -134,7 +134,7 @@ table th{
   background-color: skyblue;
 }
 
-a.button {
+a {
 	font-size: 70%;
 	text-shadow: none;
 	text-decoration: none;
@@ -154,7 +154,7 @@ a.button {
 	margin:10px 5px 10px 5px;
 	display:block;}
 
-a.button:hover {
+a:hover {
 	position:relative;
 	top:1px;
 	left:1px;
