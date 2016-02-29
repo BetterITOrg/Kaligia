@@ -115,6 +115,6 @@ public class KaligiaRunOrderController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "KaligiaRunResult";
+		return "redirect:/KaligiaMainApp";
 	}
 }

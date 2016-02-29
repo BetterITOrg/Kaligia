@@ -116,8 +116,8 @@ public class CreateProcedureController {
 		}
 		
 		model.addAttribute("Status", statusMessage);
-		return "ShowStatus";
-		//return "KaligiaMainApp";
+		//return "ShowStatus";
+		return "redirect:/KaligiaMainApp";
 	}
 
 }
