@@ -28,8 +28,8 @@
 					</select></td>
 					<td>Procedure Type</td>
 					<td><select class="type_dropdown" th:field="*{Type}">
-							<option value="IN-VIVO">IN-VEVO</option>
-							<option value="EX-VIVO">EX-VEVO</option>
+							<option value="IN-VIVO">IN-VIVO</option>
+							<option value="EX-VIVO">EX-VIVO</option>
 					</select></td>
 				</tr>
 				<tr>
@@ -45,33 +45,33 @@
 				<tr>
 					<td>Laser</td>
 					<td><select class="laser_dropdown" th:field="*{Laser}">
-							<option th:each="devic:${DeviceList}"
+							<option th:each="devic:${DeviceList}" th:if="${devic.type} == 'Laser'"
 								th:value="${devic.deviceId}" th:text="${devic.name}">
-								Select Lasers</option>
+								</option>
 					</select></td>
 					<td></td>
 					<td>Spectrometer</td>
 					<td><select class="spectrometer_dropdown"
 						th:field="*{Spectrometer}">
-							<option th:each="devic:${DeviceList}"
+							<option th:each="devic:${DeviceList}" th:if="${devic.type} == 'Spectrometer'"
 								th:value="${devic.deviceId}" th:text="${devic.name}">
-								Select Spectrometer</option>
+								</option>
 					</select></td>
 
 				</tr>
 				<tr>
 					<td>Probe</td>
 					<td><select class="probe_dropdown" th:field="*{Probe}">
-							<option th:each="devic:${DeviceList}"
+							<option th:each="devic:${DeviceList}" th:if="${devic.type} == 'Probe'"
 								th:value="${devic.deviceId}" th:text="${devic.name}">
-								Select Probes</option>
+								</option>
 					</select></td>
 					<td></td>
 					<td>Labjack</td>
 					<td><select class="labjack_dropdown" th:field="*{Labjack}">
-							<option th:each="devic:${DeviceList}"
+							<option th:each="devic:${DeviceList}" th:if="${devic.type} == 'LabJack'"
 								th:value="${devic.deviceId}" th:text="${devic.name}">
-								Select Probes</option>
+								</option>
 					</select></td>
 					<!--					<td>Body Part</td>
 					<td><select class="bodypart_dropdown" name="selectBodyPart"<b>th:field="*{bodypart}"
