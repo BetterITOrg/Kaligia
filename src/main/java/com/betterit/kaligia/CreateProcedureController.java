@@ -109,13 +109,15 @@ public class CreateProcedureController {
 			
 			log.info("failed insert");
 			statusMessage = "ERROR!! Procedure Creation failed for Input:  " + createProcedureObject.toString();
+			return "ShowStatus";
 		}
 		else
 		{
 			statusMessage = "SUCCESS!! Procedure Creation success for Input  " + createProcedureObject.getName();
 		}
 		
-		model.addAttribute("Status", statusMessage);
+		log.info(statusMessage);
+		//model.addAttribute("Status", statusMessage);
 		//return "ShowStatus";
 		return "redirect:/KaligiaMainApp";
 	}
