@@ -151,7 +151,7 @@ CREATE TABLE TestOrder (
   subject_id    int4, 
   site_id       int4 NOT NULL, 
   description   varchar(255), 
-  creation_date int4, 
+  creation_date timestamp NOT NULL, 
   created_by    int4 NOT NULL, 
   PRIMARY KEY (order_id));
 CREATE TABLE OrderDetails (

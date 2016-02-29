@@ -154,6 +154,32 @@ now(),
 (select site_id from site where name='Kaligia Biosciences')
 );
 
+insert into device values (
+DEFAULT,
+'LabJack U3',
+'LabJack',
+'LabJack',
+'U3',
+'',
+'Active',
+now(),
+(select user_id from users where name='Kaide Johar'),
+(select site_id from site where name='Kaligia Biosciences')
+);
+
+insert into device values (
+DEFAULT,
+'LabJack U6',
+'LabJack',
+'LabJack',
+'U6',
+'',
+'Active',
+now(),
+(select user_id from users where name='Kaide Johar'),
+(select site_id from site where name='Kaligia Biosciences')
+);
+
 insert into devicespec values (
 (select device_id from device where name='Laser 830'),
 'Wavelength',
