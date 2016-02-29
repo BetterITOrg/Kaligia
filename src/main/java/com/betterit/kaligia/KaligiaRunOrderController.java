@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.betterit.kaligia.dao.model.kaligia.Device;
 import com.betterit.kaligia.dao.model.kaligia.TestProcedure;
 import com.betterit.kaligia.service.DeviceService;
+import com.betterit.kaligia.service.TestOrderService;
 import com.betterit.kaligia.service.TestProcedureService;
 
 /**
@@ -32,6 +33,9 @@ public class KaligiaRunOrderController {
 	
 	@Autowired
 	private TestProcedureService tps;
+	
+	@Autowired
+	private TestOrderService tos;
 
 	@RequestMapping(value="/KaligiaRunOrder", method=RequestMethod.GET)
     public String runOrderForm(Model model) {
@@ -94,5 +98,18 @@ public class KaligiaRunOrderController {
 		return "KaligiaRunResult";
 			
 	}
+	
+	@RequestMapping(value="/KaligiaRunResult", method=RequestMethod.POST)
+    public String handleRunNotes(@ModelAttribute KaligiaRunOrder runOrderObject, Model model) {
 
+		try{
+			int rc= tos.createRunResultLog(runOrderObject.getRunID(), 
+					runOrderObject.getResultNotes());
+		}
+		catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "KaligiaRunResult";
+	}
 }

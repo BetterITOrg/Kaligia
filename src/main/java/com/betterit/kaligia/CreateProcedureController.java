@@ -87,7 +87,7 @@ public class CreateProcedureController {
 			rc = tps.createTestProcedure(
 					createProcedureObject.getName(), 
 					createProcedureObject.getDescription(), 
-					"IN-VIVO",  // ToDo: Hard Coded
+					createProcedureObject.getType(),  
 					createProcedureObject.getStatus(), 
 					createProcedureObject.getNoOfSegments(), 
 					Integer.valueOf(createProcedureObject.getSpectrometer()), 
