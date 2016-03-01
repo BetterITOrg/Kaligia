@@ -40,7 +40,7 @@ public class CreateProcedureController {
 	/** TO-DO get all devices from database. populate the drop downs on the form */
 		List<Device> deviceList = deviceServiceObject.findAll();
 		List<segmentParams> segList = new ArrayList<segmentParams>();
-		CreateProcedure createProcObj = new CreateProcedure();
+		ProcedureDetail createProcObj = new ProcedureDetail();
 		
 		for(int i=1; i<11; i++){
 			segmentParams segmentObj= new segmentParams();
@@ -55,7 +55,7 @@ public class CreateProcedureController {
 	}
 
 	@RequestMapping(value="/CreateProcedure", method=RequestMethod.POST)
-    public String handleProcedureForm(@ModelAttribute CreateProcedure createProcedureObject, Model model) {
+    public String handleProcedureForm(@ModelAttribute ProcedureDetail createProcedureObject, Model model) {
 		
 		log.info("In CreateProcedure POST");
 		log.info("received values" + createProcedureObject.toString());

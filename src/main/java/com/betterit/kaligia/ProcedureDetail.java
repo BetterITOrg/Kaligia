@@ -9,7 +9,7 @@ import java.util.List;
  * @author nayar
  *
  */
-public class CreateProcedure {
+public class ProcedureDetail {
 	private String Name;
 	private String Description;
 	private String Status;
