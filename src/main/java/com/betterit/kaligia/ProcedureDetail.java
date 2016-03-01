@@ -19,7 +19,7 @@ public class ProcedureDetail {
 	private String Labjack;
 	private int NoOfSegments;
 	private String Type;
-	
+	private Integer procedureID;
 	
 	private List<segmentParams> segmentList;
 	
@@ -101,6 +101,18 @@ public class ProcedureDetail {
 				+ (Probe != null ? "Probe=" + Probe + ", " : "") + "NoOfSegments=" + NoOfSegments + ", "
 				+ (Type != null ? "Type=" + Type + ", " : "") + (Labjack != null ? "Labjack=" + Labjack + ", " : "")
 				+ (segmentList != null ? "segmentList=" + segmentList : "") + "]";
+	}
+	/**
+	 * @return the procedureID
+	 */
+	public Integer getProcedureID() {
+		return procedureID;
+	}
+	/**
+	 * @param procedureID the procedureID to set
+	 */
+	public void setProcedureID(Integer procedureID) {
+		this.procedureID = procedureID;
 	}
 
 

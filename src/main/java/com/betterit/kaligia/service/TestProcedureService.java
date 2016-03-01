@@ -16,6 +16,7 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
+import com.betterit.kaligia.ProcedureDetail;
 import com.betterit.kaligia.TestRun;
 import com.betterit.kaligia.segmentParams;
 import com.betterit.kaligia.dao.model.kaligia.Device;
@@ -26,10 +27,12 @@ import com.betterit.kaligia.dao.model.kaligia.RunOrder;
 import com.betterit.kaligia.dao.model.kaligia.RunSegment;
 import com.betterit.kaligia.dao.model.kaligia.RunSegmentLog;
 import com.betterit.kaligia.dao.model.kaligia.TestDevices;
+import com.betterit.kaligia.dao.model.kaligia.TestDevicesExample;
 import com.betterit.kaligia.dao.model.kaligia.TestOrder;
 import com.betterit.kaligia.dao.model.kaligia.TestProcedure;
 import com.betterit.kaligia.dao.model.kaligia.TestProcedureExample;
 import com.betterit.kaligia.dao.model.kaligia.TestSegment;
+import com.betterit.kaligia.dao.model.kaligia.TestSegmentExample;
 import com.betterit.kaligia.dao.model.kaligia.TestSegmentSpec;
 import com.betterit.kaligia.dao.model.kaligia.TestSegmentSpecExample;
 import com.betterit.kaligia.dao.model.kaligia.TmpTestResult;
@@ -573,5 +576,75 @@ public class TestProcedureService {
 		return 0;
 	};
 
+	public ProcedureDetail getProcedureDetail(Integer procedure_id) {
+		ProcedureDetail procDtls = new ProcedureDetail();
+		
+		//Get TestProcedure
+		TestProcedure tp = new TestProcedure();
+		tp = tpm.selectByPrimaryKey(procedure_id);
+		procDtls.setProcedureID(procedure_id);
+		procDtls.setName(tp.getName());
+		procDtls.setDescription(tp.getDescription());
+		procDtls.setStatus(tp.getStatus());
+		procDtls.setType(tp.getType());
+		procDtls.setNoOfSegments(tp.getNoOfSegments());
+		
+		//Get TestDevices 
+		List<TestDevices> tdl = new ArrayList<TestDevices>();
+		TestDevicesExample tde = new TestDevicesExample();
+		tde.createCriteria().andProcedureIdEqualTo(procedure_id);
+		tdl = tdm.selectByExample(tde);
+		
+		for(int i=0; i<tdl.size(); i++) {
+			
+			Device device = new Device();
+			device = dm.selectByPrimaryKey(tdl.get(i).getDeviceId());
+			
+			switch(device.getType()) {
+			
+				case "Laser" : procDtls.setLaser(device.getName()); break;
+				case "Probe" : procDtls.setProbe(device.getName()); break;
+				case "Spectrometer" : procDtls.setSpectrometer(device.getName()); break;
+				case "LabJack" : procDtls.setLabjack(device.getName()); break;
+			
+			}
+		}
+		
+		//Get Procedure Segments
+		List<ProcSegment> psl = new ArrayList<ProcSegment>();
+		ProcSegmentExample pse = new ProcSegmentExample();
+		psl = psm.selectByExample(pse);
+		
+		//Get Segment Parameters
+		List<segmentParams> spl = new ArrayList<segmentParams>();
+		for(int j=0; j<psl.size(); j++) {
+			
+			segmentParams sp = new segmentParams();
+			
+			List<TestSegmentSpec> tssl = new ArrayList<TestSegmentSpec>();
+			TestSegmentSpecExample tsse = new TestSegmentSpecExample();
+			tsse.createCriteria().andSegmentIdEqualTo(psl.get(j).getSegmentId());
+			tssl = tssm.selectByExample(tsse);
+			
+			for(int k=0; k<spl.size(); k++) {
+				
+				switch(tssl.get(k).getName()) {
+				case "IntegrationTime" : sp.setIntegrationTime(tssl.get(k).getValue()); break;
+				case "ScansToAverage" : sp.setScan2Average(tssl.get(k).getValue()); break;
+				case "BoxcarWidth" : sp.setBoxCarWidth(tssl.get(k).getValue()); break;
+				case "ElectricDark" : sp.setElectricDark(tssl.get(k).getValue()); break;
+				case "NonLinearityCorrection" : sp.setNonLinearCorrect(tssl.get(k).getValue()); break;
+				case "Power" : sp.setPower(tssl.get(k).getValue()); break;
+				case "Delay" : sp.setDelay(tssl.get(k).getValue()); break;
+				}
+				
+			}
+			
+			spl.add(sp);
+		
+		}
+		
+		return procDtls;
+	}
 
 }
