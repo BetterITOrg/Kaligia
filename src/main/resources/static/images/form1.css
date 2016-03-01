@@ -139,13 +139,13 @@ a {
 	text-shadow: none;
 	text-decoration: none;
 	text-align:center;
-	text-shadow: -1px -1px 1px #72aebd;
+	/*text-shadow: -1px -1px 1px #72aebd;*/
 	text-transform:uppercase;
 	letter-spacing: 0.10em;
-	color:#fff;
+	color:black;
 	padding: 7px 10px 4px 10px;
 	border-radius: 5px;
-	background-color:#00CC99;
+	background-color:#CCCCCC;
 	border-top: 1px solid #90f2da;
 	border-right:1px solid #00a97f;
 	border-bottom:1px solid #008765;
