@@ -628,7 +628,6 @@ public class TestProcedureService {
 			tssl = tssm.selectByExample(tsse);
 			
 			for(int k=0; k<tssl.size(); k++) {
-				log.info("value of k is " + k);
 				switch(tssl.get(k).getName()) {
 				case "IntegrationTime" : sp.setIntegrationTime(tssl.get(k).getValue()); break;
 				case "ScansToAverage" : sp.setScan2Average(tssl.get(k).getValue()); break;
