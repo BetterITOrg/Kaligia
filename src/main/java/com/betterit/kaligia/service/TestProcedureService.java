@@ -613,6 +613,7 @@ public class TestProcedureService {
 		//Get Procedure Segments
 		List<ProcSegment> psl = new ArrayList<ProcSegment>();
 		ProcSegmentExample pse = new ProcSegmentExample();
+		pse.createCriteria().andProcedureIdEqualTo(procedure_id);
 		psl = psm.selectByExample(pse);
 		
 		//Get Segment Parameters
@@ -626,7 +627,7 @@ public class TestProcedureService {
 			tsse.createCriteria().andSegmentIdEqualTo(psl.get(j).getSegmentId());
 			tssl = tssm.selectByExample(tsse);
 			
-			for(int k=0; k<spl.size(); k++) {
+			for(int k=0; k<tssl.size(); k++) {
 				
 				switch(tssl.get(k).getName()) {
 				case "IntegrationTime" : sp.setIntegrationTime(tssl.get(k).getValue()); break;
@@ -643,6 +644,8 @@ public class TestProcedureService {
 			spl.add(sp);
 		
 		}
+		
+		procDtls.setSegmentList(spl);
 		
 		return procDtls;
 	}

@@ -62,7 +62,7 @@ public class KaligiaRunOrderController {
 		}
 		
 		runOrderObject.setTestProcedureId(testProcObj.getProcedureId());
-		
+			
 		List<TestRun> trl = new ArrayList<TestRun>();
 		try {
 			trl = tps.runTestProcedure(
