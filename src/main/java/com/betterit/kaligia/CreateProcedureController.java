@@ -109,6 +109,7 @@ public class CreateProcedureController {
 			
 			log.info("failed insert");
 			statusMessage = "ERROR!! Procedure Creation failed for Input:  " + createProcedureObject.toString();
+			model.addAttribute("Status", statusMessage);
 			return "ShowStatus";
 		}
 		else

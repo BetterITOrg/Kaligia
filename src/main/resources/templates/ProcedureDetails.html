@@ -1,0 +1,121 @@
+﻿<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Procedure Details</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css" href="/images/form2.css" />
+</head>
+<body>
+
+
+	<form action="#" th:action="@{EditProcedure}" th:object="${ProcedureDetails}"
+		method="POST">
+		
+		<fieldset>
+			<legend> Procedure </legend>
+			<table>
+				<tr>
+					<td>Procedure Name:</td>
+					<td th:text="${ProcedureDetails.Name}" > </td>
+				</tr>
+				<tr>
+					<td>Status:</td>
+					<td th:text="${ProcedureDetails.Status}"> </td>
+					<td>Procedure Type:</td>
+					<td th:text="${ProcedureDetails.Type}"> </td>
+				</tr>
+				<tr>
+					<td>Description:</td>
+					<td th:text="${ProcedureDetails.Description}"> 
+					</td>
+				</tr>
+			</table>
+		</fieldset>
+		<fieldset>
+			<legend> Device Selection</legend>
+			<table>
+				<tr>
+					<td>Laser:</td>
+					<td> <select class="laser_dropdown" disabled="disabled">
+   						 <option th:value="${ProcedureDetails.Laser}" th:text="${ProcedureDetails.Laser}"></option>
+                    </select></td>
+					<td></td>
+					<td>Spectrometer:</td>
+					<td> <select class="laser_dropdown" disabled="disabled">
+   						 <option th:value="${ProcedureDetails.Spectrometer}" th:text="${ProcedureDetails.Spectrometer}"></option>
+                    </select> </td>
+				</tr>
+				<tr>
+					<td>Probe:</td>
+					<td> <select class="laser_dropdown" disabled="disabled">
+   						 <option th:value="${ProcedureDetails.Probe}" th:text="${ProcedureDetails.Probe}"></option>
+                    </select></td>
+					<td></td>
+					<td>Labjack:</td>
+					<td> <select class="laser_dropdown" disabled="disabled">
+   						 <option th:value="${ProcedureDetails.Labjack}" th:text="${ProcedureDetails.Labjack}"></option>
+                    </select></td>
+					<!--					<td>Body Part</td>
+					<td><select class="bodypart_dropdown" name="selectBodyPart"<b>th:field="*{bodypart}"
+								>
+								<option th:each="sopt:${bodypart}" th:value="?" th:text="?">
+									Select Body Part</option></select></td>
+
+  					<td>Sample</td>
+					<td><select class="sample_dropdown" name="selectSample"<b>th:field="*{sample}"
+								>
+								<option th:each="sopt:${samples}" th:value="?" th:text="?">
+									Select Samples</option></select></td>
+-->
+				</tr>
+			</table>
+		</fieldset>
+
+
+		<fieldset>
+			<legend> Segment Parameters </legend>
+
+			<TABLE>
+				<TR>
+
+					<th>IntegrationTime</th>
+					<th>Scan2Avg</th>
+					<th>BoxCarWidth</th>
+					<th>ElectricDark</th>
+					<th>NonLinearCorrect</th>
+					<th>Delay</th>
+					<th>Voltage</th>
+				</TR>
+
+
+				<tr th:each="segment, rowStat : *{segmentList}">
+
+					<td><input type="text" disabled="disabled"
+						th:value="*{segmentList[__${rowStat.index}__].integrationTime}" /></td>
+					<td><input type="text" disabled="disabled"
+						th:value="*{segmentList[__${rowStat.index}__].scan2Average}" /></td>
+					<td><input type="text" disabled="disabled"
+						th:value="*{segmentList[__${rowStat.index}__].boxCarWidth}" /></td>
+					<td><input type="text" disabled="disabled"
+						th:value="*{segmentList[__${rowStat.index}__].electricDark}" /></td>
+					<td><input type="text" disabled="disabled"
+						th:value="*{segmentList[__${rowStat.index}__].nonLinearCorrect}" /></td>
+					<td><input type="text" disabled="disabled"
+						th:value="*{segmentList[__${rowStat.index}__].delay}" /></td>
+					<td><input type="text" disabled="disabled"
+						th:value="*{segmentList[__${rowStat.index}__].power}" /></td>
+				</tr>
+
+			</TABLE>
+		</fieldset>
+<!--  		<TABLE>
+			<TR>
+				<TD width="600"></TD>
+				<TD><input type="submit" name="Run" value="Create"
+					style="background-color: #888; color: #fff;" /></TD>
+			</TR>
+		</TABLE>
+-->
+	</form>
+</body>
+</html>
