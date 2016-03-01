@@ -84,15 +84,27 @@ public class KaligiaRunOrderController {
 		
 		for(int i=0; i<trl.size(); i++) {
 			int wsize = trl.get(i).getWavelength().length;
-			int wave[] = new int[wsize];
-			float photon[] = new float[wsize];
+			List<Integer> wave = new ArrayList<Integer>();
+			List<Float> photon = new ArrayList<Float>();
+			int k=0;
 			for(int j=0; j<wsize; j++) {
-				wave[j] = (int)(12048 - (10000000.0/trl.get(i).getWavelength()[j]));
-				photon[j] = (float) (trl.get(i).getSpectra()[j]/10000.0);
+				int swave = (int)(12048 - (10000000.0/trl.get(i).getWavelength()[j]));
+				if(swave < 200 ) continue;
+				if(swave >1800 ) break;
+				wave.add(swave);
+				photon.add((float) (trl.get(i).getSpectra()[j]/10000.0));
+				k++;
+			}
+			
+			int[] wavei = new int[wave.size()];
+			float[] photoni= new float[wave.size()];
+			for(int ii=0; ii<wave.size();ii++) {
+				wavei[ii]=wave.get(ii);
+				photoni[ii]=photon.get(ii);
 			}
 			runOrderObject.setTestStatus(trl.get(i).getStatus(), i);
-			runOrderObject.setWavenumber(wave, i);
-			runOrderObject.setPhoton(photon, i);
+			runOrderObject.setWavenumber(wavei, i);
+			runOrderObject.setPhoton(photoni, i);
 		}
 		
 		model.addAttribute("RunOrderResult", runOrderObject);

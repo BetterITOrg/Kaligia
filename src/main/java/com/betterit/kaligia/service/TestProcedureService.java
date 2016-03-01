@@ -246,10 +246,10 @@ public class TestProcedureService {
 		// Do Run
 		for(int i=0; i<trl.size(); i++) {
 			// Run test
-			// rc = trl.get(i).doTestRun();
+			rc = trl.get(i).doTestRun();
 			
 			// Generate dummy test result since equipment is not connected
-			
+			/*
 			TmpTestResultExample tmpe = new TmpTestResultExample();
 			tmpe.createCriteria().andRunIdEqualTo(346+i);
 			List<TmpTestResult> tmpTR = tmpRM.selectByExample(tmpe);
@@ -258,7 +258,7 @@ public class TestProcedureService {
 				trl.get(i).setWavelength(tmpTR.get(j).getWavenumber(), j);
 				trl.get(i).setSpectra(tmpTR.get(j).getPhotonCount(), j);
 			}
-			
+			*/
 		}
 		
 		// Store Results
