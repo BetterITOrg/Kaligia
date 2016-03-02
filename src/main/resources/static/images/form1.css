@@ -6,10 +6,10 @@ form {
   /* To see the limits of the form */
   padding: 1em;
 
-  border: 2px solid #777;
+  border: 1px solid #777;
 
-  border-radius: 1em;
-  background-color: lightcyan;
+  border-radius: 3px;
+  background-color: #b3edff;
 
    
 }
@@ -96,9 +96,10 @@ table {
 }
 
 .main-procedure {
-	border: 1px solid black;
-  background-color: lightcyan;
+	border: 1px solid darkgray;
+  background-color: #a1edff;
   border-right: 1px solid gray;
+  border-radius: 5px;
 }
 
 .main-procedure td{
@@ -175,5 +176,6 @@ a:hover {
 
 iframe {
   width:-moz-available;
-  height:600;
+  height:calc(60vh - 30px);
+  border: 0;
 }

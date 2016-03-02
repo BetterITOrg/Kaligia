@@ -5,9 +5,9 @@ form {
 
   /* To see the limits of the form */
   padding: 1em;
-  border: 2px solid #777;
-  border-radius: 1em;
-  background-color: lightcyan;
+  border: 1px solid #777;
+  border-radius: 3px;
+  background-color: #99ebff;
    
 }
 
@@ -50,7 +50,7 @@ textarea {
 
   /* To give enough room to type some text */
   height: 5em;
-  width: 300px;
+  width: 100%;
 
   /* To allow users to resize any textarea vertically
      It works only on Chrome, Firefox and Safari */

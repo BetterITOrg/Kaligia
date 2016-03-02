@@ -12,9 +12,7 @@
 		<img src="/images/kaligia-logo.png" height="70" width="210" />
 
 		<HR />
-		<br />
-
-
+		
 		<table class="main-procedure">
 			<tr>
 				<th class="Name-column">Procedure Name</th>
@@ -40,9 +38,9 @@
 		<table>
 			<tr>
 				<td><a href="CreateProcedure.html" target="_self">Create
-						New Procedure</a></td>
+						Procedure</a></td>
 
-				<td><a href="`KaligiaRunOrder.html" target="_self">Run New
+				<td><a href="KaligiaRunOrder.html" target="_self">Run New
 						Test</a></td>
 			</tr>
 
@@ -58,7 +56,7 @@
 	//<![CDATA[
         function callIframe(){
         	var tpsId=document.getElementById("procedureDrop").value;
-        	document.getElementById("procFrame").innerHTML = "<iframe src=ProcedureDetails.html?tpsId=" + tpsId + "></iframe>'";
+        	document.getElementById("procFrame").innerHTML = "<iframe src=ProcedureDetails.html?tpsId=" + tpsId + "></iframe>";
         }
       //]]>
         </script>
