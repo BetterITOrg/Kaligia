@@ -105,12 +105,13 @@ public class TestRun {
 		
 		// initialize lab jack
 		IntByReference refHandle = new IntByReference(0);
-		
+		log.info("Initialising Labjack ....");
 		if (labjackType.equals("U6")){
 			LJUD.openLabJack(LJUD.Constants.dtU6, LJUD.Constants.ctUSB, "1", 1, refHandle);
 		} else {
 			LJUD.openLabJack(LJUD.Constants.dtU3, LJUD.Constants.ctUSB, "1", 1, refHandle);
 		}
+		log.info("Completed Labjack intial ....");
 		
 		intHandle = refHandle.getValue();
 		LJUD.ePut(intHandle, LJUD.Constants.ioPIN_CONFIGURATION_RESET, 0, 0, 0);
@@ -139,21 +140,24 @@ public class TestRun {
 		case "QEPro":
 			
 			SpectraAcquisitionQEPro singleMeasurement = new SpectraAcquisitionQEPro(acquisitionM, integrationTime, scanToAverage, darkCurrentCorrectFlag, nonlinearityCorrectFlag, boxcarWidth, spectrometerIndex, wrapper_t, bufferCtrl_t);
-			
+			log.info("Setting Parameters.." );
 			singleMeasurement.setParameters();
 			singleMeasurement.setBuffer();
-			
+			log.info("Turning up laser" + laserPower);
 			lsControl.setLaserPower(laserPower, portNumberLaserIntensity);
 			lsControl.setTTLSwitchHigh();
-			
+			log.info("Starting Spectra Test");
 			singleMeasurement.getSpectra();
+			log.info("Completed Spectra Test. Grabbing data from device..");
 			spectra = singleMeasurement.returnSpectra();
 			wavelength = singleMeasurement.returnWavelength();
+			log.info("Completed Grabbing data from device..");
 			
 			lsControl.setTTLSwitchLow();
-			
+			log.info("Completed turning down laser");
 			try {
 				TimeUnit.MILLISECONDS.sleep((int) (restTime * 1000));
+				log.info("Completed restTime for "+ restTime);
 			} catch (InterruptedException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -218,7 +222,7 @@ public class TestRun {
 		}
 		ctrlTTL.mystop();
 		wrapper_t.closeAllSpectrometers();
-				
+		log.info("Done Closing/Shutting devices");		
 		status = "Segment Run Successful.";
 		return 0;
 	}
