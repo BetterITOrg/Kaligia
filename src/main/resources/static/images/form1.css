@@ -164,3 +164,16 @@ a:hover {
 	border-bottom:1px solid #07a1c8;
 	border-left: 1px solid #92def1;
 	box-shadow: -1px -1px 2px #ccc;}
+
+.Name-column {
+  width: 20%;
+}
+
+.Desc-column{
+  width: 75%;
+}
+
+iframe {
+  width:-moz-available;
+  height:600;
+}
