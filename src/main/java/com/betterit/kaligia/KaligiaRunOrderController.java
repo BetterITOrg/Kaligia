@@ -48,7 +48,7 @@ public class KaligiaRunOrderController {
 	}
 
 	@RequestMapping(value="/KaligiaRunOrder", method=RequestMethod.POST)
-    public String handleRunForm(@ModelAttribute KaligiaRunOrder runOrderObject, Model model) {
+    public String handleRunForm(@ModelAttribute KaligiaRunOrder runOrderObject, Model model) throws Exception {
 		
 		log.info("In KaligiaRunOrder POST");
 		log.info("received values" + runOrderObject.toString());
@@ -76,6 +76,7 @@ public class KaligiaRunOrderController {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw e;
 		}
 		
 		runOrderObject.setRunID(trl.get(0).getRun_id());
@@ -86,14 +87,12 @@ public class KaligiaRunOrderController {
 			int wsize = trl.get(i).getWavelength().length;
 			List<Integer> wave = new ArrayList<Integer>();
 			List<Float> photon = new ArrayList<Float>();
-			int k=0;
 			for(int j=0; j<wsize; j++) {
 				int swave = (int)(12048 - (10000000.0/trl.get(i).getWavelength()[j]));
 				if(swave < 200 ) continue;
 				if(swave >1800 ) break;
 				wave.add(swave);
 				photon.add((float) (trl.get(i).getSpectra()[j]/10000.0));
-				k++;
 			}
 			
 			int[] wavei = new int[wave.size()];
@@ -126,6 +125,7 @@ public class KaligiaRunOrderController {
 		catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw e;
 		}
 		return "redirect:/KaligiaMainApp";
 	}
