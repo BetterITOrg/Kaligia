@@ -12,7 +12,8 @@
 	<p></p>
 	<p th:text="'Order No. : ' + ${RunOrderResult.orderNo}" />
 	<p th:text="'Description : ' + ${RunOrderResult.Description}" />
-	<p th:text="'Procedure : ' + ${RunOrderResult.testProcedure}" />
+	<iframe src="ProcedureDetail.html?tpsId=${RunOrderResult.testProcedureId}" width="75%" height="500"></iframe>
+	<p></p>
 	<table>
 		<tr th:each="stat,iterStat : ${RunOrderResult.testStatus}">
 			<td th:text="'Segment Run Status :'"></td>

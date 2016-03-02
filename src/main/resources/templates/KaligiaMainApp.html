@@ -1,47 +1,68 @@
 ﻿<!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Kaligia Main</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" type="text/css" href="/images/form1.css" />
+<title>Kaligia Main</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css" href="/images/form1.css" />
 </head>
 <body>
 
-<form action= "#" th:action="@{KaligiaMainApp}" th:object="${ProcedureList}" method="post">
-<img src="/images/kaligia-logo.png" height="70" width="210" />
+	<form action="#" th:action="@{KaligiaMainApp}"
+		th:object="${ProcedureList}" method="post">
+		<img src="/images/kaligia-logo.png" height="70" width="210" />
 
-<HR/>
-<br/>
-  
-            
-            <table class="main-procedure">
-                <tr>
-                    <th>Procedure Name</th>
-                    <th>Description</th>
-                </tr>
-                <tr th:each="procedur,iterStat : ${ProcedureList}" th:class="${iterStat.odd}? 'odd'">
-                    <td th:text="${procedur.name}"></td>
-                    <td th:text="${procedur.description}"></td>
-                </tr>
-            </table>
+		<HR />
+		<br />
 
 
-        
-        <br/>
-        <table >
-            <tr>
-              <td ><a href="CreateProcedure.html" target="_self">Create New Procedure</a></td>
-            
-              <td ><a href="KaligiaRunOrder.html" target="_self">Run New Test</a></td>
-            </tr>
-            <tr>
-              <td >List Procedure Details</td>
-              <td >List All Runs for a Procedure</td>
-            </tr>
-          
-        </table>
-        
-      
-</form>
+		<table class="main-procedure">
+			<tr>
+				<th class="Name-column">Procedure Name</th>
+				<th class="Desc-column">Description</th>
+			</tr>
+	<!--  		<tr th:each="procedur,iterStat : ${ProcedureList}"
+				th:class="${iterStat.odd}? 'odd'">
+				<td th:text="${procedur.name}"></td>
+				<td th:text="${procedur.description}"></td>
+			</tr> -->
+			<tr>
+				<td class="Name-column"><select class="procedure_dropdown" size="20"
+					id="procedureDrop" onChange="callIframe()">
+						<option th:each="procedur,iterStat : ${ProcedureList}"
+							th:value="${procedur.procedureId}" th:text="${procedur.name}">
+						</option>
+				</select></td>
+				<td class="Desc-column" id="procFrame"></td>
+			</tr>
+		</table>
 
-</body></html>
+		<br />
+		<table>
+			<tr>
+				<td><a href="CreateProcedure.html" target="_self">Create
+						New Procedure</a></td>
+
+				<td><a href="`KaligiaRunOrder.html" target="_self">Run New
+						Test</a></td>
+			</tr>
+
+			<tr>
+				<td>List All Runs for a Procedure</td>
+			</tr>
+
+		</table>
+
+
+	</form>
+	<script type="text/javascript">
+	//<![CDATA[
+        function callIframe(){
+        	var tpsId=document.getElementById("procedureDrop").value;
+        	document.getElementById("procFrame").innerHTML = "<iframe src=ProcedureDetails.html?tpsId=" + tpsId + "></iframe>'";
+        }
+      //]]>
+        </script>
+
+</body>
+</html>
+
