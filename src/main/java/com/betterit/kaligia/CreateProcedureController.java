@@ -71,7 +71,6 @@ public class CreateProcedureController {
 			segmentParams paramObject= segmentIterator.next();
 			if ( Integer.valueOf(paramObject.getIntegrationTime()) < 1)
 			{
-				log.info(" deleting object ");
 				segmentIterator.remove();
 			}
 			
@@ -93,7 +92,10 @@ public class CreateProcedureController {
 					Integer.valueOf(createProcedureObject.getSpectrometer()), 
 					Integer.valueOf(createProcedureObject.getLaser()),
 					Integer.valueOf(createProcedureObject.getProbe()), 
-					Integer.valueOf(createProcedureObject.getLabjack()), 
+					Integer.valueOf(createProcedureObject.getLabjack()),
+					Integer.valueOf(createProcedureObject.getCollectionFiber()),
+					Integer.valueOf(createProcedureObject.getExcitationFiber()),
+					Integer.valueOf(createProcedureObject.getTube()),
 					createProcedureObject.getSegmentList()
 					);
 		} catch (NumberFormatException e) {

@@ -306,6 +306,9 @@ public class TestProcedureService {
 			Integer laserID,
 			Integer probeID,
 			Integer labjackID,
+			Integer collectFiberID,
+			Integer exciteFiberID,
+			Integer tubeID,
 			List<segmentParams> segParams
 			) throws Exception {
 		
@@ -335,6 +338,12 @@ public class TestProcedureService {
 			td.setDeviceId(probeID);
 			tdm.insert(td);
 			td.setDeviceId(labjackID);
+			tdm.insert(td);
+			td.setDeviceId(collectFiberID);
+			tdm.insert(td);
+			td.setDeviceId(exciteFiberID);
+			tdm.insert(td);
+			td.setDeviceId(tubeID);
 			tdm.insert(td);
 			
 			//Test Segment
@@ -606,6 +615,8 @@ public class TestProcedureService {
 				case "Probe" : procDtls.setProbe(device.getName()); break;
 				case "Spectrometer" : procDtls.setSpectrometer(device.getName()); break;
 				case "LabJack" : procDtls.setLabjack(device.getName()); break;
+				case "Tube" : procDtls.setTube(device.getName()); break;
+				case "Fiber" : procDtls.setCollectionFiber(device.getName()); break;
 			
 			}
 		}
