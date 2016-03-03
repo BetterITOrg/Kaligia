@@ -5,7 +5,7 @@ import com.labjack.LJUDException;
 import com.sun.jna.ptr.*;
 import com.sun.jna.*;
 
-public class LaserControl {
+public  class LaserControl {
 	int LJhandle;
 	int ptNumber;
 	
@@ -32,12 +32,15 @@ public class LaserControl {
 		LJUD.goOne(LJhandle);
 	}
 
-	public void setLaserPower(double vPower, int portNumLasInt) {
+	public int setLaserPower(double vPower, int portNumLasInt) {
 
-		if (vPower >= 0 & vPower <= 0.8)
+		if (vPower >= 0 & vPower <= 0.8) {
 			LJUD.ePut(LJhandle, LJUD.Constants.ioPUT_DAC, portNumLasInt, vPower, 0);
-		else
+		} else {
 			System.out.println("The voltage of laser power must be between 0 and 0.8V");
+			return 100;
+		}
+		return 0;
 	}
-
+	
 }

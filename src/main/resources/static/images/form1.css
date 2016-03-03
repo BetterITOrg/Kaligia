@@ -175,7 +175,7 @@ a:hover {
 }
 
 iframe {
-  width:-moz-available;
+  width:100%;
   height:calc(60vh - 30px);
   border: 0;
 }
