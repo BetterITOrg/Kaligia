@@ -646,5 +646,4 @@ public class TestProcedureService {
 		procDtls.setSegmentList(spl);
 		return procDtls;
 	}
-
 }
