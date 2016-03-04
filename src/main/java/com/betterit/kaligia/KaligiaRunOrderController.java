@@ -70,7 +70,7 @@ public class KaligiaRunOrderController {
 					runOrderObject.getDescription(), 
 					runOrderObject.getType(), 
 					runOrderObject.getTestProcedureId(),
-					runOrderObject.getSubject(),
+					runOrderObject.getPatientId(),
 					runOrderObject.getSpecimen() 
 					);
 		} catch (Exception e) {

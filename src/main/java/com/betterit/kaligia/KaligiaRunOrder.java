@@ -13,12 +13,23 @@ import java.util.List;
  */
 public class KaligiaRunOrder {
 	private String orderNo;
+	private String patientId;
+	private String dateOfBirth;
+	private String patientGender;
+	private String patientEthnicity;
+	private String skinColor;
+	private String patientWeight;
+	private String patientHeight;
+	private String systolicBP;
+	private String diastolicBP;
+	private String patientTemp;
+	private String patientHeartRate;
+	private String patientOLevel;
 	private String Description;
 
 	private String type;
 	private String testProcedure;
 	private String specimen;
-	private String subject;
 	private int testProcedureId=0;
 	
 	private List<String> testStatus = new ArrayList<String>();
@@ -65,22 +76,30 @@ public class KaligiaRunOrder {
 		this.testProcedureId = testProcedureId;
 	}
 	
-	public String getSubject() {
-		return subject;
-	}
-	public void setSubject(String subject) {
-		this.subject = subject;
-	}
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
-		return "KaligiaRunOrder [orderNo=" + orderNo + ", Description=" + Description + ", type=" + type
-				+ ", testProcedure=" + testProcedure + ", specimen=" + specimen + ", subject=" + subject
-				+ ", testProcedureId=" + testProcedureId + ", testStatus=" + testStatus + ", wavenumber="
-				+ Arrays.toString(wavenumber) + ", photon=" + Arrays.toString(photon) + ", runID=" + runID
-				+ ", resultNotes=" + resultNotes + "]";
+		return "KaligiaRunOrder [" + (orderNo != null ? "orderNo=" + orderNo + ", " : "")
+				+ (patientId != null ? "patientId=" + patientId + ", " : "")
+				+ (dateOfBirth != null ? "dateOfBirth=" + dateOfBirth + ", " : "")
+				+ (patientGender != null ? "patientGender=" + patientGender + ", " : "")
+				+ (patientEthnicity != null ? "patientEthnicity=" + patientEthnicity + ", " : "")
+				+ (skinColor != null ? "skinColor=" + skinColor + ", " : "")
+				+ (patientWeight != null ? "patientWeight=" + patientWeight + ", " : "")
+				+ (patientHeight != null ? "patientHeight=" + patientHeight + ", " : "")
+				+ (systolicBP != null ? "systolicBP=" + systolicBP + ", " : "")
+				+ (diastolicBP != null ? "diastolicBP=" + diastolicBP + ", " : "")
+				+ (patientTemp != null ? "patientTemp=" + patientTemp + ", " : "")
+				+ (patientHeartRate != null ? "patientHeartRate=" + patientHeartRate + ", " : "")
+				+ (patientOLevel != null ? "patientOLevel=" + patientOLevel + ", " : "")
+				+ (Description != null ? "Description=" + Description + ", " : "")
+				+ (type != null ? "type=" + type + ", " : "")
+				+ (testProcedure != null ? "testProcedure=" + testProcedure + ", " : "")
+				+ (specimen != null ? "specimen=" + specimen + ", " : "") + "testProcedureId=" + testProcedureId + ", "
+				+ (testStatus != null ? "testStatus=" + testStatus + ", " : "")
+				+ (wavenumber != null ? "wavenumber=" + Arrays.toString(wavenumber) + ", " : "")
+				+ (photon != null ? "photon=" + Arrays.toString(photon) + ", " : "")
+				+ (runID != null ? "runID=" + runID + ", " : "")
+				+ (resultNotes != null ? "resultNotes=" + resultNotes : "") + "]";
 	}
 	/**
 	 * @return the testStatus
@@ -160,6 +179,78 @@ public class KaligiaRunOrder {
 	 */
 	public void setResultNotes(String resultNotes) {
 		this.resultNotes = resultNotes;
+	}
+	public String getPatientId() {
+		return patientId;
+	}
+	public void setPatientId(String patientId) {
+		this.patientId = patientId;
+	}
+	public String getDateOfBirth() {
+		return dateOfBirth;
+	}
+	public void setDateOfBirth(String dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+	public String getPatientGender() {
+		return patientGender;
+	}
+	public void setPatientGender(String patientGender) {
+		this.patientGender = patientGender;
+	}
+	public String getPatientEthnicity() {
+		return patientEthnicity;
+	}
+	public void setPatientEthnicity(String patientEthnicity) {
+		this.patientEthnicity = patientEthnicity;
+	}
+	public String getSkinColor() {
+		return skinColor;
+	}
+	public void setSkinColor(String skinColor) {
+		this.skinColor = skinColor;
+	}
+	public String getPatientWeight() {
+		return patientWeight;
+	}
+	public void setPatientWeight(String patientWeight) {
+		this.patientWeight = patientWeight;
+	}
+	public String getPatientHeight() {
+		return patientHeight;
+	}
+	public void setPatientHeight(String patientHeight) {
+		this.patientHeight = patientHeight;
+	}
+	public String getSystolicBP() {
+		return systolicBP;
+	}
+	public void setSystolicBP(String systolicBP) {
+		this.systolicBP = systolicBP;
+	}
+	public String getDiastolicBP() {
+		return diastolicBP;
+	}
+	public void setDiastolicBP(String diastolicBP) {
+		this.diastolicBP = diastolicBP;
+	}
+	public String getPatientTemp() {
+		return patientTemp;
+	}
+	public void setPatientTemp(String patientTemp) {
+		this.patientTemp = patientTemp;
+	}
+	public String getPatientHeartRate() {
+		return patientHeartRate;
+	}
+	public void setPatientHeartRate(String patientHeartRate) {
+		this.patientHeartRate = patientHeartRate;
+	}
+	public String getPatientOLevel() {
+		return patientOLevel;
+	}
+	public void setPatientOLevel(String patientOLevel) {
+		this.patientOLevel = patientOLevel;
 	}
 	
 
