@@ -71,6 +71,17 @@ public class KaligiaRunOrderController {
 					runOrderObject.getType(), 
 					runOrderObject.getTestProcedureId(),
 					runOrderObject.getPatientId(),
+					runOrderObject.getDateOfBirth(),
+					runOrderObject.getPatientEthnicity(),
+					runOrderObject.getPatientGender(),
+					runOrderObject.getPatientHeight(),
+					runOrderObject.getPatientWeight(),
+					runOrderObject.getPatientTemp(),
+					runOrderObject.getPatientHeartRate(),
+					runOrderObject.getPatientOLevel(),
+					runOrderObject.getDiastolicBP(),
+					runOrderObject.getSystolicBP(),
+					runOrderObject.getSkinColor(),
 					runOrderObject.getSpecimen() 
 					);
 		} catch (Exception e) {

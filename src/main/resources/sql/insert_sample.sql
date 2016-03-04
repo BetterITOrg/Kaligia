@@ -83,7 +83,7 @@ DEFAULT,
 'Ocean Optics',
 'Maya 2000Pro',
 'MAYA112352',
-'Active',
+'InActive',
 now(),
 (select user_id from users where name='Kaide Johar'),
 (select site_id from site where name='Kaligia Biosciences')
@@ -117,45 +117,6 @@ now(),
 
 insert into device values (
 DEFAULT,
-'Fiber Excitement',
-'Excitation Fiber',
-'Thorlabs',
-'Step-Index Multimode Fiber Optic Patch Cables',
-'TP01095713',
-'Active',
-now(),
-(select user_id from users where name='Kaide Johar'),
-(select site_id from site where name='Kaligia Biosciences')
-);
-
-insert into device values (
-DEFAULT,
-'Fiber Collection 1',
-'Collection Fiber',
-'Thorlabs',
-'Multimode Fiber',
-'TP01081322',
-'Active',
-now(),
-(select user_id from users where name='Kaide Johar'),
-(select site_id from site where name='Kaligia Biosciences')
-);
-
-insert into device values (
-DEFAULT,
-'Fiber Collection 2',
-'Collection Fiber',
-'Ocean Optics',
-'Multimode Fiber',
-'EoS-A661006',
-'Active',
-now(),
-(select user_id from users where name='Kaide Johar'),
-(select site_id from site where name='Kaligia Biosciences')
-);
-
-insert into device values (
-DEFAULT,
 'LabJack U3',
 'LabJack',
 'LabJack',
@@ -180,6 +141,124 @@ now(),
 (select site_id from site where name='Kaligia Biosciences')
 );
 
+insert into device values (
+DEFAULT,
+'L-Shape 00001',
+'Tube',
+'inPhotonics',
+'Tube',
+'00001',
+'Active',
+now(),
+(select user_id from users where name='Kaide Johar'),
+(select site_id from site where name='Kaligia Biosciences')
+);
+
+insert into device values (
+DEFAULT,
+'Straight 00002',
+'Tube',
+'inPhotonics',
+'Tube',
+'00002',
+'Active',
+now(),
+(select user_id from users where name='Kaide Johar'),
+(select site_id from site where name='Kaligia Biosciences')
+);
+
+insert into device values (
+DEFAULT,
+'Fiber 105 SMA 00001',
+'ExcitationFiber',
+'Thorlabs',
+'FG105LCA',
+'00001',
+'Active',
+now(),
+(select user_id from users where name='Kaide Johar'),
+(select site_id from site where name='Kaligia Biosciences')
+);
+
+insert into device values (
+DEFAULT,
+'Fiber 105 SMA 00002',
+'CollectionFiber',
+'Thorlabs',
+'FG105LCA',
+'00002',
+'Active',
+now(),
+(select user_id from users where name='Kaide Johar'),
+(select site_id from site where name='Kaligia Biosciences')
+);
+
+insert into device values (
+DEFAULT,
+'Fiber 105 FC/PC to SMA',
+'ExcitationFiber',
+'Thorlabs',
+'Fiber',
+'',
+'Active',
+now(),
+(select user_id from users where name='Kaide Johar'),
+(select site_id from site where name='Kaligia Biosciences')
+);
+
+insert into device values (
+DEFAULT,
+'Fiber 105 Round to Linear',
+'CollectionFiber',
+'Thorlabs',
+'Fiber',
+'',
+'Active',
+now(),
+(select user_id from users where name='Kaide Johar'),
+(select site_id from site where name='Kaligia Biosciences')
+);
+
+insert into devicespec values (
+(select device_id from device where name='L-Shape 00001'),
+'WorkingDistance',
+'5',
+null,
+null,
+'mm',
+'N'
+);
+
+insert into devicespec values (
+(select device_id from device where name='L-Shape 00001'),
+'Shape',
+'Straight',
+null,
+null,
+'',
+'N'
+);
+
+insert into devicespec values (
+(select device_id from device where name='Straight 00002'),
+'WorkingDistance',
+'7.5',
+null,
+null,
+'mm',
+'N'
+);
+
+insert into devicespec values (
+(select device_id from device where name='Straight 00002'),
+'Shape',
+'Straight',
+null,
+null,
+'',
+'N'
+);
+
 insert into devicespec values (
 (select device_id from device where name='Laser 830'),
 'Wavelength',
@@ -190,15 +269,6 @@ null,
 'N'
 );
 
-insert into devicespec values (
-(select device_id from device where name='Laser 830'),
-'Mode',
-'Pulse',
-null,
-null,
-'',
-'Y'
-);
 
 insert into devicespec values (
 (select device_id from device where name='Laser 830'),
@@ -338,87 +408,6 @@ null,
 null,
 '',
 'Y'
-);
-
-
-insert into devicespec values (
-(select device_id from device where name='Probe 1'),
-'WorkingDistance',
-'5',
-null,
-null,
-'mm',
-'Y'
-);
-
-insert into devicespec values (
-(select device_id from device where name='Probe 1'),
-'TubeType',
-'90',
-null,
-null,
-'degree',
-'N'
-);
-
-insert into devicespec values (
-(select device_id from device where name='Probe 2'),
-'WorkingDistance',
-'5',
-null,
-null,
-'mm',
-'Y'
-);
-
-insert into devicespec values (
-(select device_id from device where name='Probe 2'),
-'TubeType',
-'90',
-null,
-null,
-'degree',
-'N'
-);
-
-insert into devicespec values (
-(select device_id from device where name='Fiber Collection 1'),
-'Type',
-'Round-to-Linear',
-null,
-null,
-'',
-'N'
-);
-
-insert into devicespec values (
-(select device_id from device where name='Fiber Collection 1'),
-'Diameter',
-'105',
-null,
-null,
-'um',
-'N'
-);
-
-insert into devicespec values (
-(select device_id from device where name='Fiber Collection 2'),
-'Type',
-'Round-to-Linear',
-null,
-null,
-'',
-'N'
-);
-
-insert into devicespec values (
-(select device_id from device where name='Fiber Collection 2'),
-'Diameter',
-'200',
-null,
-null,
-'um',
-'N'
 );
 
 

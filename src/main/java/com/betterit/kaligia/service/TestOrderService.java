@@ -3,6 +3,8 @@
  */
 package com.betterit.kaligia.service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -16,9 +18,11 @@ import com.betterit.kaligia.dao.model.kaligia.Specimen;
 import com.betterit.kaligia.dao.model.kaligia.SpecimenExample;
 import com.betterit.kaligia.dao.model.kaligia.Subject;
 import com.betterit.kaligia.dao.model.kaligia.SubjectExample;
+import com.betterit.kaligia.dao.model.kaligia.SubjectLog;
 import com.betterit.kaligia.dao.model.kaligia.TestOrder;
 import com.betterit.kaligia.dao.repository.kaligia.RunOrderMapper;
 import com.betterit.kaligia.dao.repository.kaligia.SpecimenMapper;
+import com.betterit.kaligia.dao.repository.kaligia.SubjectLogMapper;
 import com.betterit.kaligia.dao.repository.kaligia.SubjectMapper;
 import com.betterit.kaligia.dao.repository.kaligia.TestOrderMapper;
 
@@ -43,7 +47,7 @@ public class TestOrderService {
 	
 	@Autowired
 	private SubjectMapper sm;
-	
+		
 	@Autowired
 	private SpecimenMapper spm;
 	
@@ -51,7 +55,10 @@ public class TestOrderService {
 	public TestOrder createTestOrder(
 			String orderNo,
 			String description,
-			String subject
+			String patientID,
+			String dateOfBirth,
+			String patientEthnicity,
+			String patientGender
 			) {
 		
 		TestOrder tord = new TestOrder();
@@ -64,28 +71,51 @@ public class TestOrderService {
 		tord.setCreationDate(new Date());
 		tord.setCreatedBy(usm.getUserByName("").getUserId());
 		tord.setSiteId(1); // ToDo: Hard Coded to 1
-		tord.setSubjectId(getSubject(subject).getSubjectId());
+		tord.setSubjectId(getSubject(
+				patientID,
+				dateOfBirth,
+				patientEthnicity,
+				patientGender
+				).getSubjectId());
 		int rc = tom.insert(tord);
+		
 		return tord;
 		
 	}
 
-	public Subject getSubject(String name) {
+	public Subject getSubject(
+							String patientID,
+							String dateOfBirth,
+							String patientEthnicity,
+							String patientGender
+							) {
+		
+		SimpleDateFormat formatter = new SimpleDateFormat("mm/dd/yyyy");
 		Subject sub = new Subject();
 		SubjectExample subE = new SubjectExample();
-		subE.createCriteria().andNameEqualTo(name);
+		subE.createCriteria().andNameEqualTo(patientID);
 		List<Subject> sl = sm.selectByExample(subE);
 		if(sl.size() == 0) {
-			sub.setName(name);
+			sub.setName(patientID);
+			try {
+				sub.setDob(formatter.parse(dateOfBirth));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				sub.setDob(null); //Set default date
+			}
+			sub.setEthnicity(patientEthnicity);
+			sub.setGender(patientGender);
 			sub.setCreationDate(new Date());
 			sub.setCreatedBy(usm.getUserByName("").getUserId());
 			int rc = sm.insert(sub);
-			log.info("Inserting Subject : " + name);
+			log.info("Inserting Subject : " + patientID);
 			
 		} else {
 			sub = sl.get(0);
 			log.info("Found Subject : " + sl.get(0).getName());
 		}
+		
 		return sub;
 	}
 	
@@ -96,7 +126,7 @@ public class TestOrderService {
 		
 		Specimen sub = new Specimen();
 		SpecimenExample subE = new SpecimenExample();
-		subE.createCriteria().andNameEqualTo(name);
+		subE.createCriteria().andSubjectIdEqualTo(subjectId).andNameEqualTo(name);
 		List<Specimen> sl = spm.selectByExample(subE);
 		if(sl.size() == 0) {
 			sub.setName(name);

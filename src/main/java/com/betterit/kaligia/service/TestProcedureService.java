@@ -26,6 +26,7 @@ import com.betterit.kaligia.dao.model.kaligia.ProcSegmentExample;
 import com.betterit.kaligia.dao.model.kaligia.RunOrder;
 import com.betterit.kaligia.dao.model.kaligia.RunSegment;
 import com.betterit.kaligia.dao.model.kaligia.RunSegmentLog;
+import com.betterit.kaligia.dao.model.kaligia.SubjectLog;
 import com.betterit.kaligia.dao.model.kaligia.TestDevices;
 import com.betterit.kaligia.dao.model.kaligia.TestDevicesExample;
 import com.betterit.kaligia.dao.model.kaligia.TestOrder;
@@ -43,6 +44,7 @@ import com.betterit.kaligia.dao.repository.kaligia.DeviceMapper;
 import com.betterit.kaligia.dao.repository.kaligia.ProcSegmentMapper;
 import com.betterit.kaligia.dao.repository.kaligia.RunSegmentLogMapper;
 import com.betterit.kaligia.dao.repository.kaligia.RunSegmentMapper;
+import com.betterit.kaligia.dao.repository.kaligia.SubjectLogMapper;
 import com.betterit.kaligia.dao.repository.kaligia.TestDevicesMapper;
 import com.betterit.kaligia.dao.repository.kaligia.TestProcedureMapper;
 import com.betterit.kaligia.dao.repository.kaligia.TestSegmentMapper;
@@ -91,6 +93,10 @@ public class TestProcedureService {
 	@Autowired
 	private DeviceMapper dm;
 	
+	@Autowired
+	private SubjectLogMapper slm;
+
+	
 	public List<TestProcedure> findAll() {
 		
 		List<TestProcedure> tpl = tpm.selectByExample(null);
@@ -123,7 +129,18 @@ public class TestProcedureService {
 			String description,
 			String type,
 			Integer procedureID,
-			String subject,
+			String patientID,
+			String dateOfBirth,
+			String patientEthnicity,
+			String patientGender,
+			String patientHeight,
+			String patientWeight,
+			String patientTemp,
+			String patientHeartRate,
+			String patientOLevel,
+			String diastolicBP,
+			String systolicBP,
+			String skinColor,
 			String specimen
 			) throws Exception {
 		
@@ -144,7 +161,14 @@ public class TestProcedureService {
 		}
 				
 		// Create Order
-		TestOrder tord = tos.createTestOrder(orderNo, description, subject);
+		TestOrder tord = tos.createTestOrder(
+												orderNo, 
+												description, 
+												patientID,
+												dateOfBirth,
+												patientEthnicity,
+												patientGender
+												);
 		
 		// Create RunOrder
 		RunOrder rord = tos.createRunOrder(tord.getOrderId(), procedureID, type, tord.getSubjectId(), specimen, description);
@@ -162,6 +186,60 @@ public class TestProcedureService {
 			log.info("Added Run Segment : " + rsl.get(i).getRunSegmentId());
 		}
 
+		//Create Subject Log
+		SubjectLog sublog = new SubjectLog();
+		sublog.setSubjectId(tord.getSubjectId());
+		sublog.setOrderId(tord.getOrderId());
+		sublog.setCreatedBy(us.getUserByName("").getUserId());
+		sublog.setCreationDate(new Date());
+		
+		//String patientHeight,
+		sublog.setName("Height");
+		sublog.setValue(patientHeight);
+		sublog.setUnit("inches");
+		rc = slm.insert(sublog);
+		
+		//String patientWeight,
+		sublog.setName("Weight");
+		sublog.setValue(patientWeight);
+		sublog.setUnit("lb");
+		rc = slm.insert(sublog);
+
+		//String patientTemp,
+		sublog.setName("Temperature");
+		sublog.setValue(patientTemp);
+		sublog.setUnit("farenheit");
+		rc = slm.insert(sublog);
+		
+		//String patientHeartRate,
+		sublog.setName("HeartRate");
+		sublog.setValue(patientHeartRate);
+		sublog.setUnit("bpm");
+		rc = slm.insert(sublog);
+		
+		//String patientOLevel,
+		sublog.setName("OxygenLevel");
+		sublog.setValue(patientOLevel);
+		sublog.setUnit("percent");
+		rc = slm.insert(sublog);
+		
+		//String diastolicBP,
+		sublog.setName("DiastolicBP");
+		sublog.setValue(diastolicBP);
+		sublog.setUnit("mmHg");
+		rc = slm.insert(sublog);
+		
+		//String systolicBP,
+		sublog.setName("SystolicBP");
+		sublog.setValue(systolicBP);
+		sublog.setUnit("mmHg");
+		rc = slm.insert(sublog);
+		
+		//String skinColor,
+		sublog.setName("SkinColor");
+		sublog.setValue(skinColor);
+		sublog.setUnit("");
+		rc = slm.insert(sublog);
 		
 		// Create Test Run
 		TestSegmentSpecExample tsse = new TestSegmentSpecExample();
