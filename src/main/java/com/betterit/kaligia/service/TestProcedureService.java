@@ -446,9 +446,12 @@ public class TestProcedureService {
 					continue;
 				};
 				
+				log.info("Found Segment for IntegrationTime : " + segParams.get(jj).getIntegrationTime() + " for device : " + spectrometerID);
+				
 				sl.clear();
 				for(int kk=0; kk<tss1.size(); kk++) {
 					sl.add(tss1.get(kk).getSegmentId());
+					log.info("Segment Id[" + kk +"] = " + tss1.get(kk).getSegmentId());
 				}
 				
 				tsse.createCriteria().andNameEqualTo("ScansToAverage").andValueEqualTo(segParams.get(jj).getScan2Average()).andDeviceIdEqualTo(spectrometerID).andSegmentIdIn(sl);
@@ -466,9 +469,13 @@ public class TestProcedureService {
 					continue;
 				};
 
+				log.info("Found Segment for ScansToAverage : " + segParams.get(jj).getScan2Average() + " for device : " + spectrometerID);
+				
 				sl.clear();
 				for(int kk=0; kk<tss2.size(); kk++) {
-					sl.add(tss1.get(kk).getSegmentId());
+					sl.add(tss2.get(kk).getSegmentId());					
+					log.info("Segment Id[" + kk +"] = " + tss2.get(kk).getSegmentId());
+
 				}
 				
 				tsse.createCriteria().andNameEqualTo("BoxcarWidth").andValueEqualTo(segParams.get(jj).getBoxCarWidth()).andDeviceIdEqualTo(spectrometerID).andSegmentIdIn(sl);
@@ -486,9 +493,14 @@ public class TestProcedureService {
 					continue;
 				};
 
+				log.info("Found Segment for BoxcarWidth : " + segParams.get(jj).getBoxCarWidth() + " for device : " + spectrometerID);
+				
+
 				sl.clear();
 				for(int kk=0; kk<tss3.size(); kk++) {
-					sl.add(tss1.get(kk).getSegmentId());
+					sl.add(tss3.get(kk).getSegmentId());
+					log.info("Segment Id[" + kk +"] = " + tss3.get(kk).getSegmentId());
+
 				}
 				
 				tsse.createCriteria().andNameEqualTo("ElectricDark").andValueEqualTo(segParams.get(jj).getElectricDark()).andDeviceIdEqualTo(spectrometerID).andSegmentIdIn(sl);
@@ -506,9 +518,14 @@ public class TestProcedureService {
 					continue;
 				};
 
+				log.info("Found Segment for ElectricDark : " + segParams.get(jj).getElectricDark() + " for device : " + spectrometerID);
+				
+
 				sl.clear();
 				for(int kk=0; kk<tss4.size(); kk++) {
-					sl.add(tss1.get(kk).getSegmentId());
+					sl.add(tss4.get(kk).getSegmentId());
+					log.info("Segment Id[" + kk +"] = " + tss4.get(kk).getSegmentId());
+
 				}
 				
 				tsse.createCriteria().andNameEqualTo("NonLinearityCorrection").andValueEqualTo(segParams.get(jj).getNonLinearCorrect()).andDeviceIdEqualTo(spectrometerID).andSegmentIdIn(sl);
@@ -526,9 +543,14 @@ public class TestProcedureService {
 					continue;
 				};
 
+				log.info("Found Segment for NonLinearityCorrection : " + segParams.get(jj).getNonLinearCorrect() + " for device : " + spectrometerID);
+				
+
 				sl.clear();
 				for(int kk=0; kk<tss5.size(); kk++) {
-					sl.add(tss1.get(kk).getSegmentId());
+					sl.add(tss5.get(kk).getSegmentId());
+					log.info("Segment Id[" + kk +"] = " + tss5.get(kk).getSegmentId());
+
 				}
 				
 				tsse.createCriteria().andNameEqualTo("Power").andValueEqualTo(segParams.get(jj).getPower()).andDeviceIdEqualTo(laserID).andSegmentIdIn(sl);
@@ -540,9 +562,14 @@ public class TestProcedureService {
 					continue;
 				};
 
+				log.info("Found Segment for Power : " + segParams.get(jj).getPower() + " for device : " + laserID);
+				
+
 				sl.clear();
 				for(int kk=0; kk<tss6.size(); kk++) {
-					sl.add(tss1.get(kk).getSegmentId());
+					sl.add(tss6.get(kk).getSegmentId());
+					log.info("Segment Id[" + kk +"] = " + tss6.get(kk).getSegmentId());
+
 				}
 				
 				tsse.createCriteria().andNameEqualTo("Delay").andValueEqualTo(segParams.get(jj).getDelay()).andSegmentIdIn(sl);
@@ -553,7 +580,17 @@ public class TestProcedureService {
 					rc = createSegmentParam(tp, spectrometerID, laserID, labjackID, segParams.get(jj), jj+1);
 					continue;
 				};
+
+				log.info("Found Segment for Delay : " + segParams.get(jj).getDelay() + " for device : ");
 				
+				sl.clear();
+				for(int kk=0; kk<tss7.size(); kk++) {
+					sl.add(tss7.get(kk).getSegmentId());
+					log.info("Segment Id[" + kk +"] = " + tss7.get(kk).getSegmentId());
+
+				}
+
+
 				//Create ProcSegment
 				// Segment found, Map to Procedure
 				ProcSegment ps = new ProcSegment();
