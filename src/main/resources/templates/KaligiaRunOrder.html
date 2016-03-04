@@ -11,9 +11,9 @@
 		<img src="/images/kaligia-logo.png" height="70" width="210" />
 
 		<hr />
-		<h2>ORDER RUN</h2>
+
 		<fieldset>
-			<legend>Run Criteria </legend>
+			<legend>Order Data</legend>
 			<table>
 				<tr>
 					<td>Order No :</td>
@@ -42,18 +42,70 @@
 					<td><input type="text" required="required"
 						th:field="*{specimen}" /></td>
 				</tr>
+			</table>
+		</fieldset>
+
+
+		<fieldset>
+			<legend>Patient Data</legend>
+			<table>
 				<tr>
-					<td>Subject :</td>
+					<td>Patient ID:</td>
 					<td><input type="text" required="required"
-						th:field="*{subject}" /></td>
+						th:field="*{patientId}" /></td>
+					<td>Patient Gender:</td>
+					<td><input type="text" required="required"
+						th:field="*{patientGender}" /></td>
+				</tr>
+				<tr>
+					<td>Date of Birth:</td>
+					<td><input type="date" required="required" format="mm/dd/yyyy"
+						th:field="*{dateOfBirth}" /></td>
+					<td>Patient Ethnicity:</td>
+					<td><input type="text" required="required"
+						th:field="*{patientEthnicity}" /></td>
+					
 				</tr>
 			</table>
 		</fieldset>
+		<fieldset>
+			<legend>Patient Vitals</legend>
+			<table>
+				<tr>
+					<td>BP (mmHg):</td>
+					<td><input type="text" required="required" th:field="*{systolicBP}" /> </td> 
+					<td> / </td>
+					<td> <input type="text"	required="required" th:field="*{diastolicBP}" /> </td>
+					<td>Height (in inches):</td>
+					<td><input type="text" required="required"
+						th:field="*{patientHeight}" /></td>
+					<td>Weight (in lbs):</td>
+					<td><input type="text" required="required"
+						th:field="*{patientWeight}" /></td>
+				</tr>
+				<tr>
+					<td>Temperature(F):</td>
+					<td><input type="date" required="required"
+						th:field="*{patientTemp}" /></td>
+					<td>Oxygen level:</td>
+					<td><input type="text" required="required"
+						th:field="*{patientOLevel}" /></td>
+					<td>Heart Rate (bpm):</td>
+					<td><input type="text" required="required"
+						th:field="*{patientHeartRate}" /></td>
+					<td>Skin Color:</td>
+					<td><input type="text" required="required"
+						th:field="*{skinColor}" /></td>	
+				</tr>
+			</table>
+		</fieldset>
+
+
 		<TABLE>
 			<TR>
 				<TD width="600"></TD>
 				<TD><input type="submit" name="Run" value="RUN"
-					style="background-color: #888; color: #fff;" /></TD>
+					 /></TD>
 			</TR>
 		</TABLE>
 	</form>
