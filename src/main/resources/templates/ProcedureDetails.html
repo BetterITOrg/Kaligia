@@ -44,6 +44,24 @@
 					<td> <select class="laser_dropdown" disabled="disabled">
    						 <option th:value="${ProcedureDetails.Spectrometer}" th:text="${ProcedureDetails.Spectrometer}"></option>
                     </select> </td>
+                    <td>Labjack:</td>
+					<td> <select class="laser_dropdown" disabled="disabled">
+   						 <option th:value="${ProcedureDetails.Labjack}" th:text="${ProcedureDetails.Labjack}"></option>
+                    </select></td>
+                    
+                    <td></td>
+                    <td></td>
+                
+				</tr>
+				<tr>
+					<td>Probe:</td>
+					<td> <select class="laser_dropdown" disabled="disabled">
+   						 <option th:value="${ProcedureDetails.Probe}" th:text="${ProcedureDetails.Probe}"></option>
+                    </select></td>
+					<td>Tube:</td>
+					<td> <select class="tube_dropdown" disabled="disabled">
+   						 <option th:value="${ProcedureDetails.Tube}" th:text="${ProcedureDetails.Tube}"></option>
+                    </select> </td>
                     <td>Collect Fiber:</td>
 					<td> <select class="collectFiber_dropdown" disabled="disabled">
    						 <option th:value="${ProcedureDetails.collectionFiber}" th:text="${ProcedureDetails.collectionFiber}"></option>
@@ -53,23 +71,6 @@
    						 <option th:value="${ProcedureDetails.excitationFiber}" th:text="${ProcedureDetails.excitationFiber}"></option>
                     </select> </td>
                     
-                
-				</tr>
-				<tr>
-					<td>Probe:</td>
-					<td> <select class="laser_dropdown" disabled="disabled">
-   						 <option th:value="${ProcedureDetails.Probe}" th:text="${ProcedureDetails.Probe}"></option>
-                    </select></td>
-					<td>Labjack:</td>
-					<td> <select class="laser_dropdown" disabled="disabled">
-   						 <option th:value="${ProcedureDetails.Labjack}" th:text="${ProcedureDetails.Labjack}"></option>
-                    </select></td>
-                    <td>Tube:</td>
-					<td> <select class="tube_dropdown" disabled="disabled">
-   						 <option th:value="${ProcedureDetails.Tube}" th:text="${ProcedureDetails.Tube}"></option>
-                    </select> </td>
-                    <td></td>
-                    <td></td>
 					<!--					<td>Body Part</td>
 					<td><select class="bodypart_dropdown" name="selectBodyPart"<b>th:field="*{bodypart}"
 								>

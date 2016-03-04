@@ -56,13 +56,14 @@
 								th:value="${devic.deviceId}" th:text="${devic.name}">
 								</option>
 					</select></td>
-					<td>Tube:</td>
-					<td><select class="tube_dropdown"
-						th:field="*{Tube}">
-							<option th:each="devic:${DeviceList}" th:if="${devic.type} == 'Tube'"
+					<td>Labjack</td>
+					<td><select class="labjack_dropdown" th:field="*{Labjack}">
+							<option th:each="devic:${DeviceList}" th:if="${devic.type} == 'LabJack'"
 								th:value="${devic.deviceId}" th:text="${devic.name}">
 								</option>
 					</select></td>
+					<td></td>
+					<td></td>					
 				</tr>
 				<tr>
 					<td>Probe</td>
@@ -71,15 +72,23 @@
 								th:value="${devic.deviceId}" th:text="${devic.name}">
 								</option>
 					</select></td>
-					<td>Labjack</td>
-					<td><select class="labjack_dropdown" th:field="*{Labjack}">
-							<option th:each="devic:${DeviceList}" th:if="${devic.type} == 'LabJack'"
+					<td>Tube:</td>
+					<td><select class="tube_dropdown"
+						th:field="*{Tube}">
+							<option th:each="devic:${DeviceList}" th:if="${devic.type} == 'Tube'"
 								th:value="${devic.deviceId}" th:text="${devic.name}">
 								</option>
 					</select></td>
+					
 					<td>Collect Fiber</td>
 					<td><select class="collectFiber_dropdown" th:field="*{collectionFiber}">
 							<option th:each="devic:${DeviceList}" th:if="${devic.type} == 'CollectionFiber'"
+								th:value="${devic.deviceId}" th:text="${devic.name}">
+								</option>
+					</select></td>
+					<td>Excite Fiber</td>
+					<td><select class="exciteFiber_dropdown" th:field="*{excitationFiber}">
+							<option th:each="devic:${DeviceList}" th:if="${devic.type} == 'ExcitationFiber'"
 								th:value="${devic.deviceId}" th:text="${devic.name}">
 								</option>
 					</select></td>
@@ -94,19 +103,15 @@
 								>
 								<option th:each="sopt:${samples}" th:value="?" th:text="?">
 									Select Samples</option></select></td>
--->
+
 				</tr> 
 				<tr>
-					<td>Excite Fiber</td>
-					<td><select class="exciteFiber_dropdown" th:field="*{excitationFiber}">
-							<option th:each="devic:${DeviceList}" th:if="${devic.type} == 'ExcitationFiber'"
-								th:value="${devic.deviceId}" th:text="${devic.name}">
-								</option>
-					</select></td>
+					
 					<td></td>
 					<td></td>
 					<td></td>
 					<td></td>
+					-->
 				</tr>
 			</table>
 		</fieldset>

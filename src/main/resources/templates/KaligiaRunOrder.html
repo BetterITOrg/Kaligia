@@ -53,15 +53,14 @@
 					<td>Patient ID:</td>
 					<td><input type="text" required="required"
 						th:field="*{patientId}" /></td>
-					<td>Patient Gender:</td>
+					<td>Date of Birth:</td>
+					<td><input type="date" required="required" pattern="mm/dd/yyyy"
+						th:field="*{dateOfBirth}" /></td>
+					<td>Gender:</td>
 					<td><input type="text" required="required"
 						th:field="*{patientGender}" /></td>
-				</tr>
-				<tr>
-					<td>Date of Birth:</td>
-					<td><input type="date" required="required" format="mm/dd/yyyy"
-						th:field="*{dateOfBirth}" /></td>
-					<td>Patient Ethnicity:</td>
+					
+					<td>Ethnicity:</td>
 					<td><input type="text" required="required"
 						th:field="*{patientEthnicity}" /></td>
 					
