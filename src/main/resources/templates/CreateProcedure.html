@@ -79,7 +79,7 @@
 					</select></td>
 					<td>Collect Fiber</td>
 					<td><select class="collectFiber_dropdown" th:field="*{collectionFiber}">
-							<option th:each="devic:${DeviceList}" th:if="${devic.type} == 'Fiber'"
+							<option th:each="devic:${DeviceList}" th:if="${devic.type} == 'CollectionFiber'"
 								th:value="${devic.deviceId}" th:text="${devic.name}">
 								</option>
 					</select></td>
@@ -99,7 +99,7 @@
 				<tr>
 					<td>Excite Fiber</td>
 					<td><select class="exciteFiber_dropdown" th:field="*{excitationFiber}">
-							<option th:each="devic:${DeviceList}" th:if="${devic.type} == 'Fiber'"
+							<option th:each="devic:${DeviceList}" th:if="${devic.type} == 'ExcitationFiber'"
 								th:value="${devic.deviceId}" th:text="${devic.name}">
 								</option>
 					</select></td>

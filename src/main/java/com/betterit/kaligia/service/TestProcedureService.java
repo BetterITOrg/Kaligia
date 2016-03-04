@@ -616,8 +616,8 @@ public class TestProcedureService {
 				case "Spectrometer" : procDtls.setSpectrometer(device.getName()); break;
 				case "LabJack" : procDtls.setLabjack(device.getName()); break;
 				case "Tube" : procDtls.setTube(device.getName()); break;
-				case "Fiber" : procDtls.setCollectionFiber(device.getName()); break;
-			
+				case "ExcitationFiber" : procDtls.setExcitationFiber(device.getName()); break;
+				case "CollectionFiber" : procDtls.setCollectionFiber(device.getName()); break;
 			}
 		}
 		
