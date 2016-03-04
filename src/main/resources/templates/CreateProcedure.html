@@ -43,21 +43,26 @@
 			<legend> Device Selection</legend>
 			<table>
 				<tr>
-					<td>Laser</td>
+					<td>Laser:</td>
 					<td><select class="laser_dropdown" th:field="*{Laser}">
 							<option th:each="devic:${DeviceList}" th:if="${devic.type} == 'Laser'"
 								th:value="${devic.deviceId}" th:text="${devic.name}">
 								</option>
 					</select></td>
-					<td></td>
-					<td>Spectrometer</td>
+					<td>Spectrometer:</td>
 					<td><select class="spectrometer_dropdown"
 						th:field="*{Spectrometer}">
 							<option th:each="devic:${DeviceList}" th:if="${devic.type} == 'Spectrometer'"
 								th:value="${devic.deviceId}" th:text="${devic.name}">
 								</option>
 					</select></td>
-
+					<td>Tube:</td>
+					<td><select class="tube_dropdown"
+						th:field="*{Tube}">
+							<option th:each="devic:${DeviceList}" th:if="${devic.type} == 'Tube'"
+								th:value="${devic.deviceId}" th:text="${devic.name}">
+								</option>
+					</select></td>
 				</tr>
 				<tr>
 					<td>Probe</td>
@@ -66,10 +71,15 @@
 								th:value="${devic.deviceId}" th:text="${devic.name}">
 								</option>
 					</select></td>
-					<td></td>
 					<td>Labjack</td>
 					<td><select class="labjack_dropdown" th:field="*{Labjack}">
 							<option th:each="devic:${DeviceList}" th:if="${devic.type} == 'LabJack'"
+								th:value="${devic.deviceId}" th:text="${devic.name}">
+								</option>
+					</select></td>
+					<td>Collect Fiber</td>
+					<td><select class="collectFiber_dropdown" th:field="*{collectionFiber}">
+							<option th:each="devic:${DeviceList}" th:if="${devic.type} == 'Fiber'"
 								th:value="${devic.deviceId}" th:text="${devic.name}">
 								</option>
 					</select></td>
@@ -85,6 +95,18 @@
 								<option th:each="sopt:${samples}" th:value="?" th:text="?">
 									Select Samples</option></select></td>
 -->
+				</tr> 
+				<tr>
+					<td>Excite Fiber</td>
+					<td><select class="exciteFiber_dropdown" th:field="*{excitationFiber}">
+							<option th:each="devic:${DeviceList}" th:if="${devic.type} == 'Fiber'"
+								th:value="${devic.deviceId}" th:text="${devic.name}">
+								</option>
+					</select></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
 				</tr>
 			</table>
 		</fieldset>

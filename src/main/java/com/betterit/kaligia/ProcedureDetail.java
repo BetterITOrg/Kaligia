@@ -20,6 +20,9 @@ public class ProcedureDetail {
 	private int NoOfSegments;
 	private String Type;
 	private Integer procedureID;
+	private String Tube;
+	private String collectionFiber;
+	private String excitationFiber;
 	
 	private List<segmentParams> segmentList;
 	
@@ -101,6 +104,9 @@ public class ProcedureDetail {
 				+ (Probe != null ? "Probe=" + Probe + ", " : "") + (Labjack != null ? "Labjack=" + Labjack + ", " : "")
 				+ "NoOfSegments=" + NoOfSegments + ", " + (Type != null ? "Type=" + Type + ", " : "")
 				+ (procedureID != null ? "procedureID=" + procedureID + ", " : "")
+				+ (Tube != null ? "Tube=" + Tube + ", " : "")
+				+ (collectionFiber != null ? "collectionFiber=" + collectionFiber + ", " : "")
+				+ (excitationFiber != null ? "excitationFiber=" + excitationFiber + ", " : "")
 				+ (segmentList != null ? "segmentList=" + segmentList : "") + "]";
 	}
 	/**
@@ -114,6 +120,24 @@ public class ProcedureDetail {
 	 */
 	public void setProcedureID(Integer procedureID) {
 		this.procedureID = procedureID;
+	}
+	public String getTube() {
+		return Tube;
+	}
+	public void setTube(String tube) {
+		Tube = tube;
+	}
+	public String getCollectionFiber() {
+		return collectionFiber;
+	}
+	public void setCollectionFiber(String collectionFiber) {
+		this.collectionFiber = collectionFiber;
+	}
+	public String getExcitationFiber() {
+		return excitationFiber;
+	}
+	public void setExcitationFiber(String excitationFiber) {
+		this.excitationFiber = excitationFiber;
 	}
 
 
