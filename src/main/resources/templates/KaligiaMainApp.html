@@ -16,18 +16,15 @@
 		<table class="main-procedure">
 			<tr>
 				<th class="Name-column">Procedure Name</th>
-				<th class="Desc-column">Description</th>
+				<th class="Desc-column">Procedure Details</th>
 			</tr>
-	<!--  		<tr th:each="procedur,iterStat : ${ProcedureList}"
-				th:class="${iterStat.odd}? 'odd'">
-				<td th:text="${procedur.name}"></td>
-				<td th:text="${procedur.description}"></td>
-			</tr> -->
+	
 			<tr>
 				<td class="Name-column"><select class="procedure_dropdown" size="20"
 					id="procedureDrop" onChange="callIframe()">
 						<option th:each="procedur,iterStat : ${ProcedureList}"
-							th:value="${procedur.procedureId}" th:text="${procedur.name}">
+							th:value="${procedur.procedureId}" th:text="${procedur.name}"
+							th:selected="${iterStat.count==1?'':selected}">
 						</option>
 				</select></td>
 				<td class="Desc-column" id="procFrame"></td>
@@ -54,6 +51,10 @@
 	</form>
 	<script type="text/javascript">
 	//<![CDATA[
+	           
+	    var tpsIdd=document.getElementById("procedureDrop").value;
+        	document.getElementById("procFrame").innerHTML = "<iframe src=ProcedureDetails.html?tpsId=" + tpsIdd + "></iframe>";
+            
         function callIframe(){
         	var tpsId=document.getElementById("procedureDrop").value;
         	document.getElementById("procFrame").innerHTML = "<iframe src=ProcedureDetails.html?tpsId=" + tpsId + "></iframe>";
