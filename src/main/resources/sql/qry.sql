@@ -14,11 +14,13 @@ select * from procsegment;
 select * from testsegment;
 select * from testsegmentspec;
 insert into testsegmentspec values (2, 2, 'SpectrometerType', 'QEPro', '');
+insert into testsegmentspec values (2, 9, 'LabJackType', 'U3', '');
 
 update device set type='ExcitationFiber' where type='Excitation Fiber';
 update device set type='CollectionFiber' where type='Collection Fiber';
 
 select * from subject;
+select * from subjectlog;
 select * from specimen;
 select * from testorder;
 select * from runorder;
