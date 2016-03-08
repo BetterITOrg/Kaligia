@@ -21,8 +21,12 @@ import com.betterit.kaligia.TestRun;
 import com.betterit.kaligia.segmentParams;
 import com.betterit.kaligia.dao.model.kaligia.Device;
 import com.betterit.kaligia.dao.model.kaligia.DeviceExample;
+import com.betterit.kaligia.dao.model.kaligia.EndPointDevices;
+import com.betterit.kaligia.dao.model.kaligia.EndPointDevicesExample;
+import com.betterit.kaligia.dao.model.kaligia.EndPointProcs;
 import com.betterit.kaligia.dao.model.kaligia.ProcSegment;
 import com.betterit.kaligia.dao.model.kaligia.ProcSegmentExample;
+import com.betterit.kaligia.dao.model.kaligia.RunDevices;
 import com.betterit.kaligia.dao.model.kaligia.RunOrder;
 import com.betterit.kaligia.dao.model.kaligia.RunSegment;
 import com.betterit.kaligia.dao.model.kaligia.RunSegmentLog;
@@ -41,7 +45,10 @@ import com.betterit.kaligia.dao.model.kaligia.TmpTestResultExample;
 import com.betterit.kaligia.dao.model.kaligia.Users;
 import com.betterit.kaligia.dao.model.kaligia.UsersExample;
 import com.betterit.kaligia.dao.repository.kaligia.DeviceMapper;
+import com.betterit.kaligia.dao.repository.kaligia.EndPointDevicesMapper;
+import com.betterit.kaligia.dao.repository.kaligia.EndPointProcsMapper;
 import com.betterit.kaligia.dao.repository.kaligia.ProcSegmentMapper;
+import com.betterit.kaligia.dao.repository.kaligia.RunDevicesMapper;
 import com.betterit.kaligia.dao.repository.kaligia.RunSegmentLogMapper;
 import com.betterit.kaligia.dao.repository.kaligia.RunSegmentMapper;
 import com.betterit.kaligia.dao.repository.kaligia.SubjectLogMapper;
@@ -95,6 +102,15 @@ public class TestProcedureService {
 	
 	@Autowired
 	private SubjectLogMapper slm;
+	
+	@Autowired
+	private EndPointProcsMapper eppm;
+	
+	@Autowired
+	private EndPointDevicesMapper epdm;
+	
+	@Autowired
+	private RunDevicesMapper rdm;
 
 	
 	public List<TestProcedure> findAll() {
@@ -241,6 +257,21 @@ public class TestProcedureService {
 		sublog.setUnit("");
 		rc = slm.insert(sublog);
 		
+		//Create RunDevices
+		// Get EndPointDevices
+		List<EndPointDevices> epdl = new ArrayList<EndPointDevices>();
+		EndPointDevicesExample epde = new EndPointDevicesExample();
+		epde.createCriteria().andEndPointIdEqualTo(1);
+		epdl = epdm.selectByExample(epde);
+	
+		//Map to Run ID
+		RunDevices rd = new RunDevices();
+		rd.setRunId(rord.getRunId());
+		for(int i=0; i<epdl.size(); i++) {
+			rd.setDeviceInstId(epdl.get(i).getDeviceInstId());
+			rc = rdm.insert(rd);
+		};
+		
 		// Create Test Run
 		TestSegmentSpecExample tsse = new TestSegmentSpecExample();
 		List<TestRun> trl = new ArrayList<TestRun>();
@@ -327,10 +358,10 @@ public class TestProcedureService {
 		// Do Run
 		for(int i=0; i<trl.size(); i++) {
 			// Run test
-			rc = trl.get(i).doTestRun();
+			//rc = trl.get(i).doTestRun();
 			
 			// Generate dummy test result since equipment is not connected
-			/*
+			
 			TmpTestResultExample tmpe = new TmpTestResultExample();
 			tmpe.createCriteria().andRunIdEqualTo(346+i);
 			List<TmpTestResult> tmpTR = tmpRM.selectByExample(tmpe);
@@ -339,7 +370,7 @@ public class TestProcedureService {
 				trl.get(i).setWavelength(tmpTR.get(j).getWavenumber(), j);
 				trl.get(i).setSpectra(tmpTR.get(j).getPhotonCount(), j);
 			}
-			*/
+			
 		}
 		
 		// Store Results
@@ -451,7 +482,7 @@ public class TestProcedureService {
 				sl.clear();
 				for(int kk=0; kk<tss1.size(); kk++) {
 					sl.add(tss1.get(kk).getSegmentId());
-					log.info("Segment Id[" + kk +"] = " + tss1.get(kk).getSegmentId());
+					//log.info("Segment Id[" + kk +"] = " + tss1.get(kk).getSegmentId());
 				}
 				
 				tsse.createCriteria().andNameEqualTo("ScansToAverage").andValueEqualTo(segParams.get(jj).getScan2Average()).andDeviceIdEqualTo(spectrometerID).andSegmentIdIn(sl);
@@ -474,7 +505,7 @@ public class TestProcedureService {
 				sl.clear();
 				for(int kk=0; kk<tss2.size(); kk++) {
 					sl.add(tss2.get(kk).getSegmentId());					
-					log.info("Segment Id[" + kk +"] = " + tss2.get(kk).getSegmentId());
+					//log.info("Segment Id[" + kk +"] = " + tss2.get(kk).getSegmentId());
 
 				}
 				
@@ -499,7 +530,7 @@ public class TestProcedureService {
 				sl.clear();
 				for(int kk=0; kk<tss3.size(); kk++) {
 					sl.add(tss3.get(kk).getSegmentId());
-					log.info("Segment Id[" + kk +"] = " + tss3.get(kk).getSegmentId());
+					//log.info("Segment Id[" + kk +"] = " + tss3.get(kk).getSegmentId());
 
 				}
 				
@@ -524,7 +555,7 @@ public class TestProcedureService {
 				sl.clear();
 				for(int kk=0; kk<tss4.size(); kk++) {
 					sl.add(tss4.get(kk).getSegmentId());
-					log.info("Segment Id[" + kk +"] = " + tss4.get(kk).getSegmentId());
+					//log.info("Segment Id[" + kk +"] = " + tss4.get(kk).getSegmentId());
 
 				}
 				
@@ -549,7 +580,7 @@ public class TestProcedureService {
 				sl.clear();
 				for(int kk=0; kk<tss5.size(); kk++) {
 					sl.add(tss5.get(kk).getSegmentId());
-					log.info("Segment Id[" + kk +"] = " + tss5.get(kk).getSegmentId());
+					//log.info("Segment Id[" + kk +"] = " + tss5.get(kk).getSegmentId());
 
 				}
 				
@@ -568,7 +599,7 @@ public class TestProcedureService {
 				sl.clear();
 				for(int kk=0; kk<tss6.size(); kk++) {
 					sl.add(tss6.get(kk).getSegmentId());
-					log.info("Segment Id[" + kk +"] = " + tss6.get(kk).getSegmentId());
+					//log.info("Segment Id[" + kk +"] = " + tss6.get(kk).getSegmentId());
 
 				}
 				
@@ -586,7 +617,7 @@ public class TestProcedureService {
 				sl.clear();
 				for(int kk=0; kk<tss7.size(); kk++) {
 					sl.add(tss7.get(kk).getSegmentId());
-					log.info("Segment Id[" + kk +"] = " + tss7.get(kk).getSegmentId());
+					//log.info("Segment Id[" + kk +"] = " + tss7.get(kk).getSegmentId());
 
 				}
 
@@ -600,6 +631,15 @@ public class TestProcedureService {
 				rc = psm.insert(ps);
 			}
 
+		// For Now Add proc to endpoint (only one)
+		EndPointProcs epp = new EndPointProcs();
+		epp.setProcedureId(tp.getProcedureId());
+		epp.setEndPointId(1);
+		epp.setStatus("Active");
+		epp.setCreatedBy(user.getUserId());
+		epp.setCreationDate(new Date());
+		rc = eppm.insert(epp);
+		
 		return 0;
 	}
 

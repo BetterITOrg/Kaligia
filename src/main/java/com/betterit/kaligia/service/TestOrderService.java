@@ -161,6 +161,7 @@ public class TestOrderService {
 		ro.setType(type);
 		ro.setSpecimenId(getSpecimen(specimen,"", subjectId).getSpecimenId());
 		ro.setSiteId(1);
+		ro.setEndPointId(1);
 		ro.setRunNotes(description);
 		int rc = rom.insert(ro);
 		return ro;

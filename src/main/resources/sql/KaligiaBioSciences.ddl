@@ -6,7 +6,6 @@ ALTER TABLE DeviceSpec DROP CONSTRAINT DevSpecs;
 ALTER TABLE TestProcedure DROP CONSTRAINT RunProcedureCreatedBy;
 ALTER TABLE TestDevices DROP CONSTRAINT DevicesToTest;
 ALTER TABLE SpecimenSpec DROP CONSTRAINT SpecimenSpecs;
-ALTER TABLE Device DROP CONSTRAINT DeviceAtSite;
 ALTER TABLE TestSegmentSpec DROP CONSTRAINT TestDeviceSpec;
 ALTER TABLE SubjectLog DROP CONSTRAINT SubjectVitalStats;
 ALTER TABLE SubjectLog DROP CONSTRAINT VitalsTakenBy;
@@ -30,6 +29,22 @@ ALTER TABLE ProcSegment DROP CONSTRAINT SegmentInProc;
 ALTER TABLE TestSegmentSpec DROP CONSTRAINT SegmentForTest;
 ALTER TABLE RunSegment DROP CONSTRAINT RunSegment;
 ALTER TABLE RunSegmentLog DROP CONSTRAINT LogForRunSegment;
+ALTER TABLE RunDevices DROP CONSTRAINT RunDevices;
+ALTER TABLE RunDevices DROP CONSTRAINT RunDevicesInst;
+ALTER TABLE EndPointDevices DROP CONSTRAINT EndPointDevices;
+ALTER TABLE EndPointDevices DROP CONSTRAINT EndPointDevicesInst;
+ALTER TABLE EndPointDevices DROP CONSTRAINT EndPointDeviceCreatedBy;
+ALTER TABLE EndPoint DROP CONSTRAINT EndPointCreatedBy;
+ALTER TABLE EndPoint DROP CONSTRAINT EndPointSite;
+ALTER TABLE RunOrder DROP CONSTRAINT RunOnEndPoint;
+ALTER TABLE DeviceInst DROP CONSTRAINT DeviceInstCreatedBy;
+ALTER TABLE DeviceInst DROP CONSTRAINT DeviceInst;
+ALTER TABLE Users DROP CONSTRAINT UserRole;
+ALTER TABLE RolePrivs DROP CONSTRAINT PrivForRole;
+ALTER TABLE RolePrivs DROP CONSTRAINT RolesWithPriv;
+ALTER TABLE EndPointProcs DROP CONSTRAINT ProcForEndPoint;
+ALTER TABLE EndPointProcs DROP CONSTRAINT EndPointProcs;
+ALTER TABLE EndPointProcs DROP CONSTRAINT EndPointProcCreatedBy;
 DROP TABLE IF EXISTS Subject CASCADE;
 DROP TABLE IF EXISTS Specimen CASCADE;
 DROP TABLE IF EXISTS Users CASCADE;
@@ -49,6 +64,14 @@ DROP TABLE IF EXISTS RunOrder CASCADE;
 DROP TABLE IF EXISTS LabLog CASCADE;
 DROP TABLE IF EXISTS RunSegmentLog CASCADE;
 DROP TABLE IF EXISTS TestSegment CASCADE;
+DROP TABLE IF EXISTS DeviceInst CASCADE;
+DROP TABLE IF EXISTS EndPoint CASCADE;
+DROP TABLE IF EXISTS EndPointDevices CASCADE;
+DROP TABLE IF EXISTS RunDevices CASCADE;
+DROP TABLE IF EXISTS Privileges CASCADE;
+DROP TABLE IF EXISTS Roles CASCADE;
+DROP TABLE IF EXISTS RolePrivs CASCADE;
+DROP TABLE IF EXISTS EndPointProcs CASCADE;
 CREATE TABLE Subject (
   subject_id     SERIAL NOT NULL, 
   name          varchar(64) NOT NULL, 
@@ -67,9 +90,19 @@ CREATE TABLE Specimen (
   created_by    int4 NOT NULL, 
   PRIMARY KEY (specimen_id));
 CREATE TABLE Users (
-  user_id  SERIAL NOT NULL, 
-  name    varchar(64) NOT NULL, 
-  role    varchar(16) DEFAULT 'operator' NOT NULL, 
+  user_id     SERIAL NOT NULL, 
+  login_id   varchar(16) NOT NULL, 
+  firstname  varchar(32), 
+  lastname   varchar(32), 
+  passwd     varchar(255), 
+  status     varchar(16), 
+  type       varchar(16), 
+  role_id    int4 NOT NULL, 
+  email      varchar(128), 
+  phone      varchar(32), 
+  supervisor varchar(64), 
+  start_date date, 
+  end_date   date, 
   PRIMARY KEY (user_id));
 CREATE TABLE Device (
   device_id      SERIAL NOT NULL, 
@@ -77,11 +110,9 @@ CREATE TABLE Device (
   type          varchar(16) NOT NULL, 
   manufacturer  varchar(64), 
   model         varchar(64), 
-  serial_no     varchar(64), 
   status        varchar(16) DEFAULT 'ACTIVE' NOT NULL, 
   creation_date timestamp NOT NULL, 
   created_by    int4 NOT NULL, 
-  site_id       int4 NOT NULL, 
   PRIMARY KEY (device_id));
 CREATE TABLE DeviceSpec (
   device_id int4 NOT NULL, 
@@ -133,6 +164,7 @@ CREATE TABLE Site (
   state         varchar(64), 
   country       varchar(64), 
   zip           varchar(16), 
+  contact       varchar(64), 
   phone         varchar(16), 
   creation_date timestamp, 
   created_by    int4 NOT NULL, 
@@ -151,7 +183,7 @@ CREATE TABLE TestOrder (
   subject_id    int4, 
   site_id       int4 NOT NULL, 
   description   varchar(255), 
-  creation_date timestamp NOT NULL, 
+  creation_date timestamp, 
   created_by    int4 NOT NULL, 
   PRIMARY KEY (order_id));
 CREATE TABLE OrderDetails (
@@ -169,6 +201,7 @@ CREATE TABLE RunOrder (
   procedure_id int4, 
   specimen_id  int4 NOT NULL, 
   site_id      int4 NOT NULL, 
+  end_point_id int4 NOT NULL, 
   status       varchar(16) DEFAULT 'NEW' NOT NULL, 
   start_time   timestamp, 
   end_time     timestamp, 
@@ -194,6 +227,53 @@ CREATE TABLE TestSegment (
   created_by    int4, 
   creation_date timestamp, 
   PRIMARY KEY (segment_id));
+CREATE TABLE DeviceInst (
+  device_inst_id  SERIAL NOT NULL, 
+  device_id      int4 NOT NULL, 
+  serial_id      varchar(64), 
+  part_no        varchar(64), 
+  status         varchar(16), 
+  created_by     int4 NOT NULL, 
+  creation_date  timestamp, 
+  PRIMARY KEY (device_inst_id));
+CREATE TABLE EndPoint (
+  end_point_id   SERIAL NOT NULL, 
+  name          varchar(64) NOT NULL, 
+  description   varchar(255), 
+  type          varchar(16), 
+  status        varchar(16) DEFAULT 'Active' NOT NULL, 
+  site_id       int4 NOT NULL, 
+  created_by    int4 NOT NULL, 
+  creation_date timestamp, 
+  PRIMARY KEY (end_point_id));
+CREATE TABLE EndPointDevices (
+  end_point_id   int4 NOT NULL, 
+  device_inst_id int4 NOT NULL, 
+  created_by     int4 NOT NULL, 
+  creation_date  timestamp NOT NULL, 
+  used_for       varchar(16));
+CREATE TABLE RunDevices (
+  run_id         int4 NOT NULL, 
+  device_inst_id int4 NOT NULL);
+CREATE TABLE Privileges (
+  priv_id      SERIAL NOT NULL, 
+  name        varchar(32), 
+  description varchar(64), 
+  PRIMARY KEY (priv_id));
+CREATE TABLE Roles (
+  role_id      SERIAL NOT NULL, 
+  name        varchar(16), 
+  description varchar(64), 
+  PRIMARY KEY (role_id));
+CREATE TABLE RolePrivs (
+  role_id int4 NOT NULL, 
+  priv_id int4 NOT NULL);
+CREATE TABLE EndPointProcs (
+  end_point_id  int4 NOT NULL, 
+  procedure_id  int4 NOT NULL, 
+  status        varchar(16), 
+  created_by    int4 NOT NULL, 
+  creation_date timestamp);
 CREATE UNIQUE INDEX Subject_subject_id 
   ON Subject (subject_id);
 CREATE UNIQUE INDEX Subject_name 
@@ -206,8 +286,8 @@ CREATE UNIQUE INDEX Specimen_name
   ON Specimen (name);
 CREATE UNIQUE INDEX Users_user_id 
   ON Users (user_id);
-CREATE UNIQUE INDEX Users_name 
-  ON Users (name);
+CREATE UNIQUE INDEX Users_login_id 
+  ON Users (login_id);
 CREATE UNIQUE INDEX Device_device_id 
   ON Device (device_id);
 CREATE UNIQUE INDEX Device_name 
@@ -258,6 +338,16 @@ CREATE INDEX RunSegmentLog_run_segment_id
   ON RunSegmentLog (run_segment_id);
 CREATE UNIQUE INDEX TestSegment_segment_id 
   ON TestSegment (segment_id);
+CREATE UNIQUE INDEX DeviceInst_device_inst_id 
+  ON DeviceInst (device_inst_id);
+CREATE UNIQUE INDEX EndPoint_end_point_id 
+  ON EndPoint (end_point_id);
+CREATE UNIQUE INDEX EndPoint_name 
+  ON EndPoint (name);
+CREATE UNIQUE INDEX Privileges_priv_id 
+  ON Privileges (priv_id);
+CREATE UNIQUE INDEX Roles_role_id 
+  ON Roles (role_id);
 ALTER TABLE Specimen ADD CONSTRAINT SpecBelongsToSub FOREIGN KEY (subject_id) REFERENCES Subject (subject_id);
 ALTER TABLE Specimen ADD CONSTRAINT SpecimenCreatedBy FOREIGN KEY (created_by) REFERENCES Users (user_id);
 ALTER TABLE Device ADD CONSTRAINT DevCreatedBy FOREIGN KEY (created_by) REFERENCES Users (user_id);
@@ -265,7 +355,6 @@ ALTER TABLE DeviceSpec ADD CONSTRAINT DevSpecs FOREIGN KEY (device_id) REFERENCE
 ALTER TABLE TestProcedure ADD CONSTRAINT RunProcedureCreatedBy FOREIGN KEY (created_by) REFERENCES Users (user_id);
 ALTER TABLE TestDevices ADD CONSTRAINT DevicesToTest FOREIGN KEY (device_id) REFERENCES Device (device_id);
 ALTER TABLE SpecimenSpec ADD CONSTRAINT SpecimenSpecs FOREIGN KEY (specimen_id) REFERENCES Specimen (specimen_id);
-ALTER TABLE Device ADD CONSTRAINT DeviceAtSite FOREIGN KEY (site_id) REFERENCES Site (site_id);
 ALTER TABLE TestSegmentSpec ADD CONSTRAINT TestDeviceSpec FOREIGN KEY (device_id) REFERENCES Device (device_id);
 ALTER TABLE SubjectLog ADD CONSTRAINT SubjectVitalStats FOREIGN KEY (subject_id) REFERENCES Subject (subject_id);
 ALTER TABLE SubjectLog ADD CONSTRAINT VitalsTakenBy FOREIGN KEY (created_by) REFERENCES Users (user_id);
@@ -289,3 +378,19 @@ ALTER TABLE ProcSegment ADD CONSTRAINT SegmentInProc FOREIGN KEY (segment_id) RE
 ALTER TABLE TestSegmentSpec ADD CONSTRAINT SegmentForTest FOREIGN KEY (segment_id) REFERENCES TestSegment (segment_id);
 ALTER TABLE RunSegment ADD CONSTRAINT RunSegment FOREIGN KEY (segment_id) REFERENCES TestSegment (segment_id);
 ALTER TABLE RunSegmentLog ADD CONSTRAINT LogForRunSegment FOREIGN KEY (run_segment_id) REFERENCES RunSegment (run_segment_id);
+ALTER TABLE RunDevices ADD CONSTRAINT RunDevices FOREIGN KEY (run_id) REFERENCES RunOrder (run_id);
+ALTER TABLE RunDevices ADD CONSTRAINT RunDevicesInst FOREIGN KEY (device_inst_id) REFERENCES DeviceInst (device_inst_id);
+ALTER TABLE EndPointDevices ADD CONSTRAINT EndPointDevices FOREIGN KEY (end_point_id) REFERENCES EndPoint (end_point_id);
+ALTER TABLE EndPointDevices ADD CONSTRAINT EndPointDevicesInst FOREIGN KEY (device_inst_id) REFERENCES DeviceInst (device_inst_id);
+ALTER TABLE EndPointDevices ADD CONSTRAINT EndPointDeviceCreatedBy FOREIGN KEY (created_by) REFERENCES Users (user_id);
+ALTER TABLE EndPoint ADD CONSTRAINT EndPointCreatedBy FOREIGN KEY (created_by) REFERENCES Users (user_id);
+ALTER TABLE EndPoint ADD CONSTRAINT EndPointSite FOREIGN KEY (site_id) REFERENCES Site (site_id);
+ALTER TABLE RunOrder ADD CONSTRAINT RunOnEndPoint FOREIGN KEY (end_point_id) REFERENCES EndPoint (end_point_id);
+ALTER TABLE DeviceInst ADD CONSTRAINT DeviceInstCreatedBy FOREIGN KEY (created_by) REFERENCES Users (user_id);
+ALTER TABLE DeviceInst ADD CONSTRAINT DeviceInst FOREIGN KEY (device_id) REFERENCES Device (device_id);
+ALTER TABLE Users ADD CONSTRAINT UserRole FOREIGN KEY (role_id) REFERENCES Roles (role_id);
+ALTER TABLE RolePrivs ADD CONSTRAINT PrivForRole FOREIGN KEY (role_id) REFERENCES Roles (role_id);
+ALTER TABLE RolePrivs ADD CONSTRAINT RolesWithPriv FOREIGN KEY (priv_id) REFERENCES Privileges (priv_id);
+ALTER TABLE EndPointProcs ADD CONSTRAINT ProcForEndPoint FOREIGN KEY (end_point_id) REFERENCES EndPoint (end_point_id);
+ALTER TABLE EndPointProcs ADD CONSTRAINT EndPointProcs FOREIGN KEY (procedure_id) REFERENCES TestProcedure (procedure_id);
+ALTER TABLE EndPointProcs ADD CONSTRAINT EndPointProcCreatedBy FOREIGN KEY (created_by) REFERENCES Users (user_id);

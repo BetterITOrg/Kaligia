@@ -199,6 +199,74 @@
 			enableDeleteByExample="false" enableCountByExample="false"
 			enableUpdateByExample="false" modelType="flat">
 		</table>
+
+		<table schema="kaligia" tableName="deviceinst" domainObjectName="DeviceInst" 
+			enableSelectByPrimaryKey="true" enableSelectByExample="true"
+			enableInsert="true"
+			enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true"
+			enableDeleteByExample="true" enableCountByExample="false"
+			enableUpdateByExample="true" modelType="flat">
+			<generatedKey column="device_inst_id" sqlStatement="JDBC" identity="true" />
+		</table>
+		
+		<table schema="kaligia" tableName="endpoint" domainObjectName="EndPoint" 
+			enableSelectByPrimaryKey="true" enableSelectByExample="true"
+			enableInsert="true"
+			enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true"
+			enableDeleteByExample="true" enableCountByExample="false"
+			enableUpdateByExample="true" modelType="flat">
+			<generatedKey column="end_point_id" sqlStatement="JDBC" identity="true" />
+		</table>
+
+		<table schema="kaligia" tableName="endpointdevices" domainObjectName="EndPointDevices" 
+			enableSelectByPrimaryKey="true" enableSelectByExample="true"
+			enableInsert="true"
+			enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true"
+			enableDeleteByExample="true" enableCountByExample="false"
+			enableUpdateByExample="true" modelType="flat">
+		</table>
+
+		<table schema="kaligia" tableName="endpointprocs" domainObjectName="EndPointProcs" 
+			enableSelectByPrimaryKey="true" enableSelectByExample="true"
+			enableInsert="true"
+			enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true"
+			enableDeleteByExample="true" enableCountByExample="false"
+			enableUpdateByExample="true" modelType="flat">
+		</table>
+
+		<table schema="kaligia" tableName="privileges" domainObjectName="Privileges" 
+			enableSelectByPrimaryKey="true" enableSelectByExample="true"
+			enableInsert="true"
+			enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true"
+			enableDeleteByExample="true" enableCountByExample="false"
+			enableUpdateByExample="true" modelType="flat">
+			<generatedKey column="priv_id" sqlStatement="JDBC" identity="true" />
+		</table>
+
+		<table schema="kaligia" tableName="roleprivs" domainObjectName="RolePrivs" 
+			enableSelectByPrimaryKey="true" enableSelectByExample="true"
+			enableInsert="true"
+			enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true"
+			enableDeleteByExample="true" enableCountByExample="false"
+			enableUpdateByExample="true" modelType="flat">
+		</table>
+
+		<table schema="kaligia" tableName="roles" domainObjectName="Roles" 
+			enableSelectByPrimaryKey="true" enableSelectByExample="true"
+			enableInsert="true"
+			enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true"
+			enableDeleteByExample="true" enableCountByExample="false"
+			enableUpdateByExample="true" modelType="flat">
+			<generatedKey column="role_id" sqlStatement="JDBC" identity="true" />
+		</table>
+
+		<table schema="kaligia" tableName="rundevices" domainObjectName="RunDevices" 
+			enableSelectByPrimaryKey="true" enableSelectByExample="true"
+			enableInsert="true"
+			enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true"
+			enableDeleteByExample="true" enableCountByExample="false"
+			enableUpdateByExample="true" modelType="flat">
+		</table>
 		
 	</context>
 </generatorConfiguration>

@@ -36,6 +36,14 @@ mybatis:
     17: mapper/kaligia/TestSegmentSpecMapper.xml
     18: mapper/kaligia/UsersMapper.xml
     19: mapper/kaligia/TmpTestResultMapper.xml
+    20: mapper/kaligia/DeviceInstMapper.xml
+    21: mapper/kaligia/EndPointMapper.xml
+    22: mapper/kaligia/EndPointDevicesMapper.xml
+    23: mapper/kaligia/EndPointProcsMapper.xml
+    24: mapper/kaligia/PrivilegesMapper.xml
+    25: mapper/kaligia/RolePrivsMapper.xml
+    26: mapper/kaligia/RolesMapper.xml
+    27: mapper/kaligia/RunDevicesMapper.xml
 
 
 ---

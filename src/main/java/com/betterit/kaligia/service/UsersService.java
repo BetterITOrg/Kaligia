@@ -3,6 +3,7 @@
  */
 package com.betterit.kaligia.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -35,14 +36,22 @@ public class UsersService {
 		
 		UsersExample ue = new UsersExample();
 		Users user = new Users();
-		ue.createCriteria().andNameEqualTo("Olesia Gololobova");
+		ue.createCriteria().andLoginIdEqualTo("olesia");
 		List<Users> users=userMapper.selectByExample(ue);
+		int rc=0;
 		
 		if(users.size()==0) {
 			//create user
-			user.setName("Olesia Gololobova");
-			user.setRole("Admin");
-			int rc = userMapper.insert(user);
+			user.setLoginId("olesia");
+			user.setFirstname("Olesia");
+			user.setLastname("Gololobova");
+			user.setRoleId(1);
+			user.setEmail("ogololobova@kaligiabiosciences.com");
+			user.setPhone("727-471-0850 815");
+			user.setStatus("Active");
+			user.setStartDate(new Date());
+			user.setEndDate(new Date("12/13/2020"));
+			rc = userMapper.insert(user);
 		} else {
 			user = users.get(0);
 		}
@@ -50,7 +59,7 @@ public class UsersService {
 	}
 	
 	public int insertUser(Users user) {
-		log.info("Inserting User Name :" + user.getName());
+		log.info("Inserting User Name :" + user.getLoginId());
 		
 		int rc;
 		try {

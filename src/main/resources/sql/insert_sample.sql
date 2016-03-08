@@ -1,10 +1,38 @@
 ﻿set search_path = kaligia;
 
-insert into users values (DEFAULT, 'Kaide Johar', 'Admin');
-insert into users values (DEFAULT, 'Olesia Gololobova', 'Admin');
+INSERT INTO kaligia.roles(
+            role_id, name, description)
+    VALUES (DEFAULT, 'Admin', 'Admin');
+
+	INSERT INTO kaligia.roles(
+            role_id, name, description)
+    VALUES (DEFAULT, 'Operator', 'Operator');
+	
+INSERT INTO kaligia.privileges(
+            priv_id, name, description)
+    VALUES (DEFAULT, 'All', 'All Privileges');
+
+INSERT INTO kaligia.roleprivs(
+            role_id, priv_id)
+    VALUES (1, 1);
+	
+INSERT INTO kaligia.users(
+            user_id, login_id, firstname, lastname, passwd, status, type, 
+            role_id, email, phone, supervisor, start_date, end_date)
+    VALUES (DEFAULT, 'kjohar', 'Kaide', 'Johar', '', 'Active', 'IT', 
+	(select role_id from roles where name='Admin'),
+	'kbjohar@gmail.com', '813-469-8167', '', now(), '12-31-2020');
+
+	INSERT INTO kaligia.users(
+            user_id, login_id, firstname, lastname, passwd, status, type, 
+            role_id, email, phone, supervisor, start_date, end_date)
+    VALUES (DEFAULT, 'olesia', 'Olesia', 'Gololobova', '', 'Active', 'DS', 
+	(select role_id from roles where name='Admin'),
+	'ogololobova@kaligiabiosciences.com', '727-471-0850 815', '', now(), '12-31-2020');
+
 
 INSERT INTO kaligia.site(
-            site_id, name, type, address, city, state, country, zip, phone, 
+            site_id, name, type, address, city, state, country, zip, contact, phone, 
             creation_date, created_by)
     VALUES (
 DEFAULT,
@@ -15,52 +43,25 @@ DEFAULT,
 'FL',
 'USA',
 '33773',
+'Fazal Fazlin',
 '727-471-0850',
 now(),
-(select user_id from users where name='Kaide Johar')
-);
-
-
-
-INSERT INTO kaligia.subject(
-            subject_id, name, dob, gender, ethnicity, creation_date, created_by)
-    VALUES  (DEFAULT, 'Kaide Johar', '02-11-1972', 'Male', 'Asian', now(), (select user_id from users where name='Kaide Johar'));
-
-
-INSERT INTO kaligia.specimen(
-            specimen_id, subject_id, name, type, creation_date, created_by)
-    VALUES (
-DEFAULT, 
-(select subject_id from subject where name='Kaide Johar'),
-'Kaide Skin', 
-'Skin', 
-now(), 
-(select user_id from users where name='Kaide Johar')
-);
-
-
-insert into specimenspec values (
-(select specimen_id from specimen where name='Kaide Skin'),
-'Location',
-'Index Finger',
-''
+(select user_id from users where login_id='kjohar')
 );
 
 
 INSERT INTO kaligia.device(
-            device_id, name, type, manufacturer, model, serial_no, status, 
-            creation_date, created_by, site_id)
-    VALUES (
+            device_id, name, type, manufacturer, model, status, creation_date, 
+            created_by)
+     VALUES (
 DEFAULT,
 'Laser 830',
 'Laser',
 'Innovative Photonics Solution',
 'I0830MM0350MF',
-'',
 'Active',
 now(),
-(select user_id from users where name='Kaide Johar'),
-(select site_id from site where name='Kaligia Biosciences')
+(select user_id from users where login_id='kjohar')
 );
 
 insert into device values (
@@ -69,11 +70,9 @@ DEFAULT,
 'Spectrometer',
 'Ocean Optics',
 'QE Pro',
-'QEP00691',
 'Active',
 now(),
-(select user_id from users where name='Kaide Johar'),
-(select site_id from site where name='Kaligia Biosciences')
+(select user_id from users where login_id='kjohar')
 );
 
 insert into device values (
@@ -82,11 +81,9 @@ DEFAULT,
 'Spectrometer',
 'Ocean Optics',
 'Maya 2000Pro',
-'MAYA112352',
 'InActive',
 now(),
-(select user_id from users where name='Kaide Johar'),
-(select site_id from site where name='Kaligia Biosciences')
+(select user_id from users where login_id='kjohar')
 );
 
 insert into device values (
@@ -95,11 +92,9 @@ DEFAULT,
 'Probe',
 'InPhotonics',
 'RPB Laboratory Raman Probe',
-'TT236477',
 'Active',
 now(),
-(select user_id from users where name='Kaide Johar'),
-(select site_id from site where name='Kaligia Biosciences')
+(select user_id from users where login_id='kjohar')
 );
 
 insert into device values (
@@ -108,11 +103,9 @@ DEFAULT,
 'Probe',
 'InPhotonics',
 'RPB Laboratory Raman Probe',
-'TT236643',
 'Active',
 now(),
-(select user_id from users where name='Kaide Johar'),
-(select site_id from site where name='Kaligia Biosciences')
+(select user_id from users where login_id='kjohar')
 );
 
 insert into device values (
@@ -121,11 +114,9 @@ DEFAULT,
 'LabJack',
 'LabJack',
 'U3',
-'',
 'Active',
 now(),
-(select user_id from users where name='Kaide Johar'),
-(select site_id from site where name='Kaligia Biosciences')
+(select user_id from users where login_id='kjohar')
 );
 
 insert into device values (
@@ -134,11 +125,9 @@ DEFAULT,
 'LabJack',
 'LabJack',
 'U6',
-'',
 'Active',
 now(),
-(select user_id from users where name='Kaide Johar'),
-(select site_id from site where name='Kaligia Biosciences')
+(select user_id from users where login_id='kjohar')
 );
 
 insert into device values (
@@ -147,11 +136,9 @@ DEFAULT,
 'Tube',
 'inPhotonics',
 'Tube',
-'00001',
 'Active',
 now(),
-(select user_id from users where name='Kaide Johar'),
-(select site_id from site where name='Kaligia Biosciences')
+(select user_id from users where login_id='kjohar')
 );
 
 insert into device values (
@@ -160,11 +147,9 @@ DEFAULT,
 'Tube',
 'inPhotonics',
 'Tube',
-'00002',
 'Active',
 now(),
-(select user_id from users where name='Kaide Johar'),
-(select site_id from site where name='Kaligia Biosciences')
+(select user_id from users where login_id='kjohar')
 );
 
 insert into device values (
@@ -173,11 +158,9 @@ DEFAULT,
 'ExcitationFiber',
 'Thorlabs',
 'FG105LCA',
-'00001',
 'Active',
 now(),
-(select user_id from users where name='Kaide Johar'),
-(select site_id from site where name='Kaligia Biosciences')
+(select user_id from users where login_id='kjohar')
 );
 
 insert into device values (
@@ -186,11 +169,9 @@ DEFAULT,
 'CollectionFiber',
 'Thorlabs',
 'FG105LCA',
-'00002',
 'Active',
 now(),
-(select user_id from users where name='Kaide Johar'),
-(select site_id from site where name='Kaligia Biosciences')
+(select user_id from users where login_id='kjohar')
 );
 
 insert into device values (
@@ -199,11 +180,9 @@ DEFAULT,
 'ExcitationFiber',
 'Thorlabs',
 'Fiber',
-'',
 'Active',
 now(),
-(select user_id from users where name='Kaide Johar'),
-(select site_id from site where name='Kaligia Biosciences')
+(select user_id from users where login_id='kjohar')
 );
 
 insert into device values (
@@ -212,11 +191,9 @@ DEFAULT,
 'CollectionFiber',
 'Thorlabs',
 'Fiber',
-'',
 'Active',
 now(),
-(select user_id from users where name='Kaide Johar'),
-(select site_id from site where name='Kaligia Biosciences')
+(select user_id from users where login_id='kjohar')
 );
 
 insert into devicespec values (
@@ -410,78 +387,70 @@ null,
 'Y'
 );
 
+INSERT INTO kaligia.endpoint(end_point_id, name, description, type, status, site_id, created_by, creation_date)
+    VALUES (DEFAULT, 'Laptop1', 'Lab Test Laptop 1', 'Lab','Active', 1, 2, now());
 
-INSERT INTO kaligia.testprocedure(
-            procedure_id, name, description, type, no_of_segments, status, 
-            creation_date, created_by)
-    VALUES  (
-DEFAULT,
-'IN VIVO BLOOD LASER SPECTRA',
-'IN VIVO BLOOD LASER SPECTRA INDEX FINGER SKIN',
-'IN-VIVO',
-1,
-'New',
-now(),
-(select user_id from users where name='Kaide Johar')
-);
+INSERT INTO kaligia.deviceinst(device_inst_id, device_id, serial_id, part_no, status, created_by, creation_date)
+    VALUES (DEFAULT, 1, '0001', '', 'Active', 1, now());
+
+INSERT INTO kaligia.deviceinst(device_inst_id, device_id, serial_id, part_no, status, created_by, creation_date)
+    VALUES (DEFAULT, 2, 'QEP00691', '', 'Active', 1, now());
+
+INSERT INTO kaligia.deviceinst(device_inst_id, device_id, serial_id, part_no, status, created_by, creation_date)
+    VALUES (DEFAULT, 3, 'MAYA112352', '', 'Active', 1, now());
+
+INSERT INTO kaligia.deviceinst(device_inst_id, device_id, serial_id, part_no, status, created_by, creation_date)
+    VALUES (DEFAULT, 4, 'TT236477', '', 'Active', 1, now());
+
+INSERT INTO kaligia.deviceinst(device_inst_id, device_id, serial_id, part_no, status, created_by, creation_date)
+    VALUES (DEFAULT, 4, 'TT236643', '', 'Active', 1, now());
+    
+INSERT INTO kaligia.deviceinst(device_inst_id, device_id, serial_id, part_no, status, created_by, creation_date)
+    VALUES (DEFAULT, 6, '0001', '', 'Active', 1, now());
+
+INSERT INTO kaligia.deviceinst(device_inst_id, device_id, serial_id, part_no, status, created_by, creation_date)
+    VALUES (DEFAULT, 7, '0001', '', 'Active', 1, now());
+
+INSERT INTO kaligia.deviceinst(device_inst_id, device_id, serial_id, part_no, status, created_by, creation_date)
+    VALUES (DEFAULT, 8, '0001', '', 'Active', 1, now());
+
+INSERT INTO kaligia.deviceinst(device_inst_id, device_id, serial_id, part_no, status, created_by, creation_date)
+    VALUES (DEFAULT, 9, '0001', '', 'Active', 1, now());
+
+INSERT INTO kaligia.deviceinst(device_inst_id, device_id, serial_id, part_no, status, created_by, creation_date)
+    VALUES (DEFAULT, 10, '0001', '', 'Active', 1, now());
+
+INSERT INTO kaligia.deviceinst(device_inst_id, device_id, serial_id, part_no, status, created_by, creation_date)
+    VALUES (DEFAULT, 11, '0001', '', 'Active', 1, now());
+
+INSERT INTO kaligia.deviceinst(device_inst_id, device_id, serial_id, part_no, status, created_by, creation_date)
+    VALUES (DEFAULT, 12, '0001', '', 'Active', 1, now());
+
+INSERT INTO kaligia.deviceinst(device_inst_id, device_id, serial_id, part_no, status, created_by, creation_date)
+    VALUES (DEFAULT, 13, '0001', '', 'Active', 1, now());
+
+INSERT INTO kaligia.endpointdevices(end_point_id, device_inst_id, created_by, creation_date, used_for)
+    VALUES (1, 1, 2, now(), 'IN-VIVO');
+    
+INSERT INTO kaligia.endpointdevices(end_point_id, device_inst_id, created_by, creation_date, used_for)
+    VALUES (1, 2, 2, now(), 'IN-VIVO');
+
+INSERT INTO kaligia.endpointdevices(end_point_id, device_inst_id, created_by, creation_date, used_for)
+    VALUES (1, 4, 2, now(), 'IN-VIVO');
+
+INSERT INTO kaligia.endpointdevices(end_point_id, device_inst_id, created_by, creation_date, used_for)
+    VALUES (1, 6, 2, now(), 'IN-VIVO');
+
+INSERT INTO kaligia.endpointdevices(end_point_id, device_inst_id, created_by, creation_date, used_for)
+    VALUES (1, 8, 2, now(), 'IN-VIVO');
+    
+INSERT INTO kaligia.endpointdevices(end_point_id, device_inst_id, created_by, creation_date, used_for)
+    VALUES (1, 10, 2, now(), 'IN-VIVO');
+
+INSERT INTO kaligia.endpointdevices(end_point_id, device_inst_id, created_by, creation_date, used_for)
+    VALUES (1, 11, 2, now(), 'IN-VIVO');
+
+INSERT INTO kaligia.endpointprocs(end_point_id, procedure_id, status, created_by, creation_date)
+    VALUES (1, 1, 'Active', 2, now());
 
 
-insert into testdevices values (
-(select device_id from device where name='Laser 830'),
-(select procedure_id from testprocedure where name='IN VIVO BLOOD LASER SPECTRA')
-);
-insert into testdevices values (
-(select device_id from device where name='Spectrometer QE Pro'),
-(select procedure_id from testprocedure where name='IN VIVO BLOOD LASER SPECTRA')
-);
-insert into testdevices values (
-(select device_id from device where name='Probe 1'),
-(select procedure_id from testprocedure where name='IN VIVO BLOOD LASER SPECTRA')
-);
-insert into testdevices values (
-(select device_id from device where name='Fiber Excitement'),
-(select procedure_id from testprocedure where name='IN VIVO BLOOD LASER SPECTRA')
-);
-insert into testdevices values (
-(select device_id from device where name='Fiber Collection 1'),
-(select procedure_id from testprocedure where name='IN VIVO BLOOD LASER SPECTRA')
-);
-
-INSERT INTO kaligia.testsegment(
-            segment_id, name, description, created_by, creation_date)
-    VALUES (DEFAULT, 'Segment 1', 'Segment 1', (select user_id from users where name='Kaide Johar'), now());
-
-INSERT INTO kaligia.testsegmentspec(
-            segment_id, device_id, name, value, unit)
-    VALUES (
-1,
-null,
-'Delay',
-'2',
-'s'
-);
-
-INSERT INTO kaligia.testsegmentspec(
-            segment_id, device_id, name, value, unit)
-    VALUES (
-1,
-null,
-'Repeat',
-'3',
-''
-);
-
-
-INSERT INTO kaligia.testsegmentspec(
-            segment_id, device_id, name, value, unit)
-    VALUES (
-1,
-(select device_id from device where name='Spectrometer QE Pro'),
-'IntegrationTime',
-'25',
-'s'
-);
-
-INSERT INTO kaligia.procsegment(
-            segment_id, procedure_id, segment_no)
-    VALUES (1, 1, 1);
