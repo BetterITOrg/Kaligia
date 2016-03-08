@@ -14,6 +14,9 @@ spring:
   location: /mapper/*.xml
 server:
  port: 8090
+security:
+  basic:
+    enabled: true
 mybatis:
   mapper-locations:
     0: mapper/kaligia/DeviceMapper.xml
