@@ -26,7 +26,7 @@ INSERT INTO kaligia.users(
 	INSERT INTO kaligia.users(
             user_id, login_id, firstname, lastname, passwd, status, type, 
             role_id, email, phone, supervisor, start_date, end_date)
-    VALUES (DEFAULT, 'olesia', 'Olesia', 'Gololobova', '', 'Active', 'DS', 
+    VALUES (DEFAULT, 'olesia', 'Olesia', 'Gololobova', '$2a$10$IdBcD89GXNP3uEo0bv90NuMWAlY7Szla.EsUSUI14/uNXeDCdImNu', 'Active', 'DS', 
 	(select role_id from roles where name='Admin'),
 	'ogololobova@kaligiabiosciences.com', '727-471-0850 815', '', now(), '12-31-2020');
 
