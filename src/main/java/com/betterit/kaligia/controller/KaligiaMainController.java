@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.betterit.kaligia;
+package com.betterit.kaligia.controller;
 
 import java.util.List;
 import java.util.logging.Logger;

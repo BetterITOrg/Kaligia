@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.betterit.kaligia;
+package com.betterit.kaligia.controller;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.betterit.kaligia.KaligiaRunOrder;
+import com.betterit.kaligia.TestRun;
 import com.betterit.kaligia.dao.model.kaligia.Device;
 import com.betterit.kaligia.dao.model.kaligia.TestProcedure;
 import com.betterit.kaligia.service.DeviceService;
