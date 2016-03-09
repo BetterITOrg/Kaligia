@@ -91,7 +91,7 @@ public class TestOrderService {
 							String patientGender
 							) {
 		
-		SimpleDateFormat formatter = new SimpleDateFormat("mm/dd/yyyy");
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		Subject sub = new Subject();
 		SubjectExample subE = new SubjectExample();
 		subE.createCriteria().andNameEqualTo(patientID);

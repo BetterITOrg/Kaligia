@@ -127,6 +127,10 @@ public class TestProcedureService {
 		TestProcedureExample tpe = new TestProcedureExample();
 		tpe.createCriteria().andNameEqualTo(name);
 		List<TestProcedure> tpl = tpm.selectByExample(tpe);
+		if(tpl.size() == 0) {
+			log.info("Procedure not found: " + name);
+			return null;
+		}
 		return tpl.get(0);
 		
 	}
