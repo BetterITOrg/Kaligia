@@ -19,7 +19,7 @@ INSERT INTO kaligia.roleprivs(
 INSERT INTO kaligia.users(
             user_id, login_id, firstname, lastname, passwd, status, type, 
             role_id, email, phone, supervisor, start_date, end_date)
-    VALUES (DEFAULT, 'kjohar', 'Kaide', 'Johar', '', 'Active', 'IT', 
+    VALUES (DEFAULT, 'kjohar', 'Kaide', 'Johar', '$2a$04$77SkrAxbisnHoZp0CLJUm.YmKqm20WC3S3XAHp2LmBuV0mOudNfXW', 'Active', 'IT', 
 	(select role_id from roles where name='Admin'),
 	'kbjohar@gmail.com', '813-469-8167', '', now(), '12-31-2020');
 

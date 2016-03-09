@@ -11,8 +11,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.betterit.kaligia.dao.model.kaligia.Roles;
 import com.betterit.kaligia.dao.model.kaligia.Users;
 import com.betterit.kaligia.dao.model.kaligia.UsersExample;
+import com.betterit.kaligia.dao.repository.kaligia.RolesMapper;
 import com.betterit.kaligia.dao.repository.kaligia.UsersMapper;
 
 /**
@@ -25,6 +27,9 @@ public class UsersService {
 	@Autowired
 	private UsersMapper userMapper;
 	
+	@Autowired 
+	private RolesMapper roleMapper;
+	
 	private static final Logger log = LoggerFactory.getLogger(UsersService.class);
 	
 	public Users getUser(int userID) {
@@ -33,29 +38,17 @@ public class UsersService {
 	}
 	
 	public Users getUserByName(String Name) {
-		
+		if(Name==null || Name=="") {
+			Name="olesia";
+		}
 		UsersExample ue = new UsersExample();
 		Users user = new Users();
-		ue.createCriteria().andLoginIdEqualTo("olesia");
+		ue.createCriteria().andLoginIdEqualTo(Name);
 		List<Users> users=userMapper.selectByExample(ue);
-		int rc=0;
-		
-		if(users.size()==0) {
-			//create user
-			user.setLoginId("olesia");
-			user.setFirstname("Olesia");
-			user.setLastname("Gololobova");
-			user.setRoleId(1);
-			user.setEmail("ogololobova@kaligiabiosciences.com");
-			user.setPhone("727-471-0850 815");
-			user.setStatus("Active");
-			user.setStartDate(new Date());
-			user.setEndDate(new Date("12/13/2020"));
-			rc = userMapper.insert(user);
-		} else {
-			user = users.get(0);
+		if(users != null && users.size() > 0) {
+			return users.get(0);
 		}
-		return user;
+		return null;
 	}
 	
 	public int insertUser(Users user) {
@@ -71,6 +64,10 @@ public class UsersService {
 		}
 		
 		return rc;
+	}
+	
+	public Roles getUserRoles(Integer role_id) {
+		return roleMapper.selectByPrimaryKey(role_id);
 	}
 
 }
