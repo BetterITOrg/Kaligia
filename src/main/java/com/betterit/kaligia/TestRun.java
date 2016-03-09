@@ -1,6 +1,5 @@
 package com.betterit.kaligia;
 
-import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;

@@ -2,7 +2,6 @@ package com.betterit.kaligia;
 
 import java.util.concurrent.TimeUnit;
 import com.labjack.LJUD;
-import com.labjack.LJUDException;
 
 public class TTLControl implements Runnable {
 	String thrdName;

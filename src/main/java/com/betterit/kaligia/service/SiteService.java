@@ -30,6 +30,9 @@ public class SiteService {
 		
 		if(site != null) {
 			int rc = siteMapper.insert(site);
+			if(rc != 1 ) {
+				log.info("Failed to insert Site.");
+			}
 		} else {
 			log.info("Site is Null");
 			throw new Exception("Site is Null");

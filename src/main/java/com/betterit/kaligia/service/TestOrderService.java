@@ -18,11 +18,9 @@ import com.betterit.kaligia.dao.model.kaligia.Specimen;
 import com.betterit.kaligia.dao.model.kaligia.SpecimenExample;
 import com.betterit.kaligia.dao.model.kaligia.Subject;
 import com.betterit.kaligia.dao.model.kaligia.SubjectExample;
-import com.betterit.kaligia.dao.model.kaligia.SubjectLog;
 import com.betterit.kaligia.dao.model.kaligia.TestOrder;
 import com.betterit.kaligia.dao.repository.kaligia.RunOrderMapper;
 import com.betterit.kaligia.dao.repository.kaligia.SpecimenMapper;
-import com.betterit.kaligia.dao.repository.kaligia.SubjectLogMapper;
 import com.betterit.kaligia.dao.repository.kaligia.SubjectMapper;
 import com.betterit.kaligia.dao.repository.kaligia.TestOrderMapper;
 
@@ -78,6 +76,9 @@ public class TestOrderService {
 				patientGender
 				).getSubjectId());
 		int rc = tom.insert(tord);
+		if(rc != 1) {
+			log.info("Failed to insert test order.");
+		}
 		
 		return tord;
 		
@@ -109,7 +110,11 @@ public class TestOrderService {
 			sub.setCreationDate(new Date());
 			sub.setCreatedBy(usm.getUserByName("").getUserId());
 			int rc = sm.insert(sub);
-			log.info("Inserting Subject : " + patientID);
+			if (rc == 1) {
+				log.info("Inserting Subject : " + patientID);
+			} else {
+				log.info("Failed to insert Subject : " + patientID);
+			}
 			
 		} else {
 			sub = sl.get(0);
@@ -135,7 +140,11 @@ public class TestOrderService {
 			sub.setSubjectId(subjectId);
 			sub.setType(type);
 			int rc = spm.insert(sub);
-			log.info("Inserting Specimen : " + name);
+			if (rc == 1 ) {
+				log.info("Inserting Specimen : " + name);
+			} else {
+				log.info("Failed to insert Specimen : " + name);
+			}
 		} else {
 			sub = sl.get(0);
 			log.info("Found Specimen : " + sl.get(0).getName());
@@ -164,6 +173,9 @@ public class TestOrderService {
 		ro.setEndPointId(1);
 		ro.setRunNotes(description);
 		int rc = rom.insert(ro);
+		if(rc != 1 ) {
+			log.info("Failed to insert run order.");
+		}
 		return ro;
 	}
 	

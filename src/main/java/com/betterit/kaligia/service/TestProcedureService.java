@@ -11,16 +11,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.TransactionDefinition;
-import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.support.DefaultTransactionDefinition;
-
 import com.betterit.kaligia.ProcedureDetail;
 import com.betterit.kaligia.TestRun;
 import com.betterit.kaligia.segmentParams;
 import com.betterit.kaligia.dao.model.kaligia.Device;
-import com.betterit.kaligia.dao.model.kaligia.DeviceExample;
 import com.betterit.kaligia.dao.model.kaligia.EndPointDevices;
 import com.betterit.kaligia.dao.model.kaligia.EndPointDevicesExample;
 import com.betterit.kaligia.dao.model.kaligia.EndPointProcs;
@@ -37,13 +32,11 @@ import com.betterit.kaligia.dao.model.kaligia.TestOrder;
 import com.betterit.kaligia.dao.model.kaligia.TestProcedure;
 import com.betterit.kaligia.dao.model.kaligia.TestProcedureExample;
 import com.betterit.kaligia.dao.model.kaligia.TestSegment;
-import com.betterit.kaligia.dao.model.kaligia.TestSegmentExample;
 import com.betterit.kaligia.dao.model.kaligia.TestSegmentSpec;
 import com.betterit.kaligia.dao.model.kaligia.TestSegmentSpecExample;
 import com.betterit.kaligia.dao.model.kaligia.TmpTestResult;
 import com.betterit.kaligia.dao.model.kaligia.TmpTestResultExample;
 import com.betterit.kaligia.dao.model.kaligia.Users;
-import com.betterit.kaligia.dao.model.kaligia.UsersExample;
 import com.betterit.kaligia.dao.repository.kaligia.DeviceMapper;
 import com.betterit.kaligia.dao.repository.kaligia.EndPointDevicesMapper;
 import com.betterit.kaligia.dao.repository.kaligia.EndPointProcsMapper;
@@ -57,7 +50,6 @@ import com.betterit.kaligia.dao.repository.kaligia.TestProcedureMapper;
 import com.betterit.kaligia.dao.repository.kaligia.TestSegmentMapper;
 import com.betterit.kaligia.dao.repository.kaligia.TestSegmentSpecMapper;
 import com.betterit.kaligia.dao.repository.kaligia.TmpTestResultMapper;
-import com.betterit.kaligia.dao.repository.kaligia.UsersMapper;
 
 /**
  * @author Kaide Johar
@@ -198,6 +190,9 @@ public class TestProcedureService {
 			rs.setStatus("New");
 			rs.setSegmentId(psl.get(i).getSegmentId());
 			rc = rsm.insert(rs);
+			if(rc != 1) {
+				log.info("Failed to insert run segment.");
+			}
 			rsl.add(rs);
 			log.info("Added Run Segment : " + rsl.get(i).getRunSegmentId());
 		}
@@ -214,49 +209,73 @@ public class TestProcedureService {
 		sublog.setValue(patientHeight);
 		sublog.setUnit("inches");
 		rc = slm.insert(sublog);
+		if(rc != 1) {
+			log.info("Failed to insert subject height.");
+		}
 		
 		//String patientWeight,
 		sublog.setName("Weight");
 		sublog.setValue(patientWeight);
 		sublog.setUnit("lb");
 		rc = slm.insert(sublog);
+		if(rc != 1) {
+			log.info("Failed to insert subject weight.");
+		}
 
 		//String patientTemp,
 		sublog.setName("Temperature");
 		sublog.setValue(patientTemp);
 		sublog.setUnit("farenheit");
 		rc = slm.insert(sublog);
-		
+		if(rc != 1) {
+			log.info("Failed to insert subject temp.");
+		}
+
 		//String patientHeartRate,
 		sublog.setName("HeartRate");
 		sublog.setValue(patientHeartRate);
 		sublog.setUnit("bpm");
 		rc = slm.insert(sublog);
-		
+		if(rc != 1) {
+			log.info("Failed to insert subject heart rate.");
+		}
+
 		//String patientOLevel,
 		sublog.setName("OxygenLevel");
 		sublog.setValue(patientOLevel);
 		sublog.setUnit("percent");
 		rc = slm.insert(sublog);
-		
+		if(rc != 1) {
+			log.info("Failed to insert subject oxygen level.");
+		}
+
 		//String diastolicBP,
 		sublog.setName("DiastolicBP");
 		sublog.setValue(diastolicBP);
 		sublog.setUnit("mmHg");
 		rc = slm.insert(sublog);
-		
+		if(rc != 1) {
+			log.info("Failed to insert subject BP.");
+		}
+
 		//String systolicBP,
 		sublog.setName("SystolicBP");
 		sublog.setValue(systolicBP);
 		sublog.setUnit("mmHg");
 		rc = slm.insert(sublog);
-		
+		if(rc != 1) {
+			log.info("Failed to insert subject BP.");
+		}
+
 		//String skinColor,
 		sublog.setName("SkinColor");
 		sublog.setValue(skinColor);
 		sublog.setUnit("");
 		rc = slm.insert(sublog);
-		
+		if(rc != 1) {
+			log.info("Failed to insert subject Skin Color.");
+		}
+
 		//Create RunDevices
 		// Get EndPointDevices
 		List<EndPointDevices> epdl = new ArrayList<EndPointDevices>();
@@ -270,6 +289,9 @@ public class TestProcedureService {
 		for(int i=0; i<epdl.size(); i++) {
 			rd.setDeviceInstId(epdl.get(i).getDeviceInstId());
 			rc = rdm.insert(rd);
+			if(rc != 1) {
+				log.info("Failed to insert run device.");
+			}
 		};
 		
 		// Create Test Run
@@ -385,6 +407,10 @@ public class TestProcedureService {
 				rslo.setWavelength(trl.get(i).getWavelength()[j]);
 				rslo.setPhotonCount(trl.get(i).getSpectra()[j]);
 				rc = rslm.insert(rslo);
+				if(rc != 1) {
+					log.info("Failed to insert results.");
+				}
+
 			}	
 		}
 		
@@ -436,6 +462,10 @@ public class TestProcedureService {
 			tp.setCreationDate(new Date());
 			tp.setCreatedBy(user.getUserId());
 			rc = tpm.insert(tp);
+			if(rc != 1) {
+				log.info("Failed to insert test procedure.");
+			}
+
 			
 			//Test Devices
 			TestDevices td = new TestDevices();
@@ -661,7 +691,10 @@ public class TestProcedureService {
 		ts.setCreatedBy(tp.getCreatedBy());
 		ts.setCreationDate(tp.getCreationDate());
 		rc = tsm.insert(ts);
-		
+		if(rc != 1) {
+			log.info("Failed to insert test segment.");
+		}
+
 		//Create Parameters
 		TestSegmentSpec tss = new TestSegmentSpec();
 		tss.setSegmentId(ts.getSegmentId());
@@ -671,43 +704,64 @@ public class TestProcedureService {
 		tss.setValue(segParam.getIntegrationTime());
 		tss.setUnit("s");
 		rc = tssm.insert(tss);
-		
+		if(rc != 1) {
+			log.info("Failed to insert integration time.");
+		}
+
 		tss.setDeviceId(spectrometerID);
 		tss.setName("ScansToAverage");
 		tss.setValue(segParam.getScan2Average());
 		tss.setUnit("");
 		rc = tssm.insert(tss);
-		
+		if(rc != 1) {
+			log.info("Failed to insert scan 2 average.");
+		}
+
 		tss.setDeviceId(spectrometerID);
 		tss.setName("BoxcarWidth");
 		tss.setValue(segParam.getBoxCarWidth());
 		tss.setUnit("pixel");
 		rc = tssm.insert(tss);
-		
+		if(rc != 1) {
+			log.info("Failed to insert boxcarwidth.");
+		}
+
 		tss.setDeviceId(spectrometerID);
 		tss.setName("ElectricDark");
 		tss.setValue(segParam.getElectricDark());
 		tss.setUnit("");
 		rc = tssm.insert(tss);
-		
+		if(rc != 1) {
+			log.info("Failed to insert Electric Dark.");
+		}
+
 		tss.setDeviceId(spectrometerID);
 		tss.setName("NonLinearityCorrection");
 		tss.setValue(segParam.getNonLinearCorrect());
 		tss.setUnit("");
 		rc = tssm.insert(tss);
-		
+		if(rc != 1) {
+			log.info("Failed to insert Non Linear Corr.");
+		}
+
 		tss.setDeviceId(laserID);
 		tss.setName("Power");
 		tss.setValue(segParam.getPower());
 		tss.setUnit("mw");
 		rc = tssm.insert(tss);
-		
+		if(rc != 1) {
+			log.info("Failed to insert power.");
+		}
+
 		tss.setDeviceId(null);
 		tss.setName("Delay");
 		tss.setValue(segParam.getDelay());
 		tss.setUnit("s");
 		rc = tssm.insert(tss);
-		
+		if(rc != 1) {
+			log.info("Failed to insert delay.");
+		}
+
 		//Get Spectrometer type
 		Device spectrometer = dm.selectByPrimaryKey(spectrometerID);
 		switch(spectrometer.getModel()) {

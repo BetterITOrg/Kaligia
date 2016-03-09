@@ -3,23 +3,15 @@
  */
 package com.betterit.kaligia.controller;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.betterit.kaligia.ProcedureDetail;
-import com.betterit.kaligia.dao.model.kaligia.Device;
-import com.betterit.kaligia.dao.model.kaligia.TestProcedure;
-import com.betterit.kaligia.service.DeviceService;
-import com.betterit.kaligia.service.TestOrderService;
 import com.betterit.kaligia.service.TestProcedureService;
 
 /**

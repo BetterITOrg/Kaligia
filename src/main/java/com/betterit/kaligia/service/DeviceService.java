@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import com.betterit.kaligia.dao.model.kaligia.Device;
 import com.betterit.kaligia.dao.model.kaligia.DeviceExample;
 import com.betterit.kaligia.dao.repository.kaligia.DeviceMapper;
-import com.betterit.kaligia.dao.repository.kaligia.DeviceSpecMapper;
 
 /**
  * @author V135012
@@ -22,9 +21,6 @@ public class DeviceService {
 	
 	@Autowired
 	private DeviceMapper dm;
-	
-	@Autowired 
-	private DeviceSpecMapper dsm;
 	
 	public List<Device> findAll() {
 		return dm.selectByExample(null);	

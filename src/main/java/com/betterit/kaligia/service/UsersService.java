@@ -3,7 +3,6 @@
  */
 package com.betterit.kaligia.service;
 
-import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -42,7 +41,6 @@ public class UsersService {
 			Name="olesia";
 		}
 		UsersExample ue = new UsersExample();
-		Users user = new Users();
 		ue.createCriteria().andLoginIdEqualTo(Name);
 		List<Users> users=userMapper.selectByExample(ue);
 		if(users != null && users.size() > 0) {

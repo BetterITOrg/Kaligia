@@ -1,9 +1,6 @@
 package com.betterit.kaligia;
 
 import com.labjack.LJUD;
-import com.labjack.LJUDException;
-import com.sun.jna.ptr.*;
-import com.sun.jna.*;
 
 public  class LaserControl {
 	int LJhandle;

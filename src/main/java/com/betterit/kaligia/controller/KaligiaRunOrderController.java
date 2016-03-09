@@ -4,7 +4,6 @@
 package com.betterit.kaligia.controller;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.betterit.kaligia.KaligiaRunOrder;
 import com.betterit.kaligia.TestRun;
-import com.betterit.kaligia.dao.model.kaligia.Device;
 import com.betterit.kaligia.dao.model.kaligia.TestProcedure;
-import com.betterit.kaligia.service.DeviceService;
 import com.betterit.kaligia.service.TestOrderService;
 import com.betterit.kaligia.service.TestProcedureService;
 
@@ -134,12 +131,17 @@ public class KaligiaRunOrderController {
 			
 			int rc= tos.createRunResultLog(runOrderObject.getRunID(), 
 					runOrderObject.getResultNotes());
-		}
+			
+			if(rc !=1 ) {
+				log.info("Failed to update result log.");
+			}
+		}	
 		catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw e;
 		}
+
 		return "redirect:/KaligiaMainApp";
 	}
 }

@@ -2,8 +2,6 @@ package com.betterit.kaligia;
 
 import com.oceanoptics.omnidriver.api.wrapper.Wrapper;
 import com.oceanoptics.omnidriver.features.buffer.DataBuffer;
-import java.util.concurrent.TimeUnit;
-import java.io.*;
 
 public class SpectraAcquisitionMaya {
 	
