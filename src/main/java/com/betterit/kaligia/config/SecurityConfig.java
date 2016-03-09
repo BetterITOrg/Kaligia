@@ -29,8 +29,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.headers().frameOptions().sameOrigin();
-		http.authorizeRequests().anyRequest().fullyAuthenticated()
+		//http.headers().frameOptions().sameOrigin();
+		http
+		.headers()
+		.frameOptions()
+		.sameOrigin()
+		.and()
+		.authorizeRequests()
+		.antMatchers("/images/*").permitAll()
+		.anyRequest().authenticated()
 		.and()
 		 .formLogin()
          .loginPage("/login")
@@ -39,8 +46,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
          .logout()
          .permitAll();
 		
-		http.httpBasic();
-		http.csrf().disable();
+		//http.httpBasic();
+		//http.csrf().disable();
 	}
 
 		
