@@ -71,7 +71,7 @@ public class CreateProcedureController {
 		Iterator<segmentParams> segmentIterator = createProcedureObject.getSegmentList().iterator();
 		while (segmentIterator.hasNext()) {
 			segmentParams paramObject= segmentIterator.next();
-			if ( Integer.valueOf(paramObject.getIntegrationTime()) < 1)
+			if ( Double.valueOf(paramObject.getIntegrationTime()) < 1)
 			{
 				segmentIterator.remove();
 			}

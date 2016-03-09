@@ -14,14 +14,6 @@ spring:
   location: /mapper/*.xml
 server:
  port: 8090
-security:
-  basic:
-    enabled: true
-  user:
-    name: admin
-    password: admin
-    role:
-      - ADMIN
 mybatis:
   mapper-locations:
     0: mapper/kaligia/DeviceMapper.xml

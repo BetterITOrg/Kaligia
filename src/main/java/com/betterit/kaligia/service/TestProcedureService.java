@@ -298,13 +298,13 @@ public class TestProcedureService {
 		TestSegmentSpecExample tsse = new TestSegmentSpecExample();
 		List<TestRun> trl = new ArrayList<TestRun>();
 		Integer seg_run_id;
-		Integer integrationTime; 
+		Double integrationTime; 
 		Integer restTime;
 		Integer scanToAverage;
 		Integer darkCurrent;
 		Integer nonLinear;
 		Integer boxcarWidth;
-		double laserPower;
+		Double laserPower;
 		Integer spectrometerIndex=0;
 		String spectrometerType = "QEPro";
 		String labjackType = "U6";
@@ -317,7 +317,7 @@ public class TestProcedureService {
 			tsse.clear();
 			tsse.createCriteria().andSegmentIdEqualTo(rsl.get(i).getSegmentId()).andNameEqualTo("IntegrationTime");
 			List<TestSegmentSpec> tssi = tssm.selectByExample(tsse);
-			integrationTime = Integer.valueOf(tssi.get(0).getValue());
+			integrationTime = Double.valueOf(tssi.get(0).getValue());
 			
 			tsse.clear();
 			tsse.createCriteria().andSegmentIdEqualTo(rsl.get(i).getSegmentId()).andNameEqualTo("Delay");
@@ -381,6 +381,9 @@ public class TestProcedureService {
 		for(int i=0; i<trl.size(); i++) {
 			// Run test
 			rc = trl.get(i).doTestRun();
+			if (rc == 100) {
+				throw new Exception("Device Initialization Failed.");
+			}
 			
 			// Generate dummy test result since equipment is not connected
 			/*

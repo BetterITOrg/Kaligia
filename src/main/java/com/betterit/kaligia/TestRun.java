@@ -24,13 +24,13 @@ public class TestRun {
 	
 	private Integer run_id;
 	private Integer seg_run_id;
-	private Integer integrationTime;
+	private Double integrationTime;
 	private Integer restTime;
 	private Integer scanToAverage;
 	private Integer darkCurrentCorrectFlag;
 	private Integer nonlinearityCorrectFlag;
 	private Integer boxcarWidth;
-	private double laserPower; // // laser output power : must be in [0 1.2]V
+	private Double laserPower; // // laser output power : must be in [0 1.2]V
 	private Integer spectrometerIndex;
 	private double[] spectra;
 	private double[] wavelength;
@@ -49,13 +49,13 @@ public class TestRun {
 	public TestRun (
 			Integer run_id,
 			Integer seg_run_id,
-			Integer integrationTime, 
+			Double integrationTime, 
 			Integer restTime,
 			Integer scanToAverage,
 			Integer darkCurrent,
 			Integer nonLinear,
 			Integer boxcarWidth,
-			double laserPower,
+			Double laserPower,
 			Integer spectrometerIndex,
 			String spectrometerType,
 			String labjackType
