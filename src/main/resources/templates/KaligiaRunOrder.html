@@ -19,24 +19,16 @@
 					<td>Order No :</td>
 					<td><input type="text" required="required"
 						th:field="*{orderNo}" /></td>
+					<td>Procedure</td>
+					<td><input type="text" required="required"
+						th:field="*{testProcedure}" /></td>
 				</tr>
 				<tr>
 					<td>Description:</td>
 					<td><textarea id="msg" required="required"
 							th:field="*{Description}"></textarea></td>
 				</tr>
-				<tr>
-					<td>Procedure type:</td>
-					<td><select th:field="*{type}">
-							<option value="IN-VIVO">IN-VIVO</option>
-							<option value="EX-VIVO">EX-VIVO</option>
-					</select></td>
-				</tr>
-				<tr>
-					<td>Procedure</td>
-					<td><input type="text" required="required"
-						th:field="*{testProcedure}" /></td>
-				</tr>
+					
 				<tr>
 					<td>Specimen :</td>
 					<td><input type="text" required="required"
@@ -72,9 +64,9 @@
 			<table>
 				<tr>
 					<td>BP (mmHg):</td>
-					<td><input type="text" required="required" th:field="*{systolicBP}" /> </td> 
+					<td><input type="text" required="required" th:field="*{systolicBP}" maxlength="4"/> </td> 
 					<td> / </td>
-					<td> <input type="text"	required="required" th:field="*{diastolicBP}" /> </td>
+					<td> <input type="text"	required="required" th:field="*{diastolicBP}" maxlength="4"/> </td>
 					<td>Height (in inches):</td>
 					<td><input type="text" required="required"
 						th:field="*{patientHeight}" /></td>
@@ -98,15 +90,10 @@
 				</tr>
 			</table>
 		</fieldset>
+		
+		<input class="submit-button" type="submit" name="RunTest"
+				value="RUN TEST" />
 
-
-		<TABLE>
-			<TR>
-				<TD width="600"></TD>
-				<TD><input type="submit" name="Run" value="RUN"
-					 /></TD>
-			</TR>
-		</TABLE>
 	</form>
 </body>
 </html>

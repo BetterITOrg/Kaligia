@@ -136,16 +136,16 @@ table th{
 }
 
 a {
-	font-size: 70%;
+	font-size: 12px;
 	text-shadow: none;
 	text-decoration: none;
 	text-align:center;
 	/*text-shadow: -1px -1px 1px #72aebd;*/
 	text-transform:uppercase;
-	letter-spacing: 0.10em;
+	width: 120px;
 	color:black;
 	padding: 7px 10px 4px 10px;
-	border-radius: 5px;
+	border-radius: 4px;
 	background-color:#CCCCCC;
 	border-top: 1px solid #90f2da;
 	border-right:1px solid #00a97f;
@@ -178,4 +178,10 @@ iframe {
   width:100%;
   height:calc(60vh - 30px);
   border: 0;
+}
+
+#proc{
+  float:right;
+  font-size: 12px;
+  
 }
