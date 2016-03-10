@@ -15,7 +15,7 @@ public class segmentParams {
 	private String electricDark="1";
 	private String nonLinearCorrect="0";
 	private String delay="1";
-	private String power="1";
+	private String power="0.8";
 	
 	public String getIntegrationTime() {
 		return integrationTime;

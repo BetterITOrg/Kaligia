@@ -1,0 +1,265 @@
+
+body
+{
+	background: #eee;
+}
+.wrapper
+{
+	width: 1000px;
+	height: 610px;
+	margin: 0 auto;
+	background: #FFF;
+	box-shadow: 1px 1px 5px #000;
+	font-family: verdana;
+}
+header
+{
+	height: 65px;
+	background: #FFF;
+}
+#logo
+{
+	width: 170px;
+	height: 60px;
+	background: url('/images/kaligia-logo.png') no-repeat;
+	background-size: 100% 100%;
+	float: left;
+	margin: 5px 15px;
+}
+#close
+{
+	width: 35px;
+	height: 35px;
+	background: url('/images/close_btn.png') no-repeat;
+	background-size: 100% 100%;
+	float: right;
+	margin: 15px;
+}
+.user
+{
+	width: 1000px;
+	height: 60px;
+	background: url('/images/profile.png') no-repeat;
+	background-size: 100% 100%;
+	clear: both;
+	margin-top: 10px;
+}
+.user_logout
+{
+	width: 90px;
+	float: right;
+	line-height: 1px;
+}
+.user p
+{
+	text-align: right;
+}
+#user_name
+{
+	padding-top: 7px;
+}
+#logout a
+{
+	font-size: 12px;
+	color: #FFF;
+}
+#logout a:hover
+{
+	text-decoration: none;
+}
+#company_name
+{
+	line-height: 60px;
+	color: #FFF;
+	padding: 0 0 0 30px;
+	float: left;
+}
+#profile_photo
+{
+	width: 50px;
+	height: 50px;
+	background: url('/images/profile_pic.png') no-repeat;
+	background-size: 100% 100%;
+	float: right;
+	margin: 5px 15px 0 15px;
+}
+.left
+{
+	float: left;
+	width: 460px;
+}
+.menu
+{
+	float: left;
+	width: 110px;
+	height: 500px;
+	background: url('/images/lateral_menu.png') no-repeat;
+	background-size: 100% 100%;
+}
+#menu1, #menu2, #menu3, #menu4 
+{
+	width: 100px;
+	height: 85px;
+	cursor: pointer;
+}
+#menu1
+{
+	background: url('/images/menu1.png') no-repeat;
+	background-size: 100% 100%;
+}
+#menu2
+{
+	background: url('/images/menu2.png') no-repeat;
+	background-size: 100% 100%;
+}
+#menu3
+{
+	background: url('/images/menu3.png') no-repeat;
+	background-size: 100% 100%;
+}
+#menu4
+{
+	background: url('/images/menu4.png') no-repeat;
+	background-size: 100% 100%;
+}
+#menu_hover1, #menu_hover2, #menu_hover3, #menu_hover4
+{
+	width: 110px;
+	height: 85px;
+	background: url('/images/menu_opacity.png') no-repeat;
+	background-size: 100% 100%;
+	position: absolute;
+	display: none;
+}
+.search
+{
+	float: right;
+	width: 350px;
+	height: 50px;
+}
+.search > input[type="text"]
+{
+	width: 280px;
+	height: 28px;
+	float: left;
+	padding-left: 10px;
+	margin: 9px;
+	border: 2px solid #ccc;
+	border-radius: 50px;
+	background: #FFF;
+}
+#search_button
+{
+	width: 35px;
+	height: 35px;
+	background: url('/images/search.png') no-repeat;
+	background-size: 100% 100%;
+	float: right;
+	margin: 7px;
+}
+.checkbox
+{
+	float: right;
+	width: 330px;
+	height: 35px;
+	padding-left: 10px;
+	text-align: left;
+	font-size: 12px;
+}
+.sub_menu
+{
+	float: right;
+	width: 350px;
+	height: 355px;
+	background: #f0f0f0;
+	border-top: 1px solid #999;
+	border-bottom: 2px solid #999;
+	text-align: center;
+}
+.sub_menu #menu_ul
+{
+	list-style: none;
+	padding: 0;
+}
+.sub_menu #menu_ul li
+{
+	border-bottom: 1px solid #ccc;
+	padding-left: 5px;
+	height: 25px;
+	line-height: 25px;
+	width: 345px;
+	text-align: left;
+}
+.sub_menu #menu_ul li:hover
+{
+	background: url('/images/active.png') no-repeat;
+	background-size: 100% 100%;
+	width: 350px;
+	border-bottom: 1px solid #fff;
+}
+.sub_menu #menu_ul li a
+{
+	text-decoration: none;
+	color: #666;
+	font-size: 14px;
+	display: block;
+	position: absolute;
+}
+.sub_menu #pagination
+{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: inline-block;
+}
+.sub_menu #pagination li
+{
+	float: left;
+	padding: 5px;
+}
+.sub_menu #pagination li:hover
+{
+	background: #60ceff;
+}
+.sub_menu #pagination li a
+{
+	text-decoration: none;
+	color: #666;
+	font-size: 12px;
+}
+.login-div
+{
+
+	width: 1000px;
+	font-size: 14px;
+	color: #666;
+	text-align: justify;
+	padding-left: 50px;
+	padding-top: 50px;
+	height: 450px;
+	overflow-y: scroll;
+}
+.right table
+{
+	font-size: 9px;
+	color: #666;
+	text-align: center;
+}
+.right table td
+{
+	padding: 5px 0;
+}
+
+table {
+	padding: 20px 20px 20px 20px;
+	border: 2px solid #ccc;
+	border-radius: 5px;
+	background-color: #eee;
+	
+}
+
+table input{
+	border: 1px solid gray;
+	border-radius: 4px;
+
+}
