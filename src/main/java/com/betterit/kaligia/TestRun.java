@@ -39,6 +39,8 @@ public class TestRun {
 	private String status;
 	private int acquisitionM = 0;
 	
+	private double[] flrspectra;
+	private double[] flrwavelength;
 
 	// lab jack parameters
 	private int intHandle = 0;
@@ -302,11 +304,46 @@ public class TestRun {
 	}
 
 
-
 	/**
 	 * @return the run_id
 	 */
 	public Integer getRun_id() {
 		return run_id;
+	}
+
+
+
+	/**
+	 * @return the flrspectra
+	 */
+	public double[] getFlrspectra() {
+		return flrspectra;
+	}
+
+
+
+	/**
+	 * @param flrspectra the flrspectra to set
+	 */
+	public void setFlrspectra(double[] flrspectra) {
+		this.flrspectra = flrspectra;
+	}
+
+
+
+	/**
+	 * @return the flrwavelength
+	 */
+	public double[] getFlrwavelength() {
+		return flrwavelength;
+	}
+
+
+
+	/**
+	 * @param flrwavelength the flrwavelength to set
+	 */
+	public void setFlrwavelength(double[] flrwavelength) {
+		this.flrwavelength = flrwavelength;
 	}
 }

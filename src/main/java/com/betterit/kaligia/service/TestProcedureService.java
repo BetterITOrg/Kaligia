@@ -12,6 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.betterit.kaligia.FLRemoval;
 import com.betterit.kaligia.ProcedureDetail;
 import com.betterit.kaligia.TestRun;
 import com.betterit.kaligia.segmentParams;
@@ -19,6 +21,7 @@ import com.betterit.kaligia.dao.model.kaligia.Device;
 import com.betterit.kaligia.dao.model.kaligia.EndPointDevices;
 import com.betterit.kaligia.dao.model.kaligia.EndPointDevicesExample;
 import com.betterit.kaligia.dao.model.kaligia.EndPointProcs;
+import com.betterit.kaligia.dao.model.kaligia.FLRemovedLog;
 import com.betterit.kaligia.dao.model.kaligia.ProcSegment;
 import com.betterit.kaligia.dao.model.kaligia.ProcSegmentExample;
 import com.betterit.kaligia.dao.model.kaligia.RunDevices;
@@ -40,6 +43,7 @@ import com.betterit.kaligia.dao.model.kaligia.Users;
 import com.betterit.kaligia.dao.repository.kaligia.DeviceMapper;
 import com.betterit.kaligia.dao.repository.kaligia.EndPointDevicesMapper;
 import com.betterit.kaligia.dao.repository.kaligia.EndPointProcsMapper;
+import com.betterit.kaligia.dao.repository.kaligia.FLRemovedLogMapper;
 import com.betterit.kaligia.dao.repository.kaligia.ProcSegmentMapper;
 import com.betterit.kaligia.dao.repository.kaligia.RunDevicesMapper;
 import com.betterit.kaligia.dao.repository.kaligia.RunSegmentLogMapper;
@@ -85,6 +89,9 @@ public class TestProcedureService {
 	
 	@Autowired
 	private RunSegmentLogMapper rslm;
+	
+	@Autowired
+	private FLRemovedLogMapper flrlm;
 	
 	@Autowired
 	private TmpTestResultMapper tmpRM;
@@ -384,10 +391,12 @@ public class TestProcedureService {
 		// Do Run
 		for(int i=0; i<trl.size(); i++) {
 			// Run test
+			
 			rc = trl.get(i).doTestRun();
 			if (rc == 100) {
 				throw new Exception("Device Initialization Failed.");
 			}
+			
 			
 			// Generate dummy test result since equipment is not connected
 			/*
@@ -404,6 +413,8 @@ public class TestProcedureService {
 		
 		// Store Results
 		RunSegmentLog rslo = new RunSegmentLog();
+		FLRemovedLog flrl = new FLRemovedLog();
+		
 		for(int i=0; i<trl.size(); i++) {
 			// Create ResultLog
 			int size = trl.get(i).getWavelength().length;
@@ -419,6 +430,35 @@ public class TestProcedureService {
 				}
 
 			}	
+			
+			// Store FLRemovedLog
+			FLRemoval flr = new FLRemoval(
+					trl.get(i).getWavelength(),
+					trl.get(i).getSpectra(),
+					200,
+					1000,
+					0.0001,
+					6
+					);
+			flr.removeFL();
+			
+			trl.get(i).setFlrwavelength(flr.getThisXaxis());
+			trl.get(i).setFlrspectra(flr.getSpecNoBk());
+			
+			int fsize = flr.getThisXaxis().length;
+			flrl.setRunSegmentId(trl.get(i).getSeg_run_id());
+			
+			for(int j=0; j<fsize; j++) {
+				flrl.setrIndex(j+1);
+				flrl.setWavelength(flr.getThisXaxis()[j]);
+				flrl.setPhotonCount(flr.getSpecNoBk()[j]);
+				rc = flrlm.insert(flrl);
+				if(rc != 1) {
+					log.info("Failed to insert flremovedlog.");
+				}
+
+			}	
+	
 		}
 		
 		return trl;

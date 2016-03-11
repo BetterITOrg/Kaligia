@@ -112,9 +112,30 @@ public class KaligiaRunOrderController {
 				wavei[ii]=wave.get(ii);
 				photoni[ii]=photon.get(ii);
 			}
+			
+			int flrsize = trl.get(i).getFlrwavelength().length;
+			List<Integer> flrwave = new ArrayList<Integer>();
+			List<Float> flrphoton = new ArrayList<Float>();
+			for(int j=0; j<flrsize; j++) {
+				int fswave = (int)(12048 - (10000000.0/trl.get(i).getFlrwavelength()[j]));
+				if(fswave < 200 ) continue;
+				if(fswave >1800 ) break;
+				flrwave.add(fswave);
+				flrphoton.add((float) (trl.get(i).getFlrspectra()[j]/10000.0));
+			}
+			
+			int[] flrwavei = new int[flrwave.size()];
+			float[] flrphotoni= new float[flrwave.size()];
+			for(int ii=0; ii<flrwave.size();ii++) {
+				flrwavei[ii]=flrwave.get(ii);
+				flrphotoni[ii]=flrphoton.get(ii);
+			}
+			
 			runOrderObject.setTestStatus(trl.get(i).getStatus(), i);
 			runOrderObject.setWavenumber(wavei, i);
 			runOrderObject.setPhoton(photoni, i);
+			runOrderObject.setFlrWavenumber(flrwavei, i);
+			runOrderObject.setFlrPhoton(flrphotoni, i);
 		}
 		
 		model.addAttribute("RunOrderResult", runOrderObject);

@@ -26,7 +26,12 @@
 	<p></p>
 	<div style="width: 50%">
 		<div>
-			<canvas id="canvas" height="1000" width="2500"></canvas>
+			<canvas id="canvasN" height="1000" width="2500"></canvas>
+		</div>
+	</div>
+		<div style="width: 50%">
+		<div>
+			<canvas id="canvasFL" height="1000" width="2500"></canvas>
 		</div>
 	</div>
 
@@ -81,9 +86,59 @@
 		      fullWidthGraph : true
 		}
 	
+	    var datasetValueFL = [];
+		var dd = [[${RunOrderResult.flrphoton}]];
+		var clr = ["#FF6600", "#003366", "#FF9900", "#00FF00", "#FF0000", "#000000", "#663399", "#663300", "#FF0080", "#5F021F"];
+		
+		for(i=0; i<10; i++) {
+			
+			var j = i +1;
+			var tt = "Reading " + j;
+			var ddi =  dd[i];
+			var clri = clr[i];
+			
+			if (ddi != null) {
+				datasetValueFL[i] = {
+						title: tt,
+						fillColor : "rgba(220,220,220,0.2)",
+						strokeColor : clri,
+						data : ddi
+					}
+				}
+		}
+		
+		var lineChartDataFL = {
+			labels : /*[[${RunOrderResult.flrwavenumber[0]}]]*/,
+			datasets : datasetValueFL
+		}
+		
+		
+		var opt1FL = {
+		      animation : false,
+		      canvasBorders : true,
+		      canvasBordersWidth : 3,
+		      canvasBordersColor : "black",
+		      graphTitle : "Raman Shift(cm^-1) vs Photon Count (x10000)",
+		      legend : true,
+		      inGraphDataShow : false,
+		      annotateDisplay : false,
+		      graphTitleFontSize: 18,
+		      yAxisLabel : "Photon Counts",
+		      xAxisLabel : "Raman Shift",
+		      responsive : false,
+		      highLight : false,
+		      yAxisMinimumInterval: 0.5,
+		      showXLabels: 25,
+		      bezierCurve : true,
+		      pointDot : false,
+		      fullWidthGraph : true
+		}
+		
 		window.onload = function(){
-			var ctx = document.getElementById("canvas").getContext("2d");
-			window.myLine = new Chart(ctx).Line(lineChartData, opt1);
+			var nctx = document.getElementById("canvasN").getContext("2d");
+			window.myLine = new Chart(nctx).Line(lineChartData, opt1);
+			var flctx = document.getElementById("canvasFL").getContext("2d");
+			window.myLine = new Chart(flctx).Line(lineChartDataFL, opt1FL);
 		}
 	/*]]>*/	
 	</script>

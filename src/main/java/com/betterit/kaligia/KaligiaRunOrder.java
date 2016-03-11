@@ -36,6 +36,9 @@ public class KaligiaRunOrder {
 	private int wavenumber[][] = new int[10][];
 	private float photon[][] = new float[10][];
 	
+	private int flrwavenumber[][] = new int[10][];
+	private float flrphoton[][] = new float[10][];
+	
 	private Integer runID;
 	private String resultNotes;
 	
@@ -252,6 +255,41 @@ public class KaligiaRunOrder {
 	public void setPatientOLevel(String patientOLevel) {
 		this.patientOLevel = patientOLevel;
 	}
+	/**
+	 * @return the flrwavenumber
+	 */
+	public int[][] getFlrwavenumber() {
+		return flrwavenumber;
+	}
+	/**
+	 * @param flrwavenumber the flrwavenumber to set
+	 */
+	public void setFlrwavenumber(int[][] flrwavenumber) {
+		this.flrwavenumber = flrwavenumber;
+	}
+	/**
+	 * @return the flrphoton
+	 */
+	public float[][] getFlrphoton() {
+		return flrphoton;
+	}
+	/**
+	 * @param flrphoton the flrphoton to set
+	 */
+	public void setFlrphoton(float[][] flrphoton) {
+		this.flrphoton = flrphoton;
+	}
 	
-
+	/**
+	 * @param photon the photon to set
+	 */
+	public void setFlrPhoton(float[] photon, int i) {
+		this.flrphoton[i] = photon;
+	}
+	/**
+	 * @param wavenumber the wavenumber to set
+	 */
+	public void setFlrWavenumber(int[] wavenumber, int i) {
+		this.flrwavenumber[i] = wavenumber;
+	}
 }
