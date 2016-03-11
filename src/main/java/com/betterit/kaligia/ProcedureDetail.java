@@ -24,6 +24,11 @@ public class ProcedureDetail {
 	private String collectionFiber;
 	private String excitationFiber;
 	
+	//FL Removal Parameters
+	private String startPos;
+	private String endPos;
+	private String threshold;
+	
 	private List<segmentParams> segmentList;
 	
 	public String getName() {
@@ -95,19 +100,16 @@ public class ProcedureDetail {
 		Labjack = labjack;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
-		return "ProcedureDetail [" + (Name != null ? "Name=" + Name + ", " : "")
-				+ (Description != null ? "Description=" + Description + ", " : "")
-				+ (Status != null ? "Status=" + Status + ", " : "") + (Laser != null ? "Laser=" + Laser + ", " : "")
-				+ (Spectrometer != null ? "Spectrometer=" + Spectrometer + ", " : "")
-				+ (Probe != null ? "Probe=" + Probe + ", " : "") + (Labjack != null ? "Labjack=" + Labjack + ", " : "")
-				+ "NoOfSegments=" + NoOfSegments + ", " + (Type != null ? "Type=" + Type + ", " : "")
-				+ (procedureID != null ? "procedureID=" + procedureID + ", " : "")
-				+ (Tube != null ? "Tube=" + Tube + ", " : "")
-				+ (collectionFiber != null ? "collectionFiber=" + collectionFiber + ", " : "")
-				+ (excitationFiber != null ? "excitationFiber=" + excitationFiber + ", " : "")
-				+ (segmentList != null ? "segmentList=" + segmentList : "") + "]";
+		return "ProcedureDetail [Name=" + Name + ", Description=" + Description + ", Status=" + Status + ", Laser="
+				+ Laser + ", Spectrometer=" + Spectrometer + ", Probe=" + Probe + ", Labjack=" + Labjack
+				+ ", NoOfSegments=" + NoOfSegments + ", Type=" + Type + ", procedureID=" + procedureID + ", Tube="
+				+ Tube + ", collectionFiber=" + collectionFiber + ", excitationFiber=" + excitationFiber + ", startPos="
+				+ startPos + ", endPos=" + endPos + ", threshold=" + threshold + ", segmentList=" + segmentList + "]";
 	}
 	/**
 	 * @return the procedureID
@@ -138,6 +140,42 @@ public class ProcedureDetail {
 	}
 	public void setExcitationFiber(String excitationFiber) {
 		this.excitationFiber = excitationFiber;
+	}
+	/**
+	 * @param startPos the startPos to set
+	 */
+	public void setStartPos(String startPos) {
+		this.startPos = startPos;
+	}
+	/**
+	 * @param endPos the endPos to set
+	 */
+	public void setEndPos(String endPos) {
+		this.endPos = endPos;
+	}
+	/**
+	 * @param threshold the threshold to set
+	 */
+	public void setThreshold(String threshold) {
+		this.threshold = threshold;
+	}
+	/**
+	 * @return the startPos
+	 */
+	public String getStartPos() {
+		return startPos;
+	}
+	/**
+	 * @return the endPos
+	 */
+	public String getEndPos() {
+		return endPos;
+	}
+	/**
+	 * @return the threshold
+	 */
+	public String getThreshold() {
+		return threshold;
 	}
 
 

@@ -1,4 +1,4 @@
-﻿set search_path=kaligia;
+set search_path=kaligia;
 ALTER TABLE Specimen DROP CONSTRAINT SpecBelongsToSub;
 ALTER TABLE Specimen DROP CONSTRAINT SpecimenCreatedBy;
 ALTER TABLE Device DROP CONSTRAINT DevCreatedBy;
@@ -45,6 +45,8 @@ ALTER TABLE RolePrivs DROP CONSTRAINT RolesWithPriv;
 ALTER TABLE EndPointProcs DROP CONSTRAINT ProcForEndPoint;
 ALTER TABLE EndPointProcs DROP CONSTRAINT EndPointProcs;
 ALTER TABLE EndPointProcs DROP CONSTRAINT EndPointProcCreatedBy;
+ALTER TABLE FLRemovedLog DROP CONSTRAINT FLRemovedSegment;
+ALTER TABLE TestProcedureSpecs DROP CONSTRAINT TestProcedureSpecs;
 DROP TABLE IF EXISTS Subject CASCADE;
 DROP TABLE IF EXISTS Specimen CASCADE;
 DROP TABLE IF EXISTS Users CASCADE;
@@ -72,6 +74,8 @@ DROP TABLE IF EXISTS Privileges CASCADE;
 DROP TABLE IF EXISTS Roles CASCADE;
 DROP TABLE IF EXISTS RolePrivs CASCADE;
 DROP TABLE IF EXISTS EndPointProcs CASCADE;
+DROP TABLE IF EXISTS FLRemovedLog CASCADE;
+DROP TABLE IF EXISTS TestProcedureSpecs CASCADE;
 CREATE TABLE Subject (
   subject_id     SERIAL NOT NULL, 
   name          varchar(64) NOT NULL, 
@@ -274,6 +278,16 @@ CREATE TABLE EndPointProcs (
   status        varchar(16), 
   created_by    int4 NOT NULL, 
   creation_date timestamp);
+CREATE TABLE FLRemovedLog (
+  run_segment_id int4 NOT NULL, 
+  r_index        int4, 
+  wavelength     float8, 
+  photon_count   float8);
+CREATE TABLE TestProcedureSpecs (
+  procedure_id int4 NOT NULL, 
+  name         varchar(64) NOT NULL, 
+  value        varchar(64), 
+  unit         varchar(16));
 CREATE UNIQUE INDEX Subject_subject_id 
   ON Subject (subject_id);
 CREATE UNIQUE INDEX Subject_name 
@@ -348,6 +362,10 @@ CREATE UNIQUE INDEX Privileges_priv_id
   ON Privileges (priv_id);
 CREATE UNIQUE INDEX Roles_role_id 
   ON Roles (role_id);
+CREATE INDEX FLRemovedLog_run_segment_id 
+  ON FLRemovedLog (run_segment_id);
+CREATE INDEX TestProcedureSpecs_name 
+  ON TestProcedureSpecs (name);
 ALTER TABLE Specimen ADD CONSTRAINT SpecBelongsToSub FOREIGN KEY (subject_id) REFERENCES Subject (subject_id);
 ALTER TABLE Specimen ADD CONSTRAINT SpecimenCreatedBy FOREIGN KEY (created_by) REFERENCES Users (user_id);
 ALTER TABLE Device ADD CONSTRAINT DevCreatedBy FOREIGN KEY (created_by) REFERENCES Users (user_id);
@@ -394,3 +412,5 @@ ALTER TABLE RolePrivs ADD CONSTRAINT RolesWithPriv FOREIGN KEY (priv_id) REFEREN
 ALTER TABLE EndPointProcs ADD CONSTRAINT ProcForEndPoint FOREIGN KEY (end_point_id) REFERENCES EndPoint (end_point_id);
 ALTER TABLE EndPointProcs ADD CONSTRAINT EndPointProcs FOREIGN KEY (procedure_id) REFERENCES TestProcedure (procedure_id);
 ALTER TABLE EndPointProcs ADD CONSTRAINT EndPointProcCreatedBy FOREIGN KEY (created_by) REFERENCES Users (user_id);
+ALTER TABLE FLRemovedLog ADD CONSTRAINT FLRemovedSegment FOREIGN KEY (run_segment_id) REFERENCES RunSegment (run_segment_id);
+ALTER TABLE TestProcedureSpecs ADD CONSTRAINT TestProcedureSpecs FOREIGN KEY (procedure_id) REFERENCES TestProcedure (procedure_id);

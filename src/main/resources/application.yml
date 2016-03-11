@@ -45,6 +45,7 @@ mybatis:
     26: mapper/kaligia/RolesMapper.xml
     27: mapper/kaligia/RunDevicesMapper.xml
     28: mapper/kaligia/FLRemovedLogMapper.xml
+    29: mapper/kaligia/TestProcedureSpecsMapper.xml
 
 
 ---

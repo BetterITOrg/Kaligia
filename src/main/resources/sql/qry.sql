@@ -5,6 +5,8 @@ select * from devicespec;
 select * from users;
 select * from site;
 
+update users set passwd='$2a$04$77SkrAxbisnHoZp0CLJUm.YmKqm20WC3S3XAHp2LmBuV0mOudNfXW' where login_id='kjohar';
+
 select * from endpoint;
 select * from deviceinst;
 select * from endpointdevices;
@@ -29,6 +31,7 @@ select * from runorder;
 select * from runsegment;
 select * from runsegmentlog;
 select * from rundevices;
+select * from flremovedlog;
 
 --clean up
 delete from runsegmentlog;

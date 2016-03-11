@@ -34,6 +34,8 @@ import com.betterit.kaligia.dao.model.kaligia.TestDevicesExample;
 import com.betterit.kaligia.dao.model.kaligia.TestOrder;
 import com.betterit.kaligia.dao.model.kaligia.TestProcedure;
 import com.betterit.kaligia.dao.model.kaligia.TestProcedureExample;
+import com.betterit.kaligia.dao.model.kaligia.TestProcedureSpecs;
+import com.betterit.kaligia.dao.model.kaligia.TestProcedureSpecsExample;
 import com.betterit.kaligia.dao.model.kaligia.TestSegment;
 import com.betterit.kaligia.dao.model.kaligia.TestSegmentSpec;
 import com.betterit.kaligia.dao.model.kaligia.TestSegmentSpecExample;
@@ -51,6 +53,7 @@ import com.betterit.kaligia.dao.repository.kaligia.RunSegmentMapper;
 import com.betterit.kaligia.dao.repository.kaligia.SubjectLogMapper;
 import com.betterit.kaligia.dao.repository.kaligia.TestDevicesMapper;
 import com.betterit.kaligia.dao.repository.kaligia.TestProcedureMapper;
+import com.betterit.kaligia.dao.repository.kaligia.TestProcedureSpecsMapper;
 import com.betterit.kaligia.dao.repository.kaligia.TestSegmentMapper;
 import com.betterit.kaligia.dao.repository.kaligia.TestSegmentSpecMapper;
 import com.betterit.kaligia.dao.repository.kaligia.TmpTestResultMapper;
@@ -110,6 +113,9 @@ public class TestProcedureService {
 	
 	@Autowired
 	private RunDevicesMapper rdm;
+	
+	@Autowired
+	private TestProcedureSpecsMapper tpsm;
 
 	
 	public List<TestProcedure> findAll() {
@@ -429,16 +435,33 @@ public class TestProcedureService {
 					log.info("Failed to insert results.");
 				}
 
-			}	
+			}
+			
+			// Get Procedure Parameters
+			int startPos = 200;
+			int endPos = 1000;
+			double threshold = 0.0001;
+			int exPower = 6;
+			
+			TestProcedureSpecsExample tpspecE = new TestProcedureSpecsExample();
+			tpspecE.createCriteria().andProcedureIdEqualTo(tp.getProcedureId());
+			List<TestProcedureSpecs> tpspecL = tpsm.selectByExample(tpspecE); 
+			for(int l=0; l<tpspecL.size(); l++) {
+				switch(tpspecL.get(l).getName()) {
+				case "FLRStartPosition" : startPos = Integer.valueOf(tpspecL.get(l).getValue()); break;
+				case "FLREndPosition" : endPos = Integer.valueOf(tpspecL.get(l).getValue()); break;
+				case "FLRThreshold" : threshold = Double.valueOf(tpspecL.get(l).getValue()); break;
+				}
+			}
 			
 			// Store FLRemovedLog
 			FLRemoval flr = new FLRemoval(
 					trl.get(i).getWavelength(),
 					trl.get(i).getSpectra(),
-					200,
-					1000,
-					0.0001,
-					6
+					startPos,
+					endPos,
+					threshold,
+					exPower
 					);
 			flr.removeFL();
 			
@@ -491,6 +514,9 @@ public class TestProcedureService {
 			Integer collectFiberID,
 			Integer exciteFiberID,
 			Integer tubeID,
+			String startPos,
+			String endPos,
+			String threshold,
 			List<segmentParams> segParams
 			) throws Exception {
 		
@@ -532,8 +558,21 @@ public class TestProcedureService {
 			td.setDeviceId(tubeID);
 			tdm.insert(td);
 			
+			// Procedure Parameters
+			TestProcedureSpecs specs = new TestProcedureSpecs();
+			specs.setProcedureId(tp.getProcedureId());
+			specs.setName("FLRStartPosition");
+			specs.setValue(startPos);
+			rc = tpsm.insert(specs);
+			specs.setName("FLREndPosition");
+			specs.setValue(endPos);
+			rc = tpsm.insert(specs);
+			specs.setName("FLRThreshold");
+			specs.setValue(threshold);
+			rc = tpsm.insert(specs);
+			
 			//Test Segment
-			//Find segment with same params
+			//Find segment with same parameters
 			TestSegmentSpecExample tsse = new TestSegmentSpecExample();
 			for(int jj=0; jj<segParams.size(); jj++) {
 				
@@ -877,6 +916,18 @@ public class TestProcedureService {
 			}
 		}
 		
+		//Get Procedure Parameters
+		TestProcedureSpecsExample tpspecE = new TestProcedureSpecsExample();
+		tpspecE.createCriteria().andProcedureIdEqualTo(tp.getProcedureId());
+		List<TestProcedureSpecs> tpspecL = tpsm.selectByExample(tpspecE); 
+		for(int l=0; l<tpspecL.size(); l++) {
+			switch(tpspecL.get(l).getName()) {
+			case "FLRStartPosition" : procDtls.setStartPos(tpspecL.get(l).getValue()); break;
+			case "FLREndPosition" 	: procDtls.setEndPos(tpspecL.get(l).getValue()); break;
+			case "FLRThreshold" 	: procDtls.setThreshold(tpspecL.get(l).getValue()); break;
+			}
+		}
+
 		//Get Procedure Segments
 		List<ProcSegment> psl = new ArrayList<ProcSegment>();
 		ProcSegmentExample pse = new ProcSegmentExample();

@@ -71,7 +71,7 @@ public class CreateProcedureController {
 		Iterator<segmentParams> segmentIterator = createProcedureObject.getSegmentList().iterator();
 		while (segmentIterator.hasNext()) {
 			segmentParams paramObject= segmentIterator.next();
-			if ( Double.valueOf(paramObject.getIntegrationTime()) < 1)
+			if ( Double.valueOf(paramObject.getIntegrationTime()) <= 0)
 			{
 				segmentIterator.remove();
 			}
@@ -98,6 +98,9 @@ public class CreateProcedureController {
 					Integer.valueOf(createProcedureObject.getCollectionFiber()),
 					Integer.valueOf(createProcedureObject.getExcitationFiber()),
 					Integer.valueOf(createProcedureObject.getTube()),
+					createProcedureObject.getStartPos(),
+					createProcedureObject.getEndPos(),
+					createProcedureObject.getThreshold(),
 					createProcedureObject.getSegmentList()
 					);
 		} catch (NumberFormatException e) {

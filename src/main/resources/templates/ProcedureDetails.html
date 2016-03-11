@@ -31,6 +31,21 @@
 				</tr>
 			</table>
 		</fieldset>
+		
+		<fieldset>
+			<legend> Procedure Parameters</legend>
+			<table>
+				<tr>
+					<td>FL Removal Start Position:</td>
+					<td th:text="${ProcedureDetails.startPos}" > </td>
+					<td>FL Removal End Position:</td>
+					<td th:text="${ProcedureDetails.endPos}" > </td>
+					<td>FL Removal Threshold:</td>
+					<td th:text="${ProcedureDetails.threshold}"> </td>
+				</tr>
+			</table>
+		</fieldset>
+		
 		<fieldset>
 			<legend> Device Selection</legend>
 			<table>
