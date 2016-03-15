@@ -3,53 +3,57 @@
 <head>
 <title>Kaligia Main</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css" href="/images/loginform.css" />
 <link rel="stylesheet" type="text/css" href="/images/form1.css" />
 </head>
 <body>
-
-	<form action="#" th:action="@{KaligiaMainApp}"
-		th:object="${ProcedureList}" method="post">
-		<img src="/images/kaligia-logo.png" height="70" width="210" />
-
-		<HR />
-		
-		<table class="main-procedure">
-			<tr>
-				<th class="Name-column">Procedure Name</th>
-				<th class="Desc-column">Procedure Details</th>
-			</tr>
 	
-			<tr>
-				<td class="Name-column"><select class="procedure_dropdown" size="20"
-					id="procedureDrop" onChange="callIframe()">
-						<option th:each="procedur,iterStat : ${ProcedureList}"
-							th:value="${procedur.procedureId}" th:text="${procedur.name}"
-							th:selected="${iterStat.count==1?'':selected}">
-						</option>
-				</select></td>
-				<td class="Desc-column" id="procFrame"></td>
-			</tr>
-		</table>
+		<form action="#" th:action="@{KaligiaMainApp}"
+			th:object="${ProcedureList}" method="post">
+			<header>
+				<div id="logo"></div>
+			</header>
+			<div class="user"></div>
+			<table class="main-procedure">
+				<tr>
+					<th class="Name-column">Procedure Name</th>
+					<th class="Desc-column">Procedure Details</th>
+				</tr>
 
-		<br />
-		<a id="proc" href="CreateProcedure.html" target="_self">Create
-						Procedure</a>
-		<a id="run-order" href="KaligiaRunOrder.html" target="_self">Run
-						Test</a>
+				<tr>
+					<td class="Name-column"><select class="procedure_dropdown"
+						size="20" id="procedureDrop" onChange="callIframe()">
+							<option th:each="procedur,iterStat : ${ProcedureList}"
+								th:value="${procedur.procedureId}" th:text="${procedur.name}"
+								th:selected="${iterStat.count==1?'':selected}"></option>
+					</select></td>
+					<td class="Desc-column" id="procFrame"></td>
+				</tr>
+			</table>
 
-	</form>
+			<br /> 
+			
+			 <a id="run-order" href="KaligiaRunOrder.html"
+			                                 target="_self"> Run Test </a>
+				<a id="proc" href="CreateProcedure.html" target="_self">
+				Create Procedure </a> 
+
+		</form>
+
 	<script type="text/javascript">
-	//<![CDATA[
-	           
-	    var tpsIdd=document.getElementById("procedureDrop").value;
-        	document.getElementById("procFrame").innerHTML = "<iframe src=ProcedureDetails.html?tpsId=" + tpsIdd + "></iframe>";
-            
-        function callIframe(){
-        	var tpsId=document.getElementById("procedureDrop").value;
-        	document.getElementById("procFrame").innerHTML = "<iframe src=ProcedureDetails.html?tpsId=" + tpsId + "></iframe>";
-        }
-      //]]>
-        </script>
+		//<![CDATA[
+
+		var tpsIdd = document.getElementById("procedureDrop").value;
+		document.getElementById("procFrame").innerHTML = "<iframe src=ProcedureDetails.html?tpsId="
+				+ tpsIdd + "></iframe>";
+
+		function callIframe() {
+			var tpsId = document.getElementById("procedureDrop").value;
+			document.getElementById("procFrame").innerHTML = "<iframe src=ProcedureDetails.html?tpsId="
+					+ tpsId + "></iframe>";
+		}
+		//]]>
+	</script>
 
 </body>
 </html>

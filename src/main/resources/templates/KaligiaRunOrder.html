@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+﻿<!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>Create Spectra Procedure</title>
@@ -64,27 +64,31 @@
 			<table>
 				<tr>
 					<td>BP (mmHg):</td>
-					<td><input type="text" required="required" th:field="*{systolicBP}" maxlength="4"/> </td> 
-					<td> / </td>
-					<td> <input type="text"	required="required" th:field="*{diastolicBP}" maxlength="4"/> </td>
+					<td><input class="bp-box" type="text" required="required" th:field="*{systolicBP}" width="4" maxlength="4"/>  
+					 / 
+					 <input class="bp-box" type="text"	required="required" th:field="*{diastolicBP}" width="4" maxlength="4"/>
+                    </td> 
 					<td>Height (in inches):</td>
 					<td><input type="text" required="required"
 						th:field="*{patientHeight}" /></td>
 					<td>Weight (in lbs):</td>
 					<td><input type="text" required="required"
 						th:field="*{patientWeight}" /></td>
+                    
 				</tr>
 				<tr>
-					<td>Temperature(F):</td>
-					<td><input type="text" required="required"
-						th:field="*{patientTemp}" /></td>
+                    <td>Temperature(F):</td>
+                    <td>
+                        <input type="text" required="required"
+                               th:field="*{patientTemp}" />
+                    </td>
 					<td>Oxygen level:</td>
 					<td><input type="text" required="required"
 						th:field="*{patientOLevel}" /></td>
 					<td>Heart Rate (bpm):</td>
 					<td><input type="text" required="required"
 						th:field="*{patientHeartRate}" /></td>
-					<td>Skin Color:</td>
+					<td>Skin Color Value:</td>
 					<td><input type="text" required="required"
 						th:field="*{skinColor}" /></td>	
 				</tr>
