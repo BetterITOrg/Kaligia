@@ -47,4 +47,8 @@ public class SiteService {
 		return siteMapper.selectByExample(se);
 		
 	}
+	
+	public List<Site> findAll() {
+		return siteMapper.selectByExample(null);	
+	}
 }
