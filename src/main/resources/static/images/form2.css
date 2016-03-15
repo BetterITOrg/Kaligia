@@ -70,14 +70,17 @@ button {
 
 
 table, input {
-	font-size: 15px;	
+	font-size: 14px;	
 }
 
 select {
 	width: 100%;
 }
+input{
+	width: 100%;
+}
 
-input {
+.create-proc-segments input {
 	width: 100%;
 	text-align: right;
 }

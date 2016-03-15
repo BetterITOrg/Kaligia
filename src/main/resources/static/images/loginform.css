@@ -5,8 +5,8 @@ body
 }
 .wrapper
 {
-	width: 1000px;
-	height: 610px;
+	width: 95%;
+	height: 710px;
 	margin: 0 auto;
 	background: #FFF;
 	box-shadow: 1px 1px 5px #000;
@@ -14,7 +14,7 @@ body
 }
 header
 {
-	height: 65px;
+	height: 60px;
 	background: #FFF;
 }
 #logo
@@ -37,8 +37,8 @@ header
 }
 .user
 {
-	width: 1000px;
-	height: 60px;
+	width: 100%;
+	height: 50px;
 	background: url('/images/profile.png') no-repeat;
 	background-size: 100% 100%;
 	clear: both;
@@ -230,14 +230,14 @@ header
 .login-div
 {
 
-	width: 1000px;
+	width: 100%;
 	font-size: 14px;
 	color: #666;
 	text-align: justify;
 	padding-left: 50px;
 	padding-top: 50px;
 	height: 450px;
-	overflow-y: scroll;
+	/*overflow-y: scroll;*/
 }
 .right table
 {
@@ -261,5 +261,40 @@ table {
 table input{
 	border: 1px solid gray;
 	border-radius: 4px;
-
 }
+
+.submit-button{
+  width:100px;
+  position:relative;
+	left:90%;
+  font-size: 90%;
+	text-shadow: none;
+	text-decoration: none;
+	text-align:center;
+	/*text-shadow: -1px -1px 1px #72aebd;*/
+	text-transform:uppercase;
+	letter-spacing: 0.10em;
+	color:black;
+	padding: 7px 10px 4px 10px;
+	border-radius: 5px;
+	background-color:#CCCCCC;
+	border-top: 1px solid #90f2da;
+	border-right:1px solid #00a97f;
+	border-bottom:1px solid #008765;
+	border-left: 1px solid #7dd2bd;
+	box-shadow: 2px 1px 2px #ccc;
+	margin:10px 5px 10px 5px;
+	/*display:block;*/
+	
+}
+
+.submit-button:hover {
+	
+	/*top:1px;
+	left:1px;*/
+	background-color:#00CCFF;
+	border-top: 1px solid #9aebff;
+	border-right:1px solid #08acd5;
+	border-bottom:1px solid #07a1c8;
+	border-left: 1px solid #92def1;
+	box-shadow: -1px -1px 2px #ccc;}

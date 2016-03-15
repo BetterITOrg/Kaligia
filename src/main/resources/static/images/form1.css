@@ -5,12 +5,11 @@ form {
 
   /* To see the limits of the form */
   padding: 1em;
-
   border: 1px solid #777;
-
   border-radius: 3px;
-  background-color: #b3edff;
-
+    background: #c1edff;
+	box-shadow: 1px 1px 5px #000;
+	font-family: verdana;
    
 }
 
@@ -52,8 +51,8 @@ textarea {
   vertical-align: top;
 
   /* To give enough room to type some text */
-  height: 5em;
-  width: 80%;
+  height: 4em;
+  width: 100%;
 
   /* To allow users to resize any textarea vertically
      It works only on Chrome, Firefox and Safari */
@@ -62,9 +61,7 @@ textarea {
 
 .button {
   /* To position the buttons to the same position of the text fields */
-
   padding-left: 100px; /* same size as the label elements */
-
 }
 
 button {
@@ -75,14 +72,12 @@ button {
 
 
 table, input {
-	font-size: 15px;	
+	font-size: 14px;	
 }
-
 
 input{
 	width : 100%;
 }
-
 select {
 	width: 100%;
 }
@@ -94,6 +89,7 @@ table {
     margin: 0;
     padding: 5px;
 }
+
 
 .main-procedure {
 	border: 1px solid darkgray;
@@ -114,20 +110,15 @@ table {
 }
 
 table td {
-    
-    
     margin: 0;
-
     padding: 5px 10px;
-    text-align: left;
+    text-align: right;
     padding: 5px;
-    text-align: left;
-
 }
 
-table th{
+.main-procedure th{
   background-color: darkgray;
-  font-size: 20px;
+  font-size: 17px;
   color: white;
 }
 
@@ -136,9 +127,7 @@ table th{
 }
 
 a {
-	font-size: 12px;
-	text-shadow: none;
-	text-decoration: none;
+	
 	text-align:center;
 	/*text-shadow: -1px -1px 1px #72aebd;*/
 	text-transform:uppercase;
@@ -152,13 +141,52 @@ a {
 	border-bottom:1px solid #008765;
 	border-left: 1px solid #7dd2bd;
 	box-shadow: 2px 1px 2px #ccc;
-	margin:10px 5px 10px 5px;
+	margin:10px 3px 10px 3px;
 	display:block;}
 
 a:hover {
 	position:relative;
 	top:1px;
 	left:1px;
+	background-color:#00CCFF;
+	border-top: 1px solid #9aebff;
+	border-right:1px solid #08acd5;
+	border-bottom:1px solid #07a1c8;
+	border-left: 1px solid #92def1;
+	box-shadow: -1px -1px 2px #ccc;}
+
+.submit-div{
+  float:right;
+  padding: 10px;
+}
+
+.submit-button{
+  width:100px;
+  position:relative;
+	left:90%;
+  
+	text-align:center;
+	/*text-shadow: -1px -1px 1px #72aebd;*/
+	text-transform:uppercase;
+	letter-spacing: 0.10em;
+	color:black;
+	padding: 7px 10px 4px 10px;
+	border-radius: 5px;
+	background-color:#CCCCCC;
+	border-top: 1px solid #90f2da;
+	border-right:1px solid #00a97f;
+	border-bottom:1px solid #008765;
+	border-left: 1px solid #7dd2bd;
+	box-shadow: 2px 1px 2px #ccc;
+	margin:10px 3px 10px 3px;
+	/*display:block;*/
+	
+}
+
+.submit-button:hover {
+	
+	/*top:1px;
+	left:1px;*/
 	background-color:#00CCFF;
 	border-top: 1px solid #9aebff;
 	border-right:1px solid #08acd5;
@@ -184,4 +212,9 @@ iframe {
   float:right;
   font-size: 12px;
   
+}
+
+.create-proc-segments input {
+	width: 100%;
+	text-align: right;
 }
