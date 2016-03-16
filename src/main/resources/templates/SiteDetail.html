@@ -1,0 +1,182 @@
+﻿<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Create/View Site</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css" href="/images/form1.css" />
+</head>
+<body>
+
+	
+
+	<form name="kbsForm" action="#" th:action="@{SiteDetail}"
+		th:object="${KBSystem}" method="POST">
+		<div class="submit-div">
+			<input class="submit-button" type="submit" name="Save" value="Update" />
+		</div>
+		
+		<div class="left">
+					<select class="site_dropdown"
+						size="20" id="siteDrop" th:field="*{endpoint.siteId}">
+							<option th:each="site,iterStat : ${SiteList}"
+								th:value="${site.siteId}" th:text="${site.name}"
+								th:selected="${iterStat.count==1?'':selected}"></option>
+					</select>
+		</div>
+				
+		
+		<div class="kbSystem">
+			<fieldset>
+				<legend> Kaligia Bio System </legend>
+				<table>
+					<tr>
+						<td>KB System Name:</td>
+						<td><input type="text" required="required"
+							th:field="*{endpoint.name}" /></td>
+						<td>Status</td>
+						<td><select class="status_dropdown" th:field="*{endpoint.status}">
+							<option value="ACTIVE">ACTIVE</option>
+							<option value="INACTIVE">INACTIVE</option>
+						</select></td>
+
+						<td>Description:</td>
+						<td><textarea id="msg" required="required"
+								th:field="*{endpoint.description}"></textarea></td>
+					</tr>
+				</table>
+			</fieldset>
+
+
+			<fieldset>
+				<legend> Kaligia Bio System Devices</legend>
+				<table>
+					<tr>
+						<td>Test Type:</td>
+						<td><select class="type_dropdown" th:field="*{endpoint.type}">
+								<option value="IN-VIVO">IN-VIVO</option>
+								<option value="EX-VIVO">EX-VIVO</option>
+						</select></td>				
+				</tr>
+					<tr>
+						<td>Compute Device:</td>
+  						<td><select class="compute_dropdown" th:field="*{kbsDeviceList[1].status}">
+								<option th:each="devic:${DeviceList}"
+									th:if="${devic.type} == 'Compute'" th:value="${devic.deviceId}"
+									th:text="${devic.name}"></option>
+						</select></td>
+
+						<td>Serial No:</td>
+						<td><input type="text" required="required"
+							th:field="*{kbsDeviceList[1].serialId}" /></td>
+						<td>Part No:</td>
+						<td><input type="text" required="required"
+							th:field="*{kbsDeviceList[1].partNo}" /></td>
+					</tr>
+					<tr>
+						<td>Laser</td>
+						<td><select class="laser_dropdown" th:field="*{kbsDeviceList[2].deviceId}">
+								<option th:each="devic:${DeviceList}"
+									th:if="${devic.type} == 'Laser'" th:value="${devic.deviceId}"
+									th:text="${devic.name}"></option>
+						</select></td>
+						<td>Serial No:</td>
+						<td><input type="text" required="required"
+							th:field="*{kbsDeviceList[2].serialId}" /></td>
+						<td>Part No:</td>
+						<td><input type="text" required="required"
+							th:field="*{kbsDeviceList[2].partNo}" /></td>
+					</tr> 
+					<tr>
+						<td>Spectrometer</td>
+						<td><select class="spectrometer_dropdown" th:field="*{kbsDeviceList[3].deviceId}">
+								<option th:each="devic:${DeviceList}"
+									th:if="${devic.type} == 'Spectrometer'"
+									th:value="${devic.deviceId}" th:text="${devic.name}"></option>
+						</select></td>
+						<td>Serial No:</td>
+						<td><input type="text" required="required"
+							th:field="*{kbsDeviceList[3].serialId}" /></td>
+						<td>Part No:</td>
+						<td><input type="text" required="required"
+							th:field="*{kbsDeviceList[3].partNo}" /></td>	
+
+					</tr>
+					<tr>
+						<td>Probe</td>
+						<td><select class="probe_dropdown" th:field="*{kbsDeviceList[4].deviceId}">
+								<option th:each="devic:${DeviceList}"
+									th:if="${devic.type} == 'Probe'" th:value="${devic.deviceId}"
+									th:text="${devic.name}"></option>
+						</select></td>
+						<td>Serial No:</td>
+						<td><input type="text" required="required"
+							th:field="*{kbsDeviceList[4].serialId}" /></td>
+						<td>Part No:</td>
+						<td><input type="text" required="required"
+							th:field="*{kbsDeviceList[4].partNo}" /></td>	
+					</tr>
+					<tr>
+						<td>Labjack</td>
+						<td><select class="labjack_dropdown" th:field="*{kbsDeviceList[5].deviceId}">
+								<option th:each="devic:${DeviceList}"
+									th:if="${devic.type} == 'LabJack'" th:value="${devic.deviceId}"
+									th:text="${devic.name}"></option>
+						</select></td>
+						<td>Serial No:</td>
+						<td><input type="text" required="required"
+							th:field="*{kbsDeviceList[5].serialId}" /></td>
+						<td>Part No:</td>
+						<td><input type="text" required="required"
+							th:field="*{kbsDeviceList[5].partNo}" /></td>
+					</tr>
+					<tr>
+						<td>Collect Fiber</td>
+						<td><select class="collectFiber_dropdown"
+							th:field="*{kbsDeviceList[6].deviceId}">
+								<option th:each="devic:${DeviceList}"
+									th:if="${devic.type} == 'CollectionFiber'"
+									th:value="${devic.deviceId}" th:text="${devic.name}"></option>
+						</select></td>
+						<td>Serial No:</td>
+						<td><input type="text" required="required"
+							th:field="*{kbsDeviceList[6].serialId}" /></td>
+						<td>Part No:</td>
+						<td><input type="text" required="required"
+							th:field="*{kbsDeviceList[6].partNo}" /></td>
+					</tr>
+					<tr>
+						<td>Excite Fiber</td>
+						<td><select class="exciteFiber_dropdown"
+							th:field="*{kbsDeviceList[7].deviceId}">
+								<option th:each="devic:${DeviceList}"
+									th:if="${devic.type} == 'ExcitationFiber'"
+									th:value="${devic.deviceId}" th:text="${devic.name}"></option>
+						</select></td>
+						<td>Serial No:</td>
+						<td><input type="text" required="required"
+							th:field="*{kbsDeviceList[7].serialId}" /></td>
+						<td>Part No:</td>
+						<td><input type="text" required="required"
+							th:field="*{kbsDeviceList[7].partNo}" /></td>
+					</tr>
+							
+				</table>
+			</fieldset>
+		</div>
+
+
+	</form>
+	
+	
+		<script type="text/javascript">
+		//<![CDATA[
+
+		function callIframe() {
+			var tpsId = document.getElementById("siteDrop").value;
+			document.getElementById("procFrame").innerHTML = "<iframe src=ProcedureDetails.html?tpsId="
+					+ tpsId + "></iframe>";
+		}
+		//]]>
+	</script>
+</body>
+</html>
