@@ -18,8 +18,10 @@ import com.betterit.kaligia.KaligiaRunOrder;
 import com.betterit.kaligia.segmentParams;
 import com.betterit.kaligia.dao.model.kaligia.Device;
 import com.betterit.kaligia.dao.model.kaligia.DeviceInst;
+import com.betterit.kaligia.dao.model.kaligia.EndPoint;
 import com.betterit.kaligia.dao.model.kaligia.Site;
 import com.betterit.kaligia.service.DeviceService;
+import com.betterit.kaligia.service.EndPointService;
 import com.betterit.kaligia.service.SiteService;
 
 
@@ -39,6 +41,12 @@ public class SiteDetailController {
 	
 	@Autowired
 	private DeviceService deviceServiceObject;
+	
+	@Autowired
+	private EndPointService eps;
+	
+	@Autowired
+	private DeviceService ds;
 	
 	@RequestMapping(value="/SiteDetail", method=RequestMethod.GET)
     public String kbsForm(Model model) {
@@ -66,6 +74,17 @@ public class SiteDetailController {
 	
 		log.info("In SiteDetail POST");
 		log.info("parameters are " + kbsObject.toString());
+		
+		EndPoint ep = kbsObject.getEndpoint();
+		List<DeviceInst> dil = kbsObject.getKbsDeviceList();
+		//Create EndPoint
+		eps.createEndPoint(ep);
+		
+		//Create DeviceInst
+		ds.insertDeviceInst(dil);
+		
+		//Map EndPointDevices
+		eps.mapEndPointDevices(ep, dil);
 		
 	return ("SiteDetail");
 	}
