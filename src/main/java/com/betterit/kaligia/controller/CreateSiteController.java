@@ -84,8 +84,10 @@ public class CreateSiteController {
 		log.info(statusMessage);
 		//model.addAttribute("Status", statusMessage);
 		//return "ShowStatus";
-		 
-		return "redirect:/KaligiaMainApp";
+		 log.info("Site succesfully inserted in database" + rc.getSiteId());
+		 String newview = "redirect:/SiteDetail?site="+ rc.getName();
+		 log.info(newview);
+		return newview;
 	}
 
 }

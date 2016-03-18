@@ -196,6 +196,17 @@ now(),
 (select user_id from users where login_id='kjohar')
 );
 
+insert into device VALUES (
+DEFAULT,
+'IBM Thinkpad',
+'Compute',
+'IBM/Lenovo',
+'L 450',
+'Active',
+now(),
+(select user_id from users where login_id='kjohar')
+);
+
 insert into devicespec values (
 (select device_id from device where name='L-Shape 00001'),
 'WorkingDistance',
@@ -452,5 +463,4 @@ INSERT INTO kaligia.endpointdevices(end_point_id, device_inst_id, created_by, cr
 
 INSERT INTO kaligia.endpointprocs(end_point_id, procedure_id, status, created_by, creation_date)
     VALUES (1, 1, 'Active', 2, now());
-
 

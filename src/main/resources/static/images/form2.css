@@ -7,8 +7,10 @@ form {
   padding: 1em;
   border: 1px solid #777;
   border-radius: 3px;
-  background-color: #99ebff;
-   
+  background-color: #c1edff;
+  box-shadow: 1px 1px 5px #000;
+	font-family: verdana;
+    font-size:12px; 
 }
 
 div + div {
@@ -78,12 +80,18 @@ select {
 }
 input{
 	width: 100%;
+    text-align: left;
 }
 
 .create-proc-segments input {
 	width: 100%;
 	text-align: right;
 }
+
+.bp-box{
+ width: 45%
+}
+
 table {
     box-sizing: border-box;
     border-collapse: collapse;
@@ -141,16 +149,15 @@ table td {
 }
 
 .submit-button{
-  width:100px;
+  width:120px;
   position:relative;
 	left:90%;
-  font-size: 90%;
+  font-size: 12px;
 	text-shadow: none;
 	text-decoration: none;
 	text-align:center;
 	/*text-shadow: -1px -1px 1px #72aebd;*/
 	text-transform:uppercase;
-	letter-spacing: 0.10em;
 	color:black;
 	padding: 7px 10px 4px 10px;
 	border-radius: 5px;
@@ -167,8 +174,8 @@ table td {
 
 .submit-button:hover {
 	
-	/*top:1px;
-	left:1px;*/
+	top:1px;
+	/*left:1px;*/
 	background-color:#00CCFF;
 	border-top: 1px solid #9aebff;
 	border-right:1px solid #08acd5;

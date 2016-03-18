@@ -4,6 +4,7 @@
 <title>Create/View Site</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" type="text/css" href="/images/form1.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 </head>
 <body>
 
@@ -11,13 +12,12 @@
 
 	<form name="kbsForm" action="#" th:action="@{SiteDetail}"
 		th:object="${KBSystem}" method="POST">
-		<div class="submit-div">
-			<input class="submit-button" type="submit" name="Save" value="Update" />
-		</div>
+		
 		
 		<div class="left">
 					<select class="site_dropdown"
-						size="20" id="siteDrop" th:field="*{endpoint.siteId}">
+						size="20" id="siteDrop" th:field="*{endpoint.siteId}" 
+						required="required" >
 							<option th:each="site,iterStat : ${SiteList}"
 								th:value="${site.siteId}" th:text="${site.name}"
 								th:selected="${iterStat.count==1?'':selected}"></option>
@@ -25,7 +25,10 @@
 		</div>
 				
 		
-		<div class="kbSystem">
+		<div class="kbSystem" id="kbs-div" > <!-- style="display:none" -->
+			<div class="submit-div">
+				<input class="submit-button" type="submit" name="Save" value="Update" />
+			</div>
 			<fieldset>
 				<legend> Kaligia Bio System </legend>
 				<table>
@@ -59,7 +62,7 @@
 				</tr>
 					<tr>
 						<td>Compute Device:</td>
-  						<td><select class="compute_dropdown" th:field="*{kbsDeviceList[1].status}">
+  						<td><select class="compute_dropdown" th:field="*{kbsDeviceList[0].deviceId}">
 								<option th:each="devic:${DeviceList}"
 									th:if="${devic.type} == 'Compute'" th:value="${devic.deviceId}"
 									th:text="${devic.name}"></option>
@@ -67,97 +70,97 @@
 
 						<td>Serial No:</td>
 						<td><input type="text" required="required"
-							th:field="*{kbsDeviceList[1].serialId}" /></td>
+							th:field="*{kbsDeviceList[0].serialId}" /></td>
 						<td>Part No:</td>
-						<td><input type="text" required="required"
-							th:field="*{kbsDeviceList[1].partNo}" /></td>
+						<td><input type="text" 
+							th:field="*{kbsDeviceList[0].partNo}" /></td>
 					</tr>
 					<tr>
 						<td>Laser</td>
-						<td><select class="laser_dropdown" th:field="*{kbsDeviceList[2].deviceId}">
+						<td><select class="laser_dropdown" th:field="*{kbsDeviceList[1].deviceId}">
 								<option th:each="devic:${DeviceList}"
 									th:if="${devic.type} == 'Laser'" th:value="${devic.deviceId}"
 									th:text="${devic.name}"></option>
 						</select></td>
 						<td>Serial No:</td>
 						<td><input type="text" required="required"
-							th:field="*{kbsDeviceList[2].serialId}" /></td>
+							th:field="*{kbsDeviceList[1].serialId}" /></td>
 						<td>Part No:</td>
-						<td><input type="text" required="required"
-							th:field="*{kbsDeviceList[2].partNo}" /></td>
+						<td><input type="text" 
+							th:field="*{kbsDeviceList[1].partNo}" /></td>
 					</tr> 
 					<tr>
 						<td>Spectrometer</td>
-						<td><select class="spectrometer_dropdown" th:field="*{kbsDeviceList[3].deviceId}">
+						<td><select class="spectrometer_dropdown" th:field="*{kbsDeviceList[2].deviceId}">
 								<option th:each="devic:${DeviceList}"
 									th:if="${devic.type} == 'Spectrometer'"
 									th:value="${devic.deviceId}" th:text="${devic.name}"></option>
 						</select></td>
 						<td>Serial No:</td>
 						<td><input type="text" required="required"
-							th:field="*{kbsDeviceList[3].serialId}" /></td>
+							th:field="*{kbsDeviceList[2].serialId}" /></td>
 						<td>Part No:</td>
-						<td><input type="text" required="required"
-							th:field="*{kbsDeviceList[3].partNo}" /></td>	
+						<td><input type="text" 
+							th:field="*{kbsDeviceList[2].partNo}" /></td>	
 
 					</tr>
 					<tr>
 						<td>Probe</td>
-						<td><select class="probe_dropdown" th:field="*{kbsDeviceList[4].deviceId}">
+						<td><select class="probe_dropdown" th:field="*{kbsDeviceList[3].deviceId}">
 								<option th:each="devic:${DeviceList}"
 									th:if="${devic.type} == 'Probe'" th:value="${devic.deviceId}"
 									th:text="${devic.name}"></option>
 						</select></td>
 						<td>Serial No:</td>
 						<td><input type="text" required="required"
-							th:field="*{kbsDeviceList[4].serialId}" /></td>
+							th:field="*{kbsDeviceList[3].serialId}" /></td>
 						<td>Part No:</td>
-						<td><input type="text" required="required"
-							th:field="*{kbsDeviceList[4].partNo}" /></td>	
+						<td><input type="text" 
+							th:field="*{kbsDeviceList[3].partNo}" /></td>	
 					</tr>
 					<tr>
 						<td>Labjack</td>
-						<td><select class="labjack_dropdown" th:field="*{kbsDeviceList[5].deviceId}">
+						<td><select class="labjack_dropdown" th:field="*{kbsDeviceList[4].deviceId}">
 								<option th:each="devic:${DeviceList}"
 									th:if="${devic.type} == 'LabJack'" th:value="${devic.deviceId}"
 									th:text="${devic.name}"></option>
 						</select></td>
 						<td>Serial No:</td>
 						<td><input type="text" required="required"
-							th:field="*{kbsDeviceList[5].serialId}" /></td>
+							th:field="*{kbsDeviceList[4].serialId}" /></td>
 						<td>Part No:</td>
-						<td><input type="text" required="required"
-							th:field="*{kbsDeviceList[5].partNo}" /></td>
+						<td><input type="text" 
+							th:field="*{kbsDeviceList[4].partNo}" /></td>
 					</tr>
 					<tr>
 						<td>Collect Fiber</td>
 						<td><select class="collectFiber_dropdown"
-							th:field="*{kbsDeviceList[6].deviceId}">
+							th:field="*{kbsDeviceList[5].deviceId}">
 								<option th:each="devic:${DeviceList}"
 									th:if="${devic.type} == 'CollectionFiber'"
 									th:value="${devic.deviceId}" th:text="${devic.name}"></option>
 						</select></td>
 						<td>Serial No:</td>
 						<td><input type="text" required="required"
-							th:field="*{kbsDeviceList[6].serialId}" /></td>
+							th:field="*{kbsDeviceList[5].serialId}" /></td>
 						<td>Part No:</td>
-						<td><input type="text" required="required"
-							th:field="*{kbsDeviceList[6].partNo}" /></td>
+						<td><input type="text" 
+							th:field="*{kbsDeviceList[5].partNo}" /></td>
 					</tr>
 					<tr>
 						<td>Excite Fiber</td>
 						<td><select class="exciteFiber_dropdown"
-							th:field="*{kbsDeviceList[7].deviceId}">
+							th:field="*{kbsDeviceList[6].deviceId}">
 								<option th:each="devic:${DeviceList}"
 									th:if="${devic.type} == 'ExcitationFiber'"
 									th:value="${devic.deviceId}" th:text="${devic.name}"></option>
 						</select></td>
 						<td>Serial No:</td>
 						<td><input type="text" required="required"
-							th:field="*{kbsDeviceList[7].serialId}" /></td>
+							th:field="*{kbsDeviceList[6].serialId}" /></td>
 						<td>Part No:</td>
-						<td><input type="text" required="required"
-							th:field="*{kbsDeviceList[7].partNo}" /></td>
+						<td><input type="text" 
+							th:field="*{kbsDeviceList[6].partNo}" /></td>
 					</tr>
 							
 				</table>
@@ -171,10 +174,29 @@
 		<script type="text/javascript">
 		//<![CDATA[
 
-		function callIframe() {
-			var tpsId = document.getElementById("siteDrop").value;
+		$(document).ready(function(){
+			var sitename= getUrlVars()["site"];
+			if (sitename != null){
+				document.getElementById("siteDrop").value=sitename;
+			}else{
+				document.getElementById("siteDrop").selected=1;
+			}
+    		});
+		
+		function getUrlVars() {
+			var vars = {};
+			var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+			vars[key] = value;
+			});
+			return vars;
+			}
+		
+		function callenable() {
+			document.getElementById("kbs-div").style.display="inline";
+			/*			var tpsId = document.getElementById("siteDrop").value;
 			document.getElementById("procFrame").innerHTML = "<iframe src=ProcedureDetails.html?tpsId="
 					+ tpsId + "></iframe>";
+					*/
 		}
 		//]]>
 	</script>

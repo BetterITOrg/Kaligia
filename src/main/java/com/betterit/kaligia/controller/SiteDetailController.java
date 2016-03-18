@@ -4,6 +4,8 @@
 package com.betterit.kaligia.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +59,7 @@ public class SiteDetailController {
 		List<DeviceInst> dList = new ArrayList<DeviceInst>();
 		
 		//initialize the list of devices
-		for(int i=1; i<8; i++){
+		for(int i=1; i<7; i++){
 			DeviceInst dObj= new DeviceInst();
 			dList.add(dObj);
 		}
@@ -74,6 +76,21 @@ public class SiteDetailController {
 	
 		log.info("In SiteDetail POST");
 		log.info("parameters are " + kbsObject.toString());
+		log.info("list length is " + kbsObject.getKbsDeviceList().size());
+		
+		//Set the creation parameters
+		kbsObject.getEndpoint().setCreationDate(new Date());
+		kbsObject.getEndpoint().setCreatedBy(1);
+		
+		
+		Iterator<DeviceInst> dlIterator = kbsObject.getKbsDeviceList().iterator();
+		while (dlIterator.hasNext()) {
+			DeviceInst paramObject= dlIterator.next();
+			paramObject.setCreationDate(new Date());
+			paramObject.setCreatedBy(1);
+			log.info("device inst list is " + paramObject.toString());
+				
+		}
 		
 		EndPoint ep = kbsObject.getEndpoint();
 		List<DeviceInst> dil = kbsObject.getKbsDeviceList();
@@ -86,6 +103,6 @@ public class SiteDetailController {
 		//Map EndPointDevices
 		eps.mapEndPointDevices(ep, dil);
 		
-	return ("SiteDetail");
+	return ("redirect:/SiteDetail");
 	}
 }
