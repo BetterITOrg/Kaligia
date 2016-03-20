@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.betterit.kaligia.DeviceList;
 import com.betterit.kaligia.dao.model.kaligia.Device;
 import com.betterit.kaligia.dao.model.kaligia.DeviceExample;
 import com.betterit.kaligia.dao.model.kaligia.DeviceInst;
@@ -38,9 +39,9 @@ public class DeviceService {
 		return dm.selectByExample(de);
 	}
 	
-	public int insertDeviceInst(List<DeviceInst> dil) {
+	public int insertDeviceInst(List<DeviceList> dil) {
 		for(int i=0; i<dil.size(); i++) {
-			dim.insert(dil.get(i));
+			dim.insert(dil.get(i).getDiObj());
 		}
 		
 		return 0;

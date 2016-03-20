@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.betterit.kaligia.dao.model.kaligia.EndPoint;
 import com.betterit.kaligia.dao.model.kaligia.EndPointDevices;
+import com.betterit.kaligia.DeviceList;
 import com.betterit.kaligia.dao.model.kaligia.DeviceInst;
 import com.betterit.kaligia.dao.repository.kaligia.EndPointDevicesMapper;
 import com.betterit.kaligia.dao.repository.kaligia.EndPointMapper;
@@ -39,7 +40,7 @@ public class EndPointService {
 		return epm.insert(ep);
 	}
 
-	public int mapEndPointDevices(EndPoint ep, List<DeviceInst> dil) {
+	public int mapEndPointDevices(EndPoint ep, List<DeviceList> dil) {
 		int endPointId = ep.getEndPointId();
 		EndPointDevices epd = new EndPointDevices();
 		epd.setEndPointId(endPointId);
@@ -47,7 +48,8 @@ public class EndPointService {
 		epd.setCreationDate(ep.getCreationDate());
 		
 		for(int i=0; i<dil.size(); i++) {
-			epd.setDeviceInstId(dil.get(i).getDeviceInstId());
+			epd.setDeviceInstId(dil.get(i).getDiObj().getDeviceInstId());
+			epd.setUsedFor(dil.get(i).getUsedFor());
 			epdm.insert(epd);
 		}
 		

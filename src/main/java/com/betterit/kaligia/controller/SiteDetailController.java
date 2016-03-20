@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.betterit.kaligia.DeviceList;
 import com.betterit.kaligia.KBSystem;
 import com.betterit.kaligia.KaligiaRunOrder;
 import com.betterit.kaligia.segmentParams;
@@ -56,11 +57,11 @@ public class SiteDetailController {
 		List<Site> siteList = ss.findAll();
 		List<Device> deviceList = deviceServiceObject.findAll();
 		KBSystem kbsObj = new KBSystem();
-		List<DeviceInst> dList = new ArrayList<DeviceInst>();
+		List<DeviceList> dList = new ArrayList<DeviceList>();
 		
 		//initialize the list of devices
-		for(int i=1; i<7; i++){
-			DeviceInst dObj= new DeviceInst();
+		for(int i=1; i<8; i++){
+			DeviceList dObj= new DeviceList();
 			dList.add(dObj);
 		}
 		kbsObj.setKbsDeviceList(dList);
@@ -83,17 +84,18 @@ public class SiteDetailController {
 		kbsObject.getEndpoint().setCreatedBy(1);
 		
 		
-		Iterator<DeviceInst> dlIterator = kbsObject.getKbsDeviceList().iterator();
+		Iterator<DeviceList> dlIterator = kbsObject.getKbsDeviceList().iterator();
 		while (dlIterator.hasNext()) {
-			DeviceInst paramObject= dlIterator.next();
-			paramObject.setCreationDate(new Date());
-			paramObject.setCreatedBy(1);
+			DeviceList paramObject= dlIterator.next();
+			paramObject.getDiObj().setCreationDate(new Date());
+			paramObject.getDiObj().setCreatedBy(1);
+			paramObject.getDiObj().setStatus("ACTIVE");
 			log.info("device inst list is " + paramObject.toString());
 				
 		}
 		
 		EndPoint ep = kbsObject.getEndpoint();
-		List<DeviceInst> dil = kbsObject.getKbsDeviceList();
+		List<DeviceList> dil = kbsObject.getKbsDeviceList();
 		//Create EndPoint
 		eps.createEndPoint(ep);
 		
