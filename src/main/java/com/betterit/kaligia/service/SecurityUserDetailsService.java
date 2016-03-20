@@ -67,6 +67,7 @@ public class SecurityUserDetailsService implements UserDetailsService {
                     }
             }
             
+            log.debug("User" + loginID);
             return new User(loginID,user.getPasswd(), true, accountNonExpired, true, true, getGrantedAuthorities(user.getRoleId()));
 
 
@@ -79,8 +80,8 @@ public class SecurityUserDetailsService implements UserDetailsService {
     }
     
     private Collection<GrantedAuthority> getGrantedAuthorities(Integer role_id) {
-    	String authList="Role:" + userService.getUserRoles(role_id).getName();
-        log.debug("For user: {} authList:{}",authList);
+    	String authList="ROLE_" + userService.getUserRoles(role_id).getName();
+        log.debug("For user authList:{}",authList);
         return AuthorityUtils.commaSeparatedStringToAuthorityList(authList);
     }
 

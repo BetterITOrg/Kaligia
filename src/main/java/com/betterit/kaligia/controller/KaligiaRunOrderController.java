@@ -57,7 +57,8 @@ public class KaligiaRunOrderController {
 		if (testProcObj == null)
 		{
 			log.info("TestProcedure not found for " + runOrderObject.getTestProcedure());
-			return "KaligiaRunOrder";
+			throw (new Exception("Procedure Not found: " + runOrderObject.getTestProcedure()));
+			// return "KaligiaRunOrder";
 		}
 		
 		runOrderObject.setTestProcedureId(testProcObj.getProcedureId());

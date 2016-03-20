@@ -67,5 +67,9 @@ public class UsersService {
 	public Roles getUserRoles(Integer role_id) {
 		return roleMapper.selectByPrimaryKey(role_id);
 	}
+	
+	public int updateUser(Users user) {
+		return userMapper.updateByPrimaryKeySelective(user);
+	}
 
 }
