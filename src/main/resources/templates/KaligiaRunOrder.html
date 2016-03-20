@@ -20,8 +20,13 @@
 					<td><input type="text" required="required"
 						th:field="*{orderNo}" /></td>
 					<td>Procedure</td>
-					<td><input type="text" required="required"
-						th:field="*{testProcedure}" /></td>
+					<td><select class="procedure_dropdown" id="procedureDrop" 
+					th:field="*{testProcedure}">
+							<option th:each="procedur,iterStat : ${ProcedureList}"
+								th:value="${procedur.name}" th:text="${procedur.name}">
+							</option>
+							</select>
+						</td>
 				</tr>
 				<tr>
 					<td>Description:</td>

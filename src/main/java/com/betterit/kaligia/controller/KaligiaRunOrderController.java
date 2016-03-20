@@ -40,7 +40,9 @@ public class KaligiaRunOrderController {
     public String runOrderForm(Model model) {
 
 		KaligiaRunOrder runOrderObj = new KaligiaRunOrder();
-		
+        List<TestProcedure> procedureList = tps.findAll();
+
+        model.addAttribute("ProcedureList", procedureList);
 		model.addAttribute("RunOrder", runOrderObj);
 				
 		return ("KaligiaRunOrder");
