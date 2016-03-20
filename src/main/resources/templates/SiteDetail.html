@@ -41,6 +41,13 @@
 							<option value="ACTIVE">ACTIVE</option>
 							<option value="INACTIVE">INACTIVE</option>
 						</select></td>
+						<td>Test Type:</td>
+						<td><select class="type_dropdown" th:field="*{endpoint.type}">
+								<option value="BOTH">BOTH</option>
+								<option value="IN-VIVO">IN-VIVO</option>
+								<option value="EX-VIVO">EX-VIVO</option>
+								
+						</select></td>
 
 						<td>Description:</td>
 						<td><textarea id="msg" required="required"
@@ -53,16 +60,10 @@
 			<fieldset>
 				<legend> Kaligia Bio System Devices</legend>
 				<table>
-					<tr>
-						<td>Test Type:</td>
-						<td><select class="type_dropdown" th:field="*{endpoint.type}">
-								<option value="IN-VIVO">IN-VIVO</option>
-								<option value="EX-VIVO">EX-VIVO</option>
-						</select></td>				
-				</tr>
+					
 					<tr>
 						<td>Compute Device:</td>
-  						<td><select class="compute_dropdown" th:field="*{kbsDeviceList[0].deviceId}">
+  						<td><select class="compute_dropdown" th:field="*{kbsDeviceList[0].diObj.deviceId}">
 								<option th:each="devic:${DeviceList}"
 									th:if="${devic.type} == 'Compute'" th:value="${devic.deviceId}"
 									th:text="${devic.name}"></option>
@@ -70,98 +71,141 @@
 
 						<td>Serial No:</td>
 						<td><input type="text" required="required"
-							th:field="*{kbsDeviceList[0].serialId}" /></td>
-						<td>Part No:</td>
-						<td><input type="text" 
-							th:field="*{kbsDeviceList[0].partNo}" /></td>
+							th:field="*{kbsDeviceList[0].diObj.serialId}" /></td>
+						<td>Type:</td>
+						<td><select class="type1_dropdown" th:field="*{kbsDeviceList[0].usedFor}">
+								<option value="BOTH">BOTH</option>
+								<option value="IN-VIVO">IN-VIVO</option>
+								<option value="EX-VIVO">EX-VIVO</option>
+								
+						</select></td>
 					</tr>
 					<tr>
 						<td>Laser</td>
-						<td><select class="laser_dropdown" th:field="*{kbsDeviceList[1].deviceId}">
+						<td><select class="laser_dropdown" th:field="*{kbsDeviceList[1].diObj.deviceId}">
 								<option th:each="devic:${DeviceList}"
 									th:if="${devic.type} == 'Laser'" th:value="${devic.deviceId}"
 									th:text="${devic.name}"></option>
 						</select></td>
 						<td>Serial No:</td>
 						<td><input type="text" required="required"
-							th:field="*{kbsDeviceList[1].serialId}" /></td>
-						<td>Part No:</td>
-						<td><input type="text" 
-							th:field="*{kbsDeviceList[1].partNo}" /></td>
+							th:field="*{kbsDeviceList[1].diObj.serialId}" /></td>
+						<td>Type:</td>
+						<td><select class="type1_dropdown" th:field="*{kbsDeviceList[1].usedFor}">
+								<option value="BOTH">BOTH</option>
+								<option value="IN-VIVO">IN-VIVO</option>
+								<option value="EX-VIVO">EX-VIVO</option>
+								
+						</select></td>
 					</tr> 
 					<tr>
 						<td>Spectrometer</td>
-						<td><select class="spectrometer_dropdown" th:field="*{kbsDeviceList[2].deviceId}">
+						<td><select class="spectrometer_dropdown" th:field="*{kbsDeviceList[2].diObj.deviceId}">
 								<option th:each="devic:${DeviceList}"
 									th:if="${devic.type} == 'Spectrometer'"
 									th:value="${devic.deviceId}" th:text="${devic.name}"></option>
 						</select></td>
 						<td>Serial No:</td>
 						<td><input type="text" required="required"
-							th:field="*{kbsDeviceList[2].serialId}" /></td>
-						<td>Part No:</td>
-						<td><input type="text" 
-							th:field="*{kbsDeviceList[2].partNo}" /></td>	
-
+							th:field="*{kbsDeviceList[2].diObj.serialId}" /></td>
+						<td>Type:</td>
+						<td><select class="type1_dropdown" th:field="*{kbsDeviceList[2].usedFor}">
+								<option value="BOTH">BOTH</option>
+								<option value="IN-VIVO">IN-VIVO</option>
+								<option value="EX-VIVO">EX-VIVO</option>
+								
+						</select></td>
 					</tr>
 					<tr>
-						<td>Probe</td>
-						<td><select class="probe_dropdown" th:field="*{kbsDeviceList[3].deviceId}">
+						<td>Probe 1:</td>
+						<td><select class="probe_dropdown" th:field="*{kbsDeviceList[3].diObj.deviceId}">
 								<option th:each="devic:${DeviceList}"
 									th:if="${devic.type} == 'Probe'" th:value="${devic.deviceId}"
 									th:text="${devic.name}"></option>
 						</select></td>
 						<td>Serial No:</td>
 						<td><input type="text" required="required"
-							th:field="*{kbsDeviceList[3].serialId}" /></td>
-						<td>Part No:</td>
-						<td><input type="text" 
-							th:field="*{kbsDeviceList[3].partNo}" /></td>	
-					</tr>
+							th:field="*{kbsDeviceList[3].diObj.serialId}" /></td>
+						<td>Type:</td>
+						<td><select class="type1_dropdown" th:field="*{kbsDeviceList[3].usedFor}">
+								<option value="IN-VIVO">IN-VIVO</option>
+								<option value="EX-VIVO">EX-VIVO</option>
+								
+						</select></td>
+						</tr>
 					<tr>
 						<td>Labjack</td>
-						<td><select class="labjack_dropdown" th:field="*{kbsDeviceList[4].deviceId}">
+						<td><select class="labjack_dropdown" th:field="*{kbsDeviceList[4].diObj.deviceId}">
 								<option th:each="devic:${DeviceList}"
 									th:if="${devic.type} == 'LabJack'" th:value="${devic.deviceId}"
 									th:text="${devic.name}"></option>
 						</select></td>
 						<td>Serial No:</td>
 						<td><input type="text" required="required"
-							th:field="*{kbsDeviceList[4].serialId}" /></td>
-						<td>Part No:</td>
-						<td><input type="text" 
-							th:field="*{kbsDeviceList[4].partNo}" /></td>
+							th:field="*{kbsDeviceList[4].diObj.serialId}" /></td>
+						<td>Type:</td>
+						<td><select class="type1_dropdown" th:field="*{kbsDeviceList[4].usedFor}">
+								<option value="BOTH">BOTH</option>
+								<option value="IN-VIVO">IN-VIVO</option>
+								<option value="EX-VIVO">EX-VIVO</option>
+								
+						</select></td>
 					</tr>
 					<tr>
 						<td>Collect Fiber</td>
 						<td><select class="collectFiber_dropdown"
-							th:field="*{kbsDeviceList[5].deviceId}">
+							th:field="*{kbsDeviceList[5].diObj.deviceId}">
 								<option th:each="devic:${DeviceList}"
 									th:if="${devic.type} == 'CollectionFiber'"
 									th:value="${devic.deviceId}" th:text="${devic.name}"></option>
 						</select></td>
 						<td>Serial No:</td>
 						<td><input type="text" required="required"
-							th:field="*{kbsDeviceList[5].serialId}" /></td>
-						<td>Part No:</td>
-						<td><input type="text" 
-							th:field="*{kbsDeviceList[5].partNo}" /></td>
+							th:field="*{kbsDeviceList[5].diObj.serialId}" /></td>
+						<td>Type:</td>
+						<td><select class="type1_dropdown" th:field="*{kbsDeviceList[5].usedFor}">
+								<option value="BOTH">BOTH</option>
+								<option value="IN-VIVO">IN-VIVO</option>
+								<option value="EX-VIVO">EX-VIVO</option>
+								
+						</select></td>
 					</tr>
 					<tr>
 						<td>Excite Fiber</td>
 						<td><select class="exciteFiber_dropdown"
-							th:field="*{kbsDeviceList[6].deviceId}">
+							th:field="*{kbsDeviceList[6].diObj.deviceId}">
 								<option th:each="devic:${DeviceList}"
 									th:if="${devic.type} == 'ExcitationFiber'"
 									th:value="${devic.deviceId}" th:text="${devic.name}"></option>
 						</select></td>
 						<td>Serial No:</td>
 						<td><input type="text" required="required"
-							th:field="*{kbsDeviceList[6].serialId}" /></td>
-						<td>Part No:</td>
-						<td><input type="text" 
-							th:field="*{kbsDeviceList[6].partNo}" /></td>
+							th:field="*{kbsDeviceList[6].diObj.serialId}" /></td>
+						<td>Type:</td>
+						<td><select class="type1_dropdown" th:field="*{kbsDeviceList[6].usedFor}">
+								<option value="BOTH">BOTH</option>
+								<option value="IN-VIVO">IN-VIVO</option>
+								<option value="EX-VIVO">EX-VIVO</option>
+								
+						</select></td>
 					</tr>
+					<tr>
+						<td>Probe 2:</td>
+						<td><select class="probe_dropdown" th:field="*{kbsDeviceList[7].diObj.deviceId}">
+								<option th:each="devic:${DeviceList}"
+									th:if="${devic.type} == 'Probe'" th:value="${devic.deviceId}"
+									th:text="${devic.name}"></option>
+						</select></td>
+						<td>Serial No:</td>
+						<td><input type="text" 
+							th:field="*{kbsDeviceList[7].diObj.serialId}" /></td>
+						<td>Type:</td>
+						<td><select class="type1_dropdown" th:field="*{kbsDeviceList[7].usedFor}">
+								<option value="IN-VIVO">IN-VIVO</option>
+								<option value="EX-VIVO">EX-VIVO</option>
+								
+						</select></td>
+						</tr>
 							
 				</table>
 			</fieldset>
@@ -175,13 +219,21 @@
 		//<![CDATA[
 
 		$(document).ready(function(){
-			var sitename= getUrlVars()["site"];
-			if (sitename != null){
-				document.getElementById("siteDrop").value=sitename;
-			}else{
-				document.getElementById("siteDrop").selected=1;
-			}
-    		});
+			$("ajaxButton").click( function(){
+				$ajax({url:"/SiteDetail",
+					method:"POST",
+					success: function(status){
+						console.log("KBSytem Inserted Scuccessfully" + status);
+						alert("KBSytem Inserted Scuccessfully" + status);
+					},
+					error: function(status){
+						console.log("KBSytem Insert failed" + status);
+						alert("KBSytem Insert failed" + status);
+					}
+				});
+				});	
+			});
+			
 		
 		function getUrlVars() {
 			var vars = {};
