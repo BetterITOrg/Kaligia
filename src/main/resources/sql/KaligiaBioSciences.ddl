@@ -356,8 +356,8 @@ CREATE UNIQUE INDEX DeviceInst_device_inst_id
   ON DeviceInst (device_inst_id);
 CREATE UNIQUE INDEX EndPoint_end_point_id 
   ON EndPoint (end_point_id);
-CREATE UNIQUE INDEX EndPoint_name 
-  ON EndPoint (name);
+CREATE UNIQUE INDEX endpoint_name
+   ON endpoint (site_id, name);
 CREATE UNIQUE INDEX Privileges_priv_id 
   ON Privileges (priv_id);
 CREATE UNIQUE INDEX Roles_role_id 
