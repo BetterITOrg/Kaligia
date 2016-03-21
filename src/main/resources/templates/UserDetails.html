@@ -1,0 +1,83 @@
+﻿<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Procedure Details</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css" href="/images/form1.css" />
+</head>
+<body>
+
+
+	<form action="#" th:action="@{UpdateUser}" th:object="${UserDetails}"
+		method="POST">
+		
+		<fieldset>
+			<legend> User Details </legend>
+			<table>
+				<tr>
+					<td> UsersId:</td>
+					<td> <input type="text" disabled="disabled" 
+						th:field="*{userId}"
+						th:value="${UserDetails.userId}" /></td>
+					<td>LoginId:</td>
+					<td> <input type="text" disabled="disabled" 
+						th:field="*{loginId}"
+						th:value="${UserDetails.loginId}" /></td>
+					<td>Password:</td>
+					<td> <input type="text"  
+						th:field="*{passwd}"
+						th:value="${UserDetails.passwd}" />	</td>
+				</tr>
+				<tr>
+					<td>FirstName:</td>
+					<td><input type="text"  
+						th:field="*{firstname}"
+						th:value="${UserDetails.firstname}" /></td>
+					<td>LastName:</td>
+					<td> <input type="text"  
+						th:field="*{lastname}"
+						th:value="${UserDetails.lastname}" /></td>
+					<td>Email:</td>
+					<td> <input type="email"  
+						th:field="*{email}"
+						th:value="${UserDetails.email}" /></td>
+				</tr>
+				<tr>
+					<td>Phone:</td>
+					<td><input type="text"  
+						th:field="*{phone}"
+						th:value="${UserDetails.phone}" /></td>
+					<td>Start Date:</td>
+					<td> <input type="date"  
+						th:field="*{startDate}"
+						th:value="${UserDetails.startDate}" /></td>
+					<td>End Date:</td>
+					<td> <input type="date"  
+						th:field="*{endDate}"
+						th:value="${UserDetails.endDate}" /></td>
+				</tr>
+				<tr>
+					<td>Type:</td>
+					<td><input type="text"  
+						th:field="*{type}"
+						th:value="${UserDetails.type}" /></td>
+					<td>Status:</td>
+					<td><select class="type_dropdown" th:field="*{status}">
+							<option value="ACTIVE" 
+							th:selected="${UserDetails.status==ACTIVE?'':selected}">ACTIVE</option>
+							<option value="SUSPENDED"
+							th:selected="${UserDetails.status==SUSPENDED?'':selected}">SUSPENDED</option></select>
+							</td>
+					<td>Role:</td>
+					<td><select class="role_dropdown" th:field="*{roleId}">
+						<option th:each="role,iterStat : ${RoleList}"
+								th:value="${role.roleId}" th:text="${role.name}"
+								th:selected="${role.roleId==UserDetails.roleId?'':selected}"></option>
+								</select></td>	
+				</tr>
+				</table>
+				<input class="submit-button" type="submit" name="Run" value="UPDATE" disabled="disabled"/>
+		</fieldset>
+	</form>
+</body>
+</html>

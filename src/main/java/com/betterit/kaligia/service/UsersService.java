@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.betterit.kaligia.dao.model.kaligia.Roles;
+import com.betterit.kaligia.dao.model.kaligia.TestProcedure;
 import com.betterit.kaligia.dao.model.kaligia.Users;
 import com.betterit.kaligia.dao.model.kaligia.UsersExample;
 import com.betterit.kaligia.dao.repository.kaligia.RolesMapper;
@@ -70,6 +71,20 @@ public class UsersService {
 	
 	public int updateUser(Users user) {
 		return userMapper.updateByPrimaryKeySelective(user);
+	}
+	
+	public List<Users> findAll() {
+		
+		List<Users> userl = userMapper.selectByExample(null);
+		return userl;
+		
+	}
+	
+	public List<Roles> getAllRoles() {
+		
+		List<Roles> roleList = roleMapper.selectByExample(null);
+		return roleList;
+		
 	}
 
 }

@@ -1,0 +1,58 @@
+﻿<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Kaligia User</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css" href="/images/loginform.css" />
+<link rel="stylesheet" type="text/css" href="/images/form1.css" />
+</head>
+<body>
+	
+		<form action="#" th:action="@{KaligiaUserApp}" th:object="${UserObj}" method="post">
+			<header>
+				<div id="logo"></div>
+			</header>
+			<div class="user">
+				<div class="user_logout">
+				<p id="user_name" th:text="${#httpServletRequest.remoteUser}"></p>
+				</div>
+			</div>
+			<table class="main-procedure">
+				<tr>
+					<th class="Name-column">User Name</th>
+					<th class="Desc-column">User Details</th>
+				</tr>
+
+				<tr>
+					<td class="Name-column"><select class="procedure_dropdown"
+						size="20" id="userDrop" onChange="callUIframe()">
+							<option th:each="usr,iterStat : ${UserList}"
+								th:value="${usr.userId}" th:text="${usr.loginId}"
+								th:selected="${iterStat.count==1?'':selected}"></option>
+					</select></td>
+					<td class="Desc-column" id="userFrame"></td>
+				</tr>
+			</table>
+
+			<br /> 
+			
+			<a id="user" href="CreateUser.html" target="_self">
+				Create User </a> 
+				
+
+		</form>
+
+	<script type="text/javascript">
+		//<![CDATA[
+
+		function callUIframe() {
+			var tpsId = document.getElementById("userDrop").value;
+			document.getElementById("userFrame").innerHTML = "<iframe src=getUserDetail.html?usrId="
+					+ tpsId + "></iframe>";
+		}
+		//]]>
+	</script>
+
+</body>
+</html>
+
