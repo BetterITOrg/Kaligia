@@ -92,6 +92,10 @@ public class DeviceService {
 		int probe2 = 7;
 		int p=1;
 		
+		for(int j=0; j<8; j++) {
+			dilo[j] = new DeviceList();
+		}
+		
 		for(int i=0; i<epdl.size(); i++) {
 			di = dim.selectByPrimaryKey(epdl.get(i).getDeviceInstId());
 			Device device = dm.selectByPrimaryKey(di.getDeviceId());
