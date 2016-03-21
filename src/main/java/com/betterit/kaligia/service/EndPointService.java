@@ -15,6 +15,7 @@ import com.betterit.kaligia.dao.model.kaligia.EndPointDevices;
 import com.betterit.kaligia.dao.model.kaligia.EndPointDevicesExample;
 import com.betterit.kaligia.dao.model.kaligia.EndPointExample;
 import com.betterit.kaligia.DeviceList;
+import com.betterit.kaligia.KBSystem;
 import com.betterit.kaligia.dao.repository.kaligia.EndPointDevicesMapper;
 import com.betterit.kaligia.dao.repository.kaligia.EndPointMapper;
 import com.betterit.kaligia.dao.repository.kaligia.EndPointProcsMapper;
@@ -36,6 +37,9 @@ public class EndPointService {
 	
 	@Autowired
 	private EndPointDevicesMapper epdm;
+	
+	@Autowired
+	private DeviceService ds;
 	
 	public boolean createEndPoint(EndPoint ep) 	{
 		EndPointExample epe = new EndPointExample();
@@ -78,4 +82,26 @@ public class EndPointService {
 		return 0;
 	}
 	
+	public KBSystem getEndPointDetails(Integer siteID) {
+		
+		KBSystem kbs = new KBSystem();
+		
+		//Get EndPoint
+		EndPointExample epe = new EndPointExample();
+		epe.createCriteria().andSiteIdEqualTo(siteID);
+		List<EndPoint> epl = epm.selectByExample(epe);
+		if(epl.size()==0) return null;
+		
+		kbs.setEndpoint(epl.get(0));
+		
+		//Get End Point Devices
+		EndPointDevicesExample epde = new EndPointDevicesExample();
+		epde.createCriteria().andEndPointIdEqualTo(epl.get(0).getEndPointId());
+		List<EndPointDevices> epdl = epdm.selectByExample(epde);
+		
+		//Get Device List order by:
+		kbs.setKbsDeviceList(ds.getDeviceInstOrd(epdl));
+		
+		return kbs;
+	}
 }
