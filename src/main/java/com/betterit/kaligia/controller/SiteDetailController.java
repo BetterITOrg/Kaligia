@@ -17,10 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.betterit.kaligia.DeviceList;
 import com.betterit.kaligia.KBSystem;
-import com.betterit.kaligia.KaligiaRunOrder;
-import com.betterit.kaligia.segmentParams;
 import com.betterit.kaligia.dao.model.kaligia.Device;
-import com.betterit.kaligia.dao.model.kaligia.DeviceInst;
 import com.betterit.kaligia.dao.model.kaligia.EndPoint;
 import com.betterit.kaligia.dao.model.kaligia.Site;
 import com.betterit.kaligia.service.DeviceService;
@@ -96,14 +93,15 @@ public class SiteDetailController {
 		
 		EndPoint ep = kbsObject.getEndpoint();
 		List<DeviceList> dil = kbsObject.getKbsDeviceList();
+		
 		//Create EndPoint
-		eps.createEndPoint(ep);
+		boolean deleteAdd = eps.createEndPoint(ep);
 		
 		//Create DeviceInst
 		ds.insertDeviceInst(dil);
 		
 		//Map EndPointDevices
-		eps.mapEndPointDevices(ep, dil);
+		eps.mapEndPointDevices(ep, dil, deleteAdd);
 		
 	return ("redirect:/SiteDetail");
 	}
