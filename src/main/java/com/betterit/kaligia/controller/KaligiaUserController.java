@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.betterit.kaligia.ProcedureDetail;
 import com.betterit.kaligia.UserView;
 import com.betterit.kaligia.dao.model.kaligia.Roles;
 import com.betterit.kaligia.dao.model.kaligia.Users;
@@ -50,10 +49,16 @@ public class KaligiaUserController {
 	
 	@RequestMapping(value="/getUserDetail", method=RequestMethod.GET)
     public String userDetailsForm(@RequestParam(value="usrId" , defaultValue="0") int usr_id, Model model) {
-		Users userObj= new Users();
 		log.info("In userDEtails GET with tpsid" + usr_id);
-		if(usr_id ==0)
-			return "UserDtails";
+		Users userObj= new Users();
+		UserView uservObj = new UserView();
+		List<Roles> rList = usObj.getAllRoles();
+		
+		if(usr_id ==0){
+			model.addAttribute("RoleList", rList);
+			model.addAttribute("UserDetails", uservObj);
+			return "UserDetails";
+		}
 		
 		try{
 			
@@ -69,30 +74,51 @@ public class KaligiaUserController {
 		
 		log.info("found user Details with userid " + usr_id);
 		log.info(userObj.toString());
+		//populate User View object with dates and users object
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		uservObj.setUserObject(userObj);
+		uservObj.setStartDate(formatter.format(userObj.getStartDate()));
+		uservObj.setEndDate(formatter.format(userObj.getEndDate()));
 		
-		List<Roles> rList = usObj.getAllRoles();
+		
 		model.addAttribute("RoleList", rList);
-		model.addAttribute("UserDetails", userObj);
+		model.addAttribute("UserDetails", uservObj);
 				
 		return ("UserDetails");
 	}
 	
-	@RequestMapping(value="/UpdateUser", method=RequestMethod.POST)
-	public String updateUserHandler(@ModelAttribute Users userObject, Model model){
+	@RequestMapping(value="/getUserDetail", method=RequestMethod.POST)
+	public String updateUserHandler(@ModelAttribute UserView uservObject, Model model){
 	
-		int rc=0;
-		
-		log.info("In UpdateUser POST "+ userObject.toString());
+		log.info("In UpdateUser POST "+ uservObject.toString());
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		
 		try{
-			rc=usObj.updateUser(userObject);
+			uservObject.getUserObject().setEndDate(formatter.parse(uservObject.getEndDate()));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			uservObject.getUserObject().setEndDate(null); //Set default date
+		}
+		
+		try{
+			uservObject.getUserObject().setStartDate(formatter.parse(uservObject.getStartDate()));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			uservObject.getUserObject().setStartDate(null); //Set default date
+		}
+		try{
+			log.info("ready to update user : " + uservObject.getUserObject().toString());
+			int rc=usObj.updateUser(uservObject.getUserObject());
 		}
 		catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		String retView= "getUserDetail?usrId="+userObject.getUserId();
-		return "getUserDetail";
+		String retView= "redirect:/getUserDetail?usrId=" + uservObject.getUserObject().getUserId();
+		//return "redirect:/getUserDetail";
+		return retView;
 	}
 	
 	
@@ -104,10 +130,18 @@ public class KaligiaUserController {
 		int rc=0;
 		
 		log.info("In CreateUser POST "+ uservObject.toString());
-		SimpleDateFormat formatter = new SimpleDateFormat("YYYY-mm-dd");
-				
+		
+		//Date tempDate=new Date();
+		//log.info("tempDate is initialized to " + tempDate.toString());
 		try{
-			uservObject.getUserObject().setEndDate(formatter.parse(uservObject.getEndDate()));
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			Date tempDate=formatter.parse(uservObject.getEndDate());
+
+			log.info("uservObject.getEndDate() is" + uservObject.getEndDate());
+			log.info("tempDate is "+ tempDate.toString());
+			uservObject.getUserObject().setEndDate(tempDate);
+			tempDate=formatter.parse("2016-03-31");
+			log.info("now the tempDate is "+ tempDate.toString());
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -115,7 +149,11 @@ public class KaligiaUserController {
 		}
 		
 		try{
-			uservObject.getUserObject().setStartDate(formatter.parse(uservObject.getStartDate()));
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			Date tempDate=formatter.parse(uservObject.getStartDate());
+			log.info("uservObject.getStartDate() is" + uservObject.getStartDate());
+			log.info("tempDate is "+ tempDate.toString());
+			uservObject.getUserObject().setStartDate(tempDate);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

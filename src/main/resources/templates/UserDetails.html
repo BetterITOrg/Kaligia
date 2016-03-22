@@ -8,7 +8,7 @@
 <body>
 
 
-	<form action="#" th:action="@{UpdateUser}" th:object="${UserDetails}"
+	<form action="#" th:action="@{getUserDetail}" th:object="${UserDetails}"
 		method="POST">
 		
 		<fieldset>
@@ -16,37 +16,37 @@
 			<table>
 				<tr>
 					<td> UsersId:</td>
-					<td> <input type="text" disabled="disabled" 
-						th:field="*{userId}"
-						th:value="${UserDetails.userId}" /></td>
+					<td> <input type="text" hidden="hidden" 
+						th:field="*{userObject.userId}"
+						th:value="${UserDetails.userObject.userId}" /></td>
 					<td>LoginId:</td>
-					<td> <input type="text" disabled="disabled" 
-						th:field="*{loginId}"
-						th:value="${UserDetails.loginId}" /></td>
+					<td> <input type="text" readonly="readonly" 
+						th:field="*{userObject.loginId}"
+						th:value="${UserDetails.userObject.loginId}" /></td>
 					<td>Password:</td>
 					<td> <input type="text"  
-						th:field="*{passwd}"
-						th:value="${UserDetails.passwd}" />	</td>
+						th:field="*{userObject.passwd}"
+						th:value="${UserDetails.userObject.passwd}" />	</td>
 				</tr>
 				<tr>
 					<td>FirstName:</td>
 					<td><input type="text"  
-						th:field="*{firstname}"
-						th:value="${UserDetails.firstname}" /></td>
+						th:field="*{userObject.firstname}"
+						th:value="${UserDetails.userObject.firstname}" /></td>
 					<td>LastName:</td>
 					<td> <input type="text"  
-						th:field="*{lastname}"
-						th:value="${UserDetails.lastname}" /></td>
+						th:field="*{userObject.lastname}"
+						th:value="${UserDetails.userObject.lastname}" /></td>
 					<td>Email:</td>
 					<td> <input type="email"  
-						th:field="*{email}"
-						th:value="${UserDetails.email}" /></td>
+						th:field="*{userObject.email}"
+						th:value="${UserDetails.userObject.email}" /></td>
 				</tr>
 				<tr>
 					<td>Phone:</td>
 					<td><input type="text"  
-						th:field="*{phone}"
-						th:value="${UserDetails.phone}" /></td>
+						th:field="*{userObject.phone}"
+						th:value="${UserDetails.userObject.phone}" /></td>
 					<td>Start Date:</td>
 					<td> <input type="date"  
 						th:field="*{startDate}"
@@ -59,24 +59,24 @@
 				<tr>
 					<td>Type:</td>
 					<td><input type="text"  
-						th:field="*{type}"
-						th:value="${UserDetails.type}" /></td>
+						th:field="*{userObject.type}"
+						th:value="${UserDetails.userObject.type}" /></td>
 					<td>Status:</td>
-					<td><select class="type_dropdown" th:field="*{status}">
+					<td><select class="type_dropdown" th:field="*{userObject.status}">
 							<option value="ACTIVE" 
-							th:selected="${UserDetails.status==ACTIVE?'':selected}">ACTIVE</option>
+							th:selected="${UserDetails.userObject.status==ACTIVE?'':selected}">ACTIVE</option>
 							<option value="SUSPENDED"
-							th:selected="${UserDetails.status==SUSPENDED?'':selected}">SUSPENDED</option></select>
+							th:selected="${UserDetails.userObject.status==SUSPENDED?'':selected}">SUSPENDED</option></select>
 							</td>
 					<td>Role:</td>
-					<td><select class="role_dropdown" th:field="*{roleId}">
+					<td><select class="role_dropdown" th:field="*{userObject.roleId}">
 						<option th:each="role,iterStat : ${RoleList}"
 								th:value="${role.roleId}" th:text="${role.name}"
-								th:selected="${role.roleId==UserDetails.roleId?'':selected}"></option>
+								th:selected="${role.roleId==UserDetails.userObject.roleId?'':selected}"></option>
 								</select></td>	
 				</tr>
 				</table>
-				<input class="submit-button" type="submit" name="Run" value="UPDATE" disabled="disabled"/>
+				<input class="submit-button" type="submit" name="Run" value="UPDATE"/>
 		</fieldset>
 	</form>
 </body>
