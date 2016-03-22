@@ -3,6 +3,9 @@
  */
 package com.betterit.kaligia.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.betterit.kaligia.ProcedureDetail;
+import com.betterit.kaligia.UserView;
 import com.betterit.kaligia.dao.model.kaligia.Roles;
 import com.betterit.kaligia.dao.model.kaligia.Users;
 import com.betterit.kaligia.service.UsersService;
@@ -89,5 +93,57 @@ public class KaligiaUserController {
 		}
 		String retView= "getUserDetail?usrId="+userObject.getUserId();
 		return "getUserDetail";
+	}
+	
+	
+	
+	
+	@RequestMapping(value="/CreateUser", method=RequestMethod.POST)
+	public String createUserHandler(@ModelAttribute UserView uservObject, Model model){
+	
+		int rc=0;
+		
+		log.info("In CreateUser POST "+ uservObject.toString());
+		SimpleDateFormat formatter = new SimpleDateFormat("YYYY-mm-dd");
+				
+		try{
+			uservObject.getUserObject().setEndDate(formatter.parse(uservObject.getEndDate()));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			uservObject.getUserObject().setEndDate(null); //Set default date
+		}
+		
+		try{
+			uservObject.getUserObject().setStartDate(formatter.parse(uservObject.getStartDate()));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			uservObject.getUserObject().setStartDate(null); //Set default date
+		}
+		try{
+			rc=usObj.insertUser(uservObject.getUserObject()); 
+		}
+		catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//String retView= "getUserDetail?usrId="+userObject.getUserId();
+		return "redirect:/KaligiaUserApp";
+	}
+	
+	@RequestMapping(value="/CreateUser", method=RequestMethod.GET)
+    public String createUserForm(Model model) {
+		UserView uvObj = new UserView();
+		Users userObj= new Users();
+		uvObj.setUserObject(userObj);
+		log.info("In CreateUser GET with tpsid");
+			
+				
+		List<Roles> rList = usObj.getAllRoles();
+		model.addAttribute("RoleList", rList);
+		model.addAttribute("UserDetails", uvObj);
+				
+		return ("CreateUser");
 	}
 }

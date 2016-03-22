@@ -1,0 +1,72 @@
+﻿<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Create User</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css" href="/images/form1.css" />
+</head>
+<body>
+
+
+	<form action="#" th:action="@{CreateUser}" th:object="${UserDetails}"
+		method="POST">
+		
+		<fieldset>
+			<legend> User Details </legend>
+			<table>
+				<tr>
+					<td> UsersId:</td>
+					<td> <input type="number" disabled="disabled" 
+						th:field="*{userObject.userId}" 
+						th:value='0'/></td>
+					<td>LoginId:</td>
+					<td> <input type="text"  
+						th:field="*{userObject.loginId}" /></td>
+					<td>Password:</td>
+					<td> <input type="text"  
+						th:field="*{userObject.passwd}" />	</td>
+				</tr>
+				<tr>
+					<td>FirstName:</td>
+					<td><input type="text"  
+						th:field="*{userObject.firstname}" /></td>
+					<td>LastName:</td>
+					<td> <input type="text"  
+						th:field="*{userObject.lastname}" /></td>
+					<td>Email:</td>
+					<td> <input type="email"  
+						th:field="*{userObject.email}" /></td>
+				</tr>
+				<tr>
+					<td>Phone:</td>
+					<td><input type="text"  
+						th:field="*{userObject.phone}" /></td>
+					 <td>Start Date:</td>
+					<td> <input type="date"  
+						th:field="*{startDate}" /></td>
+					<td>End Date:</td>
+					<td> <input type="date"  
+						th:field="*{endDate}" /></td>
+					
+				</tr>
+				<tr>
+					<td>Type:</td>
+					<td><input type="text"  
+						th:field="*{userObject.type}" /></td>
+					<td>Status:</td>
+					<td><select class="type_dropdown" th:field="*{userObject.status}">
+							<option value="ACTIVE">ACTIVE</option>
+							<option value="SUSPENDED">SUSPENDED</option></select>
+							</td>
+					<td>Role:</td>
+					<td><select class="role_dropdown" th:field="*{userObject.roleId}">
+						<option th:each="role,iterStat : ${RoleList}"
+								th:value="${role.roleId}" th:text="${role.name}"></option>
+								</select></td>	
+				</tr>
+				</table>
+				<input class="submit-button" type="submit" name="Run" value="CREATE USER"/>
+		</fieldset>
+	</form>
+</body>
+</html>
