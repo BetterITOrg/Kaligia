@@ -3,6 +3,7 @@
 <head>
 <title>Create User</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css" href="/images/loginform.css" />
 <link rel="stylesheet" type="text/css" href="/images/form1.css" />
 </head>
 <body>
@@ -10,21 +11,29 @@
 
 	<form action="#" th:action="@{CreateUser}" th:object="${UserDetails}"
 		method="POST">
-		
+		<header>
+				<div id="logo"></div>
+			</header>
+			<div class="user">
+				<div class="user_logout">
+				<p id="user_name" th:text="${#httpServletRequest.remoteUser}"></p>
+				</div>
+			</div>
+			
 		<fieldset>
 			<legend> User Details </legend>
 			<table>
 				<tr>
-					<td> UsersId:</td>
-					<td> <input type="number" disabled="disabled" 
-						th:field="*{userObject.userId}" 
-						th:value='0'/></td>
+					
 					<td>LoginId:</td>
 					<td> <input type="text"  
 						th:field="*{userObject.loginId}" /></td>
 					<td>Password:</td>
 					<td> <input type="text"  
 						th:field="*{userObject.passwd}" />	</td>
+					<td> <input type="number" hidden="hidden" 
+						th:field="*{userObject.userId}" 
+						th:value='0'/></td>
 				</tr>
 				<tr>
 					<td>FirstName:</td>

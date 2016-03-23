@@ -216,7 +216,13 @@ iframe {
   position:relative;
   bottom:20px;
   font-size: 12px;
-  
+}
+
+#run-order:hover{
+  float:right;
+  position:relative;
+  bottom:19px;
+  font-size: 12px;
 }
 
 .create-proc-segments input {
@@ -231,6 +237,5 @@ iframe {
 
 .kbSystem{
   text-align: justify;
-	padding-right: 100px;
-  padding-left : 220px;
+  padding-right: 100px;
 }

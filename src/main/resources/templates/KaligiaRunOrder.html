@@ -3,13 +3,21 @@
 <head>
 <title>Create Spectra Procedure</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel="stylesheet" type="text/css" href="/images/form2.css" />
+<link rel="stylesheet" type="text/css" href="/images/loginform.css" />
+<link rel="stylesheet" type="text/css" href="/images/form1.css" />
 </head>
 <body>
 	<form action="#" th:action="@{KaligiaRunOrder}" th:object="${RunOrder}"
 		method="POST">
-		<img src="/images/kaligia-logo.png" height="70" width="210" />
-
+		<header>
+				<div id="logo"></div>
+			</header>
+			<div class="user">
+				<div class="user_logout">
+				<p id="user_name" th:text="${#httpServletRequest.remoteUser}"></p>
+				</div>
+			</div>
+			
 		<hr />
 
 		<fieldset>
