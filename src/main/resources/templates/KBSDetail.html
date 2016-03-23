@@ -3,8 +3,8 @@
 <head>
 <title>Create/View Site</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel="stylesheet" type="text/css" href="/images/loginform.css" />
 <link rel="stylesheet" type="text/css" href="/images/form1.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 </head>
 <body>
 
@@ -12,34 +12,8 @@
 
 	<form name="kbsForm" action="#" th:action="@{SiteDetail}"
 		th:object="${KBSystem}" method="POST">
-		<header>
-				<div id="logo"></div>
-			</header>
-			<div class="user">
-				<div class="user_logout">
-				<p id="user_name" th:text="${#httpServletRequest.remoteUser}"></p>
-				</div>
-			</div>
-		<table class="main-procedure">
-				<tr>
-					<th class="Name-column">Site Name</th>
-					<th class="Desc-column">KBSystem Details</th>
-				</tr>
-				
-		<tr>
-					<td class="Name-column"><select class="site_dropdown"
-						size="20" id="siteDrop" th:field="*{endpoint.siteId}" 
-						required="required" onchange="calliframe()">
-							<option th:each="site,iterStat : ${SiteList}"
-								th:value="${site.siteId}" th:text="${site.name}"
-								th:selected="${iterStat.count==1?'':selected}"></option>
-					</select></td>
-					<td class="Desc-column" id="kbsFrame"></td>
-		</tr>
-		</table>
-				
-		<!-- style="display:none" 
-		<div class="kbSystem" id="kbs-div" > 
+		
+			<div class="kbSystem" id="kbs-div" > <!-- style="display:none" -->
 			<div class="submit-div">
 				<input class="submit-button" type="submit" name="Save" value="Update" />
 			</div>
@@ -49,23 +23,32 @@
 					<tr>
 						<td>KB System Name:</td>
 						<td><input type="text" required="required"
-							th:field="*{endpoint.name}" /></td>
+							th:field="*{endpoint.name}" 
+							th:value="${KBSystem.endpoint.name}"/></td>
 						<td>Status</td>
 						<td><select class="status_dropdown" th:field="*{endpoint.status}">
-							<option value="ACTIVE">ACTIVE</option>
-							<option value="INACTIVE">INACTIVE</option>
+							<option value="ACTIVE" th:selected="${KBSystem.endpoint.status==ACTIVE?'':selected}">ACTIVE</option>
+							<option value="INACTIVE" th:selected="${KBSystem.endpoint.status==INACTIVE?'':selected}">INACTIVE</option>
 						</select></td>
 						<td>Test Type:</td>
 						<td><select class="type_dropdown" th:field="*{endpoint.type}">
-								<option value="BOTH">BOTH</option>
-								<option value="IN-VIVO">IN-VIVO</option>
-								<option value="EX-VIVO">EX-VIVO</option>
+								<option value="BOTH" th:selected="${KBSystem.endpoint.type==BOTH?'':selected}">BOTH</option>
+								<option value="IN-VIVO" th:selected="${KBSystem.endpoint.type=='IN-VIVO'?'':selected}">IN-VIVO</option>
+								<option value="EX-VIVO" th:selected="${KBSystem.endpoint.type=='EX-VIVO'?'':selected}">EX-VIVO</option>
 								
 						</select></td>
 
 						<td>Description:</td>
 						<td><textarea id="msg" required="required"
-								th:field="*{endpoint.description}"></textarea></td>
+								th:field="*{endpoint.description}"
+								th:value="${KBSystem.endpoint.description}"></textarea></td>
+								
+							<td><input type="text" hidden="hidden"
+							th:field="*{endpoint.siteId}" 
+							th:value="${KBSystem.endpoint.siteId}"/></td>
+							<td><input type="text" hidden="hidden"
+							th:field="*{endpoint.endPointId}" 
+							th:value="${KBSystem.endpoint.endPointId}"/></td>	
 					</tr>
 				</table>
 			</fieldset>
@@ -80,17 +63,22 @@
   						<td><select class="compute_dropdown" th:field="*{kbsDeviceList[0].diObj.deviceId}">
 								<option th:each="devic:${DeviceList}"
 									th:if="${devic.type} == 'Compute'" th:value="${devic.deviceId}"
-									th:text="${devic.name}"></option>
+									th:text="${devic.name}"
+									th:selected="${KBSystem.kbsDeviceList[0].diObj.deviceId==devic.deviceId?'':selected}"></option>
 						</select></td>
 
 						<td>Serial No:</td>
 						<td><input type="text" required="required"
-							th:field="*{kbsDeviceList[0].diObj.serialId}" /></td>
+							th:field="*{kbsDeviceList[0].diObj.serialId}" 
+							th:value="${KBSystem.kbsDeviceList[0].diObj.serialId}"/></td>
 						<td>Type:</td>
 						<td><select class="type1_dropdown" th:field="*{kbsDeviceList[0].usedFor}">
-								<option value="BOTH">BOTH</option>
-								<option value="IN-VIVO">IN-VIVO</option>
-								<option value="EX-VIVO">EX-VIVO</option>
+								<option value="BOTH"
+								th:selected="${KBSystem.kbsDeviceList[0].usedFor=='BOTH'?'':selected}">BOTH</option>
+								<option value="IN-VIVO"
+								th:selected="${KBSystem.kbsDeviceList[0].usedFor=='IN-VIVO'?'':selected}">IN-VIVO</option>
+								<option value="EX-VIVO"
+								th:selected="${KBSystem.kbsDeviceList[0].usedFor=='EX-VIVO'?'':selected}">EX-VIVO</option>
 								
 						</select></td>
 					</tr>
@@ -224,24 +212,45 @@
 				</table>
 			</fieldset>
 		</div>
-		-->
 
-		<br />
-		<a id="csite" href="CreateSite.html" target="_self">
-				Create Site </a>
+
 	</form>
 	
 	
 		<script type="text/javascript">
 		//<![CDATA[
-		           
-			var sitId = document.getElementById("siteDrop").value;
-			document.getElementById("kbsFrame").innerHTML="<iframe src=KBSDetail.html?siteId="+sitId + "></iframe>";
 
-			function calliframe() {
-			var tpsId = document.getElementById("siteDrop").value;
-			document.getElementById("kbsFrame").innerHTML="<iframe src=KBSDetail.html?siteId="+tpsId + "></iframe>";
-
+		$(document).ready(function(){
+			$("ajaxButton").click( function(){
+				$ajax({url:"/SiteDetail",
+					method:"POST",
+					success: function(status){
+						console.log("KBSytem Inserted Scuccessfully" + status);
+						alert("KBSytem Inserted Scuccessfully" + status);
+					},
+					error: function(status){
+						console.log("KBSytem Insert failed" + status);
+						alert("KBSytem Insert failed" + status);
+					}
+				});
+				});	
+			});
+			
+		
+		function getUrlVars() {
+			var vars = {};
+			var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+			vars[key] = value;
+			});
+			return vars;
+			}
+		
+		function callenable() {
+			document.getElementById("kbs-div").style.display="inline";
+			/*			var tpsId = document.getElementById("siteDrop").value;
+			document.getElementById("procFrame").innerHTML = "<iframe src=ProcedureDetails.html?tpsId="
+					+ tpsId + "></iframe>";
+					*/
 		}
 		//]]>
 	</script>

@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.betterit.kaligia.DeviceList;
 import com.betterit.kaligia.KBSystem;
@@ -49,19 +50,27 @@ public class SiteDetailController {
 	private DeviceService ds;
 	
 	@RequestMapping(value="/SiteDetail", method=RequestMethod.GET)
-    public String kbsForm(Model model) {
+    public String kbsForm(@RequestParam(value="siteId", defaultValue="0") int siteId, Model model) {
 		
 		List<Site> siteList = ss.findAll();
 		List<Device> deviceList = deviceServiceObject.findAll();
 		KBSystem kbsObj = new KBSystem();
 		List<DeviceList> dList = new ArrayList<DeviceList>();
 		
-		//initialize the list of devices
-		for(int i=1; i<8; i++){
-			DeviceList dObj= new DeviceList();
-			dList.add(dObj);
+		if(siteId !=0)
+		{
+			kbsObj=eps.getEndPointDetails(siteId);
 		}
-		kbsObj.setKbsDeviceList(dList);
+		//initialize the list of devices
+		if (kbsObj==null)
+		{
+			kbsObj=new KBSystem();
+			for(int i=1; i<8; i++){
+				DeviceList dObj= new DeviceList();
+				dList.add(dObj);
+			}
+			kbsObj.setKbsDeviceList(dList);
+		}
 		
 		model.addAttribute("SiteList", siteList);
 		model.addAttribute("DeviceList", deviceList);
@@ -104,5 +113,38 @@ public class SiteDetailController {
 		eps.mapEndPointDevices(ep, dil, deleteAdd);
 		
 	return ("redirect:/SiteDetail");
+	}
+	
+	@RequestMapping(value="/KBSDetail", method=RequestMethod.GET)
+    public String kbsDetailForm(@RequestParam(value="siteId", defaultValue="0") int siteId, Model model) {
+		log.info("In KBSDetail GET with siteId " + siteId);
+		List<Site> siteList = ss.findAll();
+		List<Device> deviceList = deviceServiceObject.findAll();
+		KBSystem kbsObj = new KBSystem();
+		List<DeviceList> dList = new ArrayList<DeviceList>();
+		
+		if(siteId !=0)
+		{
+			kbsObj=eps.getEndPointDetails(siteId);
+		}
+		//initialize the list of devices
+		if ((kbsObj==null) || (siteId==0))
+		{//initialize object and pass the siteid back to the page.
+			EndPoint epObj=new EndPoint();
+			kbsObj=new KBSystem();
+			epObj.setEndPointId(0);
+			epObj.setSiteId(siteId);
+			kbsObj.setEndpoint(epObj);
+			for(int i=1; i<8; i++){
+				DeviceList dObj= new DeviceList();
+				dList.add(dObj);
+			}
+			kbsObj.setKbsDeviceList(dList);
+		}
+		
+		model.addAttribute("SiteList", siteList);
+		model.addAttribute("DeviceList", deviceList);
+		model.addAttribute("KBSystem", kbsObj);
+		return ("KBSDetail");
 	}
 }
