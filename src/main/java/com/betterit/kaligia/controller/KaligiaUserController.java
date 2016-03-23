@@ -9,6 +9,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -46,6 +48,16 @@ public class KaligiaUserController {
 		
 		return ("KaligiaUserApp");
 	}
+	
+	public void encodePassword(Users uObj)
+	{
+		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String hashedPassword = passwordEncoder.encode(uObj.getPasswd());
+		log.info("original pwd: " + uObj.getPasswd());
+		log.info("hashed pwd: " + hashedPassword);
+		uObj.setPasswd(hashedPassword);
+	}
+	
 	
 	@RequestMapping(value="/getUserDetail", method=RequestMethod.GET)
     public String userDetailsForm(@RequestParam(value="usrId" , defaultValue="0") int usr_id, Model model) {
@@ -108,6 +120,11 @@ public class KaligiaUserController {
 			e.printStackTrace();
 			uservObject.getUserObject().setStartDate(null); //Set default date
 		}
+		if (uservObject.getUserObject().getPasswd().length() <17)
+		{
+			log.info("changing password");
+			encodePassword(uservObject.getUserObject());
+		}
 		try{
 			log.info("ready to update user : " + uservObject.getUserObject().toString());
 			int rc=usObj.updateUser(uservObject.getUserObject());
@@ -140,8 +157,7 @@ public class KaligiaUserController {
 			log.info("uservObject.getEndDate() is" + uservObject.getEndDate());
 			log.info("tempDate is "+ tempDate.toString());
 			uservObject.getUserObject().setEndDate(tempDate);
-			tempDate=formatter.parse("2016-03-31");
-			log.info("now the tempDate is "+ tempDate.toString());
+			
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -159,6 +175,7 @@ public class KaligiaUserController {
 			e.printStackTrace();
 			uservObject.getUserObject().setStartDate(null); //Set default date
 		}
+		encodePassword(uservObject.getUserObject());
 		try{
 			rc=usObj.insertUser(uservObject.getUserObject()); 
 		}
