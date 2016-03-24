@@ -112,7 +112,7 @@ public class SiteDetailController {
 		//Map EndPointDevices
 		eps.mapEndPointDevices(ep, dil, deleteAdd);
 		
-	return ("KBSDetail");
+	return ("redirect:/KBSDetail");
 	}
 	
 	@RequestMapping(value="/KBSDetail", method=RequestMethod.GET)
