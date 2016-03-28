@@ -1,4 +1,5 @@
 set search_path=kaligia;
+
 ALTER TABLE Specimen DROP CONSTRAINT SpecBelongsToSub;
 ALTER TABLE Specimen DROP CONSTRAINT SpecimenCreatedBy;
 ALTER TABLE Device DROP CONSTRAINT DevCreatedBy;
@@ -47,6 +48,7 @@ ALTER TABLE EndPointProcs DROP CONSTRAINT EndPointProcs;
 ALTER TABLE EndPointProcs DROP CONSTRAINT EndPointProcCreatedBy;
 ALTER TABLE FLRemovedLog DROP CONSTRAINT FLRemovedSegment;
 ALTER TABLE TestProcedureSpecs DROP CONSTRAINT TestProcedureSpecs;
+ALTER TABLE AppConfig DROP CONSTRAINT ConfigCreatedBy;
 DROP TABLE IF EXISTS Subject CASCADE;
 DROP TABLE IF EXISTS Specimen CASCADE;
 DROP TABLE IF EXISTS Users CASCADE;
@@ -76,6 +78,7 @@ DROP TABLE IF EXISTS RolePrivs CASCADE;
 DROP TABLE IF EXISTS EndPointProcs CASCADE;
 DROP TABLE IF EXISTS FLRemovedLog CASCADE;
 DROP TABLE IF EXISTS TestProcedureSpecs CASCADE;
+DROP TABLE IF EXISTS AppConfig CASCADE;
 CREATE TABLE Subject (
   subject_id     SERIAL NOT NULL, 
   name          varchar(64) NOT NULL, 
@@ -288,6 +291,14 @@ CREATE TABLE TestProcedureSpecs (
   name         varchar(64) NOT NULL, 
   value        varchar(64), 
   unit         varchar(16));
+CREATE TABLE AppConfig (
+  config_id    SERIAL NOT NULL, 
+  name        varchar(64) NOT NULL, 
+  value       varchar(64), 
+  status      varchar(16), 
+  last_mod_on timestamp, 
+  last_mod_by int4 NOT NULL, 
+  PRIMARY KEY (config_id));
 CREATE UNIQUE INDEX Subject_subject_id 
   ON Subject (subject_id);
 CREATE UNIQUE INDEX Subject_name 
@@ -356,8 +367,8 @@ CREATE UNIQUE INDEX DeviceInst_device_inst_id
   ON DeviceInst (device_inst_id);
 CREATE UNIQUE INDEX EndPoint_end_point_id 
   ON EndPoint (end_point_id);
-CREATE UNIQUE INDEX endpoint_name
-   ON endpoint (site_id, name);
+CREATE UNIQUE INDEX EndPoint_name 
+  ON EndPoint (name);
 CREATE UNIQUE INDEX Privileges_priv_id 
   ON Privileges (priv_id);
 CREATE UNIQUE INDEX Roles_role_id 
@@ -366,6 +377,10 @@ CREATE INDEX FLRemovedLog_run_segment_id
   ON FLRemovedLog (run_segment_id);
 CREATE INDEX TestProcedureSpecs_name 
   ON TestProcedureSpecs (name);
+CREATE UNIQUE INDEX AppConfig_config_id 
+  ON AppConfig (config_id);
+CREATE UNIQUE INDEX AppConfig_name 
+  ON AppConfig (name, status;
 ALTER TABLE Specimen ADD CONSTRAINT SpecBelongsToSub FOREIGN KEY (subject_id) REFERENCES Subject (subject_id);
 ALTER TABLE Specimen ADD CONSTRAINT SpecimenCreatedBy FOREIGN KEY (created_by) REFERENCES Users (user_id);
 ALTER TABLE Device ADD CONSTRAINT DevCreatedBy FOREIGN KEY (created_by) REFERENCES Users (user_id);
@@ -414,3 +429,4 @@ ALTER TABLE EndPointProcs ADD CONSTRAINT EndPointProcs FOREIGN KEY (procedure_id
 ALTER TABLE EndPointProcs ADD CONSTRAINT EndPointProcCreatedBy FOREIGN KEY (created_by) REFERENCES Users (user_id);
 ALTER TABLE FLRemovedLog ADD CONSTRAINT FLRemovedSegment FOREIGN KEY (run_segment_id) REFERENCES RunSegment (run_segment_id);
 ALTER TABLE TestProcedureSpecs ADD CONSTRAINT TestProcedureSpecs FOREIGN KEY (procedure_id) REFERENCES TestProcedure (procedure_id);
+ALTER TABLE AppConfig ADD CONSTRAINT ConfigCreatedBy FOREIGN KEY (last_mod_by) REFERENCES Users (user_id);

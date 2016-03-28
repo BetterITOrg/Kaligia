@@ -285,6 +285,15 @@
 			enableUpdateByExample="true" modelType="flat">
 		</table>
 		
+		<table schema="kaligia" tableName="appconfig" domainObjectName="AppConfig" 
+			enableSelectByPrimaryKey="true" enableSelectByExample="true"
+			enableInsert="true"
+			enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true"
+			enableDeleteByExample="true" enableCountByExample="false"
+			enableUpdateByExample="true" modelType="flat">
+			<generatedKey column="config_id" sqlStatement="JDBC" identity="true" />
+		</table>
+		
 	</context>
 </generatorConfiguration>
 
