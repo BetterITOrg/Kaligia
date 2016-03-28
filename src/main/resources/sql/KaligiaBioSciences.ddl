@@ -379,7 +379,7 @@ CREATE INDEX TestProcedureSpecs_name
   ON TestProcedureSpecs (name);
 CREATE UNIQUE INDEX AppConfig_config_id 
   ON AppConfig (config_id);
-CREATE UNIQUE INDEX AppConfig_name 
+CREATE  INDEX AppConfig_name 
   ON AppConfig (name, status;
 ALTER TABLE Specimen ADD CONSTRAINT SpecBelongsToSub FOREIGN KEY (subject_id) REFERENCES Subject (subject_id);
 ALTER TABLE Specimen ADD CONSTRAINT SpecimenCreatedBy FOREIGN KEY (created_by) REFERENCES Users (user_id);

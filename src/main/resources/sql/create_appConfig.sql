@@ -11,7 +11,7 @@ CREATE TABLE AppConfig (
   
 CREATE UNIQUE INDEX AppConfig_config_id 
   ON AppConfig (config_id);
-CREATE UNIQUE INDEX AppConfig_name 
+CREATE  INDEX AppConfig_name 
   ON AppConfig (name, status);
   
 ALTER TABLE AppConfig ADD CONSTRAINT ConfigCreatedBy FOREIGN KEY (last_mod_by) REFERENCES Users (user_id);
