@@ -85,7 +85,12 @@ public class KaligiaRunOrderController {
 					runOrderObject.getDiastolicBP(),
 					runOrderObject.getSystolicBP(),
 					runOrderObject.getSkinColor(),
-					runOrderObject.getSpecimen() 
+					runOrderObject.getSpecimen(),
+					runOrderObject.getLumosity(),
+					runOrderObject.getRed(),
+					runOrderObject.getBlue(),
+					runOrderObject.getGreen(),
+					runOrderObject.getImageFile()
 					);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

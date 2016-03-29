@@ -166,7 +166,12 @@ public class TestProcedureService {
 			String diastolicBP,
 			String systolicBP,
 			String skinColor,
-			String specimen
+			String specimen,
+			String luminosity,
+			String red,
+			String blue,
+			String green,
+			String imageFile
 			) throws Exception {
 		
 		int rc = 0;
@@ -293,6 +298,51 @@ public class TestProcedureService {
 			log.info("Failed to insert subject Skin Color.");
 		}
 
+		//String skinColor,
+		sublog.setName("Luminosity");
+		sublog.setValue(luminosity);
+		sublog.setUnit("");
+		rc = slm.insert(sublog);
+		if(rc != 1) {
+			log.info("Failed to insert subject Luminosity.");
+		}
+				
+		//String skinColor,
+		sublog.setName("Red");
+		sublog.setValue(red);
+		sublog.setUnit("");
+		rc = slm.insert(sublog);
+		if(rc != 1) {
+			log.info("Failed to insert subject Red Color.");
+		}
+			
+		//String skinColor,
+		sublog.setName("Blue");
+		sublog.setValue(blue);
+		sublog.setUnit("");
+		rc = slm.insert(sublog);
+		if(rc != 1) {
+			log.info("Failed to insert subject Blue Color.");
+		}
+			
+		//String skinColor,
+		sublog.setName("Green");
+		sublog.setValue(green);
+		sublog.setUnit("");
+		rc = slm.insert(sublog);
+		if(rc != 1) {
+			log.info("Failed to insert subject Green Color.");
+		}
+		
+		//String skinColor,
+		sublog.setName("ImageFile");
+		sublog.setValue(imageFile);
+		sublog.setUnit("");
+		rc = slm.insert(sublog);
+		if(rc != 1) {
+			log.info("Failed to insert subject Image File.");
+		}
+		
 		//Create RunDevices
 		// Get EndPointDevices
 		List<EndPointDevices> epdl = new ArrayList<EndPointDevices>();
