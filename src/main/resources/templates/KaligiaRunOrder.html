@@ -163,13 +163,13 @@
 					alert("Camera failed" + status);
 				}
 			});*/
-				$.getJSON('/skinCapture', { orderNo: ordNo }, function(status, data) {
-					document.getElementById("lumosity").value = data.lumosity;
-					document.getElementById("red").value = data.red;
+				$.getJSON('/skinCapture', { orderNo: ordNo }, function(data, status) {
+					document.getElementById("lumosity").value = data["lumosity"];
+					document.getElementById("red").value = data["red"];
 					document.getElementById("blue").value = data.blue;
 					document.getElementById("green").value = data.green;
 					document.getElementById("imageFile").value = data.imageFile;
-				    
+				    console.log(" lumosity is "+ data["lumosity"]);
 					document.getElementById("skinImage").style.display = "block";
 				    
 				}).fail( function(d, textStatus, error) {

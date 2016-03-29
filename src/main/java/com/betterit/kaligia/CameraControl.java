@@ -59,7 +59,7 @@ public class CameraControl{
 				webcam.setViewSize(WebcamResolution.HD720.getSize());
 				
 				
-				if (webcamName.equals("Endoscope 0")){
+				if (webcamName.equals("Endoscope 1")){
 					
 					log.info("Webcam detected: " + webcamName);
 					webcam1=webcam;
@@ -72,6 +72,7 @@ public class CameraControl{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				log.info("Please connect the camera");
+				throw e;
 				
 			}
 			catch (com.github.sarxos.webcam.WebcamLockException e) {
@@ -95,8 +96,9 @@ public class CameraControl{
 
 				java.util.Date date= new java.util.Date();
 				Timestamp currentTimestamp= new Timestamp(date.getTime());
-				String STime = new SimpleDateFormat("yyyy-MM-dd HH.mm.ss").format(currentTimestamp);
+				String STime = new SimpleDateFormat("yyyy-MM-dd.HH.mm.ss").format(currentTimestamp);
 				imageFname = new String(uniqFileName+"."+STime+".jpg");
+				log.info("image file is : " + imageFname);
 				
 				int rref=0,gref=0,bref=0; int r1ref=0,g1ref=0,b1ref=0; int pixelref;
 				for (int c=y1ref;c<=y2ref;c++)
@@ -168,6 +170,7 @@ public class CameraControl{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				log.info("Please connect the camera");
+				throw e;
 				
 			}
 		

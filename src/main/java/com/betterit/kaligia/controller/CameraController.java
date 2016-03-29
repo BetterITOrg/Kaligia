@@ -52,6 +52,7 @@ public class CameraController {
 		catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw e;
 		}
 		
 		log.info("returned camera params are : " + restObj.toString());
