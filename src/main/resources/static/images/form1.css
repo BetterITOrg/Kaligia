@@ -239,3 +239,6 @@ iframe {
  width: 45%
 }
 
+#skinImage {
+	display : none;
+}
