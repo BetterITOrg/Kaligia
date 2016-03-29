@@ -206,6 +206,24 @@
 								
 						</select></td>
 						</tr>
+					<tr>
+						<td>Camera:</td>
+						<td><select class="camera_dropdown" th:field="*{kbsDeviceList[8].diObj.deviceId}">
+								<option th:each="devic:${DeviceList}"
+									th:if="${devic.type} == 'Camera'" th:value="${devic.deviceId}"
+									th:text="${devic.name}"></option>
+						</select></td>
+						<td>Serial No:</td>
+						<td><input type="text" 
+							th:field="*{kbsDeviceList[8].diObj.serialId}" /></td>
+						<td>Type:</td>
+						<td><select class="type1_dropdown" th:field="*{kbsDeviceList[8].usedFor}">
+								<option value="BOTH">BOTH</option>
+								<option value="IN-VIVO">IN-VIVO</option>
+								<option value="EX-VIVO">EX-VIVO</option>
+								
+						</select></td>
+						</tr>
 							
 				</table>
 			</fieldset>

@@ -80,7 +80,7 @@ public class DeviceService {
 
 	public List<DeviceList> getDeviceInstOrd(List<EndPointDevices> epdl) {
 		 
-		DeviceList[] dilo = new DeviceList[8];
+		DeviceList[] dilo = new DeviceList[9];
 		DeviceInst di;
 		int compute = 0;
 		int laser = 1;
@@ -90,9 +90,10 @@ public class DeviceService {
 		int collect = 5;
 		int excite = 6;
 		int probe2 = 7;
+		int camera = 8;
 		int p=1;
 		
-		for(int j=0; j<8; j++) {
+		for(int j=0; j<9; j++) {
 			dilo[j] = new DeviceList();
 		}
 		
@@ -116,6 +117,7 @@ public class DeviceService {
 			case "LabJack" : dilo[labjack].setDiObj(di); dilo[labjack].setUsedFor(epdl.get(i).getUsedFor()); break;
 			case "ExcitationFiber" : dilo[excite].setDiObj(di); dilo[excite].setUsedFor(epdl.get(i).getUsedFor()); break;
 			case "CollectionFiber" : dilo[collect].setDiObj(di); dilo[collect].setUsedFor(epdl.get(i).getUsedFor()); break;
+			case "Camera" : dilo[camera].setDiObj(di); dilo[camera].setUsedFor(epdl.get(i).getUsedFor()); break;
 			}
 		}
 		

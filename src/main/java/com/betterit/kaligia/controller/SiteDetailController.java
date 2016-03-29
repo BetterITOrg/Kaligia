@@ -67,7 +67,7 @@ public class SiteDetailController {
 		if (kbsObj==null)
 		{
 			kbsObj=new KBSystem();
-			for(int i=1; i<8; i++){
+			for(int i=1; i<9; i++){
 				DeviceList dObj= new DeviceList();
 				dList.add(dObj);
 			}
@@ -137,7 +137,7 @@ public class SiteDetailController {
 			epObj.setEndPointId(0);
 			epObj.setSiteId(siteId);
 			kbsObj.setEndpoint(epObj);
-			for(int i=1; i<8; i++){
+			for(int i=1; i<9; i++){
 				DeviceList dObj= new DeviceList();
 				dList.add(dObj);
 			}
