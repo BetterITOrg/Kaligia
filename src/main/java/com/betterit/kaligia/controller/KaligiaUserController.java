@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -31,6 +32,7 @@ import com.betterit.kaligia.service.UsersService;
 
 
 @Controller
+@PreAuthorize("hasAnyRole('ROLE_Admin')")
 public class KaligiaUserController {
 
 	Logger log = Logger.getLogger(KaligiaUserController.class.getName());

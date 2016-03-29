@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,6 +31,7 @@ import com.betterit.kaligia.service.TestProcedureService;
  */
 
  @Controller
+ @PreAuthorize("hasAnyRole('ROLE_Admin')")
 public class CreateSiteController {
 
 	Logger log = Logger.getLogger(CreateSiteController.class.getName());
