@@ -81,7 +81,7 @@ public class CameraControl{
 				
 			}
 		}
-	protected static SkinCapture capture(String uniqFileName){
+	public SkinCapture capture(String uniqFileName){
 		
 			int i=1; 
 			int red=0,green=0,blue=0; 

@@ -5,10 +5,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" type="text/css" href="/images/loginform.css" />
 <link rel="stylesheet" type="text/css" href="/images/form1.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 </head>
 <body>
-	<form action="#" th:action="@{KaligiaRunOrder}" th:object="${RunOrder}"
-		method="POST">
+	<form th:action="@{KaligiaRunOrder}" th:object="${RunOrder}" method="POST">
 		<header>
 				<div id="logo"></div>
 			</header>
@@ -25,7 +25,7 @@
 			<table>
 				<tr>
 					<td>Order No :</td>
-					<td><input type="text" required="required"
+					<td><input id="orderNo" type="text" required="required"
 						th:field="*{orderNo}" /></td>
 					<td>Procedure</td>
 					<td><select class="procedure_dropdown" id="procedureDrop" 
@@ -101,16 +101,88 @@
 					<td>Heart Rate (bpm):</td>
 					<td><input type="text" required="required"
 						th:field="*{patientHeartRate}" /></td>
-					<td>Skin Color Value:</td>
+					<!--  <td>Skin Color Value:</td>
 					<td><input type="text" required="required"
 						th:field="*{skinColor}" /></td>	
+					-->
+					<td>
+					<button id="ajaxButton" onclick="getImage()"> SKIN CAPTURE</button>
+					</td>
 				</tr>
 			</table>
 		</fieldset>
+		<div id="skinImage">
+		<table>
+				<tr>
+					<td>Lumosity :</td>
+					<td><input id="lumosity" type="text" readonly="readonly"
+						th:field="*{lumosity}" /></td>
+					<td>Red :</td>
+					<td><input id="red" type="text" readonly="readonly"
+						th:field="*{red}" /></td>
+					<td>Green :</td>
+					<td><input id="green" type="text" readonly="readonly"
+						th:field="*{green}" /></td>
+					<td>Blue :</td>
+					<td><input id="blue" type="text" readonly="readonly"
+						th:field="*{blue}" /></td>
+					<td>File :</td>
+					<td><input id="imageFile" type="text" readonly="readonly"
+						th:field="*{imageFile}" /></td>
+				</tr>
+		</table>
+		</div>
 		
 		<input class="submit-button" type="submit" name="RunTest"
 				value="RUN TEST" />
 
 	</form>
+	
+	
+					
+					
+	<script type="text/javascript">
+		//<![CDATA[
+
+		function getImage(){
+				var ordNo = document.getElementById("orderNo").value;
+				if(ordNo == "" || ordNo == null)
+				{
+				    alert("OrderNo is empty. Please fill Order number.");
+				    return;
+				}
+			/*$.ajax({url:"/skinCapture",
+				method:"GET",
+				//data: {orderNo: ordNo },
+				success: function(status){
+					console.log("Camera Successful" + status.toString());
+					alert("Camera Successful" + status);
+				},
+				error: function(status){
+					console.log("Camera failed" + status.toString());
+					alert("Camera failed" + status);
+				}
+			});*/
+				$.getJSON('/skinCapture', { orderNo: ordNo }, function(status, data) {
+					document.getElementById("lumosity").value = data.lumosity;
+					document.getElementById("red").value = data.red;
+					document.getElementById("blue").value = data.blue;
+					document.getElementById("green").value = data.green;
+					document.getElementById("imageFile").value = data.imageFile;
+				    
+					document.getElementById("skinImage").style.display = "block";
+				    
+				}).fail( function(d, textStatus, error) {
+			        console.error("skin Capture failed, status: " + textStatus + ", error: "+error);
+			        alert("Skin Capture failed. Please check camera and retry")
+			    });
+			
+			};
+			
+			
+			
+			
+		//]]>
+		</script>
 </body>
 </html>

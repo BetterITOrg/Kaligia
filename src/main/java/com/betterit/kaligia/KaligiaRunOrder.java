@@ -41,6 +41,11 @@ public class KaligiaRunOrder {
 	
 	private Integer runID;
 	private String resultNotes;
+	private String lumosity;
+	private String red;
+	private String blue;
+	private String green;
+	private String imageFile;
 	
 	public String getOrderNo() {
 		return orderNo;
@@ -99,10 +104,15 @@ public class KaligiaRunOrder {
 				+ (testProcedure != null ? "testProcedure=" + testProcedure + ", " : "")
 				+ (specimen != null ? "specimen=" + specimen + ", " : "") + "testProcedureId=" + testProcedureId + ", "
 				+ (testStatus != null ? "testStatus=" + testStatus + ", " : "")
-				+ (wavenumber != null ? "wavenumber=" + Arrays.toString(wavenumber) + ", " : "")
-				+ (photon != null ? "photon=" + Arrays.toString(photon) + ", " : "")
+				+ (wavenumber != null ? "wavenumber=" + wavenumber + ", " : "")
+				+ (photon != null ? "photon=" + photon + ", " : "")
+				+ (flrwavenumber != null ? "flrwavenumber=" + flrwavenumber + ", " : "")
+				+ (flrphoton != null ? "flrphoton=" + flrphoton + ", " : "")
 				+ (runID != null ? "runID=" + runID + ", " : "")
-				+ (resultNotes != null ? "resultNotes=" + resultNotes : "") + "]";
+				+ (resultNotes != null ? "resultNotes=" + resultNotes + ", " : "")
+				+ (lumosity != null ? "lumosity=" + lumosity + ", " : "") + (red != null ? "red=" + red + ", " : "")
+				+ (blue != null ? "blue=" + blue + ", " : "") + (green != null ? "green=" + green + ", " : "")
+				+ (imageFile != null ? "imageFile=" + imageFile : "") + "]";
 	}
 	/**
 	 * @return the testStatus
@@ -291,5 +301,35 @@ public class KaligiaRunOrder {
 	 */
 	public void setFlrWavenumber(int[] wavenumber, int i) {
 		this.flrwavenumber[i] = wavenumber;
+	}
+	public String getLumosity() {
+		return lumosity;
+	}
+	public void setLumosity(String lumosity) {
+		this.lumosity = lumosity;
+	}
+	public String getRed() {
+		return red;
+	}
+	public void setRed(String red) {
+		this.red = red;
+	}
+	public String getBlue() {
+		return blue;
+	}
+	public void setBlue(String blue) {
+		this.blue = blue;
+	}
+	public String getGreen() {
+		return green;
+	}
+	public void setGreen(String green) {
+		this.green = green;
+	}
+	public String getImageFile() {
+		return imageFile;
+	}
+	public void setImageFile(String imageFile) {
+		this.imageFile = imageFile;
 	}
 }
