@@ -58,8 +58,13 @@ public class CameraControl{
 				webcam.setCustomViewSizes(nonStandardResolutions);
 				webcam.setViewSize(WebcamResolution.HD720.getSize());
 				
-				
-				if (webcamName.equals("Endoscope 1")){
+String word = "Endoscope";
+
+Boolean found;
+
+found = webcamName.contains(word);				
+				if(found){
+
 					
 					log.info("Webcam detected: " + webcamName);
 					webcam1=webcam;
