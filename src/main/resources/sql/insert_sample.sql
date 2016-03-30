@@ -207,6 +207,17 @@ now(),
 (select user_id from users where login_id='kjohar')
 );
 
+insert into device VALUES (
+DEFAULT,
+'CR Endoscope',
+'Camera',
+'Crenova',
+'Endoscope1',
+'Active',
+now(),
+(select user_id from users where login_id='kjohar')
+);
+
 insert into devicespec values (
 (select device_id from device where name='L-Shape 00001'),
 'WorkingDistance',
