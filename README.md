@@ -19,6 +19,6 @@ RVL16.4.0
 - Integrated Webcam
 - 3 external jars to bbe added
 - mvn install:install-file -Dfile=src/main/resources/jars/webcam-capture-0.3.10-RC7.jar -DgroupId=com.github.sarxos -DartifactId=webcam-capture -Dversion=0.3.7 -Dpackaging=jar
-mvn install:install-file -Dfile=src/main/resources/jars/slf4j-api-1.7.2.jar -DgroupId=org.slf4j -DartifactId=slf4j-api -Dversion=1.7.2 -Dpackaging=jar
-mvn install:install-file -Dfile=src/main/resources/jars/bridj-0.6.3-20130316.190111-13.jar -DgroupId=com.nativelibs4java -DartifactId=bridj -Dversion=0.6.3 -Dpackaging=jar
+- mvn install:install-file -Dfile=src/main/resources/jars/slf4j-api-1.7.2.jar -DgroupId=org.slf4j -DartifactId=slf4j-api -Dversion=1.7.2 -Dpackaging=jar
+- mvn install:install-file -Dfile=src/main/resources/jars/bridj-0.6.3-20130316.190111-13.jar -DgroupId=com.nativelibs4java -DartifactId=bridj -Dversion=0.6.3 -Dpackaging=jar
 
