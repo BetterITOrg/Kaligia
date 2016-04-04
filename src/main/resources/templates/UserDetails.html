@@ -15,10 +15,8 @@
 			<legend> User Details </legend>
 			<table>
 				<tr>
-					<td> UsersId:</td>
-					<td> <input type="text" hidden="hidden" 
-						th:field="*{userObject.userId}"
-						th:value="${UserDetails.userObject.userId}" /></td>
+					
+					
 					<td>LoginId:</td>
 					<td> <input type="text" readonly="readonly" 
 						th:field="*{userObject.loginId}"
@@ -27,6 +25,10 @@
 					<td> <input type="text"  
 						th:field="*{userObject.passwd}"
 						th:value="${UserDetails.userObject.passwd}" />	</td>
+						<td> <input type="text" hidden="hidden" 
+						th:field="*{userObject.userId}"
+						th:value="${UserDetails.userObject.userId}" /></td>
+						<td></td>
 				</tr>
 				<tr>
 					<td>FirstName:</td>
