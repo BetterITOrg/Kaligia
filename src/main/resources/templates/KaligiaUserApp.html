@@ -44,6 +44,10 @@
 
 	<script type="text/javascript">
 		//<![CDATA[
+		           
+		var tpsIdd = document.getElementById("userDrop").value;
+		document.getElementById("userFrame").innerHTML = "<iframe src=getUserDetail.html?usrId="
+				+ tpsIdd + "></iframe>";
 
 		function callUIframe() {
 			var tpsId = document.getElementById("userDrop").value;
