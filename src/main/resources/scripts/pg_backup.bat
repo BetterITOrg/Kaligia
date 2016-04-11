@@ -15,7 +15,7 @@ set epn=KBS01
 echo epn is %epn%
 echo ComputerName is %ComputerName%
     
-set BACKUP_FILE=%ComputerName%_%datestr%.backup
+set BACKUP_FILE=%epn%_%datestr%.backup
 
 if not exist "%BACKUP_FILE%" goto SkipRename
 
@@ -37,7 +37,7 @@ for %%f in ("%BACKUP_FILE%") do (
 ::echo ftp -s:FileName once backup file is generated.
 
 
-winscp.com /log=ftpcmd.log /command ^
-    "open sftp://kaligia:kaligia@71.251.87.162 " ^
+winscp.exe /log=ftpcmd.log /command ^
+    "open ftp://kaligia:kaligia@71.251.87.162 " ^
     "put %BACKUP_FILE% " ^
     "exit"
