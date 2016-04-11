@@ -13,6 +13,7 @@ echo datestr is %datestr%
 
 set epn=KBS01
 echo epn is %epn%
+echo ComputerName is %ComputerName%
     
 set BACKUP_FILE=%epn%_%datestr%.backup
 
@@ -34,3 +35,9 @@ for %%f in ("%BACKUP_FILE%") do (
 	
 ::"C:\Program Files\PostgreSQL\9.5\bin\psql.exe" -h localhost -p 5432 -U postgres -d kaligia -f %BACKUP_FILE%
 ::echo ftp -s:FileName once backup file is generated.
+
+
+winscp.exe /log=ftpcmd.log /command ^
+    "open ftp://kaligia:kaligia@71.251.87.162 " ^
+    "put %BACKUP_FILE% " ^
+    "exit"

@@ -5,10 +5,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" type="text/css" href="/images/loginform.css" />
 <link rel="stylesheet" type="text/css" href="/images/form1.css" />
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script th:src="@{/js/jquery-1.12.2.min.js}"></script>
+<script th:src="@{/js/jquery.blockUI.js}"></script>
 </head>
 <body>
-	<form th:action="@{KaligiaRunOrder}" th:object="${RunOrder}" method="POST">
+	<form id="form1" th:action="@{KaligiaRunOrder}" th:object="${RunOrder}" method="POST">
 		<header>
 				<a id="logo" href="KaligiaMainApp.html" class="linkedImage"></a>
 			</header>
@@ -135,11 +136,9 @@
 		
 		<input class="submit-button" type="submit" name="RunTest"
 				value="RUN TEST" />
+		
 
 	</form>
-	
-	
-					
 					
 	<script type="text/javascript">
 		//<![CDATA[
@@ -179,9 +178,11 @@
 			
 			};
 			
-			
-			
-			
+			$("#form1").submit(function() {
+			        //$("#WaitDialog").modalDialog();
+			        $.blockUI({ message: '<h2>TESTING...<img src="/images/busy-icon.gif" /></h2>' });
+		            }); 
+						
 		//]]>
 		</script>
 </body>
