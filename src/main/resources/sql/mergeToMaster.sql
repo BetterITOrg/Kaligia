@@ -33,6 +33,8 @@ DECLARE
    tss_row        kaligia.testsegmentspec%ROWTYPE;
    pseg_row       kaligia.procsegment%ROWTYPE;
    tps_row        kaligia.testprocedurespecs%ROWTYPE;
+   site_row       kaligia.site%ROWTYPE;
+   user_row       kaligia.users%ROWTYPE;
    r              record;
    rr             record;
    run_ids        integer [];
@@ -40,6 +42,10 @@ DECLARE
    sid            integer;
    spc_id         integer;
    proc_id        integer;
+   tsg_id		  integer;
+   siteid         integer;
+   uid            integer;
+   user_ids       integer [];
 BEGIN
    SELECT 1
      INTO sch_exists
@@ -51,6 +57,33 @@ BEGIN
       status := 'Failure: Schema Not Found: ' || epSchema;
       RETURN;
    END IF;
+
+   -- check for users
+   FOR r IN EXECUTE format ('select * from %1$s.users;', epSchema)
+   LOOP
+      SELECT user_id
+        INTO uid
+        FROM kaligia.users
+       WHERE login_id = r.login_id;
+
+      IF (uid IS NULL)
+      THEN
+         -- load users
+         user_row := r;
+         uid := user_row.user_id;
+         user_row.user_id := user_row.user_id + increment;
+
+         INSERT INTO kaligia.users
+            SELECT user_row.*;
+
+         RAISE NOTICE 'Inserted User ID: %', user_row.user_id;
+         user_ids[uid] := user_row.user_id;
+      ELSE
+         user_ids[r.user_id] := uid;
+      END IF;
+   END LOOP;
+
+
 
    EXECUTE format ('select name from %1$s.endpoint;', epSchema) INTO ep_name;
 
@@ -70,9 +103,35 @@ BEGIN
       -- load endpoint
       EXECUTE format ('select * from %1$s.endpoint;', epSchema) INTO ep_row;
 
+		-- check for site
+	   EXECUTE format ('select * from %1$s.site where site_id=%2$s;',
+					   epSchema,
+					   ep_row.site_id)
+		  INTO site_row;
+
+	   SELECT site_id
+		 INTO siteid
+		 FROM kaligia.site
+		WHERE name = site_row.name;
+
+	   IF (siteid IS NULL)
+	   THEN
+		  -- load site
+		  site_row.site_id := site_row.site_id + increment;
+		  site_row.created_by := user_ids[site_row.created_by];
+
+		  INSERT INTO kaligia.site
+			 SELECT site_row.*;
+
+		  RAISE NOTICE 'Inserted Site ID: %', site_row.site_id;
+		  siteid := site_row.site_id;
+	   END IF;
+
       slave_ep_id := ep_row.end_point_id;
       master_ep_id := slave_ep_id + increment;
       ep_row.end_point_id := master_ep_id;
+      ep_row.site_id := siteid;
+	  ep_row.created_by := user_ids[ep_row.created_by];
 
       INSERT INTO kaligia.endpoint
          SELECT ep_row.*;
@@ -93,9 +152,12 @@ BEGIN
             INTO di_row;
 
          di_row.device_inst_id := di_row.device_inst_id + increment;
-         r.device_inst_id := r.device_inst_id + increment;
-         r.end_point_id := r.end_point_id + increment;
+		 di_row.created_by := user_ids[di_row.created_by];
+		 
          epd_row = r;
+		 epd_row.device_inst_id := epd_row.device_inst_id + increment;
+         epd_row.end_point_id := epd_row.end_point_id + increment;
+		 epd_row.created_by := user_ids[epd_row.created_by];
 
          INSERT INTO kaligia.deviceinst
             SELECT di_row.*;
@@ -106,8 +168,8 @@ BEGIN
          RAISE NOTICE 'Inserted EndPoint Device Inst ID %', r.device_inst_id;
       END LOOP;
    ELSE
-      slave_ep_id = master_ep_id - increment;
-   END IF;
+		execute format('select end_point_id from %1$s.endpoint where name=''%2$s'';', epSchema, ep_name) into slave_ep_id;
+    END IF;
 
    EXECUTE format (
              'select max(r.run_id) from kaligia.runorder r where r.end_point_id = %1$s;',
@@ -117,6 +179,8 @@ BEGIN
    IF (merge_run_id IS NULL)
    THEN
       merge_run_id := 0;
+	ELSE
+		merge_run_id := merge_run_id - increment;
    END IF;
 
    RAISE NOTICE 'Last Merge Run ID %', merge_run_id;
@@ -145,10 +209,11 @@ BEGIN
 
    -- load run data
    EXECUTE format (
-             'select array(select run_id from %1$s.runorder where end_point_id=%2$s and run_id not in (select run_id from kaligia.runorder where end_point_id=%3$s));',
+			'select array(select run_id from %1$s.runorder where end_point_id=%2$s and run_id not in (select run_id-%4$s from kaligia.runorder where end_point_id=%3$s));',
              epSchema,
              slave_ep_id,
-             master_ep_id)
+             master_ep_id,
+			 increment)
       INTO run_ids;
 
  FOREACH rid IN ARRAY run_ids
@@ -161,6 +226,7 @@ BEGIN
   IF (sub_exists IS NULL) THEN
    EXECUTE format('select * from %1$s.subject where subject_id=(select subject_id from %1$s.testorder where order_id=(select order_id from %1$s.runorder where run_id=%2$s));', epSchema, rid) INTO sub_row;
    sub_row.subject_id := sub_row.subject_id + increment;
+   sub_row.created_by := user_ids[sub_row.created_by];
    INSERT INTO kaligia.subject SELECT sub_row.*;
    RAISE NOTICE 'Inserted Subject ID: %', sub_row.subject_id;
    sub_exists := sub_row.subject_id;
@@ -170,6 +236,8 @@ BEGIN
   EXECUTE format('select * from %1$s.testorder where order_id=(select order_id from %1$s.runorder where run_id=%2$s);', epSchema, rid) INTO tord_row;
   tord_row.order_id := tord_row.order_id + increment;
   tord_row.subject_id := sub_exists;
+  tord_row.site_id := siteid;
+  tord_row.created_by := user_ids[tord_row.created_by];
   INSERT INTO kaligia.testorder SELECT tord_row.*;
   RAISE NOTICE 'Inserted Test Order ID: %', tord_row.order_id;
 
@@ -188,6 +256,7 @@ BEGIN
    sl_row=r;
    sl_row.order_id := sl_row.order_id + increment;
    sl_row.subject_id := sub_exists;
+   sl_row.created_by := user_ids[sl_row.created_by];
    INSERT INTO kaligia.subjectlog SELECT sl_row.*;
    RAISE NOTICE 'Inserted Subject Log % for Subject ID: %', sl_row.name, sl_row.subject_id;
   END LOOP;
@@ -198,6 +267,7 @@ BEGIN
    spc_row := r;
    spc_row.specimen_id := spc_row.specimen_id + increment;
    spc_row.subject_id := spc_row.subject_id + increment;
+   spc_row.created_by := user_ids[spc_row.created_by];
    INSERT INTO kaligia.specimen SELECT spc_row.* WHERE NOT EXISTS (SELECT 1 FROM kaligia.specimen WHERE specimen_id=spc_row.specimen_id);
    RAISE NOTICE 'Inserted Specimen ID: %', spc_row.specimen_id;
   END LOOP;
@@ -209,6 +279,7 @@ BEGIN
   ELSE
   -- load procedure
   proc_row.procedure_id := proc_row.procedure_id + increment;
+  proc_row.created_by := user_ids[proc_row.created_by];
   INSERT INTO kaligia.testprocedure SELECT proc_row.*;
   RAISE NOTICE 'Inserted Procedure ID: %', proc_row.procedure_id;
 
@@ -232,24 +303,27 @@ BEGIN
   FOR r IN EXECUTE format('select * from %1$s.procsegment where procedure_id=%2$s;', epSchema, proc_row.procedure_id-increment)
   LOOP
    EXECUTE format('select * from %1$s.testsegment where segment_id=%2$s', epSchema, r.segment_id) INTO tseg_row;
-   IF EXISTS (SELECT 1 FROM kaligia.testsegment WHERE name=tseg_row.name) THEN
-   ELSE
-    -- load testsegment
-  tseg_row.segment_id := tseg_row.segment_id + increment;
-  INSERT INTO kaligia.testsegment SELECT tseg_row.*;
-  RAISE NOTICE 'Inserted Test Segment ID: %', tseg_row.segment_id;
-
-  -- load testsegmentsspec
-  FOR rr IN EXECUTE format('select * from %1$s.testsegmentspec where segment_id=%2$s;', epSchema, r.segment_id)
-  LOOP
-   tss_row := rr;
-   tss_row.segment_id := tseg_row.segment_id;
-   INSERT INTO kaligia.testsegmentspec SELECT tss_row.*;
-  END LOOP;
-  r.segment_id := tseg_row.segment_id;
+    SELECT segment_id into tsg_id FROM kaligia.testsegment WHERE name=tseg_row.name;
+    IF (tsg_id is null) THEN
+	  -- load testsegment
+	  tseg_row.segment_id := tseg_row.segment_id + increment;
+	  tseg_row.created_by := user_ids[tseg_row.created_by];
+	  INSERT INTO kaligia.testsegment SELECT tseg_row.*;
+	  RAISE NOTICE 'Inserted Test Segment ID: %', tseg_row.segment_id;
+	  tsg_id := tseg_row.segment_id;
+	
+	  -- load testsegmentsspec
+	  FOR rr IN EXECUTE format('select * from %1$s.testsegmentspec where segment_id=%2$s;', epSchema, r.segment_id)
+	  LOOP
+	   tss_row := rr;
+	   tss_row.segment_id := tseg_row.segment_id;
+	   INSERT INTO kaligia.testsegmentspec SELECT tss_row.*;
+	  END LOOP;
    END IF;
-   pseg_row = r;
+   
+   pseg_row := r;
    pseg_row.procedure_id := proc_row.procedure_id;
+   pseg_row.segment_id := tsg_id;
    INSERT INTO kaligia.procsegment SELECT pseg_row.*;
   END LOOP;
   END IF;
@@ -259,10 +333,12 @@ BEGIN
   rord_row.run_id := rord_row.run_id + increment;
   rord_row.order_id := rord_row.order_id + increment;
   rord_row.end_point_id := master_ep_id;
-   EXECUTE format('select procedure_id from kaligia.testprocedure where name=(select name from %1$s.testprocedure where procedure_id=%2$s);', epSchema, rord_row.procedure_id) INTO proc_id;
+  EXECUTE format('select procedure_id from kaligia.testprocedure where name=(select name from %1$s.testprocedure where procedure_id=%2$s);', epSchema, rord_row.procedure_id) INTO proc_id;
   EXECUTE format('select specimen_id from kaligia.specimen where name=(select name from %1$s.specimen where specimen_id=%2$s);', epSchema, rord_row.specimen_id) INTO spc_id;
   rord_row.procedure_id := proc_id;
   rord_row.specimen_id := spc_id;
+  rord_row.site_id := siteid;
+  rord_row.created_by := user_ids[rord_row.created_by];
   INSERT INTO kaligia.runorder SELECT rord_row.*;
   RAISE NOTICE 'Inserted Run Order ID: %', rord_row.run_id;
 
@@ -278,6 +354,7 @@ BEGIN
     -- insert deviceinst
     EXECUTE format('select * from %1$s.deviceinst where device_inst_id = %2$s;', epSchema, rdev_row.device_inst_id-increment) INTO di_row;
     di_row.device_inst_id := di_row.device_inst_id + increment;
+	di_row.created_by := user_ids[di_row.created_by];
     INSERT INTO kaligia.deviceinst SELECT di_row.*;
     RAISE NOTICE 'Inserted Device Inst ID: %', di_row.device_inst_id;
    END IF;
@@ -323,4 +400,5 @@ $BODY$
    VOLATILE
    COST 2000;
 
-ALTER FUNCTION kaligia.mergetomaster(CHARACTER VARYING,integer) OWNER TO postgres
+ALTER FUNCTION kaligia.mergetomaster(CHARACTER VARYING,integer) OWNER TO postgres;
+\
