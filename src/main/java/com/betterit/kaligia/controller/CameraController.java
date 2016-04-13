@@ -22,7 +22,11 @@ import com.betterit.kaligia.SkinCapture;
 
  @RestController
 public class CameraController {
-
+	 static { 
+	      System.setProperty("java.awt.headless", "false");
+	      System.out.println(java.awt.GraphicsEnvironment.isHeadless());
+	      
+	    }
 	Logger log = Logger.getLogger(CameraController.class.getName());
 
 	//@Autowired

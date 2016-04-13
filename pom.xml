@@ -140,6 +140,12 @@
 			<artifactId>bridj</artifactId>
 			<version>0.6.3</version>
 		</dependency>
+		<dependency>
+    			<groupId>gov.nih.imagej</groupId>
+    			<artifactId>ij</artifactId>
+    			<version>1.49v</version>
+  		</dependency>
+  		
 	</dependencies>
 	
 	<build>
