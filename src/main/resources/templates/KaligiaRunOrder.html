@@ -63,13 +63,21 @@
 					<td><input type="date" required="required"
 						th:field="*{dateOfBirth}" /></td>
 					<td>Gender:</td>
-					<td><input type="text" required="required"
-						th:field="*{patientGender}" /></td>
-					
+					<td><select class="gender_dropdown" th:field="*{patientGender}">
+							<option value="Male">Male</option>
+							<option value="Female">Female</option>
+							<option value="Other">Other</option>
+					</select>
+					</td>
 					<td>Ethnicity:</td>
-					<td><input type="text" required="required"
-						th:field="*{patientEthnicity}" /></td>
-					
+					<td><select class="eth_dropdown" th:field="*{patientEthnicity}">
+							<option value="White">White</option>
+							<option value="Hispanic/Latino">Hispanic/Latino</option>
+							<option value="African American">African American</option>
+							<option value="Asian">Asian</option>
+							<option value="Other">Other</option>
+					</select>
+					</td>
 				</tr>
 			</table>
 		</fieldset>

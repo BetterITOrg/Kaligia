@@ -88,7 +88,8 @@ public class SiteDetailController {
 		log.info("list length is " + kbsObject.getKbsDeviceList().size());
 		
 		//Set the creation parameters
-		kbsObject.getEndpoint().getName().toLowerCase();
+		String epLower= kbsObject.getEndpoint().getName().toLowerCase();
+		kbsObject.getEndpoint().setName(epLower);
 		kbsObject.getEndpoint().setCreationDate(new Date());
 		kbsObject.getEndpoint().setCreatedBy(1);
 		
