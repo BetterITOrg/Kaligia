@@ -27,7 +27,7 @@ my @files;
 find(
     sub {
         return unless -f;        # Files only
-        return unless  /\.old.backup$/ ; # Name must end in ".txt"
+        return unless  /\.backup$/ ; # Name must end in ".txt"
         push @files, $File::Find::name;
     },
     $directory
@@ -53,8 +53,23 @@ for my $file ( @files ) {
     close $input_fh;
     close $output_fh;
     my $dbloadcmd = "\"C:\\Program Files\\PostgreSQL\\9.5\\bin\\psql.exe\" -h localhost -p 5432 -U postgres -d kaligia -f ${newfname}";
-    #$dbloadcmd .= '$newfname';
-    my $loadcmd = `$dbloadcmd`;
-    system($loadcmd);
-    #move "$file.tmp", $file;
+    system($dbloadcmd);
+
+    my $dbmergecmd = "\"C:\\Program Files\\PostgreSQL\\9.5\\bin\\psql.exe\" -h localhost -p 5432 -U postgres -d kaligia -t -c \"select kaligia.mergeToMaster('kaligia_${kbsname}', 2000000);\"";
+ 	my $result = "";
+    $result = `$dbmergecmd`;
+	print "Result: [", $result, "]\n";
+	if($result =~ /Success/) {
+	#Drop Schema
+		print "Dropping Schema: kaligia_", $kbsname, "\n";
+		my $dropschema = "\"C:\\Program Files\\PostgreSQL\\9.5\\bin\\psql.exe\" -h localhost -p 5432 -U postgres -d kaligia -t -c \"drop schema kaligia_${kbsname} cascade;\"";
+		system($dropschema);
+		print "Moving File to processed.\n";
+		my $movefile = "move $file processed";
+		system($movefile);
+		$movefile = "move $newfname processed";
+		system($movefile);
+	} else {
+		print "Merge Failed : ", $result;
+	}
 }
