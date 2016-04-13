@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION kaligia.mergetomaster (
+﻿CREATE OR REPLACE FUNCTION kaligia.mergetomaster (
    IN  epschema    CHARACTER VARYING,
    IN  increment   integer DEFAULT 1000000,
    OUT status      CHARACTER VARYING)
@@ -203,7 +203,7 @@ BEGIN
       --no data to be loaded
       RAISE NOTICE 'No Data to be Loaded from % to %',
       merge_run_id, last_run_id;
-      status := 'No Data loaded';
+      status := 'Success: No Data loaded';
       RETURN;
    END IF;
 
@@ -401,4 +401,3 @@ $BODY$
    COST 2000;
 
 ALTER FUNCTION kaligia.mergetomaster(CHARACTER VARYING,integer) OWNER TO postgres;
-\
