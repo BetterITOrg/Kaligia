@@ -150,7 +150,8 @@
 					
 	<script type="text/javascript">
 		//<![CDATA[
-
+		$(document).ajaxStop($.unblockUI);
+		
 		function getImage(){
 				var ordNo = document.getElementById("orderNo").value;
 				if(ordNo == "" || ordNo == null)
@@ -158,6 +159,7 @@
 				    alert("OrderNo is empty. Please fill Order number.");
 				    return;
 				}
+				$.blockUI({ message: '<h2>Processing Request... <img src="/images/busy-icon.gif" /></h2>' });
 			/*$.ajax({url:"/skinCapture",
 				method:"GET",
 				//data: {orderNo: ordNo },
@@ -178,7 +180,6 @@
 					document.getElementById("imageFile").value = data.imageFile;
 				    console.log(" lumosity is "+ data["lumosity"]);
 					document.getElementById("skinImage").style.display = "block";
-				    
 				}).fail( function(d, textStatus, error) {
 			        console.error("skin Capture failed, status: " + textStatus + ", error: "+error);
 			        alert("Skin Capture failed. Please check camera and retry")
@@ -188,7 +189,7 @@
 			
 			$("#form1").submit(function() {
 			        //$("#WaitDialog").modalDialog();
-			        $.blockUI({ message: '<h2>TESTING...<img src="/images/busy-icon.gif" /></h2>' });
+			        $.blockUI({ message: '<h2>TESTING. This will take some time...<img src="/images/busy-icon.gif" /></h2>' });
 		            }); 
 						
 		//]]>
