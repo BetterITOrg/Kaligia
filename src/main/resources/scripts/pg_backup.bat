@@ -8,14 +8,18 @@ for /f "tokens=1-4 delims=/ " %%i in ("%date%") do (
      set year=%%l
    )
 
+for /f "tokens=1-3 delims=: " %%i in ("%time%") do (
+     set myhr=%%i
+     set mymin=%%j
+     set mysec=%%k
+   )
 set datestr=%month%_%day%_%year%
 echo datestr is %datestr%
 
-set epn=KBS01
+set epn=kbs001
 echo epn is %epn%
-echo ComputerName is %ComputerName%
     
-set BACKUP_FILE=%epn%_%datestr%.backup
+set BACKUP_FILE=%epn%_%datestr%_%myhr%_%mymin%.backup
 
 if not exist "%BACKUP_FILE%" goto SkipRename
 
