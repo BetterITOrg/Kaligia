@@ -54,9 +54,12 @@ for my $file ( @files ) {
     close $output_fh;
     my $dbloadcmd = "\"C:\\Program Files\\PostgreSQL\\9.5\\bin\\psql.exe\" -h localhost -p 5432 -U postgres -d kaligia -f ${newfname}";
     system($dbloadcmd);
+	
+	my %increment = (kbs001 => 1000000, kbs002 => 2000000, kbs003 => 3000000, kbs004 => 4000000);
 
-    my $dbmergecmd = "\"C:\\Program Files\\PostgreSQL\\9.5\\bin\\psql.exe\" -h localhost -p 5432 -U postgres -d kaligia -t -c \"select kaligia.mergeToMaster('kaligia_${kbsname}', 2000000);\"";
- 	my $result = "";
+    my $dbmergecmd = "\"C:\\Program Files\\PostgreSQL\\9.5\\bin\\psql.exe\" -h localhost -p 5432 -U postgres -d kaligia -t -c \"select kaligia.mergeToMaster('kaligia_${kbsname}', $increment{$kbsname});\"";
+ 	print $dbmergecmd;
+	my $result = "";
     $result = `$dbmergecmd`;
 	print "Result: [", $result, "]\n";
 	if($result =~ /Success/) {
