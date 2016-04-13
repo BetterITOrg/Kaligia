@@ -49,6 +49,9 @@ public class TestOrderService {
 	@Autowired
 	private SpecimenMapper spm;
 	
+	@Autowired
+	private EndPointService eps;
+	
 	
 	public TestOrder createTestOrder(
 			String orderNo,
@@ -160,7 +163,7 @@ public class TestOrderService {
 			Integer subjectId,
 			String specimen,
 			String description
-			) {
+			) throws Exception {
 		RunOrder ro = new RunOrder();
 		ro.setOrderId(orderId);
 		ro.setProcedureId(procedureId);
@@ -170,11 +173,16 @@ public class TestOrderService {
 		ro.setType(type);
 		ro.setSpecimenId(getSpecimen(specimen,"", subjectId).getSpecimenId());
 		ro.setSiteId(1);
-		ro.setEndPointId(1);
+		
+		Integer ep_id = eps.getActiveEndPoint();
+		if(ep_id == null) throw new Exception("End Point Not Found.");
+		ro.setEndPointId(ep_id);
+		
 		ro.setRunNotes(description);
 		int rc = rom.insert(ro);
 		if(rc != 1 ) {
 			log.info("Failed to insert run order.");
+			throw new Exception("Failed to insert RunOrder.");
 		}
 		return ro;
 	}

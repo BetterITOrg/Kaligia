@@ -3,6 +3,7 @@
  */
 package com.betterit.kaligia.service;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -40,6 +41,18 @@ public class EndPointService {
 	
 	@Autowired
 	private DeviceService ds;
+	
+	public Integer getActiveEndPoint() {
+		EndPointExample epe = new EndPointExample();
+		epe.createCriteria().andStatusIn(Arrays.asList("ACTIVE", "Active"));
+		List<EndPoint> epl = epm.selectByExample(epe);
+		if(epl.size() > 0) {
+			return epl.get(0).getEndPointId();
+		}
+		else {
+			return null;
+		}
+	}
 	
 	public boolean createEndPoint(EndPoint ep) 	{
 		EndPointExample epe = new EndPointExample();
