@@ -46,6 +46,8 @@ DECLARE
    siteid         integer;
    uid            integer;
    user_ids       integer [];
+   site_ids		  integer [];
+   
 BEGIN
    SELECT 1
      INTO sch_exists
@@ -83,7 +85,26 @@ BEGIN
       END IF;
    END LOOP;
 
+	-- check for site
+   for r in EXECUTE format ('select * from %1$s.site;', epSchema)
+   loop
+	select site_id into siteid from kaligia.site where name=r.name;
+	if(siteid is null) then
+	  -- load site
+	  site_row := r;
+	  siteid := site_row.site_id;
+	  site_row.site_id := site_row.site_id + increment;
+	  site_row.created_by := user_ids[site_row.created_by];
 
+	  INSERT INTO kaligia.site
+		 SELECT site_row.*;
+
+	  RAISE NOTICE 'Inserted Site ID: %', site_row.site_id;
+	  site_ids[siteid] := site_row.site_id;
+	else
+	  site_ids[r.site_id] := siteid;
+	end if;
+   end loop;
 
    EXECUTE format ('select name from %1$s.endpoint;', epSchema) INTO ep_name;
 
@@ -103,34 +124,12 @@ BEGIN
       -- load endpoint
       EXECUTE format ('select * from %1$s.endpoint;', epSchema) INTO ep_row;
 
-		-- check for site
-	   EXECUTE format ('select * from %1$s.site where site_id=%2$s;',
-					   epSchema,
-					   ep_row.site_id)
-		  INTO site_row;
 
-	   SELECT site_id
-		 INTO siteid
-		 FROM kaligia.site
-		WHERE name = site_row.name;
-
-	   IF (siteid IS NULL)
-	   THEN
-		  -- load site
-		  site_row.site_id := site_row.site_id + increment;
-		  site_row.created_by := user_ids[site_row.created_by];
-
-		  INSERT INTO kaligia.site
-			 SELECT site_row.*;
-
-		  RAISE NOTICE 'Inserted Site ID: %', site_row.site_id;
-		  siteid := site_row.site_id;
-	   END IF;
 
       slave_ep_id := ep_row.end_point_id;
       master_ep_id := slave_ep_id + increment;
       ep_row.end_point_id := master_ep_id;
-      ep_row.site_id := siteid;
+      ep_row.site_id := site_ids[ep_row.site_id];
 	  ep_row.created_by := user_ids[ep_row.created_by];
 
       INSERT INTO kaligia.endpoint
@@ -160,7 +159,7 @@ BEGIN
 		 epd_row.created_by := user_ids[epd_row.created_by];
 
          INSERT INTO kaligia.deviceinst
-            SELECT di_row.*;
+            SELECT di_row.* where not exists (select 1 from kaligia.deviceinst where device_inst_id = di_row.device_inst_id);
 
          INSERT INTO kaligia.endpointdevices
             SELECT epd_row.*;
@@ -170,7 +169,7 @@ BEGIN
    ELSE
 		execute format('select end_point_id from %1$s.endpoint where name=''%2$s'';', epSchema, ep_name) into slave_ep_id;
     END IF;
-
+   
    EXECUTE format (
              'select max(r.run_id) from kaligia.runorder r where r.end_point_id = %1$s;',
              master_ep_id)
@@ -236,7 +235,7 @@ BEGIN
   EXECUTE format('select * from %1$s.testorder where order_id=(select order_id from %1$s.runorder where run_id=%2$s);', epSchema, rid) INTO tord_row;
   tord_row.order_id := tord_row.order_id + increment;
   tord_row.subject_id := sub_exists;
-  tord_row.site_id := siteid;
+  tord_row.site_id := site_ids[tord_row.site_id];
   tord_row.created_by := user_ids[tord_row.created_by];
   INSERT INTO kaligia.testorder SELECT tord_row.*;
   RAISE NOTICE 'Inserted Test Order ID: %', tord_row.order_id;
@@ -337,7 +336,7 @@ BEGIN
   EXECUTE format('select specimen_id from kaligia.specimen where name=(select name from %1$s.specimen where specimen_id=%2$s);', epSchema, rord_row.specimen_id) INTO spc_id;
   rord_row.procedure_id := proc_id;
   rord_row.specimen_id := spc_id;
-  rord_row.site_id := siteid;
+  rord_row.site_id := site_ids[rord_row.site_id];
   rord_row.created_by := user_ids[rord_row.created_by];
   INSERT INTO kaligia.runorder SELECT rord_row.*;
   RAISE NOTICE 'Inserted Run Order ID: %', rord_row.run_id;
