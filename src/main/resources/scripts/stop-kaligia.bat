@@ -8,6 +8,8 @@ setx KALIGIA_HOME "%HOMEDRIVE%\Users\v135012\Documents\VentureE\Kaligia\App"  > 
 
 set JPS=c:\progra~1\Java\jdk1.8.0_31\bin\jps > nul 2>&1
 
+echo %DATE% %TIME% Stopping Kaligia .... >> stopKaligia.log
+
 for /f "tokens=1" %%i in ('%JPS% -m ^| find "kaligia"') do ( taskkill /F /PID %%i ) 
 
-exit
+echo %DATE% %TIME% Stopped Kaligia ....  >> stopKaligia.log
