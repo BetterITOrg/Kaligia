@@ -31,24 +31,6 @@ INSERT INTO kaligia.users(
 	'ogololobova@kaligiabiosciences.com', '727-471-0850 815', '', now(), '12-31-2020');
 
 
-INSERT INTO kaligia.site(
-            site_id, name, type, address, city, state, country, zip, contact, phone, 
-            creation_date, created_by)
-    VALUES (
-DEFAULT,
-'Kaligia Biosciences',
-'OFFICE',
-'12393 Belcher Rd. Suite 440',
-'Largo', 
-'FL',
-'USA',
-'33773',
-'Fazal Fazlin',
-'727-471-0850',
-now(),
-(select user_id from users where login_id='kjohar')
-);
-
 
 INSERT INTO kaligia.device(
             device_id, name, type, manufacturer, model, status, creation_date, 
@@ -202,6 +184,17 @@ DEFAULT,
 'Compute',
 'IBM/Lenovo',
 'L 450',
+'Active',
+now(),
+(select user_id from users where login_id='kjohar')
+);
+
+insert into device VALUES (
+DEFAULT,
+'Dell Laptop',
+'Compute',
+'Dell',
+'Any',
 'Active',
 now(),
 (select user_id from users where login_id='kjohar')
@@ -408,70 +401,4 @@ null,
 '',
 'Y'
 );
-
-INSERT INTO kaligia.endpoint(end_point_id, name, description, type, status, site_id, created_by, creation_date)
-    VALUES (DEFAULT, 'Laptop1', 'Lab Test Laptop 1', 'Lab','Active', 1, 2, now());
-
-INSERT INTO kaligia.deviceinst(device_inst_id, device_id, serial_id, part_no, status, created_by, creation_date)
-    VALUES (DEFAULT, 1, '0001', '', 'Active', 1, now());
-
-INSERT INTO kaligia.deviceinst(device_inst_id, device_id, serial_id, part_no, status, created_by, creation_date)
-    VALUES (DEFAULT, 2, 'QEP00691', '', 'Active', 1, now());
-
-INSERT INTO kaligia.deviceinst(device_inst_id, device_id, serial_id, part_no, status, created_by, creation_date)
-    VALUES (DEFAULT, 3, 'MAYA112352', '', 'Active', 1, now());
-
-INSERT INTO kaligia.deviceinst(device_inst_id, device_id, serial_id, part_no, status, created_by, creation_date)
-    VALUES (DEFAULT, 4, 'TT236477', '', 'Active', 1, now());
-
-INSERT INTO kaligia.deviceinst(device_inst_id, device_id, serial_id, part_no, status, created_by, creation_date)
-    VALUES (DEFAULT, 4, 'TT236643', '', 'Active', 1, now());
-    
-INSERT INTO kaligia.deviceinst(device_inst_id, device_id, serial_id, part_no, status, created_by, creation_date)
-    VALUES (DEFAULT, 6, '0001', '', 'Active', 1, now());
-
-INSERT INTO kaligia.deviceinst(device_inst_id, device_id, serial_id, part_no, status, created_by, creation_date)
-    VALUES (DEFAULT, 7, '0001', '', 'Active', 1, now());
-
-INSERT INTO kaligia.deviceinst(device_inst_id, device_id, serial_id, part_no, status, created_by, creation_date)
-    VALUES (DEFAULT, 8, '0001', '', 'Active', 1, now());
-
-INSERT INTO kaligia.deviceinst(device_inst_id, device_id, serial_id, part_no, status, created_by, creation_date)
-    VALUES (DEFAULT, 9, '0001', '', 'Active', 1, now());
-
-INSERT INTO kaligia.deviceinst(device_inst_id, device_id, serial_id, part_no, status, created_by, creation_date)
-    VALUES (DEFAULT, 10, '0001', '', 'Active', 1, now());
-
-INSERT INTO kaligia.deviceinst(device_inst_id, device_id, serial_id, part_no, status, created_by, creation_date)
-    VALUES (DEFAULT, 11, '0001', '', 'Active', 1, now());
-
-INSERT INTO kaligia.deviceinst(device_inst_id, device_id, serial_id, part_no, status, created_by, creation_date)
-    VALUES (DEFAULT, 12, '0001', '', 'Active', 1, now());
-
-INSERT INTO kaligia.deviceinst(device_inst_id, device_id, serial_id, part_no, status, created_by, creation_date)
-    VALUES (DEFAULT, 13, '0001', '', 'Active', 1, now());
-
-INSERT INTO kaligia.endpointdevices(end_point_id, device_inst_id, created_by, creation_date, used_for)
-    VALUES (1, 1, 2, now(), 'IN-VIVO');
-    
-INSERT INTO kaligia.endpointdevices(end_point_id, device_inst_id, created_by, creation_date, used_for)
-    VALUES (1, 2, 2, now(), 'IN-VIVO');
-
-INSERT INTO kaligia.endpointdevices(end_point_id, device_inst_id, created_by, creation_date, used_for)
-    VALUES (1, 4, 2, now(), 'IN-VIVO');
-
-INSERT INTO kaligia.endpointdevices(end_point_id, device_inst_id, created_by, creation_date, used_for)
-    VALUES (1, 6, 2, now(), 'IN-VIVO');
-
-INSERT INTO kaligia.endpointdevices(end_point_id, device_inst_id, created_by, creation_date, used_for)
-    VALUES (1, 8, 2, now(), 'IN-VIVO');
-    
-INSERT INTO kaligia.endpointdevices(end_point_id, device_inst_id, created_by, creation_date, used_for)
-    VALUES (1, 10, 2, now(), 'IN-VIVO');
-
-INSERT INTO kaligia.endpointdevices(end_point_id, device_inst_id, created_by, creation_date, used_for)
-    VALUES (1, 11, 2, now(), 'IN-VIVO');
-
-INSERT INTO kaligia.endpointprocs(end_point_id, procedure_id, status, created_by, creation_date)
-    VALUES (1, 1, 'Active', 2, now());
 
