@@ -13,7 +13,7 @@ class settings{
   std::set<int> selected_features;
   settings(){
    libsvm_path = "../libsvm-3.21/windows";
-   directory = "../skin";
+   directory = "../data";
    number_folds = 7;
    gamma = 0.00012207512;
    cost = 512;

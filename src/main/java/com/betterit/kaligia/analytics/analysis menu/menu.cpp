@@ -8,6 +8,7 @@
 #include "feature_selection.h"
 #include "create_model.h"
 #include "run_model.h"
+#include "postgresdb.h"
 #include "genetic_selection.h"
 using namespace std;
 void update_settings(settings &s){
@@ -63,10 +64,11 @@ int main_menu(void){
  cout << "6. Create model" << endl;
  cout << "7. Run model" << endl;
  cout << "8. Settings" << endl;
- cout << "9. Exit" << endl;
+ cout << "9. Extract data from master DB" << endl;
+ cout << "10. Exit" << endl;
  int choice;
  cin >> choice;
- if(choice == 9){
+ if(choice == 10){
   exit(0);
  }
  return choice;
@@ -98,6 +100,9 @@ int main(void){
   }
   if(choice == 8){
    update_settings(s);
+  }
+  if(choice == 9){
+   postgresdb::load_db(s);
   }
  }
 }

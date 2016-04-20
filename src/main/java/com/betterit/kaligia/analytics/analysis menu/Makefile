@@ -1,6 +1,6 @@
 CC = g++
-cflags = -g -Wall --std=c++0x
-objects = remove_background.o make_cv_files.o parameter_tuning.o do_cv.o run_model.o create_model.o feature_selection.o genetic_selection.o
+cflags = -g -Wall --std=c++0x -lpqxx
+objects = remove_background.o make_cv_files.o parameter_tuning.o do_cv.o run_model.o create_model.o feature_selection.o genetic_selection.o postgresdb.o
 all: menu
 
 menu: $(objects) menu.cpp settings.h FLremoval/FLremovalMain.class
@@ -21,6 +21,8 @@ run_model.o: run_model.cpp run_model.h settings.h
 	$(CC) run_model.cpp -c $(cflags)
 genetic_selection.o: genetic_selection.cpp genetic_selection.h settings.h
 	$(CC) genetic_selection.cpp -c $(cflags)
+postgresdb.o: postgresdb.cpp postgresdb.h settings.h
+	$(CC) postgresdb.cpp -c $(cflags)
 FLremoval/FLremovalMain.class: FLremoval/FLremovalMain.java FLremoval/PolyVal.java
 	javac -cp "FLremoval/lib/*;FLremoval/" FLremoval/FLremovalMain.java
 
