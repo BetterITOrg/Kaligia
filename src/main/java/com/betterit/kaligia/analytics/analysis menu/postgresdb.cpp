@@ -72,11 +72,11 @@ void postgresdb::load_db(settings &s){
     sample.bgl = BG_Result[0][0].as<double>()/2 + BG_Result[0][1].as<double>()/2;
     test.samples.push_back(sample);
    }
-   
-   ofs.open("../data/out.dat");
+   oss << s.directory << s.database_dump_filename;
+   ofs.open(oss.str().c_str());
    ofs << "BGL";
    for(int i = 0; i < (int)test.samples[0].repeats[0].wavenumbers.size(); ++i){
-    ofs << ",WN" << i;
+    ofs << "," << test.samples[0].repeats[0].wavenumbers[i].wavenum;
    }
    ofs << endl;
    for(int i = 0; i < (int)test.samples.size(); ++i){
