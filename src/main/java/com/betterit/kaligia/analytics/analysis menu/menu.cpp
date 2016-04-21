@@ -18,10 +18,11 @@ void update_settings(settings &s){
  cout << "4. gamma, cost (" << s.gamma << ", " << s.cost << ")" << endl;
  cout << "5. files start with offset (" << s.file_offset << ")" << endl;
  cout << "6. specify features (" << s.selected_features.size() << " in use (0 for all))" << endl;
- cout << "7. Go back" << endl;
+ cout << "7. change database file (" << s.database_dump_filename << ")" << endl;
+ cout << "8. Go back" << endl;
  int choice;
  cin >> choice;
- if(choice == 7) return;
+ if(choice == 8) return;
  cout << "New value > ";
  switch (choice){
   case 1:
@@ -41,6 +42,7 @@ void update_settings(settings &s){
    cin >> s.file_offset;
    break;
   case 6:
+  {
    string line;
    cin.ignore(); //clear new line
    getline(cin,line);
@@ -53,6 +55,11 @@ void update_settings(settings &s){
      s.selected_features.insert(feature_number);
     }
    }
+   //break;
+  }
+  case 7:
+   cin >> s.database_dump_filename;
+   break;
  }
  return update_settings(s);
 }
@@ -64,8 +71,8 @@ int main_menu(void){
  cout << "5. feature selection" << endl;
  cout << "6. Create model" << endl;
  cout << "7. Run model" << endl;
- cout << "8. Settings" << endl;
- cout << "9. Extract data from master DB" << endl;
+ cout << "8. Extract data from master DB" << endl;
+ cout << "9. Settings" << endl;
  cout << "10. Exit" << endl;
  int choice;
  cin >> choice;
@@ -100,10 +107,10 @@ int main(void){
    run_model::run(s);
   }
   if(choice == 8){
-   update_settings(s);
+   postgresdb::load_db(s);
   }
   if(choice == 9){
-   postgresdb::load_db(s);
+   update_settings(s);
   }
  }
 }
