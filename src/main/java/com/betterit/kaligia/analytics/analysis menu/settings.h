@@ -16,7 +16,7 @@ class settings{
   settings(){
    libsvm_path = "../libsvm-3.21/windows";
    directory = "../data/";
-   number_folds = 7;
+   number_folds = 10;
    gamma = 0.00012207512;
    cost = 512;
    file_offset = 1;
