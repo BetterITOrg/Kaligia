@@ -54,6 +54,7 @@ void update_settings(settings &s){
     }
    }
  }
+ return update_settings(s);
 }
 int main_menu(void){
  cout << "1. Remove background noise" << endl;
