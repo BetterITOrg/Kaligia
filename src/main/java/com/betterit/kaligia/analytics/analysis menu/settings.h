@@ -11,13 +11,17 @@ class settings{
   double cost;
   int file_offset;
   std::set<int> selected_features;
+  std::string database_dump_filename;
+  bool read_individual_files;
   settings(){
    libsvm_path = "../libsvm-3.21/windows";
-   directory = "../data";
+   directory = "../data/";
    number_folds = 7;
    gamma = 0.00012207512;
    cost = 512;
    file_offset = 1;
+   read_individual_files = false;
+   database_dump_filename = "simulated_spectra.dat";
   }
 };
 #endif
