@@ -19,10 +19,11 @@ void update_settings(settings &s){
  cout << "5. files start with offset (" << s.file_offset << ")" << endl;
  cout << "6. specify features (" << s.selected_features.size() << " in use (0 for all))" << endl;
  cout << "7. change database file (" << s.database_dump_filename << ")" << endl;
- cout << "8. Go back" << endl;
+ cout << "8. Toggle using database file and individual file (" << (s.read_individual_files?"individual file":"database file") << ")" << endl;
+ cout << "9. Go back" << endl;
  int choice;
  cin >> choice;
- if(choice == 8) return;
+ if(choice == 9) return;
  cout << "New value > ";
  switch (choice){
   case 1:
@@ -59,6 +60,9 @@ void update_settings(settings &s){
   }
   case 7:
    cin >> s.database_dump_filename;
+   break;
+  case 8:
+   s.read_individual_files ^= true;
    break;
  }
  return update_settings(s);
