@@ -54,6 +54,18 @@ public class EndPointService {
 		}
 	}
 	
+	public String getActiveEndPointName() {
+		EndPointExample epe = new EndPointExample();
+		epe.createCriteria().andStatusIn(Arrays.asList("ACTIVE", "Active"));
+		List<EndPoint> epl = epm.selectByExample(epe);
+		if(epl.size() > 0) {
+			return epl.get(0).getName();
+		}
+		else {
+			return null;
+		}
+	}
+	
 	public boolean createEndPoint(EndPoint ep) 	{
 		EndPointExample epe = new EndPointExample();
 		epe.createCriteria().andNameEqualTo(ep.getName()).andSiteIdEqualTo(ep.getSiteId());

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.betterit.kaligia.KaligiaRunOrder;
 import com.betterit.kaligia.TestRun;
 import com.betterit.kaligia.dao.model.kaligia.TestProcedure;
+import com.betterit.kaligia.service.EndPointService;
 import com.betterit.kaligia.service.TestOrderService;
 import com.betterit.kaligia.service.TestProcedureService;
 
@@ -35,13 +36,17 @@ public class KaligiaRunOrderController {
 	
 	@Autowired
 	private TestOrderService tos;
+	
+	@Autowired
+	private EndPointService eps;
 
 	@RequestMapping(value="/KaligiaRunOrder", method=RequestMethod.GET)
     public String runOrderForm(Model model) {
 
 		KaligiaRunOrder runOrderObj = new KaligiaRunOrder();
         List<TestProcedure> procedureList = tps.findAll();
-
+        
+        runOrderObj.setOrderNo(eps.getActiveEndPointName());
         model.addAttribute("ProcedureList", procedureList);
 		model.addAttribute("RunOrder", runOrderObj);
 				

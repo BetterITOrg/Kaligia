@@ -27,7 +27,7 @@
 				<tr>
 					<td>Order No :</td>
 					<td><input id="orderNo" type="text" required="required"
-						th:field="*{orderNo}" /></td>
+						th:field="*{orderNo}" th:value="*{orderNo}"/></td>
 					<td>Procedure</td>
 					<td><select class="procedure_dropdown" id="procedureDrop" 
 					th:field="*{testProcedure}">
