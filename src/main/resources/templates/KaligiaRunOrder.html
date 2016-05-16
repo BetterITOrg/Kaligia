@@ -1,26 +1,29 @@
 ﻿<!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Create Spectra Procedure</title>
+<title>Run Test</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" type="text/css" href="/images/loginform.css" />
 <link rel="stylesheet" type="text/css" href="/images/form1.css" />
 <script th:src="@{/js/jquery-1.12.2.min.js}"></script>
 <script th:src="@{/js/jquery.blockUI.js}"></script>
 </head>
-<body>
+<body onload="prePopulate()">
 	<form id="form1" th:action="@{KaligiaRunOrder}" th:object="${RunOrder}" method="POST">
 		<header>
 				<a id="logo" href="KaligiaMainApp.html" class="linkedImage"></a>
+				<a id="logo1" th:text="Logout" href="logout"></a>
 			</header>
 			<div class="user">
 				<div class="user_logout">
 				<p id="user_name" th:text="${#httpServletRequest.remoteUser}"></p>
+				
 				</div>
 			</div>
 			
 		<hr />
-
+		<input id="uRole" type="text" hidden="hidden"
+						th:value="${UserRole}"/>
 		<fieldset>
 			<legend>Order Data</legend>
 			<table>
@@ -86,29 +89,29 @@
 			<table>
 				<tr>
 					<td>BP (mmHg):</td>
-					<td><input class="bp-box" type="text" required="required" th:field="*{systolicBP}" width="4" maxlength="4"/>  
+					<td><input id="highBP" class="bp-box" type="text" required="required" th:field="*{systolicBP}" width="4" maxlength="4"/>  
 					 / 
-					 <input class="bp-box" type="text"	required="required" th:field="*{diastolicBP}" width="4" maxlength="4"/>
+					 <input id="lowBP" class="bp-box" type="text"	required="required" th:field="*{diastolicBP}" width="4" maxlength="4"/>
                     </td> 
 					<td>Height (in inches):</td>
-					<td><input type="text" required="required"
+					<td><input id="pheight" type="text" required="required"
 						th:field="*{patientHeight}" /></td>
 					<td>Weight (in lbs):</td>
-					<td><input type="text" required="required"
+					<td><input id="pweight" type="text" required="required"
 						th:field="*{patientWeight}" /></td>
                     
 				</tr>
 				<tr>
                     <td>Temperature(F):</td>
                     <td>
-                        <input type="text" required="required"
+                        <input id="pTemperature" type="text" required="required"
                                th:field="*{patientTemp}" />
                     </td>
 					<td>Oxygen level:</td>
-					<td><input type="text" required="required"
+					<td><input id="pOLevel" type="text" required="required"
 						th:field="*{patientOLevel}" /></td>
 					<td>Heart Rate (bpm):</td>
-					<td><input type="text" required="required"
+					<td><input id="pHeartRate" type="text" required="required"
 						th:field="*{patientHeartRate}" /></td>
 					<!--  <td>Skin Color Value:</td>
 					<td><input type="text" required="required"
@@ -191,7 +194,20 @@
 			        //$("#WaitDialog").modalDialog();
 			        $.blockUI({ message: '<h2>TESTING. This will take some time...<img src="/images/busy-icon.gif" /></h2>' });
 		            }); 
-						
+			
+			function prePopulate() {
+			  if (document.getElementById("uRole").value == "Admin") 
+				  {
+				  document.getElementById("highBP").value = "0";
+				  document.getElementById("lowBP").value = "0";
+				  document.getElementById("pTemperature").value = "0";
+				  document.getElementById("pOLevel").value = "0";
+				  document.getElementById("pHeartRate").value = "0";
+				  document.getElementById("pheight").value = "0";
+				  document.getElementById("pweight").value = "0";
+				  }
+			};
+			
 		//]]>
 		</script>
 </body>

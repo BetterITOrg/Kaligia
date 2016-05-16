@@ -6,6 +6,10 @@ package com.betterit.kaligia.controller;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,15 +45,23 @@ public class KaligiaRunOrderController {
 	private EndPointService eps;
 
 	@RequestMapping(value="/KaligiaRunOrder", method=RequestMethod.GET)
-    public String runOrderForm(Model model) {
+    public String runOrderForm(HttpSession session, HttpServletRequest request, Model model) {
 
 		KaligiaRunOrder runOrderObj = new KaligiaRunOrder();
         List<TestProcedure> procedureList = tps.findAll();
+        String uRole="";
         
         runOrderObj.setOrderNo(eps.getActiveEndPointName());
         model.addAttribute("ProcedureList", procedureList);
 		model.addAttribute("RunOrder", runOrderObj);
-				
+		if (request.isUserInRole("ROLE_Admin")) {
+			uRole="Admin";
+		}
+		else
+		{
+			uRole="Operator";
+		}
+		model.addAttribute("UserRole", uRole);
 		return ("KaligiaRunOrder");
 	}
 
