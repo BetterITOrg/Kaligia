@@ -41,6 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.and()
 		 .formLogin()
          .loginPage("/login")
+         .defaultSuccessUrl("/KaligiaMainApp.html", true)
          .permitAll()
          .and()
          .logout()

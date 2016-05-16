@@ -5,7 +5,12 @@ package com.betterit.kaligia.controller;
 
 import java.util.List;
 import java.util.logging.Logger;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,8 +35,11 @@ public class KaligiaMainController {
 	private TestProcedureService procedureServiceObject;
 	
 	@RequestMapping(value="/KaligiaMainApp", method=RequestMethod.GET)
-    public String mainForm(Model model) {
+    public String mainForm(HttpSession session, HttpServletRequest request, Model model) {
 		
+		if (request.isUserInRole("ROLE_Operator")) {
+	        return ("redirect:/KaligiaRunOrder");
+	    }
 		/** TO-DO get all procedures from database */
 		List<TestProcedure> procedureList = procedureServiceObject.findAll();
 		
