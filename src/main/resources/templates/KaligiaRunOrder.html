@@ -187,7 +187,7 @@
 			            centerY: true,
 			            css: {
 			                width: '600px',
-			                height: '300px',
+			                height: '200px',
 			                border: '3px solid #FF9900',
 			                backgroundColor: '#000',
 			                color: '#fff',
@@ -209,7 +209,7 @@
 			};
 			
 			function startTimerCount(){
-				time=30,r=document.getElementById('message'),tmp=time;
+				time=45,r=document.getElementById('message'),tmp=time;
 				setInterval(function(){
 				var c=tmp--,m=(c/60)>>0,s=(c-m*60)+'';
 				r.textContent='Test Ends in '+m+':'+(s.length>1?'':'0')+s

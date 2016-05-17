@@ -4,6 +4,7 @@
 <title>Kaligia Biosciences: Results</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" type="text/css" href="/images/form2.css" />
+<script th:src="@{/js/jquery-1.12.2.min.js}"></script>
 <script th:src="@{/js/ChartNew.js}"></script>
 </head>
 <body>
@@ -140,17 +141,28 @@
 			var flctx = document.getElementById("canvasFL").getContext("2d");
 			window.myLine = new Chart(flctx).Line(lineChartDataFL, opt1FL);
 		}
+		
+		function postRunNotes(){
+			var dataToBeSent = $("form").serialize();
+			$.post('/ResultNotes', dataToBeSent, function(data, status) {
+				alert("Run Notes added successfully.")
+			})
+				.fail( function(d, textStatus, error) {
+		        console.error("Run Notes update, status: " + textStatus + ", error: "+error);
+		        alert("Run Notes update failed. Please check..") });
+		};
 	/*]]>*/	
 	</script>
-	<form action="#" th:action="@{KaligiaRunResult}" th:object="${RunOrderResult}"
+	<form  action="#" th:action="@{KaligiaRunResult}" th:object="${RunOrderResult}"
 		method="POST">
 		<table>
 		<tr>
 			<td>ResultNotes:</td>
 			<td><textarea id="msg" required="required"
 					th:field="*{resultNotes}"></textarea></td>
-			<td><input type="submit" name="Run" value="Save" /></td>
-			<td><input type="hidden" th:field="${RunOrderResult.runID}" /></td>
+			<td><button id="ajaxButton1" type="button" onclick="postRunNotes(); return false;">ADD NOTES</button>
+					</td>
+			<td><input id="runid" type="hidden" th:field="${RunOrderResult.runID}" /></td>
 		</tr>
 	</table>
 	</form>
