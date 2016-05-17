@@ -24,6 +24,8 @@
 		<hr />
 		<input id="uRole" type="text" hidden="hidden"
 						th:value="${UserRole}"/>
+		<div id="message" style="display:none;">
+		</div>
 		<fieldset>
 			<legend>Order Data</legend>
 			<table>
@@ -157,24 +159,12 @@
 		
 		function getImage(){
 				var ordNo = document.getElementById("orderNo").value;
-				if(ordNo == "" || ordNo == null)
-				{
+				if(ordNo == "" || ordNo == null) {
 				    alert("OrderNo is empty. Please fill Order number.");
 				    return;
 				}
 				$.blockUI({ message: '<h2>Processing Request... <img src="/images/busy-icon.gif" /></h2>' });
-			/*$.ajax({url:"/skinCapture",
-				method:"GET",
-				//data: {orderNo: ordNo },
-				success: function(status){
-					console.log("Camera Successful" + status.toString());
-					alert("Camera Successful" + status);
-				},
-				error: function(status){
-					console.log("Camera failed" + status.toString());
-					alert("Camera failed" + status);
-				}
-			});*/
+			
 				$.getJSON('/skinCapture', { orderNo: ordNo }, function(data, status) {
 					document.getElementById("lumosity").value = data["lumosity"];
 					document.getElementById("red").value = data["red"];
@@ -191,21 +181,40 @@
 			};
 			
 			$("#form1").submit(function() {
-			        //$("#WaitDialog").modalDialog();
-			        $.blockUI({ message: '<h2>TESTING. This will take some time...<img src="/images/busy-icon.gif" /></h2>' });
+				startTimerCount();
+			        $.blockUI({ message: $('#message'),
+			            centerX: true,
+			            centerY: true,
+			            css: {
+			                width: '600px',
+			                height: '300px',
+			                border: '3px solid #FF9900',
+			                backgroundColor: '#000',
+			                color: '#fff',
+			                padding: '25px'
+			            }
+			        });
 		            }); 
 			
 			function prePopulate() {
-			  if (document.getElementById("uRole").value == "Admin") 
-				  {
-				  document.getElementById("highBP").value = "0";
-				  document.getElementById("lowBP").value = "0";
-				  document.getElementById("pTemperature").value = "0";
-				  document.getElementById("pOLevel").value = "0";
-				  document.getElementById("pHeartRate").value = "0";
-				  document.getElementById("pheight").value = "0";
-				  document.getElementById("pweight").value = "0";
+			  if (document.getElementById("uRole").value == "Admin")  {
+				  	document.getElementById("highBP").value = "0";
+				  	document.getElementById("lowBP").value = "0";
+				  	document.getElementById("pTemperature").value = "0";
+				  	document.getElementById("pOLevel").value = "0";
+				 	document.getElementById("pHeartRate").value = "0";
+				  	document.getElementById("pheight").value = "0";
+				  	document.getElementById("pweight").value = "0";
 				  }
+			};
+			
+			function startTimerCount(){
+				time=40,r=document.getElementById('message'),tmp=time;
+				setInterval(function(){
+				var c=tmp--,m=(c/60)>>0,s=(c-m*60)+'';
+				r.textContent='Test Ends in '+m+':'+(s.length>1?'':'0')+s
+				tmp!=0||(tmp=time);
+				},1000);
 			};
 			
 		//]]>
