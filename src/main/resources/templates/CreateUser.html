@@ -5,12 +5,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" type="text/css" href="/images/loginform.css" />
 <link rel="stylesheet" type="text/css" href="/images/form1.css" />
+<script th:src="@{/js/Validate.js}"></script>
 </head>
 <body>
 
 
 	<form action="#" th:action="@{CreateUser}" th:object="${UserDetails}"
-		method="POST">
+		method="POST" onsubmit="return validate()">
 		<header>
 				<a id="logo" href="KaligiaMainApp.html" class="linkedImage"></a>
 			</header>
@@ -26,10 +27,10 @@
 				<tr>
 					
 					<td>LoginId:</td>
-					<td> <input type="text"  
+					<td> <input id="LoginId" type="text"  
 						th:field="*{userObject.loginId}" /></td>
 					<td>Password:</td>
-					<td> <input type="text"  
+					<td> <input id="Password" type="text"  
 						th:field="*{userObject.passwd}" />	</td>
 					<td> <input type="number" hidden="hidden" 
 						th:field="*{userObject.userId}" 
@@ -37,26 +38,25 @@
 				</tr>
 				<tr>
 					<td>FirstName:</td>
-					<td><input type="text"  
+					<td><input id="FirstName" type="text"  
 						th:field="*{userObject.firstname}" /></td>
 					<td>LastName:</td>
-					<td> <input type="text"  
+					<td> <input id="LastName" type="text"  
 						th:field="*{userObject.lastname}" /></td>
 					<td>Email:</td>
-					<td> <input type="email"  
+					<td> <input id="Email" type="email"  
 						th:field="*{userObject.email}" /></td>
 				</tr>
 				<tr>
 					<td>Phone:</td>
-					<td><input type="text"  
+					<td><input id="Phone" type="text"  
 						th:field="*{userObject.phone}" /></td>
 					 <td>Start Date:</td>
-					<td> <input type="date"  
+					<td> <input id="startDate" type="date"  
 						th:field="*{startDate}" /></td>
 					<td>End Date:</td>
-					<td> <input type="date"  
-						th:field="*{endDate}" /></td>
-					
+					<td> <input id="endDate" type="date"  
+						th:field="*{endDate}"/></td>					
 				</tr>
 				<tr>
 					<td>Type:</td>
@@ -74,7 +74,7 @@
 								</select></td>	
 				</tr>
 				</table>
-				<input class="submit-button" type="submit" name="Run" value="CREATE USER"/>
+				<input class="submit-button" type="submit" name="Run" value="CREATE USER" onClick="return validate()"/>
 		</fieldset>
 	</form>
 </body>
