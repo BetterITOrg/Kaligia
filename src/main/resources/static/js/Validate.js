@@ -42,11 +42,32 @@ function validate()
     	alert("Please select an End Date");
     	return false;
     	}
-        if (document.getElementById("endDate").value < document.getElementById("startDate").value)
+        
+        var today = new Date();
+        var day = today.getDate();
+        var month = today.getMonth()+1;
+        var year = today.getFullYear();
+        var datestring = year + "-" + ("00"+month).slice(-2) + "-" + ("00"+day).slice(-2);
+        today = new Date(datestring);
+        var sDay  = new Date(document.getElementById("startDate").value);
+        var eDay  = new Date(document.getElementById("endDate"  ).value);
+        if( sDay < today )
         {
-            alert("End date must occur after Start date ");
+            alert("Start date cannot be before Today.");
 
-            // Change the value back to the previous valid answer
+            return false;
+        }
+        
+        if ( sDay >= eDay )
+        {
+            alert("End Date has to be after start date.");
+
+            return false;
+        }
+        if ( eDay < today )
+        {
+            alert("End date must occur after today ");
+
             return false;
         }
         return true;
