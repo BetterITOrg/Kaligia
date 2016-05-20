@@ -48,10 +48,10 @@ public class KaligiaRunOrderController {
     public String runOrderForm(HttpSession session, HttpServletRequest request, Model model) {
 
 		KaligiaRunOrder runOrderObj = new KaligiaRunOrder();
-        List<TestProcedure> procedureList = tps.findAll();
+        List<TestProcedure> procedureList = tps.findAllByStatus("ACTIVE");
         String uRole="";
         
-        runOrderObj.setOrderNo(eps.getActiveEndPointName());
+        runOrderObj.setOrderNo(eps.getActiveEndPointName() + "-");
         model.addAttribute("ProcedureList", procedureList);
 		model.addAttribute("RunOrder", runOrderObj);
 		if (request.isUserInRole("ROLE_Admin")) {
@@ -70,7 +70,8 @@ public class KaligiaRunOrderController {
 		
 		log.info("In KaligiaRunOrder POST");
 		log.info("received values" + runOrderObject.toString());
-		
+
+		Thread.sleep(60000);
 		//Find the testProcedure to run
 		TestProcedure testProcObj= tps.findByName(runOrderObject.getTestProcedure());
 		if (testProcObj == null)
