@@ -155,7 +155,7 @@
 					
 	<script type="text/javascript">
 		//<![CDATA[
-		$(document).ajaxStop($.unblockUI);
+		//$(document).ajaxStop($.unblockUI);
 		
 		function getImage(){
 				var ordNo = document.getElementById("orderNo").value;
@@ -173,15 +173,25 @@
 					document.getElementById("imageFile").value = data.imageFile;
 				    console.log(" lumosity is "+ data["lumosity"]);
 					document.getElementById("skinImage").style.display = "block";
+					$.unblockUI;
 				}).fail( function(d, textStatus, error) {
 			        console.error("skin Capture failed, status: " + textStatus + ", error: "+error);
-			        alert("Skin Capture failed. Please check camera and retry")
+			        alert("Skin Capture failed. Please check camera and retry");
+			        $.unblockUI;
 			    });
 			
 			};
 			
 			$("#form1").submit(function() {
-				startTimerCount();
+				var procName = document.getElementById("procedureDrop").value;
+				
+				$.get('/RunTime', { procedureName: procName }, function(data, status) {
+					startTimerCount(data);
+				}).fail(function(d, textStatus, error) {
+			        console.error("Runtime calculation failed, status: " + textStatus + ", error: "+error);
+			        startTimerCount(30);
+			    });
+				
 			        $.blockUI({ message: $('#message'),
 			            centerX: true,
 			            centerY: true,
@@ -208,8 +218,8 @@
 				  }
 			};
 			
-			function startTimerCount(){
-				time=45,r=document.getElementById('message'),tmp=time;
+			function startTimerCount(time){
+				r=document.getElementById('message'),tmp=time;
 				setInterval(function(){
 				var c=tmp--,m=(c/60)>>0,s=(c-m*60)+'';
 				r.textContent='Test Ends approximately in '+m+':'+(s.length>1?'':'0')+s
