@@ -64,6 +64,7 @@ public class CreateProcedureController {
 		log.info("In CreateProcedure POST");
 		log.info("received values" + createProcedureObject.toString());
 		String statusMessage="";
+		Integer totalTime=3;
 		
 		//Clean up the empty segment lines
 		//for ( int i = 1; i <=createProcedureObject.getSegmentList().size(); i++){
@@ -77,11 +78,16 @@ public class CreateProcedureController {
 			{
 				segmentIterator.remove();
 			}
-			
+			else
+			{
+				totalTime= totalTime + Integer.valueOf(paramObject.getIntegrationTime()) 
+							* Integer.valueOf(paramObject.getScan2Average());
+			}
 		}
 		
 		createProcedureObject.setNoOfSegments( createProcedureObject.getSegmentList().size());
-		
+		totalTime = totalTime + createProcedureObject.getNoOfSegments();
+		createProcedureObject.setTotalRunTime(totalTime.toString());
 		log.info("AFTER CLEANUP VALUES ARE " + createProcedureObject.toString());
 		//Call the createTestProcedure service
 	
@@ -103,6 +109,7 @@ public class CreateProcedureController {
 					createProcedureObject.getStartPos(),
 					createProcedureObject.getEndPos(),
 					createProcedureObject.getThreshold(),
+					createProcedureObject.getTotalRunTime(),
 					createProcedureObject.getSegmentList()
 					);
 		} catch (NumberFormatException e) {

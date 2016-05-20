@@ -28,6 +28,7 @@ public class ProcedureDetail {
 	private String startPos;
 	private String endPos;
 	private String threshold;
+	private String totalRunTime;
 	
 	private List<segmentParams> segmentList;
 	
@@ -100,16 +101,23 @@ public class ProcedureDetail {
 		Labjack = labjack;
 	}
 	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
-		return "ProcedureDetail [Name=" + Name + ", Description=" + Description + ", Status=" + Status + ", Laser="
-				+ Laser + ", Spectrometer=" + Spectrometer + ", Probe=" + Probe + ", Labjack=" + Labjack
-				+ ", NoOfSegments=" + NoOfSegments + ", Type=" + Type + ", procedureID=" + procedureID + ", Tube="
-				+ Tube + ", collectionFiber=" + collectionFiber + ", excitationFiber=" + excitationFiber + ", startPos="
-				+ startPos + ", endPos=" + endPos + ", threshold=" + threshold + ", segmentList=" + segmentList + "]";
+		return "ProcedureDetail [" + (Name != null ? "Name=" + Name + ", " : "")
+				+ (Description != null ? "Description=" + Description + ", " : "")
+				+ (Status != null ? "Status=" + Status + ", " : "") + (Laser != null ? "Laser=" + Laser + ", " : "")
+				+ (Spectrometer != null ? "Spectrometer=" + Spectrometer + ", " : "")
+				+ (Probe != null ? "Probe=" + Probe + ", " : "") + (Labjack != null ? "Labjack=" + Labjack + ", " : "")
+				+ "NoOfSegments=" + NoOfSegments + ", " + (Type != null ? "Type=" + Type + ", " : "")
+				+ (procedureID != null ? "procedureID=" + procedureID + ", " : "")
+				+ (Tube != null ? "Tube=" + Tube + ", " : "")
+				+ (collectionFiber != null ? "collectionFiber=" + collectionFiber + ", " : "")
+				+ (excitationFiber != null ? "excitationFiber=" + excitationFiber + ", " : "")
+				+ (startPos != null ? "startPos=" + startPos + ", " : "")
+				+ (endPos != null ? "endPos=" + endPos + ", " : "")
+				+ (threshold != null ? "threshold=" + threshold + ", " : "")
+				+ (totalRunTime != null ? "totalRunTime=" + totalRunTime + ", " : "")
+				+ (segmentList != null ? "segmentList=" + segmentList : "") + "]";
 	}
 	/**
 	 * @return the procedureID
@@ -176,6 +184,12 @@ public class ProcedureDetail {
 	 */
 	public String getThreshold() {
 		return threshold;
+	}
+	public String getTotalRunTime() {
+		return totalRunTime;
+	}
+	public void setTotalRunTime(String totalRunTime) {
+		this.totalRunTime = totalRunTime;
 	}
 
 

@@ -135,6 +135,15 @@ public class TestProcedureService {
 		
 	}
 	
+	public List<TestProcedure> findAllByStatus(String type) {
+		
+		TestProcedureExample tpe = new TestProcedureExample();
+		tpe.createCriteria().andStatusEqualTo(type);
+		List<TestProcedure> tpl = tpm.selectByExample(tpe);
+		return tpl;
+		
+	}
+
 	public TestProcedure findByName(String name) {
 		
 		TestProcedureExample tpe = new TestProcedureExample();
@@ -567,6 +576,7 @@ public class TestProcedureService {
 			String startPos,
 			String endPos,
 			String threshold,
+			String totalRunTime,
 			List<segmentParams> segParams
 			) throws Exception {
 		
@@ -607,7 +617,6 @@ public class TestProcedureService {
 			tdm.insert(td);
 			td.setDeviceId(tubeID);
 			tdm.insert(td);
-			
 			// Procedure Parameters
 			TestProcedureSpecs specs = new TestProcedureSpecs();
 			specs.setProcedureId(tp.getProcedureId());
@@ -619,6 +628,9 @@ public class TestProcedureService {
 			rc = tpsm.insert(specs);
 			specs.setName("FLRThreshold");
 			specs.setValue(threshold);
+			rc = tpsm.insert(specs);
+			specs.setName("TotalRunTime");
+			specs.setValue(totalRunTime);
 			rc = tpsm.insert(specs);
 			
 			//Test Segment
@@ -975,6 +987,7 @@ public class TestProcedureService {
 			case "FLRStartPosition" : procDtls.setStartPos(tpspecL.get(l).getValue()); break;
 			case "FLREndPosition" 	: procDtls.setEndPos(tpspecL.get(l).getValue()); break;
 			case "FLRThreshold" 	: procDtls.setThreshold(tpspecL.get(l).getValue()); break;
+			case "TotalRunTime" 	: procDtls.setTotalRunTime(tpspecL.get(l).getValue()); break;
 			}
 		}
 
