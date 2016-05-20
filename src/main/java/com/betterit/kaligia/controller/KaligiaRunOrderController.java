@@ -71,7 +71,6 @@ public class KaligiaRunOrderController {
 		log.info("In KaligiaRunOrder POST");
 		log.info("received values" + runOrderObject.toString());
 
-		Thread.sleep(60000);
 		//Find the testProcedure to run
 		TestProcedure testProcObj= tps.findByName(runOrderObject.getTestProcedure());
 		if (testProcObj == null)
