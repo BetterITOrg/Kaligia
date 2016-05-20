@@ -4,6 +4,7 @@
 package com.betterit.kaligia.controller;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.betterit.kaligia.KaligiaRunOrder;
+import com.betterit.kaligia.ProcedureDetail;
 import com.betterit.kaligia.RunResult;
+import com.betterit.kaligia.segmentParams;
+import com.betterit.kaligia.dao.model.kaligia.TestProcedure;
 import com.betterit.kaligia.service.TestOrderService;
+import com.betterit.kaligia.service.TestProcedureService;
 
 
 /**
@@ -30,7 +35,9 @@ public class RunResultController {
 	Logger log = Logger.getLogger(RunResultController.class.getName());
 	@Autowired
 	private TestOrderService tos;
-
+	
+	@Autowired
+	private TestProcedureService tps;
 
 
 	@RequestMapping(value="/getRunResults", method=RequestMethod.GET)
@@ -74,5 +81,34 @@ public class RunResultController {
 			throw e;
 		}
 		return runOrderObject.getResultNotes();
+	}
+	
+	@RequestMapping(value="/RunTime", method=RequestMethod.GET)
+    public String getProcedureRuntime(@RequestParam(value="procedureName") String runProcName) throws Exception {
+		log.info("In getProcedureRuntime for " + runProcName);
+		
+		Integer totalTime=3;
+		ProcedureDetail pdObj = new ProcedureDetail();
+		
+		try{
+			TestProcedure tpObj = tps.findByName(runProcName);
+			pdObj=tps.getProcedureDetail(tpObj.getProcedureId());
+		}catch (Exception e) {
+			// TODO Auto-generated catch block
+			String statusMessage="failed to find procedure for " + runProcName;
+			log.info(statusMessage);
+			e.printStackTrace();
+			throw e;
+		}
+		
+		Iterator<segmentParams> segmentIterator = pdObj.getSegmentList().iterator();
+		while (segmentIterator.hasNext()) {
+			segmentParams paramObject= segmentIterator.next();
+			totalTime= totalTime + Integer.valueOf(paramObject.getIntegrationTime()) 
+							* Integer.valueOf(paramObject.getScan2Average());
+		}
+		totalTime = totalTime + pdObj.getNoOfSegments();
+		log.info("Total runtime for procedure is " + totalTime);
+		return totalTime.toString();
 	}
 }
